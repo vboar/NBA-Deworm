@@ -18,6 +18,11 @@ public class PlayerStatsPerGame {
 	private String season;
 	
 	/**
+	 * 常规赛/季后赛
+	 */
+	private int is_normal;
+	
+	/**
 	 * 所属球队（缩写）
 	 */
 	private String team;
@@ -156,6 +161,14 @@ public class PlayerStatsPerGame {
 	 * 无参构造函数
 	 */
 	public PlayerStatsPerGame(){}
+
+	public int getIs_normal() {
+		return is_normal;
+	}
+
+	public void setIs_normal(int is_normal) {
+		this.is_normal = is_normal;
+	}
 
 	public String getName() {
 		return name;

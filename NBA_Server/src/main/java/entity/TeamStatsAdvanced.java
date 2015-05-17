@@ -119,12 +119,12 @@ public class TeamStatsAdvanced {
 	/**
 	 * Arena_name
 	 */
-	private double arena;
+	private String arena;
 	
 	/**
 	 * attendance
 	 */
-	private double attendance;
+	private int attendance;
 	
 	/**
 	 * 无参构造函数
@@ -291,19 +291,19 @@ public class TeamStatsAdvanced {
 		this.opp_ft_rate = opp_ft_rate;
 	}
 
-	public double getArena() {
+	public String getArena() {
 		return arena;
 	}
 
-	public void setArena(double arena) {
+	public void setArena(String arena) {
 		this.arena = arena;
 	}
 
-	public double getAttendance() {
+	public int getAttendance() {
 		return attendance;
 	}
 
-	public void setAttendance(double attendance) {
+	public void setAttendance(int attendance) {
 		this.attendance = attendance;
 	}
 	

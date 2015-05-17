@@ -23,9 +23,9 @@ public class MatchPlayerAdvanced {
 	private  String team_abbr;
 	
 	/**
-	 * 首发
+	 * 首发(Team Total球队总数据，Starter首发球员，Reserve是非首发上场，DidNotPlayer冷板凳)
 	 */
-	private boolean starter;
+	private String starter;
 	
 	/**
 	 * 上场时间
@@ -131,11 +131,11 @@ public class MatchPlayerAdvanced {
 		this.team_abbr = team_abbr;
 	}
 
-	public boolean isStarter() {
+	public String getStarter() {
 		return starter;
 	}
 
-	public void setStarter(boolean starter) {
+	public void setStarter(String starter) {
 		this.starter = starter;
 	}
 

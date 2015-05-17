@@ -40,7 +40,7 @@ public class TeamStatsTotal {
 	/**
 	 * 球员平均身高
 	 */
-	private double height;
+	private String height;
 	
 	/**
 	 * 球员平均体重
@@ -215,11 +215,11 @@ public class TeamStatsTotal {
 		this.age = age;
 	}
 
-	public double getHeight() {
+	public String getHeight() {
 		return height;
 	}
 
-	public void setHeight(double height) {
+	public void setHeight(String height) {
 		this.height = height;
 	}
 

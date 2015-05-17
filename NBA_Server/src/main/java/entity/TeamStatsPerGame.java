@@ -18,36 +18,6 @@ public class TeamStatsPerGame {
 	private String season;
 	
 	/**
-	 * 胜场
-	 */
-	private int wins;
-	
-	/**
-	 * 输场
-	 */
-	private int losses;
-	
-	/**
-	 * regular season finish
-	 */
-	private int finish;
-	
-	/**
-	 * 球员平均年龄
-	 */
-	private double age;
-	
-	/**
-	 * 球员平均身高
-	 */
-	private double height;
-	
-	/**
-	 * 球员平均体重
-	 */
-	private double weight;
-	
-	/**
 	 * 比赛场数
 	 */
 	private int num_of_game;
@@ -181,54 +151,6 @@ public class TeamStatsPerGame {
 
 	public void setSeason(String season) {
 		this.season = season;
-	}
-
-	public int getWins() {
-		return wins;
-	}
-
-	public void setWins(int wins) {
-		this.wins = wins;
-	}
-
-	public int getLosses() {
-		return losses;
-	}
-
-	public void setLosses(int losses) {
-		this.losses = losses;
-	}
-
-	public int getFinish() {
-		return finish;
-	}
-
-	public void setFinish(int finish) {
-		this.finish = finish;
-	}
-
-	public double getAge() {
-		return age;
-	}
-
-	public void setAge(double age) {
-		this.age = age;
-	}
-
-	public double getHeight() {
-		return height;
-	}
-
-	public void setHeight(double height) {
-		this.height = height;
-	}
-
-	public double getWeight() {
-		return weight;
-	}
-
-	public void setWeight(double weight) {
-		this.weight = weight;
 	}
 
 	public int getNum_of_game() {

@@ -35,7 +35,7 @@ public class PlayerInfo {
 	/**
 	 * 体重
 	 */
-	private String weight;
+	private int weight;
 	
 	/**
 	 * shoots
@@ -65,7 +65,12 @@ public class PlayerInfo {
 	/**
 	 * NBA球龄（经验）
 	 */
-	private int experience;
+	private int exp;
+	
+	/**
+	 * 球衣号
+	 */
+	private int number;
 	
 	/**
 	 * 无参构造函数
@@ -112,11 +117,11 @@ public class PlayerInfo {
 		this.height = height;
 	}
 
-	public String getWeight() {
+	public int getWeight() {
 		return weight;
 	}
 
-	public void setWeight(String weight) {
+	public void setWeight(int weight) {
 		this.weight = weight;
 	}
 
@@ -161,11 +166,19 @@ public class PlayerInfo {
 	}
 
 	public int getExperience() {
-		return experience;
+		return exp;
 	}
 
 	public void setExperience(int experience) {
-		this.experience = experience;
+		this.exp = experience;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 	
 }

@@ -23,7 +23,7 @@ public class MatchPlayerBasic {
 	private  String team_abbr;
 	
 	/**
-	 * 首发/球队
+	 * 首发/球队(TeamTotal球队总数据，Starter首发球员，Reserve是非首发上场，DidNotPlayer冷板凳)
 	 */
 	private String starter;
 	

@@ -18,6 +18,11 @@ public class PlayerStatsTotal {
 	private String season;
 	
 	/**
+	 * 常规赛/季后赛
+	 */
+	private int is_normal;
+	
+	/**
 	 * 所属球队（缩写）
 	 */
 	private String team;
@@ -387,6 +392,10 @@ public class PlayerStatsTotal {
 
 	public void setPts(int pts) {
 		this.pts = pts;
+	}
+
+	public int getIs_normal() {
+		return is_normal;
 	}
 	
 	

@@ -17,6 +17,11 @@ public class PlayerStatsAdvanced {
 	private String season;
 	
 	/**
+	 * 常规赛/季后赛
+	 */
+	private int is_normal;
+	
+	/**
 	 * 所属球队（缩写）
 	 */
 	private String team;
@@ -346,6 +351,14 @@ public class PlayerStatsAdvanced {
 
 	public void setVorp(double vorp) {
 		this.vorp = vorp;
+	}
+
+	public int getIs_normal() {
+		return is_normal;
+	}
+
+	public void setIs_normal(int is_normal) {
+		this.is_normal = is_normal;
 	}
 	
 }
