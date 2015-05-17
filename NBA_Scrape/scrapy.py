@@ -31,7 +31,7 @@ def begin():
     if get_team == 'Y':
         pass
     if get_player == 'Y':
-        pass
+        scrape_player()
     print u'数据爬虫已结束，自动退出程序...'
 
 
@@ -63,6 +63,7 @@ def scrape_match(season):
                 for item in items:
                     f_matches.write(item + '\n')
                     scrape_each_match(item, path)
+                    time.sleep(0.2)
     f_matches.close()
 
 
@@ -163,7 +164,6 @@ def scrape_each_match(item, path):
         i = 1
     f_player.close()
     f_match.close()
-    time.sleep(0.2)
 
 
 def check_player():
@@ -187,11 +187,63 @@ def scrape_player():
         players[temp[0]] = temp[1]
     for player in players:
         scrape_each_player(player, players[player])
+        time.sleep(0.2)
+    f.close()
 
 
 def scrape_each_player(name, url):
     url = main_url + url[1:]
-    print name, url
+    response = urllib2.urlopen(url)
+    html = response.read()
+    f_info = open('data/players/player_info.txt', 'a')
+
+    position = re.search(r'Position:</span> (.*?)&nbsp', html).groups()[0]
+    shoots = re.search(r'Shoots:</span> (.*?)<br>', html).groups()[0]
+    born = re.search(r'data-birth="(.*?)"', html).groups()[0]
+    result = re.search(r'</span> in (.*?)<a .*?>(.*?)</a>', html)
+    hometown = result.groups()[0] + result.groups()[1]
+    height = re.search(r'Height:</span> (.*?)&nbsp', html).groups()[0]
+    weight = re.search(r'Weight:</span> (.*?) lbs', html).groups()[0]
+    result = re.search(r'High School:</span> (.*?)<a .*?>(.*?)</a>', html)
+    if result is None:
+        result = re.search(r'High School:</span> (.*?)\n', html)
+        if result is None:
+            high_school = ''
+        else:
+            high_school = result.groups()[0]
+    else:
+        high_school = result.groups()[0] + result.groups()[1]
+    result = re.search(r'College:</span> <a .*?>(.*?)</a>', html)
+    if result is None:
+        college = ''
+    else:
+        college = result.groups()[0]
+    result = re.search(r'Draft:</span> <a .*?>(.*?)</a>(.*?)<a .*?>(.*?)</a>', html)
+    if result is None:
+        draft = ''
+    else:
+        draft = result.groups()[0] + result.groups()[1] + result.groups()[2]
+    result = re.search(r'NBA Debut:</span> <a .*?">(.*?)</a>', html)
+    if result is None:
+        debut = ''
+    else:
+        debut = result.groups()[0]
+    result = re.search(r'Experience:</span> (.*?) years', html)
+    if result is None:
+        experience = '-1'
+    else:
+        experience = result.groups()[0]
+    result = re.findall(r'<span style=\'font-size.*?>(.*?)</span>', html)
+    if result is None:
+        number = ''
+    else:
+        number = result[len(result)-1]
+    print number
+    f_info.write(name + ';' + position + ';' + shoots + ';' + born + ';' + hometown + ';' +
+                 height + ';' + weight + ';' + high_school + ';' + college + ';' + draft +
+                 ';' + debut + ';' + experience + ';' + number + ';')
+    f_info.write('\n')
+    f_info.close()
 
 
 def create_file():
@@ -215,5 +267,5 @@ def create_file():
 if __name__ == '__main__':
     # create_file()
     # begin()
-    check_player()
+    # check_player()
     scrape_player()
