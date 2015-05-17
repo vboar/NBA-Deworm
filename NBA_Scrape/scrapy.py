@@ -294,11 +294,7 @@ def scrape_each_player(name, url):
     result = re.search(r'<tr  class=" stat_total">(.*?)</tr>', res).groups()[0]
     season = re.search(r'<td align="left" >(.*?)</td>', result).groups()[0]
     salary = re.search(r'<td align="right".*?>(.*?)</td>', result).groups()[0]
-    f.write(season + ';'  + ';' + salary + ';\n')
-
-
-
-
+    f.write(season + ';;' + salary + ';\n')
 
     f.close()
 
