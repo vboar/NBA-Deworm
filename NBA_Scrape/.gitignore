@@ -1,5 +1,7 @@
 # Created by https://www.gitignore.io
 
+data/
+
 ### PyCharm ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
 
