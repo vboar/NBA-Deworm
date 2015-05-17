@@ -53,8 +53,8 @@ def scrape_match(season):
                     if month > 6:
                         break
                 print year, month, day
-                url = match_url + 'index.cgi?month=' + month.__str__() + '&day=' + day.__str__() + '&year=' \
-                      + year.__str__()
+                url = match_url + 'index.cgi?month=' + month.__str__() + '&day=' + \
+                      day.__str__() + '&year=' + year.__str__()
                 response = urllib2.urlopen(url)
                 items = re.findall(r'<td class="align_right bold_text"><a href="/boxscores/(.*?)\.html">',
                                    response.read())
@@ -100,8 +100,8 @@ def scrape_each_match(item, path):
         time_of_game = result.groups()[0]
     f_match = open(path + '/' + game_id, 'w')
     f_player = open('data/players/players.txt', 'a')
-    f_match.write(game_id + ';' + home_team + ';' + guest_team + ';' + str(regular) + ';' + date + ';' + location
-                   + ';' + time_of_game + '\n')
+    f_match.write(game_id + ';' + home_team + ';' + guest_team + ';' + str(regular) + ';' + date + ';' +
+                  location + ';' + time_of_game + '\n')
     for item in guest_point:
         f_match.write(item + ';')
     f_match.write('\n')
@@ -195,7 +195,7 @@ def scrape_each_player(name, url):
     url = main_url + url[1:]
     response = urllib2.urlopen(url)
     html = response.read()
-    f_info = open('data/players/player_info.txt', 'a')
+    f = open('data/players/' + name, 'w')
 
     position = re.search(r'Position:</span> (.*?)&nbsp', html).groups()[0]
     shoots = re.search(r'Shoots:</span> (.*?)<br>', html).groups()[0]
@@ -238,12 +238,69 @@ def scrape_each_player(name, url):
         number = ''
     else:
         number = result[len(result)-1]
-    print number
-    f_info.write(name + ';' + position + ';' + shoots + ';' + born + ';' + hometown + ';' +
-                 height + ';' + weight + ';' + high_school + ';' + college + ';' + draft +
-                 ';' + debut + ';' + experience + ';' + number + ';')
-    f_info.write('\n')
-    f_info.close()
+    f.write(name + ';' + position + ';' + shoots + ';' + born + ';' + hometown + ';' +
+            height + ';' + weight + ';' + high_school + ';' + college + ';' + draft +
+            ';' + debut + ';' + experience + ';' + number + ';' + '\n')
+
+    result = re.findall(r'<div class="table_container" id="(.*?)">([\s\S]*?)</table>', html)
+    for line in result:
+        if line[0] == 'div_totals':
+            f.write('Totals\n')
+        elif line[0] == 'div_per_game':
+            f.write('Per Game\n')
+        elif line[0] == 'div_advanced':
+            f.write('Advanced\n')
+        elif line[0] == 'div_playoffs_totals':
+            f.write('Playoffs Totals\n')
+        elif line[0] == 'div_playoffs_per_game':
+            f.write('Playoffs Per Game\n')
+        elif line[0] == 'div_playoffs_advanced':
+            f.write('Playoffs Advanced\n')
+        else:
+            continue
+        res = line[1].replace('\n', '')
+        result = re.findall(r'<tr  class="full_table" id=".*?">([\s\S]*?)</tr>', res)
+        for item in result:
+            result = re.search(r'<a href="/players/.*?">(.*?)</a>', item)
+            season = result.groups()[0][2:]
+            team = re.search(r'<td align="left" ><a href="/teams/.*?">(.*?)</a></td>', item).groups()[0]
+            pos = re.search(r'<td align="center" >(.*?)</td>', item).groups()[0]
+            f.write(season + ';' + team + ';' + pos + ';')
+            result = re.search(r'<td align="center" >.*?</td>(.*)', item, re.S).groups()[0]
+            result = re.findall(r'<td align="right" >(.*?)</td>', result)
+            for temp in result:
+                f.write(temp + ';')
+            f.write('\n')
+        result = re.search(r'<tr  class=" stat_total">(.*?)</tr>', res).groups()[0]
+        result = re.findall(r'<td align="right" >(.*?)</td>', result)
+        f.write('Career;;')
+        for item in result:
+            f.write(item + ';')
+        f.write('\n')
+
+    f.write('Salaries\n')
+    result = re.search(r'<div class="table_container" id="div_salaries">([\s\S]*?)</table>', html)
+    res = result.groups()[0].replace('\n', '')
+    result = re.search(r'<tbody>(.*?)</tbody>', res).groups()[0]
+    result = re.findall(r'<tr  class="">(.*?)</tr>', result)
+    for item in result:
+        temp = re.search(r'<td align="left" >(.*?)</td>', item)
+        season = temp.groups()[0][2:]
+        temp = re.search(r'<td align="left" ><a href="/teams/(.*?)/.*?</td>', item)
+        team = temp.groups()[0]
+        temp = re.search(r'<td align="right"  csk=".*?">(.*?)</td>', item)
+        salary = temp.groups()[0]
+        f.write(season + ';' + team + ';' + salary + ';\n')
+    result = re.search(r'<tr  class=" stat_total">(.*?)</tr>', res).groups()[0]
+    season = re.search(r'<td align="left" >(.*?)</td>', result).groups()[0]
+    salary = re.search(r'<td align="right".*?>(.*?)</td>', result).groups()[0]
+    f.write(season + ';'  + ';' + salary + ';\n')
+
+
+
+
+
+    f.close()
 
 
 def create_file():
