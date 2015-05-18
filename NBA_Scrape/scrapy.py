@@ -21,6 +21,8 @@ def begin():
         get_season = ''
     print u'是否需要爬取球队数据？[Y/N]'
     get_team = raw_input('> ')
+    print u'是否需要爬取球队Logo？[Y/N]'
+    get_tlogo = raw_input('> ')
     print u'是否需要爬取球员数据？[Y/N]'
     get_player = raw_input('> ')
     if get_match == 'Y':
@@ -29,7 +31,10 @@ def begin():
             scrape_match(season)
     check_player()
     if get_team == 'Y':
-        pass
+        scrape_team()
+    if get_tlogo == 'Y':
+        get_team_list()
+        scrape_player()
     if get_player == 'Y':
         scrape_player()
     print u'数据爬虫已结束，自动退出程序...'
@@ -195,7 +200,7 @@ def scrape_each_player(name, url):
     url = main_url + url[1:]
     response = urllib2.urlopen(url)
     html = response.read()
-    f = open('data/players/' + name, 'w')
+    f = open('data/players/text/' + name, 'w')
 
     position = re.search(r'Position:</span> (.*?)&nbsp', html).groups()[0]
     shoots = re.search(r'Shoots:</span> (.*?)<br>', html).groups()[0]
@@ -299,6 +304,165 @@ def scrape_each_player(name, url):
     f.close()
 
 
+def scrape_team():
+    teams = get_team_list()
+    for item in teams:
+        scrape_each_team(item[1], item[0], item[2])
+        time.sleep(0.2)
+
+
+def scrape_each_team(name, abbr, year):
+    print name, abbr
+    f = open('data/teams/text/' + abbr, 'w')
+    url = main_url + 'teams/' + abbr
+    response = urllib2.urlopen(url)
+    html = response.read()
+    result = re.search(r'Location:</span> (.*?)\n', html)
+    location = result.groups()[0]
+    record = re.search(r'Record:</span> (.*?)\n', html).groups()[0]
+    result = re.search(r'\((.*?) NBA', record)
+    if result is None:
+        record = re.search(r'(.*?),', record).groups()[0]
+    else:
+        record = result.groups()[0]
+    playoff_appearance = re.search(r'Playoff Appearances:</span> (.*?)\n', html).groups()[0]
+    result = re.search(r'\((.*?) NBA', playoff_appearance)
+    if result is None:
+        pass
+    else:
+        playoff_appearance = result.groups()[0]
+    championships = re.search(r'Championships:</span> (.*?)\n', html).groups()[0]
+    result = re.search(r'\((.*?) NBA', championships)
+    if result is None:
+        pass
+    else:
+        championships = result.groups()[0]
+
+    league = ''
+    division = ''
+    url2 = 'http://www.nba.com/teams/'
+    html2 = urllib2.urlopen(url2).read()
+    result = re.search(r'<span class="nbaNavSubheading">Eastern Conference</span>([\S\s]*?)</div>', html2)
+    result = result.groups()[0].replace('\n', '')
+    result = re.findall(r'<span class="nbaDivision">(.*?)</span>([\S\s]*?)</ul>', result)
+    for item in result:
+        temp = re.search(abbr, item[1])
+        if abbr == 'NJN':
+            temp = re.search('BKN', item[1])
+        if abbr == 'PHO':
+            temp = re.search('PHX', item[1])
+        if temp is not None:
+            league = 'E'
+            division = item[0]
+            break
+        else:
+            pass
+    result = re.search(r'<span class="nbaNavSubheading">Western Conference</span>([\S\s]*?)</div>', html2)
+    result = result.groups()[0].replace('\n', '')
+    result = re.findall(r'<span class="nbaDivision">(.*?)</span>([\S\s]*?)</ul>', result)
+    for item in result:
+        temp = re.search(abbr, item[1])
+        if abbr == 'NJN':
+            temp = re.search('BKN', item[1])
+        if abbr == 'PHO':
+            temp = re.search('PHX', item[1])
+        if temp is not None:
+            league = 'W'
+            division = item[0]
+            break
+        else:
+            pass
+    f.write(name + ';' + abbr + ';' + year + ';' + location + ';' + record + ';' +
+            playoff_appearance + ';' + championships + ';' + league + ';' + division + ';\n')
+
+    f.write('Totals\n')
+    url = main_url + 'teams/' + abbr + '/stats_totals.html'
+    html = urllib2.urlopen(url).read()
+    result = re.search(r'<div class="table_container" id="div_team_stats_totals">([\S\s]*?)</div>', html)
+    result = re.findall(r'<tr  class="">[\S\s]*?<td align="left".*?><a href="(.*?)">'
+                        r'(.*?)</a></td>([\S\s]*?)</tr>', result.groups()[0])
+    sites = []
+    for item in result:
+        season = item[1][2:]
+        if 'BBA' in item[2] or 'ABA' in item[2]:
+            break
+        f.write(season + ';')
+        b = [season, item[0]]
+        sites.append(b)
+        item = re.findall(r'<td align="right" >(.*?)</td>', item[2])
+        count = 0
+        for temp in item:
+            if count == 6:
+                break
+            a = re.search(r'<span .*?>(.*?)</span>', temp)
+            if a is None:
+                pass
+            else:
+                temp = a.groups()[0]
+            f.write(temp + ';')
+            count += 1
+        f.write('\n')
+
+    for site in sites:
+        f.write(site[0] + '\n')
+        url = main_url + site[1][1:]
+        print url
+        html = urllib2.urlopen(url).read()
+        result = re.search(r'<div class=".*?" id="div_team_stats">([\S\s]*?)</div>', html).groups()[0]
+        result = result.replace('\n', '')
+        result = re.findall(r'<td align="left" >(.*?)</td>(.*?)</tr>', result)
+        for item in result:
+            if item[0] == 'Team' or item[0] == 'Team/G' or item[0] == 'Opponent' or item[0] == 'Opponent/G':
+                result = re.findall(r'<td align="right" >(.*?)</td>', item[1])
+                for temp in result:
+                    f.write(temp + ';')
+                f.write('\n')
+        result = re.search(r'<div class=".*?" id="div_team_misc">([\S\s]*?)</div>', html).groups()[0]
+        result = result.replace('\n', '')
+        result = re.search(r'<td align="left" >Team</td>(.*?)</tr>', result).groups()[0]
+        result = re.findall(r'<td align=".*?" >(.*?)</td>', result)
+        for item in result:
+            f.write(item + ';')
+        f.write('\n')
+
+        time.sleep(0.2)
+    f.close()
+
+
+def get_team_list():
+    f = open('data/teams/teams.txt', 'w')
+    url = main_url + 'teams/'
+    response = urllib2.urlopen(url)
+    html = response.read()
+    result = re.search(r'<div class="table_container p402_hide " id="div_active">([\s\S]*?)</div>', html)
+    result = result.groups()[0].replace('\n', '')
+    result = re.findall(r'<td align="left" ><a href="/teams/(.*?)/">(.*?)</a></td>[\s\S]*?'
+                        r'<td align="right" >(.*?)</td>', result)
+    for item in result:
+        f.write(item[1] + ';' + item[0] + ';' + item[2] + ';\n')
+    f.close()
+    return result
+
+
+def get_team_logo():
+    f = open('data/teams/teams.txt', 'r')
+    lines = f.readlines()
+    for line in lines:
+        temp = line.replace('\n', '').split(';')
+        abbr = temp[1]
+        print abbr
+        url = 'http://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/' + abbr + '.png'
+        if abbr == 'NOH':
+            url = 'http://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/no.png'
+        if abbr == 'UTA':
+            url = 'http://a.espncdn.com/combiner/i?img=/i/teamlogos/nba/500/utah.png'
+        response = urllib2.urlopen(url)
+        f_logo = open('data/teams/logo/' + abbr + '.png', 'wb')
+        f_logo.write(response.read())
+        f_logo.close()
+        time.sleep(0.2)
+
+
 def create_file():
     if os.path.isdir('data'):
         pass
@@ -312,13 +476,23 @@ def create_file():
         pass
     else:
         os.mkdir('data/players')
+    if os.path.isdir('data/players/text'):
+        pass
+    else:
+        os.mkdir('data/players/text')
     if os.path.isdir('data/teams'):
         pass
     else:
         os.mkdir('data/teams')
+    if os.path.isdir('data/teams/logo'):
+        pass
+    else:
+        os.mkdir('data/teams/logo')
+    if os.path.isdir('data/teams/text'):
+        pass
+    else:
+        os.mkdir('data/teams/text')
 
 if __name__ == '__main__':
-    # create_file()
-    # begin()
-    # check_player()
-    scrape_player()
+    create_file()
+    begin()
