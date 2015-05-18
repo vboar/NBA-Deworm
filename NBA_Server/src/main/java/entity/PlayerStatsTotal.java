@@ -18,7 +18,7 @@ public class PlayerStatsTotal {
 	private String season;
 	
 	/**
-	 * 常规赛/季后赛
+	 * 常规赛/季后赛  0 = normal, 1 = playoff
 	 */
 	private int is_normal;
 	

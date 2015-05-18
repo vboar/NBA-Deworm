@@ -1,6 +1,8 @@
 package dao.impl;
 
 import dao.DaoFactory;
+import dao.MatchDao;
+import dao.RawMatchDao;
 import dao.SeasonDao;
 
 /**
@@ -27,6 +29,16 @@ public class DaoFactoryImpl implements DaoFactory{
 	@Override
 	public SeasonDao getSeasonDao() {
 		return new SeasonDaoImpl();
+	}
+
+	@Override
+	public MatchDao getMatchDao() {
+		return new MatchDaoImpl();
+	}
+
+	@Override
+	public RawMatchDao getRawMatchDao() {
+		return new RawMatchDaoImpl();
 	}
 
 }

@@ -21,4 +21,9 @@ public interface InitDao {
      * 清空所有的表中的所有数据
      */
     public void truncateTable();
+    
+    /**
+     * 数据入库
+     */
+    public void fillTable();
 }

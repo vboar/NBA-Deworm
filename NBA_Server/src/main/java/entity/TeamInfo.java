@@ -23,6 +23,16 @@ public class TeamInfo {
 	private String location;
 	
 	/**
+	 * 分区
+	 */
+	private String division;
+	
+	/**
+	 * 联盟
+	 */
+	private String league;
+	
+	/**
 	 * 参与赛季
 	 */
 	private String season;
@@ -101,6 +111,22 @@ public class TeamInfo {
 
 	public void setChampionships(int championships) {
 		this.championships = championships;
+	}
+
+	public String getDivision() {
+		return division;
+	}
+
+	public void setDivision(String division) {
+		this.division = division;
+	}
+
+	public String getLeague() {
+		return league;
+	}
+
+	public void setLeague(String league) {
+		this.league = league;
 	}
 	
 }

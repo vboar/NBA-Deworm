@@ -9,4 +9,8 @@ public interface DaoFactory {
 
 	public SeasonDao getSeasonDao();
 
+	public MatchDao getMatchDao();
+
+	public RawMatchDao getRawMatchDao();
+
 }

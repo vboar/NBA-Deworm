@@ -10,6 +10,11 @@ import entity.Match;
 import entity.MatchPlayerAdvanced;
 import entity.MatchPlayerBasic;
 
+/**
+ * 比赛原始数据处理类具体实现
+ * 
+ * created by JaneLDQ on 2015年5月18日 下午8:31:22
+ */
 public class RawMatchDaoImpl implements RawMatchDao {
 	
 	private static String MATCH_PATH = FileManager.DATA_PATH + "/matches/";
@@ -18,17 +23,13 @@ public class RawMatchDaoImpl implements RawMatchDao {
 		System.out.println("Match Data："+MATCH_PATH);
 	}
 	
-	public static void main(String[] args) {
-		RawMatchDaoImpl pmd = new RawMatchDaoImpl();
-		pmd.getAllMatch();
-	}
-	
 	@Override
     public List<Match> getAllMatch() {
         File folder = new File(MATCH_PATH);
         String[] seasons = folder.list();
         //存放当前有的赛季
-        List<String> seasonlist = new ArrayList<String>();
+        List<String> seasonlist = DaoFactoryImpl.getDaoFactory().getSeasonDao().getAllSeason();
+        List<String> newSeasonlist = new ArrayList<String>();
         List<Match> list = new ArrayList<Match>();
         for(int i=0; i<seasons.length;++i) {
         	String path = MATCH_PATH  + seasons[i] +"/";
@@ -37,14 +38,14 @@ public class RawMatchDaoImpl implements RawMatchDao {
 				continue;
         	String[] names = fs.list();
         	String season = seasons[i].substring(2,5)+seasons[i].substring(7);
-        	seasonlist.add(season);
+        	if(!seasonlist.contains(season))
+        		newSeasonlist.add(season);
         	for(String name:names){
         		list.add(getEntity(season,name,path));
         	}
         }
-        //插入赛季列表
-        DaoFactoryImpl.getDaoFactory().getSeasonDao().insert(seasonlist);
-        
+        //插入赛季列表 
+        DaoFactoryImpl.getDaoFactory().getSeasonDao().insert(newSeasonlist);
         return list;
     }
 
@@ -60,6 +61,11 @@ public class RawMatchDaoImpl implements RawMatchDao {
 		//标志数据类型
 		int playerType = -1;
 		int isStarter = 0;
+		
+		List<MatchPlayerBasic> home_basic = new ArrayList<MatchPlayerBasic>();
+		List<MatchPlayerBasic> guest_basic = new ArrayList<MatchPlayerBasic>();
+		List<MatchPlayerAdvanced> home_advanced = new ArrayList<MatchPlayerAdvanced>();
+		List<MatchPlayerAdvanced> guest_advanced = new ArrayList<MatchPlayerAdvanced>();
 		
         // 从比赛文本文件中获得其他信息
         List<String> lines = FileManager.read(path + name);
@@ -99,24 +105,23 @@ public class RawMatchDaoImpl implements RawMatchDao {
 			switch(playerType){
 			case 0:
 				isStarter++;
-				match.getGuest_basic_list().add(
-					getBasic(name, match.getGuest_team(), lines.get(i), isStarter));break;
+				guest_basic.add(getBasic(name, match.getGuest_team(), lines.get(i), isStarter));break;
 			case 1:
 				isStarter++;
-				match.getHome_basic_list().add(
-					getBasic(name, match.getHome_team(), lines.get(i), isStarter));break;
+				home_basic.add(getBasic(name, match.getHome_team(), lines.get(i), isStarter));break;
 			case 2:
 				isStarter++;
-				match.getGuest_advanced_list().add(
-					getAdvanced(name, match.getGuest_team(), lines.get(i), isStarter));break;
+				guest_advanced.add(getAdvanced(name, match.getGuest_team(), lines.get(i), isStarter));break;
 			case 3:
 				isStarter++;
-				match.getHome_advanced_list().add(
-					getAdvanced(name, match.getHome_team(), lines.get(i), isStarter));break;
+				home_advanced.add(getAdvanced(name, match.getHome_team(), lines.get(i), isStarter));break;
 			default:
 			}
 		}
-		
+		match.setHome_basic_list(home_basic);
+		match.setHome_advanced_list(home_advanced);
+		match.setGuest_basic_list(guest_basic);
+		match.setGuest_advanced_list(guest_advanced);
 		return match;
 	}
 	
