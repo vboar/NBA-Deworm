@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<nba>
+	<!-- home frame -->
+	<homeframe width="1024" height="680" windowUp="20">
+
+		<panel className="ui.home.HomePanel" width="1024" height="680"
+			x="0" y="0" bg="img/home/background.jpg">
+
+			<tablepane className="ui.home.TestTablePane" width="1000"
+				height="500" x="0" y="0">
+				<columnnames>
+					<columnname name="球员名称" />
+					<columnname name="所属球队" />
+					<columnname name="参赛场数" />
+				</columnnames>
+			</tablepane>
+			<buttons>
+		   		<exit path="img/home/btn/exit.png"  w="30" h="20" x="950" y="5" />
+			 	<min path="img/home/btn/min.png"  w="30" h="20" x="900" y="5" />
+			 	
+			 	<player path="img/home/func/player.jpg"  w="210" h="317" x="92" y="363" />
+			 	<team path="img/home/func/team.jpg"  w="210" h="317" x="302" y="363" />
+			 	<match path="img/home/func/match.jpg"  w="210" h="317" x="512" y="363" />
+			 	<stats path="img/home/func/stats.jpg"  w="210" h="317" x="722" y="363" />
+			
+			</buttons>
+		</panel>
+		
+		<panel className="ui.common.MotherPanel" width="1024" height="680"
+			x="0" y="0" bg="img/common/background.jpg">
+			
+			<buttons>
+			<menu text="menu"  w="50" h="50" x="50" y="55" />	
+			
+			<exit path="img/home/btn/exit.png"  w="30" h="20" x="950" y="5" />
+			<min path="img/home/btn/min.png"  w="30" h="20" x="900" y="5" />
+			 			
+			</buttons>
+			
+			<subpane>			
+				<sub1 className="ui.home.HomePanel" width="50" height="50"
+					x="0" y="0" bg="img/home/background.jpg"></sub1>
+			
+			</subpane>			
+		</panel>
+		
+		
+		<panel className="ui.player.PlayerPanel" width="940" height="511"
+			x="37" y="148" bg="img/common/background.jpg">
+			
+			<tablepane className="ui.player.PlayerAllTablePane" width="940"
+				height="490" x="0" y="20">
+				<columnnames>
+					<columnname name="球员名称" />
+					<columnname name="所属球队" />
+					<columnname name="得分" />
+					<columnname name="盖帽数" />
+					<columnname name="篮板数" />
+					<columnname name="助攻数" />
+					<columnname name="抢断数" />
+					<columnname name="先发场数" />
+				</columnnames>
+			</tablepane>
+			
+			<buttons>
+			
+			<screen path="img/home/btn/min.png"  w="30" h="20" x="900" y="0" />
+			
+			<all path="img/home/btn/min.png"  w="30" h="20" x="300" y="0" />
+			<avg path="img/home/btn/min.png"  w="30" h="20" x="400" y="0" />
+			</buttons>
+			
+						
+			
+			</panel>
+			
+
+	</homeframe>
+</nba>
