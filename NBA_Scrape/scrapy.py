@@ -571,5 +571,4 @@ def create_file():
 
 if __name__ == '__main__':
     create_file()
-    # begin()
-    scrape_player_pic()
+    begin()
