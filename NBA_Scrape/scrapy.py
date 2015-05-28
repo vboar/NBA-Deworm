@@ -15,48 +15,71 @@ def begin():
     print u'是否需要爬取比赛数据？[Y/N]'
     get_match = raw_input('> ')
     if get_match == 'Y':
-        print u'请输入需要爬取的赛季：[2013-2014,2014-2015]'
-        get_season = raw_input('> ')
-    else:
-        get_season = ''
+        while True:
+            print u'请输入需要爬取的比赛日期：[20141001-20141231]'
+            get_date = raw_input('> ')
+            if get_date == 'e':
+                break
+            scrape_match(get_date)
+            check_player()
     print u'是否需要爬取球队数据？[Y/N]'
     get_team = raw_input('> ')
     print u'是否需要爬取球队Logo？[Y/N]'
     get_tlogo = raw_input('> ')
     print u'是否需要爬取球员数据？[Y/N]'
     get_player = raw_input('> ')
-    if get_match == 'Y':
-        seasons = get_season.split(',')
-        for season in seasons:
-            scrape_match(season)
+    print u'是否需要爬取在役球员头像？[Y/N]'
+    get_now_pic = raw_input('> ')
+    print u'是否需要爬取所有球员头像？[Y/N]'
+    get_pic = raw_input('> ')
     check_player()
     if get_team == 'Y':
         scrape_team()
     if get_tlogo == 'Y':
         get_team_list()
-        scrape_player()
+        scrape_team_logo()
     if get_player == 'Y':
         scrape_player()
+    if get_now_pic == 'Y':
+        scrape_player_now_pic()
+    if get_pic == 'Y':
+        scrape_player_pic()
     print u'数据爬虫已结束，自动退出程序...'
 
 
-def scrape_match(season):
+def scrape_match(date):
+
+    start_year = int(date[0:4])
+    start_month = int(date[4:6])
+    start_day = int(date[6:8])
+    end_year = int(date[9:13])
+    end_month = int(date[13:15])
+    end_day = int(date[15:17])
+
+    if start_month < 9:
+        season = (start_year-1).__str__() + '-' + start_year.__str__()
+    else:
+        season = start_year.__str__() + '-' + (start_year+1).__str__()
+
     path = 'data/matches/' + season
     if os.path.isdir(path):
         pass
     else:
         os.mkdir(path)
-    f_matches = open(path + '.txt', 'w')
-    start_year = int(season[0:4])
-    for year in range(start_year, start_year + 2):
+
+    f_matches = open(path + '.txt', 'a')
+
+    for year in range(start_year, end_year+1):
         for month in range(1, 13):
+            if year == start_year and month < start_month:
+                continue
+            if year == end_year and month > end_month:
+                continue
             for day in range(1, 32):
-                if year == start_year:
-                    if month < 10:
-                        break
-                if year == start_year + 1:
-                    if month > 6:
-                        break
+                if year == start_year and month == start_month and day < start_day:
+                    continue
+                if year == end_year and month == end_month and day > end_day:
+                    continue
                 print year, month, day
                 url = match_url + 'index.cgi?month=' + month.__str__() + '&day=' + \
                       day.__str__() + '&year=' + year.__str__()
@@ -70,6 +93,7 @@ def scrape_match(season):
                     scrape_each_match(item, path)
                     time.sleep(0.2)
     f_matches.close()
+    pass
 
 
 def scrape_each_match(item, path):
@@ -444,7 +468,7 @@ def get_team_list():
     return result
 
 
-def get_team_logo():
+def scrape_team_logo():
     f = open('data/teams/teams.txt', 'r')
     lines = f.readlines()
     for line in lines:
@@ -460,6 +484,50 @@ def get_team_logo():
         f_logo = open('data/teams/logo/' + abbr + '.png', 'wb')
         f_logo.write(response.read())
         f_logo.close()
+        time.sleep(0.2)
+
+
+def scrape_player_now_pic():
+    url = 'http://espn.go.com/nba/players'
+    response = urllib2.urlopen(url)
+    html = response.read()
+    result = re.findall(r'<a style="padding-top:5px;padding-left:0px;" href="(.*?)">', html)
+    for item in result:
+        url = 'http://espn.go.com' + item
+        response = urllib2.urlopen(url)
+        html = response.read()
+        results = re.findall(r'<td class="sortcell"><a href="(.*?)">(.*?)</a>', html)
+        for temp in results:
+            url = temp[0]
+            name = temp[1]
+            print name
+            response = urllib2.urlopen(url)
+            html = response.read()
+            temps = re.search(r'<meta property="og:image" content="(.*?)&h=90" />', html)
+            url = temps.groups()[0]
+            response = urllib2.urlopen(url)
+            pic = open('data/players/now_pic/' + name + '.png', 'wb')
+            pic.write(response.read())
+            pic.close()
+            time.sleep(0.2)
+    pass
+
+
+def scrape_player_pic():
+    f_player = open('data/players/players.txt', 'r')
+    players = f_player.readlines()
+    for player in players:
+        item = player.replace('\n', '').split(';')
+        name = item[0]
+        print name
+        url = 'http://www.basketball-reference.com' + item[1]
+        response = urllib2.urlopen(url)
+        html = response.read()
+        url = re.search(r'<img .*? src="(.*?)" alt=', html).groups()[0]
+        response = urllib2.urlopen(url)
+        f = open('data/players/pic/' + name + '.png', 'wb')
+        f.write(response.read())
+        f.close()
         time.sleep(0.2)
 
 
@@ -480,6 +548,14 @@ def create_file():
         pass
     else:
         os.mkdir('data/players/text')
+    if os.path.isdir('data/players/now_pic'):
+        pass
+    else:
+        os.mkdir('data/players/now_pic')
+    if os.path.isdir('data/players/pic'):
+        pass
+    else:
+        os.mkdir('data/players/pic')
     if os.path.isdir('data/teams'):
         pass
     else:
@@ -495,4 +571,5 @@ def create_file():
 
 if __name__ == '__main__':
     create_file()
-    begin()
+    # begin()
+    scrape_player_pic()
