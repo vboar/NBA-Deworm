@@ -12,5 +12,13 @@ public interface DaoFactory {
 	public MatchDao getMatchDao();
 
 	public RawMatchDao getRawMatchDao();
+	
+	public PlayerDao getPlayerDao();
+	
+	public RawPlayerDao getRawPlayerDao();
+	
+	public TeamDao getTeamDao();
+	
+	public RawTeamDao getRawTeamDao();
 
 }

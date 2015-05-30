@@ -14,7 +14,7 @@ import entity.PlayerStatsTotal;
 
 public class RawPlayerDaoImpl implements RawPlayerDao {
 
-	private static String PLAYER_PATH = FileManager.DATA_PATH + "/players/";
+	private static String PLAYER_PATH = FileManager.DATA_PATH + "/players/text/";
 
 	//存放各类数据
 	private List<PlayerInfo> infolist;
@@ -40,8 +40,6 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 		File folder = new File(PLAYER_PATH);
 		String[] players = folder.list();
 		for (String player : players) {
-			if(player.equals("players.txt"))
-				continue;
 			PlayerInfo info = new PlayerInfo();
 			info.setName(player);
 			List<String> lines = FileManager.read(PLAYER_PATH + player);
@@ -69,12 +67,12 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 					this.infolist.add(info);
 				}else{
 					switch(lines.get(i)){
-					case "Totals": dataType = 0; normal_playeroff = 0; continue;
-					case "Per Game": dataType = 1; normal_playeroff = 0; continue;
-					case "Advanced":dataType = 2; normal_playeroff = 0; continue;
-					case "Playoffs Totals": dataType = 0; normal_playeroff = 1; continue;
-					case "Playoffs Per Game": dataType = 1; normal_playeroff = 1; continue;
-					case "Playoffs Advanced":dataType = 2; normal_playeroff = 1; continue;
+					case "Totals": dataType = 0; normal_playeroff = 1; continue;
+					case "Per Game": dataType = 1; normal_playeroff = 1; continue;
+					case "Advanced":dataType = 2; normal_playeroff = 1; continue;
+					case "Playoffs Totals": dataType = 0; normal_playeroff = 0; continue;
+					case "Playoffs Per Game": dataType = 1; normal_playeroff = 0; continue;
+					case "Playoffs Advanced":dataType = 2; normal_playeroff = 0; continue;
 					case "Salaries":dataType = 3;continue;
 					default:break;
 					}
@@ -127,6 +125,7 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 			int normal_playeroff) {
 		PlayerStatsAdvanced advanced = new PlayerStatsAdvanced();
 		advanced.setName(player);
+		advanced.setIs_normal(normal_playeroff);
 		String[] data = str.split(";",-1);
 		advanced.setSeason(data[0]);
 		advanced.setTeam(data[1]);
@@ -167,6 +166,7 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 			int normal_playeroff) {
 		PlayerStatsPerGame pergame = new PlayerStatsPerGame();
 		pergame.setName(player);
+		pergame.setIs_normal(normal_playeroff);
 		String[] data = str.split(";",-1);
 		pergame.setSeason(data[0]);
 		pergame.setTeam(data[1]);
@@ -210,6 +210,7 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 			int normal_playeroff) {
 		PlayerStatsTotal total = new PlayerStatsTotal();
 		total.setName(player);
+		total.setIs_normal(normal_playeroff);
 		String[] data = str.split(";",-1);
 		total.setSeason(data[0]);
 		total.setTeam(data[1]);
@@ -241,7 +242,7 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 		total.setPts(Utility.stringToInt(data[27]));
 		return total;
 	}
-
+	
 	@Override
 	public List<PlayerInfo> getAllPlayerInfo() {
 		return infolist;

@@ -17,7 +17,7 @@ public class PlayerStatsAdvanced {
 	private String season;
 	
 	/**
-	 * 常规赛/季后赛
+	 * 常规赛/季后赛  1 = normal, 0 = playeroff
 	 */
 	private int is_normal;
 	

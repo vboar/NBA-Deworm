@@ -18,11 +18,6 @@ public class TeamStatsPerGame {
 	private String season;
 	
 	/**
-	 * 比赛场数
-	 */
-	private int num_of_game;
-	
-	/**
 	 * 时间
 	 */
 	private double minute;
@@ -151,14 +146,6 @@ public class TeamStatsPerGame {
 
 	public void setSeason(String season) {
 		this.season = season;
-	}
-
-	public int getNum_of_game() {
-		return num_of_game;
-	}
-
-	public void setNum_of_game(int num_of_game) {
-		this.num_of_game = num_of_game;
 	}
 
 	public double getMinute() {

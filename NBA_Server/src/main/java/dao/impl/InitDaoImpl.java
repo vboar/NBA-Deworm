@@ -2,7 +2,11 @@ package dao.impl;
 
 import dao.InitDao;
 import dao.MatchDao;
+import dao.PlayerDao;
 import dao.RawMatchDao;
+import dao.RawPlayerDao;
+import dao.RawTeamDao;
+import dao.TeamDao;
 
 /**
  * 数据库初始化的具体实现
@@ -113,7 +117,7 @@ public class InitDaoImpl implements InitDao {
                 "player_name VARCHAR(48) PRIMARY KEY NOT NULL," +
                 "born VARCHAR(10) NOT NULL," +
                 "hometown VARCHAR(64) NOT NULL," +
-                "position VARCHAR(3) NOT NULL," +
+                "position VARCHAR(48) NOT NULL," +
                 "height VARCHAR(5) NOT NULL," +
                 "weight INT DEFAULT 0 NOT NULL," +
                 "shoots VARCHAR(5) NOT NULL," +
@@ -129,7 +133,7 @@ public class InitDaoImpl implements InitDao {
         //球员总数据表
         sql = "CREATE TABLE player_total (" +
         		"player_name VARCHAR(48) NOT NULL," +
-        		"season VARCHAR(5) NOT NULL," +
+        		"season VARCHAR(6) NOT NULL," +
         		"is_normal INT DEFAULT 0 NOT NULL," +
         		"team_abbr VARCHAR(3) NOT NULL," +
         		"position VARCHAR(3) NOT NULL," +
@@ -164,7 +168,7 @@ public class InitDaoImpl implements InitDao {
         //球员场均数据表
         sql = "CREATE TABLE player_per_game (" +
         		"player_name VARCHAR(48) NOT NULL," +
-        		"season VARCHAR(5) NOT NULL," +
+        		"season VARCHAR(6) NOT NULL," +
         		"is_normal INT DEFAULT 0 NOT NULL," +
         		"team_abbr VARCHAR(3) NOT NULL," +
         		"position VARCHAR(3) NOT NULL," +
@@ -199,7 +203,7 @@ public class InitDaoImpl implements InitDao {
         //球员高阶数据表
         sql = "CREATE TABLE player_advanced (" +
         		"player_name VARCHAR(32) NOT NULL," +
-        		"season VARCHAR(5) NOT NULL," +
+        		"season VARCHAR(6) NOT NULL," +
         		"is_normal INT DEFAULT 0 NOT NULL," +
         		"team_abbr VARCHAR(3) NOT NULL," +
         		"position VARCHAR(3) NOT NULL," +
@@ -231,7 +235,7 @@ public class InitDaoImpl implements InitDao {
         //球员薪水表
         sql = "CREATE TABLE player_salary (" +
         		"name VARCHAR(32) NOT NULL," +
-        		"season VARCHAR(5) NOT NULL," +
+        		"season VARCHAR(6) NOT NULL," +
         		"team VARCHAR(48) NOT NULL," +
         		"salary VARCHAR(16) NOT NULL" +
         		")";
@@ -241,11 +245,13 @@ public class InitDaoImpl implements InitDao {
         sql = "CREATE TABLE team_info (" +
         		"name VARCHAR(48) PRIMARY KEY NOT NULL," +
         		"abbr VARCHAR(3) NOT NULL," +
+        		"buildup_time VARCHAR(4) NOT NULL," +
         		"location VARCHAR(64) NOT NULL," +
         		"league VARCHAR(4) NOT NULL," +
         		"division VARCHAR(16) NOT NULL," +
-        		"season VARCHAR(5) NOT NULL," +
-        		"record VARCHAR(24) NOT NULL" +
+        		"record VARCHAR(24) NOT NULL," +
+        		"playoff INT DEFAULT 0 NOT NULL," +
+        		"championship INT DEFAULT 0 NOT NULL" +
         		")";
         sqlManager.executeUpdate(sql);
         
@@ -270,7 +276,6 @@ public class InitDaoImpl implements InitDao {
         		"fg2 INT DEFAULT 0 NOT NULL," +
         		"fg2a INT DEFAULT 0 NOT NULL," +
         		"fg2_pct DOUBLE DEFAULT 0 NOT NULL," +
-        		"efg_pct DOUBLE DEFAULT 0 NOT NULL," +
         		"ft INT DEFAULT 0 NOT NULL," +
         		"fta INT DEFAULT 0 NOT NULL," +
         		"ft_pct DOUBLE DEFAULT 0 NOT NULL," +
@@ -290,7 +295,6 @@ public class InitDaoImpl implements InitDao {
         sql = "CREATE TABLE team_per_game (" +
         		"abbr VARCHAR(3) NOT NULL," +
         		"season VARCHAR(5) NOT NULL," +
-        		"num_of_game INT DEFAULT 0 NOT NULL," +
         		"minute DOUBLE DEFAULT 0 NOT NULL," +
         		"fg DOUBLE DEFAULT 0 NOT NULL," +
         		"fga DOUBLE DEFAULT 0 NOT NULL," +
@@ -338,14 +342,16 @@ public class InitDaoImpl implements InitDao {
         		"opp_tov_pct DOUBLE DEFAULT 0 NOT NULL," +
         		"drb_pct DOUBLE DEFAULT 0 NOT NULL," +
         		"opp_ft_rate DOUBLE DEFAULT 0 NOT NULL," +
-        		"arena VARCHAR(16) NOT NULL," +
+        		"arena VARCHAR(48) NOT NULL," +
         		"attendance INT DEFAULT 0 NOT NULL" +
         		")";
         sqlManager.executeUpdate(sql);
         //对手总数据表
-        sql = "CREATE TABLE opp_total (" +
+        sql = "CREATE TABLE team_opp_total (" +
         		"abbr VARCHAR(3) NOT NULL," +
         		"season VARCHAR(5) NOT NULL," +
+        		"num_of_game INT DEFAULT 0 NOT NULL," +
+        		"minute INT DEFAULT 0 NOT NULL, " +
         		"fg INT DEFAULT 0 NOT NULL," +
         		"fga INT DEFAULT 0 NOT NULL," +
         		"fga_pct DOUBLE DEFAULT 0 NOT NULL," +
@@ -371,9 +377,10 @@ public class InitDaoImpl implements InitDao {
         		")";
         sqlManager.executeUpdate(sql);
         //对手场均数据表
-        sql = "CREATE TABLE opp_per_game (" +
+        sql = "CREATE TABLE team_opp_per_game (" +
         		"abbr VARCHAR(3) NOT NULL," +
         		"season VARCHAR(5) NOT NULL," +
+        		"minute DOUBLE DEFAULT 0 NOT NULL," +
         		"fg DOUBLE DEFAULT 0 NOT NULL," +
         		"fga DOUBLE DEFAULT 0 NOT NULL," +
         		"fga_pct DOUBLE DEFAULT 0 NOT NULL," +
@@ -419,8 +426,8 @@ public class InitDaoImpl implements InitDao {
         sqlManager.executeUpdate("DROP TABLE team_total");
         sqlManager.executeUpdate("DROP TABLE team_per_game");
         sqlManager.executeUpdate("DROP TABLE team_advanced");
-        sqlManager.executeUpdate("DROP TABLE opp_total");
-        sqlManager.executeUpdate("DROP TABLE opp_per_game");
+        sqlManager.executeUpdate("DROP TABLE team_opp_total");
+        sqlManager.executeUpdate("DROP TABLE team_opp_per_game");
         sqlManager.releaseConnection();
 	}
 
@@ -441,8 +448,8 @@ public class InitDaoImpl implements InitDao {
         sqlManager.executeUpdate("DELETE FROM team_total");
         sqlManager.executeUpdate("DELETE FROM team_per_game");
         sqlManager.executeUpdate("DELETE FROM team_advanced");
-        sqlManager.executeUpdate("DELETE FROM opp_total");
-        sqlManager.executeUpdate("DELETE FROM opp_per_game");
+        sqlManager.executeUpdate("DELETE FROM team_opp_total");
+        sqlManager.executeUpdate("DELETE FROM team_opp_per_game");
         sqlManager.releaseConnection();
 	}
 
@@ -452,8 +459,23 @@ public class InitDaoImpl implements InitDao {
 		RawMatchDao rawMatch = DaoFactoryImpl.getDaoFactory().getRawMatchDao();
 		MatchDao match = DaoFactoryImpl.getDaoFactory().getMatchDao();
 		match.insertMatch(rawMatch.getAllMatch());
-		// TODO 球员数据入库
-		// TODO 球队数据入库
+		// 球员数据入库
+		RawPlayerDao rawPlayer = DaoFactoryImpl.getDaoFactory().getRawPlayerDao();
+		PlayerDao player = DaoFactoryImpl.getDaoFactory().getPlayerDao();
+		player.insertPlayerInfo(rawPlayer.getAllPlayerInfo());
+		player.insertPlayerSalary(rawPlayer.getAllPlayerSalary());
+		player.insertPlayerTotal(rawPlayer.getAllPlayerTotal());
+		player.insertPlayerPerGame(rawPlayer.getAllPlayerPerGame());
+		player.insertPlayerAdvanced(rawPlayer.getAllPlayerAdvanced());
+		// 球队数据入库
+		RawTeamDao rawTeam = DaoFactoryImpl.getDaoFactory().getRawTeamDao();
+		TeamDao team = DaoFactoryImpl.getDaoFactory().getTeamDao();
+		team.insertTeamInfo(rawTeam.getAllTeamInfo());
+		team.insertTeamTotal(rawTeam.getAllTeamTotal());
+		team.insertTeamPerGame(rawTeam.getAllTeamPerGame());
+		team.insertTeamAdvanced(rawTeam.getAllTeamAdvanced());
+		team.insertTeamOppTotal(rawTeam.getAllTeamOppTotal());
+		team.insertTeamOppPerGame(rawTeam.getAllTeamOppPerGame());
 	}
 
 }

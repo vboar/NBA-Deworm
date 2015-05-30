@@ -9,7 +9,7 @@ import entity.MatchPlayerAdvanced;
 import entity.MatchPlayerBasic;
 
 /**
- * TODO MatchDao的具体实现
+ * MatchDao的具体实现
  * 
  * created by JaneLDQ on 2015年5月17日 下午7:06:00
  */

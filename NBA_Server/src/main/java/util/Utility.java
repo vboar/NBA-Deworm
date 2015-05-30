@@ -44,9 +44,12 @@ public class Utility {
      */
     public static int stringToInt(String str) {
         try {
+    		if(str.contains(",")){
+    			str = str.replaceAll(",", "");
+    		}
             return Integer.parseInt(str);
         } catch (Exception e) {
-            return -1;
+            return -99999;
         }
     }
     
@@ -57,9 +60,12 @@ public class Utility {
      */
     public static double stringToDouble(String str){
     	try{
+    		if(str.contains(",")){
+    			str = str.replaceAll(",", "");
+    		}
     		return Double.parseDouble(str);
     	}catch(Exception e){
-    		return -1;
+    		return -99999;
     	}
     }
 }

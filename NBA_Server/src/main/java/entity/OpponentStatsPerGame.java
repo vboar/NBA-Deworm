@@ -18,6 +18,11 @@ public class OpponentStatsPerGame {
 	private String season;
 	
 	/**
+	 * 时间
+	 */
+	private double minute;
+	
+	/**
 	 * 投篮命中数
 	 */
 	private double fg;
@@ -309,6 +314,14 @@ public class OpponentStatsPerGame {
 
 	public void setPts(double pts) {
 		this.pts = pts;
+	}
+
+	public double getMinute() {
+		return minute;
+	}
+
+	public void setMinute(double minute) {
+		this.minute = minute;
 	}
 	
 }

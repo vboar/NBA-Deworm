@@ -18,7 +18,7 @@ public class PlayerStatsTotal {
 	private String season;
 	
 	/**
-	 * 常规赛/季后赛  0 = normal, 1 = playoff
+	 * 常规赛/季后赛  1 = normal, 0 = playoff
 	 */
 	private int is_normal;
 	
@@ -396,6 +396,10 @@ public class PlayerStatsTotal {
 
 	public int getIs_normal() {
 		return is_normal;
+	}
+
+	public void setIs_normal(int is_normal) {
+		this.is_normal = is_normal;
 	}
 	
 	

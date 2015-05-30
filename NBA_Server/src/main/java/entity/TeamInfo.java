@@ -18,6 +18,11 @@ public class TeamInfo {
 	private String abbr;
 	
 	/**
+	 * 建立时间
+	 */
+	private String buildup_time;
+	
+	/**
 	 * 地点
 	 */
 	private String location;
@@ -31,11 +36,6 @@ public class TeamInfo {
 	 * 联盟
 	 */
 	private String league;
-	
-	/**
-	 * 参与赛季
-	 */
-	private String season;
 	
 	/**
 	 * record
@@ -81,14 +81,6 @@ public class TeamInfo {
 		this.location = location;
 	}
 
-	public String getSeason() {
-		return season;
-	}
-
-	public void setSeason(String season) {
-		this.season = season;
-	}
-
 	public String getRecord() {
 		return record;
 	}
@@ -127,6 +119,14 @@ public class TeamInfo {
 
 	public void setLeague(String league) {
 		this.league = league;
+	}
+
+	public String getBuildup_time() {
+		return buildup_time;
+	}
+
+	public void setBuildup_time(String buildup_time) {
+		this.buildup_time = buildup_time;
 	}
 	
 }

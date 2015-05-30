@@ -18,6 +18,16 @@ public class OpponentStatsTotal {
 	private String season;
 	
 	/**
+	 * 比赛场数
+	 */
+	private int num_of_game;
+	
+	/**
+	 * 在场时间
+	 */
+	private int minute;
+	
+	/**
 	 * 投篮命中数
 	 */
 	private int fg;
@@ -309,6 +319,22 @@ public class OpponentStatsTotal {
 
 	public void setPts(int pts) {
 		this.pts = pts;
+	}
+
+	public int getNum_of_game() {
+		return num_of_game;
+	}
+
+	public void setNum_of_game(int num_of_game) {
+		this.num_of_game = num_of_game;
+	}
+
+	public int getMinute() {
+		return minute;
+	}
+
+	public void setMinute(int minute) {
+		this.minute = minute;
 	}
 	
 }
