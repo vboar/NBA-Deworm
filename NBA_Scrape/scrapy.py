@@ -524,11 +524,12 @@ def scrape_player_pic():
         response = urllib2.urlopen(url)
         html = response.read()
         url = re.search(r'<img .*? src="(.*?)" alt=', html).groups()[0]
-        response = urllib2.urlopen(url)
-        f = open('data/players/pic/' + name + '.png', 'wb')
-        f.write(response.read())
-        f.close()
-        time.sleep(0.2)
+        if url is not None:
+            response = urllib2.urlopen(url)
+            f = open('data/players/pic/' + name + '.png', 'wb')
+            f.write(response.read())
+            f.close()
+            time.sleep(0.2)
 
 
 def create_file():
