@@ -529,7 +529,7 @@ def scrape_player_now_pic():
             print name
             response = urllib2.urlopen(url)
             html = response.read()
-            temps = re.search(r'<meta property="og:image" content="(.*?)&h=90" />', html)
+            temps = re.search(r'<meta property="og:image" content="(.*?)&h=.*?" />', html)
             if temps is not None:
                 url = temps.groups()[0]
                 response = urllib2.urlopen(url)
