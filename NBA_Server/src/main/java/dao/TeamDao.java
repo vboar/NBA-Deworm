@@ -10,7 +10,60 @@ import entity.TeamStatsPerGame;
 import entity.TeamStatsTotal;
 
 public interface TeamDao {
+	
+	/**
+	 * 获得球队基本信息
+	 */
+	public List<TeamInfo> getAllTeamInfo();
+	
+	/**
+	 * 获得全部球队某赛季总数据
+	 * @param season 赛季
+	 */
+	public List<TeamStatsTotal> getTeamTotalBySeason(String season);
+	
+	/**
+	 * 获得全部球队某赛季场均数据
+	 * @param season 赛季
+	 */
+	public List<TeamStatsPerGame> getTeamPerGameBySeason(String season);
+	
+	/**
+	 * 获得全部球队某赛季对手总数据
+	 * @param season 赛季
+	 */
+	public List<OpponentStatsTotal> getTeamOppTotalBySeason(String season);
+	
+	/**
+	 * 获得全部球队某赛季对手场均数据
+	 * @param season 赛季
+	 */
+	public List<OpponentStatsPerGame> getTeamOppPerGameBySeason(String season);
 
+	/**
+	 * 获得单个球队全部赛季总数据
+	 * @param abbr 队名缩写
+	 */
+	public List<TeamStatsTotal> getTeamTotalByAbbr(String abbr);
+	
+	/**
+	 * 获得单个球队全部赛季场均数据
+	 * @param abbr 队名缩写
+	 */
+	public List<TeamStatsPerGame> getTeamPerGameByAbbr(String abbr);
+	
+	/**
+	 * 获得单个球队全部赛季对手总数据
+	 * @param abbr 队名缩写
+	 */
+	public List<OpponentStatsTotal> getTeamOppTotalByAbbr(String abbr);
+	
+	/**
+	 * 获得单个球队全部赛季对手场均数据
+	 * @param abbr 队名缩写
+	 */
+	public List<OpponentStatsPerGame> getTeamOppPerGameByAbbr(String abbr);
+	
 	/**
 	 * 插入球队基本信息
 	 */

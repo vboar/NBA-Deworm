@@ -72,7 +72,7 @@ public class RawMatchDaoImpl implements RawMatchDao {
 		for(int i=0; i<lines.size();++i){
 			//从第0行获取是否为常规赛，地点，时长
 			if(i==0){
-				String[] s = lines.get(i).split(";");
+				String[] s = lines.get(i).split(";",-1);
 				//判断是否为常规赛
 				if(s[3].equals("True")) 
 					match.setNormal(true);
@@ -173,7 +173,7 @@ public class RawMatchDaoImpl implements RawMatchDao {
 	 */
 	private MatchPlayerAdvanced getAdvanced(String game, String team, String str, int isStarter){
 		MatchPlayerAdvanced mpa = new MatchPlayerAdvanced();
-		String[] data = str.split(";");
+		String[] data = str.split(";",-1);
 		mpa.setGame_id(game);
 		mpa.setTeam_abbr(team);
 		mpa.setPlayer_name(data[0]);

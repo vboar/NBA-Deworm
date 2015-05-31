@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 比赛实体类
+ * 比赛基本信息
  * 
- * created by JaneLDQ on 2015年5月17日 下午12:45:48
+ * created by JaneLDQ on 2015年5月31日 下午2:02:15
  */
-public class Match {
+public class MatchInfo {
 
 	/**
 	 * 比赛编号
@@ -28,7 +28,7 @@ public class Match {
 	/**
 	 * 常规赛/季后赛
 	 */
-	private boolean is_normal;
+	private int is_normal;
 	
 	/**
 	 * 地点
@@ -61,26 +61,6 @@ public class Match {
 	private String time="";
 	
 	/**
-	 * 主队基本球员数据
-	 */
-	private List<MatchPlayerBasic> home_basic_list = new ArrayList<MatchPlayerBasic>();
-	
-	/**
-	 * 主队高阶球员数据
-	 */
-	private List<MatchPlayerAdvanced> home_advanced_list = new ArrayList<MatchPlayerAdvanced>();
-	
-	/**
-	 * 客队基本球员数据
-	 */
-	private List<MatchPlayerBasic> guest_basic_list = new ArrayList<MatchPlayerBasic>();
-	
-	/**
-	 * 客队高阶球员数据
-	 */
-	private List<MatchPlayerAdvanced> guest_advanced_list = new ArrayList<MatchPlayerAdvanced>();
-	
-	/**
 	 * 主队小节比分
 	 */
 	private List<Integer> home_pts = new ArrayList<Integer>();
@@ -91,12 +71,16 @@ public class Match {
 	private List<Integer> guest_pts = new ArrayList<Integer>();
 	
 	/**
-	 * 无参构造函数
+	 *  无参构造函数
 	 */
-	public Match(){}
+	public MatchInfo(){}
 
 	public String getGame_id() {
 		return game_id;
+	}
+
+	public void setGame_id(String game_id) {
+		this.game_id = game_id;
 	}
 
 	public String getSeason() {
@@ -105,10 +89,6 @@ public class Match {
 
 	public void setSeason(String season) {
 		this.season = season;
-	}
-
-	public void setGame_id(String game_id) {
-		this.game_id = game_id;
 	}
 
 	public String getDate() {
@@ -167,6 +147,14 @@ public class Match {
 		this.time = time;
 	}
 
+	public int isIs_normal() {
+		return is_normal;
+	}
+
+	public void setIs_normal(int is_normal) {
+		this.is_normal = is_normal;
+	}
+
 	public List<Integer> getHome_pts() {
 		return home_pts;
 	}
@@ -181,46 +169,6 @@ public class Match {
 
 	public void setGuest_pts(List<Integer> guest_pts) {
 		this.guest_pts = guest_pts;
-	}
-
-	public boolean isNormal() {
-		return is_normal;
-	}
-
-	public void setNormal(boolean isNormal) {
-		this.is_normal = isNormal;
-	}
-
-	public List<MatchPlayerBasic> getHome_basic_list() {
-		return home_basic_list;
-	}
-
-	public void setHome_basic_list(List<MatchPlayerBasic> home_basic_list) {
-		this.home_basic_list = home_basic_list;
-	}
-
-	public List<MatchPlayerAdvanced> getHome_advanced_list() {
-		return home_advanced_list;
-	}
-
-	public void setHome_advanced_list(List<MatchPlayerAdvanced> home_advanced_list) {
-		this.home_advanced_list = home_advanced_list;
-	}
-
-	public List<MatchPlayerBasic> getGuest_basic_list() {
-		return guest_basic_list;
-	}
-
-	public void setGuest_basic_list(List<MatchPlayerBasic> guest_basic_list) {
-		this.guest_basic_list = guest_basic_list;
-	}
-
-	public List<MatchPlayerAdvanced> getGuest_advanced_list() {
-		return guest_advanced_list;
-	}
-
-	public void setGuest_advanced_list(List<MatchPlayerAdvanced> guest_advanced_list) {
-		this.guest_advanced_list = guest_advanced_list;
 	}
 	
 }

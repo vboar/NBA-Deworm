@@ -6,6 +6,7 @@ package entity;
  * created by JaneLDQ on 2015年5月17日 下午1:39:15
  */
 public class PlayerStatsAdvanced {
+
 	/**
 	 * 球员姓名
 	 */

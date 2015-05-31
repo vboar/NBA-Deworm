@@ -1,5 +1,8 @@
 package dao.impl;
 
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * 数据库管理类
@@ -24,15 +28,33 @@ public class SqlManager {
     
     // 数据库信息
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private String url;
-    private String user;
-    private String password;
+    private static String URL = null;
+    private static String IP = null;
+//  private static String PORT = null;
+    private static String USER = null;
+    private static String PASSWORD = null;
+    private static String DB = null;
     
     private Connection connection;
     private PreparedStatement preparedStatement;
     private Statement statement;
     private ResultSet resultSet;
     
+    static{
+    	Properties prop = new Properties();
+    	try{
+    		InputStream in = new BufferedInputStream(new FileInputStream("data.properties"));
+    		prop.load(in);
+    		IP = prop.getProperty("ip");
+//    		PORT = prop.getProperty("port");
+    		USER = prop.getProperty("user");
+    		PASSWORD = prop.getProperty("password");
+    		DB = prop.getProperty("db");
+    		URL = "jdbc:mysql://" + IP +  "/" + DB;
+    	}catch(Exception e){
+    		System.out.println(e);
+    	}
+    }
     /**
      * 构造函数 初始化
      */
@@ -45,9 +67,6 @@ public class SqlManager {
             System.out.println("找不到驱动程序类 ，加载驱动失败！");
             e.printStackTrace();
         }
-        url = "jdbc:mysql://localhost/nba";
-        user = "root";
-        password = "deworm";
     }
     
     /**
@@ -67,7 +86,7 @@ public class SqlManager {
      */
     public synchronized Connection getConnection() {
         try {
-            connection = DriverManager.getConnection(url,user,password);
+            connection = DriverManager.getConnection(URL,USER,PASSWORD);
             connection.setAutoCommit(false);
         } catch (SQLException e) {
             System.out.println("数据库连接失败！");
