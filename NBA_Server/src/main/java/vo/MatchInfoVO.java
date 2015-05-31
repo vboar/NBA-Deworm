@@ -58,7 +58,7 @@ public class MatchInfoVO {
 	/**
 	 * 比赛时长
 	 */
-	public String time="";
+	public String time;
 	
 	/**
 	 * 主队小节比分
