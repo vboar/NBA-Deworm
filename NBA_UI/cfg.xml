@@ -16,8 +16,9 @@
 				</columnnames>
 			</tablepane>
 			<buttons>
-		   		<exit path="img/home/btn/exit.png"  w="30" h="20" x="950" y="5" />
-			 	<min path="img/home/btn/min.png"  w="30" h="20" x="900" y="5" />
+		   		<exit path="img/home/btn/exit.png"  w="20" h="20" x="15" y="5" />
+			 	<min path="img/home/btn/min.png"  w="20" h="20" x="45" y="5" />
+			 	<max path="img/home/btn/max.png"  w="20" h="20" x="77" y="5" />
 			 	
 			 	<player path="img/home/func/player.jpg"  w="210" h="317" x="92" y="363" />
 			 	<team path="img/home/func/team.jpg"  w="210" h="317" x="302" y="363" />
@@ -27,30 +28,49 @@
 			</buttons>
 		</panel>
 		
+		<panel className="ui.common.Dropdownmenu" width="150" height="240" 
+			x="826" y="118">
+		
+		<buttons>
+		<player w="150" h="43" x="0" y="18" path="img/common/dropdownmenu/player.png"/>
+		<team w="150" h="43" x="0" y="61" path="img/common/dropdownmenu/team.png"/>
+		<match w="150" h="43" x="0" y="104" path="img/common/dropdownmenu/match.png"/>
+		<stats w="150" h="43" x="0" y="147" path="img/common/dropdownmenu/stats.png"/>
+		<home w="150" h="43" x="0" y="190" path="img/common/dropdownmenu/home.png"/>
+		</buttons>
+		
+		<labels>
+		<bg w="150" h="240" x="0" y="0" path="img/common/dropdownmenu/dropdownmenu.png"/>
+		</labels>
+		
+		</panel>
+		
 		<panel className="ui.common.MotherPanel" width="1024" height="680"
 			x="0" y="0" bg="img/common/background.jpg">
 			
 			<buttons>
-			<menu text="menu"  w="50" h="50" x="50" y="55" />	
-			
-			<exit path="img/home/btn/exit.png"  w="30" h="20" x="950" y="5" />
-			<min path="img/home/btn/min.png"  w="30" h="20" x="900" y="5" />
+			<back path = "img/common/btn/back.png" w="70" h="60" x="36" y="45" />	
+			<menu path = "img/common/btn/dropdownmenu_1.png" w="70" h="60" x="906" y="45" />
+			<exit path="img/home/btn/exit.png"  w="20" h="20" x="15" y="5" />
+			 	<min path="img/home/btn/min.png"  w="20" h="20" x="45" y="5" />
+			 	<max path="img/home/btn/max.png"  w="20" h="20" x="77" y="5" />
 			 			
 			</buttons>
 			
 			<subpane>			
 				<sub1 className="ui.home.HomePanel" width="50" height="50"
-					x="0" y="0" bg="img/home/background.jpg"></sub1>
-			
-			</subpane>			
+					x="0" y="0" bg="img/home/background.jpg">
+				</sub1>
+			</subpane>
+					
 		</panel>
 		
 		
 		<panel className="ui.player.PlayerPanel" width="940" height="511"
-			x="37" y="148" bg="img/common/background.jpg">
+			x="37" y="148" >
 			
 			<tablepane className="ui.player.PlayerAllTablePane" width="940"
-				height="490" x="0" y="20">
+				height="490" x="0" y="96">
 				<columnnames>
 					<columnname name="球员名称" />
 					<columnname name="所属球队" />
@@ -64,17 +84,93 @@
 			</tablepane>
 			
 			<buttons>
-			
-			<screen path="img/home/btn/min.png"  w="30" h="20" x="900" y="0" />
-			
-			<all path="img/home/btn/min.png"  w="30" h="20" x="300" y="0" />
-			<avg path="img/home/btn/min.png"  w="30" h="20" x="400" y="0" />
+			<setting w="53" h="46" x="888" y="0" path="img/common/btn/setting.png"/>
+			<menu w="52" h="46" x="0" y="0" path="img/common/btn/dropdownmenu2.png"/>
 			</buttons>
-			
+
+			<labels>
+			<settingbg w="940" h="50" x="0" y="0" path="img/player/setting/bg.png" />
+			</labels>
 						
+			<tab>
+			<stat w1="67" h1="30" w2="67" h2="30" x="794" y="58" 
+			      path1="img/common/tab/avg.jpg" 
+			      path2="img/common/tab/all.jpg"/>
+			</tab>
+			</panel>
+			
+			<panel className="ui.team.TeamPanel" width="940" height="511"
+			x="37" y="148" >
+			
+			<buttons>
+			<setting w="53" h="46" x="888" y="0" path="img/common/btn/setting.png"/>
+			<menu w="52" h="46" x="0" y="0" path="img/common/btn/dropdownmenu2.png"/>
+			</buttons>
+
+			<labels>
+			<settingbg w="940" h="50" x="0" y="0" path="img/player/setting/bg.png" />
+			</labels>
+						
+			<tab>
+			<stat w1="67" h1="30" w2="67" h2="30" x="794" y="58" 
+			      path1="img/common/tab/avg.jpg" 
+			      path2="img/common/tab/all.jpg"/>
+			</tab>
+			</panel>
+			
+			<panel className="ui.player.PlayerNav" width="770" 
+			height="60" x="106" y="45" bg="img/common/nav/navbg.jpg" >
+			
+			<labels>
+			<index  w="103" h="60" x="0" y="0" path="img/player/nav/index.png"/>
+			<playerstat  w="103" h="60" x="104" y="0" path="img/player/nav/stat.png"/>
+			<hotplayer  w="103" h="60" x="208" y="0" path="img/player/nav/hotplayer.png"/>
+			<playerpast w="103" h="60" x="312" y="0" path="img/player/nav/playerpast.png"/>
+			</labels>
+			
+			</panel>
+
+			<panel className="ui.team.TeamNav" width="770" 
+			height="60" x="106" y="45" bg="img/common/nav/navbg.jpg" >
+			
+			<labels>
+			<index  w="103" h="60" x="0" y="0" path="img/team/nav/index.png"/>
+			<playerstat  w="103" h="60" x="104" y="0" path="img/team/nav/stat.png"/>
+			<hotteam  w="103" h="60" x="208" y="0" path="img/team/nav/hotteam.png"/>
+			</labels>
 			
 			</panel>
 			
-
+			<panel className="ui.match.MatchNav" width="770" 
+			height="60" x="106" y="45" bg="img/common/nav/navbg.jpg" >
+			
+			<labels>
+			<matchstat  w="103" h="60" x="0" y="0" path="img/match/nav/stat.png"/>
+			<live  w="103" h="60" x="104" y="0" path="img/match/nav/live.png"/>
+			</labels>
+			
+			</panel>
+			
+			<panel className="ui.player.PlayerFilter" width="690" height="260"
+			x="250" y="46" bg="img/common/filter/filterbg.jpg">
+			<labels>
+			<season w="177" h="27" x="40" y="13" path="img/common/filter/filtercdt.png"/>
+			</labels>
+			
+			<buttons>
+			<search w="177" h="27" x="485" y="215" path="img/common/filter/search.png"/>
+			</buttons>
+			</panel>
+			
+			<panel className="ui.team.TeamFilter" width="690" height="260"
+			x="250" y="46" bg="img/common/filter/filterbg.jpg">
+			<labels>
+			<season w="177" h="27" x="40" y="13" path="img/common/filter/filtercdt.png"/>
+			</labels>
+			
+			<buttons>
+			<search w="177" h="27" x="485" y="215" path="img/common/filter/search.png"/>
+			</buttons>
+			</panel>
 	</homeframe>
 </nba>

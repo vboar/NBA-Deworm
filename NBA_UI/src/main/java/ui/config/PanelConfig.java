@@ -49,6 +49,8 @@ public class PanelConfig extends ComponentConfig{
 		
 	private Element tabbedpanes;
 	
+	private Element tab;
+	
 	private Image bg;
 	
 	private Image bg1;
@@ -79,6 +81,7 @@ public class PanelConfig extends ComponentConfig{
 		this.textarea = panel.element("textarea");
 		this.checkbox = panel.element("checkbox");
 		this.tabbedpanes = panel.element("tabbedpane");
+		this.tab = panel.element("tab");
 	}	
 
 
@@ -143,7 +146,9 @@ public class PanelConfig extends ComponentConfig{
 		return subpane;
 	}
 	
-
+	public Element getTab(){
+		return tab;
+	}
 	
 
 }
