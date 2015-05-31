@@ -19,7 +19,7 @@ public class PlayerPerGameVO {
 	/**
 	 * 常规赛/季后赛  true = normal, false = playeroff
 	 */
-	public boolean is_normal;
+	public Boolean is_normal;
 	
 	/**
 	 * 所属球队（缩写）
@@ -34,127 +34,127 @@ public class PlayerPerGameVO {
 	/**
 	 * 比赛场数
 	 */
-	public int game;
+	public Integer game;
 	
 	/**
 	 * 首发场数
 	 */
-	public int game_started;
+	public Integer game_started;
 	
 	/**
 	 * 在场时间
 	 */
-	public double minute;
+	public Double minute;
 	
 	/**
 	 * 投篮命中数
 	 */
-	public double fg;
+	public Double fg;
 	
 	/**
 	 * 投篮出手数
 	 */
-	public double fga;
+	public Double fga;
 	
 	/**
 	 * 投篮命中率
 	 */
-	public double fga_pct;
+	public Double fga_pct;
 	
 	/**
 	 * 三分命中数 
 	 */
-	public double fg3;
+	public Double fg3;
 	
 	/**
 	 * 三分出手数
 	 */
-	public double fg3a;
+	public Double fg3a;
 	
 	/**
 	 * 三分命中率
 	 */
-	public double fg3_pct;
+	public Double fg3_pct;
 	
 	/**
 	 * 两分命中数
 	 */
-	public double fg2;
+	public Double fg2;
 	
 	/**
 	 * 两分投篮数
 	 */
-	public double fg2a;
+	public Double fg2a;
 	
 	/**
 	 * 两分命中率
 	 */
-	public double fg2_pct;
+	public Double fg2_pct;
 	
 	/**
 	 * effectivce field goal percentage
 	 */
-	public double efg_pct;
+	public Double efg_pct;
 	
 	/**
 	 * 罚球命中数
 	 */
-	public double ft;
+	public Double ft;
 	
 	/**
 	 * 罚球出手数
 	 */
-	public double fta;
+	public Double fta;
 	
 	/**
 	 * 罚球命中率
 	 */
-	public double ft_pct;
+	public Double ft_pct;
 	
 	/**
 	 * 进攻篮板
 	 */
-	public double orb;
+	public Double orb;
 	
 	/**
 	 * 防守篮板
 	 */
-	public double drb;
+	public Double drb;
 	
 	/**
 	 * 总篮板
 	 */
-	public double trb;
+	public Double trb;
 	
 	/**
 	 * 助攻
 	 */
-	public double ast;
+	public Double ast;
 	
 	/**
 	 * 抢断
 	 */
-	public double stl;
+	public Double stl;
 	
 	/**
 	 * 盖帽
 	 */
-	public double blk;
+	public Double blk;
 	
 	/**
 	 * 失误
 	 */
-	public double tov;
+	public Double tov;
 	
 	/**
 	 * 犯规
 	 */
-	public double pf;
+	public Double pf;
 	
 	/**
 	 * 个人得分
 	 */
-	public double pts;
+	public Double pts;
 	
 	/**
 	 * 无参构造函数

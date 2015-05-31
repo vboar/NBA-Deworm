@@ -20,7 +20,7 @@ public class PlayerStatsTotal {
 	/**
 	 * 常规赛/季后赛  1 = normal, 0 = playoff
 	 */
-	private int is_normal;
+	private Integer is_normal;
 	
 	/**
 	 * 所属球队（缩写）
@@ -35,127 +35,127 @@ public class PlayerStatsTotal {
 	/**
 	 * 比赛场数
 	 */
-	private int game;
+	private Integer game;
 	
 	/**
 	 * 首发场数
 	 */
-	private int game_started;
+	private Integer game_started;
 	
 	/**
 	 * 在场时间
 	 */
-	private int minute;
+	private Integer minute;
 	
 	/**
 	 * 投篮命中数
 	 */
-	private int fg;
+	private Integer fg;
 	
 	/**
 	 * 投篮出手数
 	 */
-	private int fga;
+	private Integer fga;
 	
 	/**
 	 * 投篮命中率
 	 */
-	private double fga_pct;
+	private Double fga_pct;
 	
 	/**
 	 * 三分命中数 
 	 */
-	private int fg3;
+	private Integer fg3;
 	
 	/**
 	 * 三分出手数
 	 */
-	private int fg3a;
+	private Integer fg3a;
 	
 	/**
 	 * 三分命中率
 	 */
-	private double fg3_pct;
+	private Double fg3_pct;
 	
 	/**
 	 * 两分命中数
 	 */
-	private int fg2;
+	private Integer fg2;
 	
 	/**
 	 * 两分投篮数
 	 */
-	private int fg2a;
+	private Integer fg2a;
 	
 	/**
 	 * 两分命中率
 	 */
-	private double fg2_pct;
+	private Double fg2_pct;
 	
 	/**
 	 * effectivce field goal percentage
 	 */
-	private double efg_pct;
+	private Double efg_pct;
 	
 	/**
 	 * 罚球命中数
 	 */
-	private int ft;
+	private Integer ft;
 	
 	/**
 	 * 罚球出手数
 	 */
-	private int fta;
+	private Integer fta;
 	
 	/**
 	 * 罚球命中率
 	 */
-	private double ft_pct;
+	private Double ft_pct;
 	
 	/**
 	 * 进攻篮板
 	 */
-	private int orb;
+	private Integer orb;
 	
 	/**
 	 * 防守篮板
 	 */
-	private int drb;
+	private Integer drb;
 	
 	/**
 	 * 总篮板
 	 */
-	private int trb;
+	private Integer trb;
 	
 	/**
 	 * 助攻
 	 */
-	private int ast;
+	private Integer ast;
 	
 	/**
 	 * 抢断
 	 */
-	private int stl;
+	private Integer stl;
 	
 	/**
 	 * 盖帽
 	 */
-	private int blk;
+	private Integer blk;
 	
 	/**
 	 * 失误
 	 */
-	private int tov;
+	private Integer tov;
 	
 	/**
 	 * 犯规
 	 */
-	private int pf;
+	private Integer pf;
 	
 	/**
 	 * 个人得分
 	 */
-	private int pts;
+	private Integer pts;
 	
 	/**
 	 * 无参构造函数
@@ -194,211 +194,211 @@ public class PlayerStatsTotal {
 		this.position = position;
 	}
 
-	public int getGame() {
+	public Integer getGame() {
 		return game;
 	}
 
-	public void setGame(int game) {
+	public void setGame(Integer game) {
 		this.game = game;
 	}
 
-	public int getGame_started() {
+	public Integer getGame_started() {
 		return game_started;
 	}
 
-	public void setGame_started(int game_started) {
+	public void setGame_started(Integer game_started) {
 		this.game_started = game_started;
 	}
 
-	public int getMinute() {
+	public Integer getMinute() {
 		return minute;
 	}
 
-	public void setMinute(int minute) {
+	public void setMinute(Integer minute) {
 		this.minute = minute;
 	}
 
-	public int getFg() {
+	public Integer getFg() {
 		return fg;
 	}
 
-	public void setFg(int fg) {
+	public void setFg(Integer fg) {
 		this.fg = fg;
 	}
 
-	public int getFga() {
+	public Integer getFga() {
 		return fga;
 	}
 
-	public void setFga(int fga) {
+	public void setFga(Integer fga) {
 		this.fga = fga;
 	}
 
-	public double getFga_pct() {
+	public Double getFga_pct() {
 		return fga_pct;
 	}
 
-	public void setFga_pct(double fga_pct) {
+	public void setFga_pct(Double fga_pct) {
 		this.fga_pct = fga_pct;
 	}
 
-	public int getFg3() {
+	public Integer getFg3() {
 		return fg3;
 	}
 
-	public void setFg3(int fg3) {
+	public void setFg3(Integer fg3) {
 		this.fg3 = fg3;
 	}
 
-	public int getFg3a() {
+	public Integer getFg3a() {
 		return fg3a;
 	}
 
-	public void setFg3a(int fg3a) {
+	public void setFg3a(Integer fg3a) {
 		this.fg3a = fg3a;
 	}
 
-	public double getFg3_pct() {
+	public Double getFg3_pct() {
 		return fg3_pct;
 	}
 
-	public void setFg3_pct(double fg3_pct) {
+	public void setFg3_pct(Double fg3_pct) {
 		this.fg3_pct = fg3_pct;
 	}
 
-	public int getFg2() {
+	public Integer getFg2() {
 		return fg2;
 	}
 
-	public void setFg2(int fg2) {
+	public void setFg2(Integer fg2) {
 		this.fg2 = fg2;
 	}
 
-	public int getFg2a() {
+	public Integer getFg2a() {
 		return fg2a;
 	}
 
-	public void setFg2a(int fg2a) {
+	public void setFg2a(Integer fg2a) {
 		this.fg2a = fg2a;
 	}
 
-	public double getFg2_pct() {
+	public Double getFg2_pct() {
 		return fg2_pct;
 	}
 
-	public void setFg2_pct(double fg2_pct) {
+	public void setFg2_pct(Double fg2_pct) {
 		this.fg2_pct = fg2_pct;
 	}
 
-	public double getEfg_pct() {
+	public Double getEfg_pct() {
 		return efg_pct;
 	}
 
-	public void setEfg_pct(double efg_pct) {
+	public void setEfg_pct(Double efg_pct) {
 		this.efg_pct = efg_pct;
 	}
 
-	public int getFt() {
+	public Integer getFt() {
 		return ft;
 	}
 
-	public void setFt(int ft) {
+	public void setFt(Integer ft) {
 		this.ft = ft;
 	}
 
-	public int getFta() {
+	public Integer getFta() {
 		return fta;
 	}
 
-	public void setFta(int fta) {
+	public void setFta(Integer fta) {
 		this.fta = fta;
 	}
 
-	public double getFt_pct() {
+	public Double getFt_pct() {
 		return ft_pct;
 	}
 
-	public void setFt_pct(double ft_pct) {
+	public void setFt_pct(Double ft_pct) {
 		this.ft_pct = ft_pct;
 	}
 
-	public int getOrb() {
+	public Integer getOrb() {
 		return orb;
 	}
 
-	public void setOrb(int orb) {
+	public void setOrb(Integer orb) {
 		this.orb = orb;
 	}
 
-	public int getDrb() {
+	public Integer getDrb() {
 		return drb;
 	}
 
-	public void setDrb(int drb) {
+	public void setDrb(Integer drb) {
 		this.drb = drb;
 	}
 
-	public int getTrb() {
+	public Integer getTrb() {
 		return trb;
 	}
 
-	public void setTrb(int trb) {
+	public void setTrb(Integer trb) {
 		this.trb = trb;
 	}
 
-	public int getAst() {
+	public Integer getAst() {
 		return ast;
 	}
 
-	public void setAst(int ast) {
+	public void setAst(Integer ast) {
 		this.ast = ast;
 	}
 
-	public int getStl() {
+	public Integer getStl() {
 		return stl;
 	}
 
-	public void setStl(int stl) {
+	public void setStl(Integer stl) {
 		this.stl = stl;
 	}
 
-	public int getBlk() {
+	public Integer getBlk() {
 		return blk;
 	}
 
-	public void setBlk(int blk) {
+	public void setBlk(Integer blk) {
 		this.blk = blk;
 	}
 
-	public int getTov() {
+	public Integer getTov() {
 		return tov;
 	}
 
-	public void setTov(int tov) {
+	public void setTov(Integer tov) {
 		this.tov = tov;
 	}
 
-	public int getPf() {
+	public Integer getPf() {
 		return pf;
 	}
 
-	public void setPf(int pf) {
+	public void setPf(Integer pf) {
 		this.pf = pf;
 	}
 
-	public int getPts() {
+	public Integer getPts() {
 		return pts;
 	}
 
-	public void setPts(int pts) {
+	public void setPts(Integer pts) {
 		this.pts = pts;
 	}
 
-	public int getIs_normal() {
+	public Integer getIs_normal() {
 		return is_normal;
 	}
 
-	public void setIs_normal(int is_normal) {
+	public void setIs_normal(Integer is_normal) {
 		this.is_normal = is_normal;
 	}
 	

@@ -79,6 +79,7 @@ public class RawMatchDaoImpl implements RawMatchDao {
 				else match.setNormal(false);
 				match.setLocation(s[5]);
 				match.setTime(s[6]);
+				System.out.println(s[6]);
 			}else if(i==1){
 				//从第1行获取客队比赛得分,最后一个是总分
 				String[] pts = lines.get(i).split(";");
@@ -163,7 +164,7 @@ public class RawMatchDaoImpl implements RawMatchDao {
 		mpb.setTov(Utility.stringToInt(data[17]));
 		mpb.setPf(Utility.stringToInt(data[18]));
 		mpb.setPts(Utility.stringToInt(data[19]));
-		mpb.setPlus_minus(Utility.stringToInt(data[20]));
+		mpb.setPlus_minus(Utility.stringToDouble(data[20]));
 		
 		return mpb;
 	}

@@ -20,7 +20,7 @@ public class PlayerStatsAdvanced {
 	/**
 	 * 常规赛/季后赛  1 = normal, 0 = playeroff
 	 */
-	private int is_normal;
+	private Integer is_normal;
 	
 	/**
 	 * 所属球队（缩写）
@@ -35,111 +35,111 @@ public class PlayerStatsAdvanced {
 	/**
 	 * 比赛场数
 	 */
-	private int game;
+	private Integer game;
 	
 	/**
 	 * 在场时间
 	 */
-	private int minute;
+	private Integer minute;
 	
 	/**
 	 * player efficiency rating
 	 */
-	private double per;
+	private Double per;
 	/**
 	 * true shooting percentage
 	 */
-	private double ts_pct;
+	private Double ts_pct;
 	
 	/**
 	 * 3-point attempt rate
 	 */
-	private double fa3a_per_fga_pct;
+	private Double fa3a_per_fga_pct;
 	
 	/**
 	 * free throw attempt rate
 	 */
-	private double fta_per_fga_pct;
+	private Double fta_per_fga_pct;
 	
 	/**
 	 * 进攻篮板率
 	 */
-	private double orb_pct;
+	private Double orb_pct;
 	
 	/**
 	 * 防守篮板率
 	 */
-	private double drb_pct;
+	private Double drb_pct;
 	
 	/**
 	 * 总篮板率
 	 */
-	private double trb_pct;
+	private Double trb_pct;
 	
 	/**
 	 * 助攻率
 	 */
-	private double ast_pct;
+	private Double ast_pct;
 	
 	/**
 	 * 抢断率
 	 */
-	private double stl_pct;
+	private Double stl_pct;
 	 
 	/**
 	 * 盖帽率
 	 */
-	private double blk_pct;
+	private Double blk_pct;
 	
 	/**
 	 * 失误率
 	 */
-	private double tov_pct;
+	private Double tov_pct;
 	
 	/**
 	 * 使用率
 	 */
-	private double usg_pct;
+	private Double usg_pct;
 	
 	/**
 	 * offensive win shares
 	 */
-	private double ows;
+	private Double ows;
 	
 	/**
 	 * defensive win shares
 	 */
-	private double dws;
+	private Double dws;
 	
 	/**
 	 * win shares
 	 */
-	private double ws;
+	private Double ws;
 	
 	/**
 	 * win shares per 48 mins;
 	 */
-	private double ws_48;
+	private Double ws_48;
 	
 	/**
 	 * offensive box plus/minus
 	 */
-	private double obpm;
+	private Double obpm;
 	
 	/**
 	 * defensive box plus/minus
 	 */
-	private double dbpm;
+	private Double dbpm;
 	
 	/**
 	 * box plus/minus
 	 */
-	private double bpm;
+	private Double bpm;
 	
 	/**
 	 * value over replacement player
 	 */
-	private double vorp;
+	private Double vorp;
 	
 	/**
 	 * 无参构造函数
@@ -178,187 +178,187 @@ public class PlayerStatsAdvanced {
 		this.position = position;
 	}
 
-	public int getGame() {
+	public Integer getGame() {
 		return game;
 	}
 
-	public void setGame(int game) {
+	public void setGame(Integer game) {
 		this.game = game;
 	}
 
-	public int getMinute() {
+	public Integer getMinute() {
 		return minute;
 	}
 
-	public void setMinute(int minute) {
+	public void setMinute(Integer minute) {
 		this.minute = minute;
 	}
 
-	public double getPer() {
+	public Double getPer() {
 		return per;
 	}
 
-	public void setPer(double per) {
+	public void setPer(Double per) {
 		this.per = per;
 	}
 
-	public double getTs_pct() {
+	public Double getTs_pct() {
 		return ts_pct;
 	}
 
-	public void setTs_pct(double ts_pct) {
+	public void setTs_pct(Double ts_pct) {
 		this.ts_pct = ts_pct;
 	}
 
-	public double getFa3a_per_fga_pct() {
+	public Double getFa3a_per_fga_pct() {
 		return fa3a_per_fga_pct;
 	}
 
-	public void setFa3a_per_fga_pct(double fa3a_per_fga_pct) {
+	public void setFa3a_per_fga_pct(Double fa3a_per_fga_pct) {
 		this.fa3a_per_fga_pct = fa3a_per_fga_pct;
 	}
 
-	public double getFta_per_fga_pct() {
+	public Double getFta_per_fga_pct() {
 		return fta_per_fga_pct;
 	}
 
-	public void setFta_per_fga_pct(double fta_per_fga_pct) {
+	public void setFta_per_fga_pct(Double fta_per_fga_pct) {
 		this.fta_per_fga_pct = fta_per_fga_pct;
 	}
 
-	public double getOrb_pct() {
+	public Double getOrb_pct() {
 		return orb_pct;
 	}
 
-	public void setOrb_pct(double orb_pct) {
+	public void setOrb_pct(Double orb_pct) {
 		this.orb_pct = orb_pct;
 	}
 
-	public double getDrb_pct() {
+	public Double getDrb_pct() {
 		return drb_pct;
 	}
 
-	public void setDrb_pct(double drb_pct) {
+	public void setDrb_pct(Double drb_pct) {
 		this.drb_pct = drb_pct;
 	}
 
-	public double getTrb_pct() {
+	public Double getTrb_pct() {
 		return trb_pct;
 	}
 
-	public void setTrb_pct(double trb_pct) {
+	public void setTrb_pct(Double trb_pct) {
 		this.trb_pct = trb_pct;
 	}
 
-	public double getAst_pct() {
+	public Double getAst_pct() {
 		return ast_pct;
 	}
 
-	public void setAst_pct(double ast_pct) {
+	public void setAst_pct(Double ast_pct) {
 		this.ast_pct = ast_pct;
 	}
 
-	public double getStl_pct() {
+	public Double getStl_pct() {
 		return stl_pct;
 	}
 
-	public void setStl_pct(double stl_pct) {
+	public void setStl_pct(Double stl_pct) {
 		this.stl_pct = stl_pct;
 	}
 
-	public double getBlk_pct() {
+	public Double getBlk_pct() {
 		return blk_pct;
 	}
 
-	public void setBlk_pct(double blk_pct) {
+	public void setBlk_pct(Double blk_pct) {
 		this.blk_pct = blk_pct;
 	}
 
-	public double getTov_pct() {
+	public Double getTov_pct() {
 		return tov_pct;
 	}
 
-	public void setTov_pct(double tov_pct) {
+	public void setTov_pct(Double tov_pct) {
 		this.tov_pct = tov_pct;
 	}
 
-	public double getUsg_pct() {
+	public Double getUsg_pct() {
 		return usg_pct;
 	}
 
-	public void setUsg_pct(double usg_pct) {
+	public void setUsg_pct(Double usg_pct) {
 		this.usg_pct = usg_pct;
 	}
 
-	public double getOws() {
+	public Double getOws() {
 		return ows;
 	}
 
-	public void setOws(double ows) {
+	public void setOws(Double ows) {
 		this.ows = ows;
 	}
 
-	public double getDws() {
+	public Double getDws() {
 		return dws;
 	}
 
-	public void setDws(double dws) {
+	public void setDws(Double dws) {
 		this.dws = dws;
 	}
 
-	public double getWs() {
+	public Double getWs() {
 		return ws;
 	}
 
-	public void setWs(double ws) {
+	public void setWs(Double ws) {
 		this.ws = ws;
 	}
 
-	public double getWs_48() {
+	public Double getWs_48() {
 		return ws_48;
 	}
 
-	public void setWs_48(double ws_48) {
+	public void setWs_48(Double ws_48) {
 		this.ws_48 = ws_48;
 	}
 
-	public double getObpm() {
+	public Double getObpm() {
 		return obpm;
 	}
 
-	public void setObpm(double obpm) {
+	public void setObpm(Double obpm) {
 		this.obpm = obpm;
 	}
 
-	public double getDbpm() {
+	public Double getDbpm() {
 		return dbpm;
 	}
 
-	public void setDbpm(double dbpm) {
+	public void setDbpm(Double dbpm) {
 		this.dbpm = dbpm;
 	}
 
-	public double getBpm() {
+	public Double getBpm() {
 		return bpm;
 	}
 
-	public void setBpm(double bpm) {
+	public void setBpm(Double bpm) {
 		this.bpm = bpm;
 	}
 
-	public double getVorp() {
+	public Double getVorp() {
 		return vorp;
 	}
 
-	public void setVorp(double vorp) {
+	public void setVorp(Double vorp) {
 		this.vorp = vorp;
 	}
 
-	public int getIs_normal() {
+	public Integer getIs_normal() {
 		return is_normal;
 	}
 
-	public void setIs_normal(int is_normal) {
+	public void setIs_normal(Integer is_normal) {
 		this.is_normal = is_normal;
 	}
 	

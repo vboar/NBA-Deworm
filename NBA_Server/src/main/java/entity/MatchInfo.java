@@ -28,7 +28,7 @@ public class MatchInfo {
 	/**
 	 * 常规赛/季后赛
 	 */
-	private int is_normal;
+	private Integer is_normal;
 	
 	/**
 	 * 地点
@@ -43,7 +43,7 @@ public class MatchInfo {
 	/**
 	 * 主队得分
 	 */
-	private int home_point;
+	private Integer home_point;
 	
 	/**
 	 * 客队
@@ -53,7 +53,7 @@ public class MatchInfo {
 	/**
 	 * 客队得分
 	 */
-	private int guest_point;
+	private Integer guest_point;
 	
 	/**
 	 * 比赛时长
@@ -115,11 +115,11 @@ public class MatchInfo {
 		this.home_team = home_team;
 	}
 
-	public int getHome_point() {
+	public Integer getHome_point() {
 		return home_point;
 	}
 
-	public void setHome_point(int home_point) {
+	public void setHome_point(Integer home_point) {
 		this.home_point = home_point;
 	}
 
@@ -131,11 +131,11 @@ public class MatchInfo {
 		this.guest_team = guest_team;
 	}
 
-	public int getGuest_point() {
+	public Integer getGuest_point() {
 		return guest_point;
 	}
 
-	public void setGuest_point(int guest_point) {
+	public void setGuest_point(Integer guest_point) {
 		this.guest_point = guest_point;
 	}
 
@@ -147,11 +147,11 @@ public class MatchInfo {
 		this.time = time;
 	}
 
-	public int isIs_normal() {
+	public Integer isIs_normal() {
 		return is_normal;
 	}
 
-	public void setIs_normal(int is_normal) {
+	public void setIs_normal(Integer is_normal) {
 		this.is_normal = is_normal;
 	}
 

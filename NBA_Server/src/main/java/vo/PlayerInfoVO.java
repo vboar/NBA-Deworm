@@ -35,7 +35,7 @@ public class PlayerInfoVO {
 	/**
 	 * 体重
 	 */
-	public int weight;
+	public Integer weight;
 	
 	/**
 	 * shoots
@@ -65,12 +65,12 @@ public class PlayerInfoVO {
 	/**
 	 * NBA球龄（经验）
 	 */
-	public int exp;
+	public Integer exp;
 	
 	/**
 	 * 球衣号
 	 */
-	public int number;
+	public Integer number;
 	
 	public PlayerInfoVO(){}
 	

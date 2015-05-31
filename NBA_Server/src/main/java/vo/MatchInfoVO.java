@@ -28,7 +28,7 @@ public class MatchInfoVO {
 	/**
 	 * 常规赛/季后赛
 	 */
-	public boolean is_normal;
+	public Boolean is_normal;
 	
 	/**
 	 * 地点
