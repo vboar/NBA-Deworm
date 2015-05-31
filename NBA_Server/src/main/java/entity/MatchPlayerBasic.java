@@ -30,102 +30,102 @@ public class MatchPlayerBasic {
 	/**
 	 * 上场时间
 	 */
-	private double minute;
+	private Double minute;
 	
 	/**
 	 * 投篮命中数
 	 */
-	private int fg;
+	private Integer fg;
 	
 	/**
 	 * 投篮出手数
 	 */
-	private int fga;
+	private Integer fga;
 	
 	/**
 	 * 投篮命中率
 	 */
-	private double fga_pct;
+	private Double fga_pct;
 	
 	/**
 	 * 三分命中数 
 	 */
-	private int fg3;
+	private Integer fg3;
 	
 	/**
 	 * 三分出手数
 	 */
-	private int fg3a;
+	private Integer fg3a;
 	
 	/**
 	 * 三分命中率
 	 */
-	private double fg3_pct;
+	private Double fg3_pct;
 	
 	/**
 	 * 罚球命中数
 	 */
-	private int ft;
+	private Integer ft;
 	
 	/**
 	 * 罚球出手数
 	 */
-	private int fta;
+	private Integer fta;
 	
 	/**
 	 * 罚球命中率
 	 */
-	private double ft_pct;
+	private Double ft_pct;
 	
 	/**
 	 * 进攻篮板
 	 */
-	private int orb;
+	private Integer orb;
 	
 	/**
 	 * 防守篮板
 	 */
-	private int drb;
+	private Integer drb;
 	
 	/**
 	 * 总篮板
 	 */
-	private int trb;
+	private Integer trb;
 	
 	/**
 	 * 助攻
 	 */
-	private int ast;
+	private Integer ast;
 	
 	/**
 	 * 抢断
 	 */
-	private int stl;
+	private Integer stl;
 	
 	/**
 	 * 盖帽
 	 */
-	private int blk;
+	private Integer blk;
 	
 	/**
 	 * 失误
 	 */
-	private int tov;
+	private Integer tov;
 	
 	/**
 	 * 犯规
 	 */
-	private int pf;
+	private Integer pf;
 	
 	/**
 	 * 个人得分
 	 */
-	private int pts;
+	private Integer pts;
 	
 	/**
 	 * +/-
 	 */
-	private double plus_minus;
+	private Double plus_minus;
 	
 	/**
 	 * 无参构造函数
@@ -164,163 +164,163 @@ public class MatchPlayerBasic {
 		this.starter = starter;
 	}
 
-	public double getMinute() {
+	public Double getMinute() {
 		return minute;
 	}
 
-	public void setMinute(double minute) {
+	public void setMinute(Double minute) {
 		this.minute = minute;
 	}
 
-	public int getFg() {
+	public Integer getFg() {
 		return fg;
 	}
 
-	public void setFg(int fg) {
+	public void setFg(Integer fg) {
 		this.fg = fg;
 	}
 
-	public int getFga() {
+	public Integer getFga() {
 		return fga;
 	}
 
-	public void setFga(int fga) {
+	public void setFga(Integer fga) {
 		this.fga = fga;
 	}
 
-	public double getFga_pct() {
+	public Double getFga_pct() {
 		return fga_pct;
 	}
 
-	public void setFga_pct(double fga_pct) {
+	public void setFga_pct(Double fga_pct) {
 		this.fga_pct = fga_pct;
 	}
 
-	public int getFg3() {
+	public Integer getFg3() {
 		return fg3;
 	}
 
-	public void setFg3(int fg3) {
+	public void setFg3(Integer fg3) {
 		this.fg3 = fg3;
 	}
 
-	public int getFg3a() {
+	public Integer getFg3a() {
 		return fg3a;
 	}
 
-	public void setFg3a(int fg3a) {
+	public void setFg3a(Integer fg3a) {
 		this.fg3a = fg3a;
 	}
 
-	public double getFg3_pct() {
+	public Double getFg3_pct() {
 		return fg3_pct;
 	}
 
-	public void setFg3_pct(double fg3_pct) {
+	public void setFg3_pct(Double fg3_pct) {
 		this.fg3_pct = fg3_pct;
 	}
 
-	public int getFt() {
+	public Integer getFt() {
 		return ft;
 	}
 
-	public void setFt(int ft) {
+	public void setFt(Integer ft) {
 		this.ft = ft;
 	}
 
-	public int getFta() {
+	public Integer getFta() {
 		return fta;
 	}
 
-	public void setFta(int fta) {
+	public void setFta(Integer fta) {
 		this.fta = fta;
 	}
 
-	public double getFt_pct() {
+	public Double getFt_pct() {
 		return ft_pct;
 	}
 
-	public void setFt_pct(double ft_pct) {
+	public void setFt_pct(Double ft_pct) {
 		this.ft_pct = ft_pct;
 	}
 
-	public int getOrb() {
+	public Integer getOrb() {
 		return orb;
 	}
 
-	public void setOrb(int orb) {
+	public void setOrb(Integer orb) {
 		this.orb = orb;
 	}
 
-	public int getDrb() {
+	public Integer getDrb() {
 		return drb;
 	}
 
-	public void setDrb(int drb) {
+	public void setDrb(Integer drb) {
 		this.drb = drb;
 	}
 
-	public int getTrb() {
+	public Integer getTrb() {
 		return trb;
 	}
 
-	public void setTrb(int trb) {
+	public void setTrb(Integer trb) {
 		this.trb = trb;
 	}
 
-	public int getAst() {
+	public Integer getAst() {
 		return ast;
 	}
 
-	public void setAst(int ast) {
+	public void setAst(Integer ast) {
 		this.ast = ast;
 	}
 
-	public int getStl() {
+	public Integer getStl() {
 		return stl;
 	}
 
-	public void setStl(int stl) {
+	public void setStl(Integer stl) {
 		this.stl = stl;
 	}
 
-	public int getBlk() {
+	public Integer getBlk() {
 		return blk;
 	}
 
-	public void setBlk(int blk) {
+	public void setBlk(Integer blk) {
 		this.blk = blk;
 	}
 
-	public int getTov() {
+	public Integer getTov() {
 		return tov;
 	}
 
-	public void setTov(int tov) {
+	public void setTov(Integer tov) {
 		this.tov = tov;
 	}
 
-	public int getPf() {
+	public Integer getPf() {
 		return pf;
 	}
 
-	public void setPf(int pf) {
+	public void setPf(Integer pf) {
 		this.pf = pf;
 	}
 
-	public int getPts() {
+	public Integer getPts() {
 		return pts;
 	}
 
-	public void setPts(int pts) {
+	public void setPts(Integer pts) {
 		this.pts = pts;
 	}
 
-	public double getPlus_minus() {
+	public Double getPlus_minus() {
 		return plus_minus;
 	}
 
-	public void setPlus_minus(double plus_minus) {
+	public void setPlus_minus(Double plus_minus) {
 		this.plus_minus = plus_minus;
 	}
 	

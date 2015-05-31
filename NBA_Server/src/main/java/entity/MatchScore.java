@@ -15,17 +15,17 @@ public class MatchScore {
 	/**
 	 * 小节
 	 */
-	private int section;
+	private Integer section;
 	
 	/**
 	 * 主队得分
 	 */
-	private int home_point;
+	private Integer home_point;
 	
 	/**
 	 * 客队得分
 	 */
-	private int guest_point;
+	private Integer guest_point;
 	
 	/**
 	 * 无参构造函数
@@ -40,27 +40,27 @@ public class MatchScore {
 		this.game_id = game_id;
 	}
 
-	public int getSection() {
+	public Integer getSection() {
 		return section;
 	}
 
-	public void setSection(int section) {
+	public void setSection(Integer section) {
 		this.section = section;
 	}
 
-	public int getHome_point() {
+	public Integer getHome_point() {
 		return home_point;
 	}
 
-	public void setHome_point(int home_point) {
+	public void setHome_point(Integer home_point) {
 		this.home_point = home_point;
 	}
 
-	public int getGuest_point() {
+	public Integer getGuest_point() {
 		return guest_point;
 	}
 
-	public void setGuest_point(int guest_point) {
+	public void setGuest_point(Integer guest_point) {
 		this.guest_point = guest_point;
 	}
 	

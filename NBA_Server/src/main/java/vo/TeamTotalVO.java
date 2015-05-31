@@ -20,22 +20,22 @@ public class TeamTotalVO {
 	/**
 	 * 胜场
 	 */
-	public int wins;
+	public Integer wins;
 	
 	/**
 	 * 输场
 	 */
-	public int losses;
+	public Integer losses;
 	
 	/**
 	 * regular season finish
 	 */
-	public int finish;
+	public Integer finish;
 	
 	/**
 	 * 球员平均年龄
 	 */
-	public double age;
+	public Double age;
 	
 	/**
 	 * 球员平均身高
@@ -45,122 +45,122 @@ public class TeamTotalVO {
 	/**
 	 * 球员平均体重
 	 */
-	public double weight;
+	public Double weight;
 	
 	/**
 	 * 比赛场数
 	 */
-	public int num_of_game;
+	public Integer num_of_game;
 	
 	/**
 	 * 时间
 	 */
-	public int minute;
+	public Integer minute;
 	
 	/**
 	 * 投篮命中数
 	 */
-	public int fg;
+	public Integer fg;
 	
 	/**
 	 * 投篮出手数
 	 */
-	public int fga;
+	public Integer fga;
 	
 	/**
 	 * 投篮命中率
 	 */
-	public double fga_pct;
+	public Double fga_pct;
 	
 	/**
 	 * 三分命中数 
 	 */
-	public int fg3;
+	public Integer fg3;
 	
 	/**
 	 * 三分出手数
 	 */
-	public int fg3a;
+	public Integer fg3a;
 	
 	/**
 	 * 三分命中率
 	 */
-	public double fg3_pct;
+	public Double fg3_pct;
 	
 	/**
 	 * 两分命中数
 	 */
-	public int fg2;
+	public Integer fg2;
 	
 	/**
 	 * 两分投篮数
 	 */
-	public int fg2a;
+	public Integer fg2a;
 	
 	/**
 	 * 两分命中率
 	 */
-	public double fg2_pct;
+	public Double fg2_pct;
 	
 	/**
 	 * 罚球命中数
 	 */
-	public int ft;
+	public Integer ft;
 	
 	/**
 	 * 罚球出手数
 	 */
-	public int fta;
+	public Integer fta;
 	
 	/**
 	 * 罚球命中率
 	 */
-	public double ft_pct;
+	public Double ft_pct;
 	
 	/**
 	 * 进攻篮板
 	 */
-	public int orb;
+	public Integer orb;
 	
 	/**
 	 * 防守篮板
 	 */
-	public int drb;
+	public Integer drb;
 	
 	/**
 	 * 总篮板
 	 */
-	public int trb;
+	public Integer trb;
 	
 	/**
 	 * 助攻
 	 */
-	public int ast;
+	public Integer ast;
 	
 	/**
 	 * 抢断
 	 */
-	public int stl;
+	public Integer stl;
 	
 	/**
 	 * 盖帽
 	 */
-	public int blk;
+	public Integer blk;
 	
 	/**
 	 * 失误
 	 */
-	public int tov;
+	public Integer tov;
 	
 	/**
 	 * 犯规
 	 */
-	public int pf;
+	public Integer pf;
 	
 	/**
 	 * 得分
 	 */
-	public int pts;
+	public Integer pts;
 
 	/**
 	 * 无参构造函数

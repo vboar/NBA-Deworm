@@ -45,12 +45,12 @@ public class TeamInfoVO {
 	/**
 	 * 参加季后赛次数
 	 */
-	public int playeroff_appearance;
+	public Integer playeroff_appearance;
 	
 	/**
 	 * 夺冠次数
 	 */
-	public int championships;
+	public Integer championships;
 	
 	/**
 	 * 无参构造函数2

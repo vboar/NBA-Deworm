@@ -21,100 +21,100 @@ public class TeamStatsAdvanced {
 	 * PW(wins_pyth)
 	 * Pythagorean wins, i.e., expected wins based on points scored and allowed
 	 */
-	private double pw;
+	private Double pw;
 	
 	/**
 	 * PL(losses_pyth)
 	 * Pythagorean losses, i.e., expected losses based on points scored and allowed
 	 */
-	private double pl;
+	private Double pl;
 	
 	/**
 	 * MOV =Margin of Victory
 	 */
-	private double mov;
+	private Double mov;
 	
 	/**
 	 * SOS = Strength of Schedule
 	 * A rating of strength of schedule. The rating is denominated in points above/below average,
 	 * where zero is average.
 	 */
-	private double sos;
+	private Double sos;
 	
 	/**
 	 * SRS = Simple Rating System
 	 * A team rating that takes into account average point differential and strength of schedule. 
 	 * The rating is denominated in points above/below average, where zero is average.
 	 */
-	private double srs;
+	private Double srs;
 	
 	/**
 	 * ORtg = Offensive Rating
 	 * An estimate of points produced (players) or scored (teams) per 100 possessions
 	 */
-	private double off_rtg;
+	private Double off_rtg;
 	
 	/**
 	 * DRtg = Defensive Rating
 	 * An estimate of points allowed per 100 possessions
 	 */
-	private double def_rtg;
+	private Double def_rtg;
 	
 	/**
 	 * Pace = Pace Factor
 	 * An estimate of possessions per 48 minutes
 	 */
-	private double pace;
+	private Double pace;
 	
 	/**
 	 * Free Throw Attempt Rate
 	 */
-	private double fta_per_fga_pct;
+	private Double fta_per_fga_pct;
 	
 	/**
 	 * 3-Point Attempt Rate
 	 */
-	private double fg3a_per_fga_pct;
+	private Double fg3a_per_fga_pct;
 	
 	/**
 	 * 进攻-Effective Field Goal Percentage
 	 */
-	private double off_efg_pct;
+	private Double off_efg_pct;
 	
 	/**
 	 * 进攻-Turnover Percentage
 	 */
-	private double off_tov_pct;
+	private Double off_tov_pct;
 	
 	/**
 	 * 进攻-进攻篮板率
 	 */
-	private double orb_pct;
+	private Double orb_pct;
 	
 	/**
 	 * 进攻-Free Throws Per Field Goal Attempt
 	 */
-	private double off_ft_rate;
+	private Double off_ft_rate;
 	
 	/**
 	 * 防守-Effective Field Goal Percentage
 	 */
-	private double opp_efg_pct;
+	private Double opp_efg_pct;
 	
 	/**
 	 * 防守-Turnover Perce
 	 */
-	private double opp_tov_pct;
+	private Double opp_tov_pct;
 	
 	/**
 	 * 防守-防守篮板率
 	 */
-	private double drb_pct;
+	private Double drb_pct;
 	
 	/**
 	 * 防守-Opponent Free Throw per Field Goal Attempt
 	 */
-	private double opp_ft_rate;
+	private Double opp_ft_rate;
 	
 	/**
 	 * Arena_name
@@ -124,7 +124,7 @@ public class TeamStatsAdvanced {
 	/**
 	 * attendance
 	 */
-	private int attendance;
+	private Integer attendance;
 	
 	/**
 	 * 无参构造函数
@@ -147,147 +147,147 @@ public class TeamStatsAdvanced {
 		this.season = season;
 	}
 
-	public double getPw() {
+	public Double getPw() {
 		return pw;
 	}
 
-	public void setPw(double pw) {
+	public void setPw(Double pw) {
 		this.pw = pw;
 	}
 
-	public double getPl() {
+	public Double getPl() {
 		return pl;
 	}
 
-	public void setPl(double pl) {
+	public void setPl(Double pl) {
 		this.pl = pl;
 	}
 
-	public double getMov() {
+	public Double getMov() {
 		return mov;
 	}
 
-	public void setMov(double mov) {
+	public void setMov(Double mov) {
 		this.mov = mov;
 	}
 
-	public double getSos() {
+	public Double getSos() {
 		return sos;
 	}
 
-	public void setSos(double sos) {
+	public void setSos(Double sos) {
 		this.sos = sos;
 	}
 
-	public double getSrs() {
+	public Double getSrs() {
 		return srs;
 	}
 
-	public void setSrs(double srs) {
+	public void setSrs(Double srs) {
 		this.srs = srs;
 	}
 
-	public double getOff_rtg() {
+	public Double getOff_rtg() {
 		return off_rtg;
 	}
 
-	public void setOff_rtg(double off_rtg) {
+	public void setOff_rtg(Double off_rtg) {
 		this.off_rtg = off_rtg;
 	}
 
-	public double getDef_rtg() {
+	public Double getDef_rtg() {
 		return def_rtg;
 	}
 
-	public void setDef_rtg(double def_rtg) {
+	public void setDef_rtg(Double def_rtg) {
 		this.def_rtg = def_rtg;
 	}
 
-	public double getPace() {
+	public Double getPace() {
 		return pace;
 	}
 
-	public void setPace(double pace) {
+	public void setPace(Double pace) {
 		this.pace = pace;
 	}
 
-	public double getFta_per_fga_pct() {
+	public Double getFta_per_fga_pct() {
 		return fta_per_fga_pct;
 	}
 
-	public void setFta_per_fga_pct(double fta_per_fga_pct) {
+	public void setFta_per_fga_pct(Double fta_per_fga_pct) {
 		this.fta_per_fga_pct = fta_per_fga_pct;
 	}
 
-	public double getFg3a_per_fga_pct() {
+	public Double getFg3a_per_fga_pct() {
 		return fg3a_per_fga_pct;
 	}
 
-	public void setFg3a_per_fga_pct(double fg3a_per_fga_pct) {
+	public void setFg3a_per_fga_pct(Double fg3a_per_fga_pct) {
 		this.fg3a_per_fga_pct = fg3a_per_fga_pct;
 	}
 
-	public double getOff_efg_pct() {
+	public Double getOff_efg_pct() {
 		return off_efg_pct;
 	}
 
-	public void setOff_efg_pct(double off_efg_pct) {
+	public void setOff_efg_pct(Double off_efg_pct) {
 		this.off_efg_pct = off_efg_pct;
 	}
 
-	public double getOff_tov_pct() {
+	public Double getOff_tov_pct() {
 		return off_tov_pct;
 	}
 
-	public void setOff_tov_pct(double off_tov_pct) {
+	public void setOff_tov_pct(Double off_tov_pct) {
 		this.off_tov_pct = off_tov_pct;
 	}
 
-	public double getOrb_pct() {
+	public Double getOrb_pct() {
 		return orb_pct;
 	}
 
-	public void setOrb_pct(double orb_pct) {
+	public void setOrb_pct(Double orb_pct) {
 		this.orb_pct = orb_pct;
 	}
 
-	public double getOff_ft_rate() {
+	public Double getOff_ft_rate() {
 		return off_ft_rate;
 	}
 
-	public void setOff_ft_rate(double off_ft_rate) {
+	public void setOff_ft_rate(Double off_ft_rate) {
 		this.off_ft_rate = off_ft_rate;
 	}
 
-	public double getOpp_efg_pct() {
+	public Double getOpp_efg_pct() {
 		return opp_efg_pct;
 	}
 
-	public void setOpp_efg_pct(double opp_efg_pct) {
+	public void setOpp_efg_pct(Double opp_efg_pct) {
 		this.opp_efg_pct = opp_efg_pct;
 	}
 
-	public double getOpp_tov_pct() {
+	public Double getOpp_tov_pct() {
 		return opp_tov_pct;
 	}
 
-	public void setOpp_tov_pct(double opp_tov_pct) {
+	public void setOpp_tov_pct(Double opp_tov_pct) {
 		this.opp_tov_pct = opp_tov_pct;
 	}
 
-	public double getDrb_pct() {
+	public Double getDrb_pct() {
 		return drb_pct;
 	}
 
-	public void setDrb_pct(double drb_pct) {
+	public void setDrb_pct(Double drb_pct) {
 		this.drb_pct = drb_pct;
 	}
 
-	public double getOpp_ft_rate() {
+	public Double getOpp_ft_rate() {
 		return opp_ft_rate;
 	}
 
-	public void setOpp_ft_rate(double opp_ft_rate) {
+	public void setOpp_ft_rate(Double opp_ft_rate) {
 		this.opp_ft_rate = opp_ft_rate;
 	}
 
@@ -299,11 +299,11 @@ public class TeamStatsAdvanced {
 		this.arena = arena;
 	}
 
-	public int getAttendance() {
+	public Integer getAttendance() {
 		return attendance;
 	}
 
-	public void setAttendance(int attendance) {
+	public void setAttendance(Integer attendance) {
 		this.attendance = attendance;
 	}
 	

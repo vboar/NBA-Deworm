@@ -45,12 +45,12 @@ public class TeamInfo {
 	/**
 	 * 参加季后赛次数
 	 */
-	private int playeroff_appearance;
+	private Integer playeroff_appearance;
 	
 	/**
 	 * 夺冠次数
 	 */
-	private int championships;
+	private Integer championships;
 	
 	/**
 	 * 无参构造函数2
@@ -89,19 +89,19 @@ public class TeamInfo {
 		this.record = record;
 	}
 
-	public int getPlayeroff_appearance() {
+	public Integer getPlayeroff_appearance() {
 		return playeroff_appearance;
 	}
 
-	public void setPlayeroff_appearance(int playeroff_appearance) {
+	public void setPlayeroff_appearance(Integer playeroff_appearance) {
 		this.playeroff_appearance = playeroff_appearance;
 	}
 
-	public int getChampionships() {
+	public Integer getChampionships() {
 		return championships;
 	}
 
-	public void setChampionships(int championships) {
+	public void setChampionships(Integer championships) {
 		this.championships = championships;
 	}
 

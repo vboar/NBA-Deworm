@@ -12,9 +12,9 @@ public class Utility {
      * @param minutes 分钟 String
      * @return 分钟 double
      */
-    public static double minStringToDouble(String minutes){
+    public static Double minStringToDouble(String minutes){
         if(minutes==null||minutes.contains("None")||minutes.contains("null")) {
-            return 0;
+            return null;
         }else{
             String[] time = minutes.split(":");
             int minute = Integer.parseInt(time[0]);
@@ -42,14 +42,14 @@ public class Utility {
      * @param str 字符串
      * @return int值
      */
-    public static int stringToInt(String str) {
+    public static Integer stringToInt(String str) {
         try {
     		if(str.contains(",")){
     			str = str.replaceAll(",", "");
     		}
             return Integer.parseInt(str);
         } catch (Exception e) {
-            return -99999;
+            return null;
         }
     }
     
@@ -58,14 +58,14 @@ public class Utility {
      * @param str
      * @return
      */
-    public static double stringToDouble(String str){
+    public static Double stringToDouble(String str){
     	try{
     		if(str.contains(",")){
     			str = str.replaceAll(",", "");
     		}
     		return Double.parseDouble(str);
     	}catch(Exception e){
-    		return -99999;
+    		return null;
     	}
     }
 }

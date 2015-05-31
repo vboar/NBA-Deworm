@@ -1,12 +1,10 @@
 package main;
 
-import dao.InitDao;
-import dao.impl.DaoFactoryImpl;
-import dao.impl.InitDaoImpl;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import dao.impl.InitDaoImpl;
 
 /**
  * 服务端主入口

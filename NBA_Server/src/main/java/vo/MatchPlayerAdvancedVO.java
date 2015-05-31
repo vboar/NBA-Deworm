@@ -30,77 +30,77 @@ public class MatchPlayerAdvancedVO {
 	/**
 	 * 上场时间
 	 */
-	public double minute;
+	public Double minute;
 	
 	/**
 	 * true shooting percentage
 	 */
-	public double ts_pct;
+	public Double ts_pct;
 	
 	/**
 	 * effective field goal percentage
 	 */
-	public double efg_pct;
+	public Double efg_pct;
 	
 	/**
 	 * 3-point attempt rate
 	 */
-	public double fa3a_per_fga_pct;
+	public Double fa3a_per_fga_pct;
 	
 	/**
 	 * free throw attempt rate
 	 */
-	public double fta_per_fga_pct;
+	public Double fta_per_fga_pct;
 	
 	/**
 	 * 进攻篮板率
 	 */
-	public double orb_pct;
+	public Double orb_pct;
 	
 	/**
 	 * 防守篮板率
 	 */
-	public double drb_pct;
+	public Double drb_pct;
 	
 	/**
 	 * 总篮板率
 	 */
-	public double trb_pct;
+	public Double trb_pct;
 	
 	/**
 	 * 助攻率
 	 */
-	public double ast_pct;
+	public Double ast_pct;
 	
 	/**
 	 * 抢断率
 	 */
-	public double stl_pct;
+	public Double stl_pct;
 	
 	/**
 	 * 失误率
 	 */
-	public double tov_pct;
+	public Double tov_pct;
 	
 	/**
 	 * 盖帽率
 	 */
-	public double blk_pct;
+	public Double blk_pct;
 	
 	/**
 	 * 使用率
 	 */
-	public double usg_pct;
+	public Double usg_pct;
 	
 	/**
 	 * 进攻效率
 	 */
-	public double off_rtg;
+	public Double off_rtg;
 	
 	/**
 	 * 防守效率
 	 */
-	public double def_rtg;
+	public Double def_rtg;
 	
 	/**
 	 * 无参构造函数

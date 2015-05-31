@@ -516,7 +516,7 @@ public class TeamDaoImpl implements TeamDao {
 		tst.setMinute(Integer.parseInt(map.get("minute").toString()));
 		tst.setFg(Integer.parseInt(map.get("fg").toString()));
 		tst.setFga(Integer.parseInt(map.get("fga").toString()));
-		tst.setFga_pct(Integer.parseInt(map.get("fga_pct").toString()));
+		tst.setFga_pct(Double.parseDouble(map.get("fga_pct").toString()));
 		tst.setFg3(Integer.parseInt(map.get("fg3").toString()));
 		tst.setFg3a(Integer.parseInt(map.get("fg3a").toString()));
 		tst.setFg3_pct(Double.parseDouble(map.get("fg3_pct").toString()));
@@ -580,7 +580,7 @@ public class TeamDaoImpl implements TeamDao {
 		ost.setMinute(Integer.parseInt(map.get("minute").toString()));
 		ost.setFg(Integer.parseInt(map.get("fg").toString()));
 		ost.setFga(Integer.parseInt(map.get("fga").toString()));
-		ost.setFga_pct(Integer.parseInt(map.get("fga_pct").toString()));
+		ost.setFga_pct(Double.parseDouble(map.get("fga_pct").toString()));
 		ost.setFg3(Integer.parseInt(map.get("fg3").toString()));
 		ost.setFg3a(Integer.parseInt(map.get("fg3a").toString()));
 		ost.setFg3_pct(Double.parseDouble(map.get("fg3_pct").toString()));
