@@ -7,7 +7,6 @@ import org.dom4j.io.SAXReader;
 
 public class SystemConfig {
 private static  FrameConfig HOME_CONFIG = null; 
-
 	
 static {
 	try {

@@ -4,14 +4,23 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
+import ui.match.MatchNav;
+import ui.player.PlayerNav;
 import ui.player.PlayerPanel;
+import ui.team.TeamNav;
+import ui.team.TeamPanel;
 import ui.util.MyButton;
+import ui.util.MyLabel;
 
 public class MotherPanel extends JPanel {
 
@@ -19,13 +28,25 @@ public class MotherPanel extends JPanel {
 	private HomeUI frame;
 	private Image bg;
 	
+	private MyButton back;
 	private MyButton menu;
 	private MyButton exit;
 	private MyButton min;
+	private MyButton max;
 	
-	PlayerPanel playerPanel;
+	public Dropdownmenu dropdown;
 	
-	public MotherPanel(HomeUI frame){
+	public PlayerNav playernav; 
+	public TeamNav teamnav;
+	public MatchNav matchnav;
+	public PlayerPanel playerPanel;
+	public TeamPanel teamPanel;
+	
+	int show = 0;
+	
+	int panel;
+	public MotherPanel(HomeUI frame,int panel){
+		this.panel = panel;
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
 		this.frame = frame;
@@ -45,13 +66,84 @@ public class MotherPanel extends JPanel {
 	}
 	
 	private void initComponent(){
-		playerPanel = new PlayerPanel(frame);
-		add(playerPanel);
+		initPanels();
 		initButtons();
 	}
 	
+	private void initPanels(){
+		dropdown = new Dropdownmenu(frame);
+		dropdown.setVisible(false);
+		
+		playernav = new PlayerNav();
+		playerPanel = new PlayerPanel(frame);
+		if(panel!=1){
+			playernav.setVisible(false);
+			playerPanel.setVisible(false);
+		}
+		
+		teamnav = new TeamNav();
+		teamPanel = new TeamPanel(frame);
+		if(panel!=2){
+			teamnav.setVisible(false);
+			teamPanel.setVisible(false);
+		}
+		
+		matchnav =new MatchNav();
+		if(panel!=3){
+			matchnav.setVisible(false);
+		}
+		
+		add(dropdown);
+		add(playernav);
+		add(teamnav);
+		add(matchnav);
+		add(playerPanel);
+		add(teamPanel);
+
+	}
+	
 	private void initButtons(){
+		back = new MyButton(pcfg.getButtons().element("back"),true);
+		add(back);
+		
 		menu = new MyButton(pcfg.getButtons().element("menu"));
+		menu.addMouseListener(new MouseAdapter(){
+			String[] temp = pcfg.getButtons().element("menu").attributeValue("path").split("\\.");
+			String path = temp[0];
+			String fix = temp[1];
+			boolean isshow = false;
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(isshow == false){
+				isshow = true;
+				dropdown.setVisible(true);
+				}else{
+					isshow = false;
+					dropdown.setVisible(false);
+				}
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				menu.setIcon(new ImageIcon(path+"_point."+fix));
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				if(isshow == false)
+					menu.setIcon(new ImageIcon(path+"."+fix));
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				menu.setIcon(new ImageIcon(path+"_point."+fix));
+				
+			}
+			
+		});
 		add(menu);
 		
 		exit = new MyButton(pcfg.getButtons().element("exit"),true);
@@ -76,8 +168,8 @@ public class MotherPanel extends JPanel {
 		});
 		add(min);
 		
-		
+		max = new MyButton(pcfg.getButtons().element("max"));
+		add(max);
 	}
-	
-	
+
 }
