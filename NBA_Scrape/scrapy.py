@@ -22,8 +22,10 @@ def begin():
                 break
             scrape_match(get_date)
             check_player()
-    print u'是否需要爬取球队数据？[Y/N]'
+    print u'是否需要爬取球队基本数据？[Y/N]'
     get_team = raw_input('> ')
+    print u'是否需要爬取球队具体数据？[Y/N]'
+    get_team_data = raw_input('> ')
     print u'是否需要爬取球队Logo？[Y/N]'
     get_tlogo = raw_input('> ')
     print u'是否需要爬取球员数据？[Y/N]'
@@ -35,6 +37,8 @@ def begin():
     check_player()
     if get_team == 'Y':
         scrape_team()
+    if get_team_data == 'Y':
+        scrape_team_by_local()
     if get_tlogo == 'Y':
         get_team_list()
         scrape_team_logo()
@@ -199,6 +203,7 @@ def check_player():
     f = open('data/players/players.txt', 'r')
     lines = f.readlines()
     lines = list(set(lines))
+    lines.sort()
     f.close()
     f = open('data/players/players.txt', 'w')
     for line in lines:
@@ -209,28 +214,34 @@ def check_player():
 def scrape_player():
     f = open('data/players/players.txt', 'r')
     lines = f.readlines()
-    players = {}
     for line in lines:
         line = line.strip('\n')
         temp = line.split(';')
-        players[temp[0]] = temp[1]
-    for player in players:
-        scrape_each_player(player, players[player])
+        scrape_each_player(temp[0], temp[1])
         time.sleep(0.2)
+
     f.close()
 
 
 def scrape_each_player(name, url):
+    print name
     url = main_url + url[1:]
     response = urllib2.urlopen(url)
     html = response.read()
     f = open('data/players/text/' + name, 'w')
 
     position = re.search(r'Position:</span> (.*?)&nbsp', html).groups()[0]
-    shoots = re.search(r'Shoots:</span> (.*?)<br>', html).groups()[0]
+    result = re.search(r'Shoots:</span> (.*?)<br>', html)
+    if result is None:
+        shoots = ''
+    else:
+        shoots = result.groups()[0]
     born = re.search(r'data-birth="(.*?)"', html).groups()[0]
     result = re.search(r'</span> in (.*?)<a .*?>(.*?)</a>', html)
-    hometown = result.groups()[0] + result.groups()[1]
+    if result is not None:
+        hometown = result.groups()[0] + result.groups()[1]
+    else:
+        hometown = ''
     height = re.search(r'Height:</span> (.*?)&nbsp', html).groups()[0]
     weight = re.search(r'Weight:</span> (.*?) lbs', html).groups()[0]
     result = re.search(r'High School:</span> (.*?)<a .*?>(.*?)</a>', html)
@@ -263,7 +274,7 @@ def scrape_each_player(name, url):
     else:
         experience = result.groups()[0]
     result = re.findall(r'<span style=\'font-size.*?>(.*?)</span>', html)
-    if result is None:
+    if result is None or len(result) == 0:
         number = ''
     else:
         number = result[len(result)-1]
@@ -288,11 +299,15 @@ def scrape_each_player(name, url):
         else:
             continue
         res = line[1].replace('\n', '')
-        result = re.findall(r'<tr  class="full_table" id=".*?">([\s\S]*?)</tr>', res)
+        result = re.findall(r'<tr  class=".*?_table" id=".*?">([\s\S]*?)</tr>', res)
         for item in result:
             result = re.search(r'<a href="/players/.*?">(.*?)</a>', item)
             season = result.groups()[0][2:]
-            team = re.search(r'<td align="left" ><a href="/teams/.*?">(.*?)</a></td>', item).groups()[0]
+            result = re.search(r'<td align="left" ><a href="/teams/.*?">(.*?)</a></td>', item)
+            if result is not None:
+                team = result.groups()[0]
+            else:
+                team = 'TOT'
             pos = re.search(r'<td align="center" >(.*?)</td>', item).groups()[0]
             f.write(season + ';' + team + ';' + pos + ';')
             result = re.search(r'<td align="center" >.*?</td>(.*)', item, re.S).groups()[0]
@@ -307,24 +322,25 @@ def scrape_each_player(name, url):
             f.write(item + ';')
         f.write('\n')
 
-    f.write('Salaries\n')
-    result = re.search(r'<div class="table_container" id="div_salaries">([\s\S]*?)</table>', html)
-    res = result.groups()[0].replace('\n', '')
-    result = re.search(r'<tbody>(.*?)</tbody>', res).groups()[0]
-    result = re.findall(r'<tr  class="">(.*?)</tr>', result)
-    for item in result:
-        temp = re.search(r'<td align="left" >(.*?)</td>', item)
-        season = temp.groups()[0][2:]
-        temp = re.search(r'<td align="left" ><a href="/teams/(.*?)/.*?</td>', item)
-        team = temp.groups()[0]
-        temp = re.search(r'<td align="right"  csk=".*?">(.*?)</td>', item)
-        salary = temp.groups()[0]
-        f.write(season + ';' + team + ';' + salary + ';\n')
-    result = re.search(r'<tr  class=" stat_total">(.*?)</tr>', res).groups()[0]
-    season = re.search(r'<td align="left" >(.*?)</td>', result).groups()[0]
-    salary = re.search(r'<td align="right".*?>(.*?)</td>', result).groups()[0]
-    f.write(season + ';;' + salary + ';\n')
 
+    result = re.search(r'<div class="table_container" id="div_salaries">([\s\S]*?)</table>', html)
+    if result is not None:
+        f.write('Salaries\n')
+        res = result.groups()[0].replace('\n', '')
+        result = re.search(r'<tbody>(.*?)</tbody>', res).groups()[0]
+        result = re.findall(r'<tr  class="">(.*?)</tr>', result)
+        for item in result:
+            temp = re.search(r'<td align="left" >(.*?)</td>', item)
+            season = temp.groups()[0][2:]
+            temp = re.search(r'<td align="left" ><a href="/teams/(.*?)/.*?</td>', item)
+            team = temp.groups()[0]
+            temp = re.search(r'<td align="right"  csk=".*?">(.*?)</td>', item)
+            salary = temp.groups()[0]
+            f.write(season + ';' + team + ';' + salary + ';\n')
+        result = re.search(r'<tr  class=" stat_total">(.*?)</tr>', res).groups()[0]
+        season = re.search(r'<td align="left" >(.*?)</td>', result).groups()[0]
+        salary = re.search(r'<td align="right".*?>(.*?)</td>', result).groups()[0]
+        f.write(season + ';;' + salary + ';\n')
     f.close()
 
 
@@ -332,6 +348,16 @@ def scrape_team():
     teams = get_team_list()
     for item in teams:
         scrape_each_team(item[1], item[0], item[2])
+        time.sleep(0.2)
+
+
+def scrape_team_by_local():
+    f = open('data/teams/teams.txt', 'r')
+    teams = f.readlines()
+    for item in teams:
+        item = item.replace('\n', '')
+        temp = item.split(';')
+        scrape_each_team(temp[0], temp[1], temp[2])
         time.sleep(0.2)
 
 
@@ -504,11 +530,12 @@ def scrape_player_now_pic():
             response = urllib2.urlopen(url)
             html = response.read()
             temps = re.search(r'<meta property="og:image" content="(.*?)&h=90" />', html)
-            url = temps.groups()[0]
-            response = urllib2.urlopen(url)
-            pic = open('data/players/now_pic/' + name + '.png', 'wb')
-            pic.write(response.read())
-            pic.close()
+            if temps is not None:
+                url = temps.groups()[0]
+                response = urllib2.urlopen(url)
+                pic = open('data/players/now_pic/' + name + '.png', 'wb')
+                pic.write(response.read())
+                pic.close()
             time.sleep(0.2)
     pass
 
@@ -523,8 +550,9 @@ def scrape_player_pic():
         url = 'http://www.basketball-reference.com' + item[1]
         response = urllib2.urlopen(url)
         html = response.read()
-        url = re.search(r'<img .*? src="(.*?)" alt=', html).groups()[0]
-        if url is not None:
+        result = re.search(r'<img .*? src="(.*?)" alt=', html)
+        if result is not None:
+            url = result.groups()[0]
             response = urllib2.urlopen(url)
             f = open('data/players/pic/' + name + '.png', 'wb')
             f.write(response.read())
