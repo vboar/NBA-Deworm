@@ -17,7 +17,7 @@ public class InitDaoImpl implements InitDao {
 
 	private SqlManager sqlManager = SqlManager.getSqlManager();
 	
-	public static void main(String[] args) {
+	public void initDatabase() {
 		InitDaoImpl id = new InitDaoImpl();
 		id.dropTable();
 		id.createTable();
