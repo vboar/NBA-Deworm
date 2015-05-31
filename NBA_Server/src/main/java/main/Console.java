@@ -1,9 +1,20 @@
 package main;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.rmi.Naming;
+import java.rmi.NoSuchObjectException;
+import java.rmi.Remote;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.Properties;
 
+import service.ServiceFactory;
+import service.impl.ServiceFactoryImpl;
 import dao.impl.InitDaoImpl;
 
 /**
@@ -15,6 +26,33 @@ public class Console {
 
     private boolean rmiServerOn = false;
     private boolean apiServerOn = false;
+    
+    /**
+     * 远程对象
+     */
+    private Remote reg;
+    
+    /**
+     * 端口
+     */
+    public static String port;
+    
+    /**
+     * IP地址
+     */
+    public static String address;
+    
+    static{
+    	Properties prop = new Properties();
+    	try{
+    		InputStream in = new BufferedInputStream(new FileInputStream("nba.properties"));
+    		prop.load(in);
+    		address = prop.getProperty("rmi_address");
+    		port = prop.getProperty("rmi_port");
+    	}catch(Exception e){
+    		System.out.println(e);
+    	}
+    }
 
     public static void main(String[] args) {
 
@@ -26,7 +64,7 @@ public class Console {
         System.out.println("5. init database");
 
         Console console = new Console();
-        BufferedReader br = null;
+        //BufferedReader br = null;
         while (true) {
             try {
                 System.out.print("> ");
@@ -59,14 +97,29 @@ public class Console {
             System.out.println("Rmi server has already been on!");
         } else {
             rmiServerOn = true;
-            System.out.println("Rmi server is on now!");
+            try {
+            	
+				reg = LocateRegistry.createRegistry(Integer.parseInt(port));
+				ServiceFactory serviceFactory = ServiceFactoryImpl.getInstance();
+				Naming.rebind("rmi://" + address + ":" + port + "/ServiceFactory", serviceFactory);
+				System.out.println("Rmi server is on now!");
+				
+            } catch (Exception e) {
+				e.printStackTrace();
+            }
         }
     }
 
     private void stopRmiServer() {
         if (rmiServerOn) {
-            rmiServerOn = false;
-            System.out.println("Rmi server is off now!");
+        	// 关闭服务器端RMI服务
+			try {
+				UnicastRemoteObject.unexportObject(reg, true);
+			    rmiServerOn = false;
+			    System.out.println("Rmi server is off now!");
+			} catch (NoSuchObjectException e) {
+				e.printStackTrace();
+			}
         } else {
             System.out.println("Rmi server has already been off!");
         }

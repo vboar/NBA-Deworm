@@ -32,7 +32,7 @@ public class MatchServiceImpl extends UnicastRemoteObject implements MatchServic
 	}
 
 	@Override
-	public List<MatchInfoVO> getRegularMatchInfoBySeason(String season) {
+	public List<MatchInfoVO> getRegularMatchInfoBySeason(String season) throws RemoteException {
 		List<MatchInfoVO> volist = new ArrayList<MatchInfoVO>();
 		List<MatchInfo> list = mdao.getRegularMatchInfoBySeason(season);
 		for(MatchInfo info: list){
@@ -44,7 +44,7 @@ public class MatchServiceImpl extends UnicastRemoteObject implements MatchServic
 	}
 
 	@Override
-	public List<MatchInfoVO> getPlayOffMatchInfoBySeason(String season) {
+	public List<MatchInfoVO> getPlayOffMatchInfoBySeason(String season) throws RemoteException {
 		List<MatchInfoVO> volist = new ArrayList<MatchInfoVO>();
 		List<MatchInfo> list = mdao.getPlayOffMatchInfoBySeason(season);
 		for(MatchInfo info: list){
@@ -56,7 +56,7 @@ public class MatchServiceImpl extends UnicastRemoteObject implements MatchServic
 	}
 
 	@Override
-	public List<MatchInfoVO> getMatchInfoByDate(String begin, String end) {
+	public List<MatchInfoVO> getMatchInfoByDate(String begin, String end) throws RemoteException{
 		List<MatchInfoVO> volist = new ArrayList<MatchInfoVO>();
 		List<MatchInfo> list = mdao.getMatchInfoByDate(begin, end);
 		for(MatchInfo info: list){
@@ -69,7 +69,7 @@ public class MatchServiceImpl extends UnicastRemoteObject implements MatchServic
 
 	@Override
 	public List<MatchPlayerAdvancedVO> getMatchPlayerAdvancedByGameIdTeam(
-			String gameid, String abbr) {
+			String gameid, String abbr) throws RemoteException {
 		List<MatchPlayerAdvancedVO> volist = new ArrayList<MatchPlayerAdvancedVO>();
 		List<MatchPlayerAdvanced> list = mdao.getMatchPlayerAdvancedByGameIdTeam(gameid, abbr);
 		for(MatchPlayerAdvanced mpa: list){
@@ -82,7 +82,7 @@ public class MatchServiceImpl extends UnicastRemoteObject implements MatchServic
 
 	@Override
 	public List<MatchPlayerBasicVO> getMatchPlayerBasicByGameIdTeam(
-			String gameid, String abbr) {
+			String gameid, String abbr) throws RemoteException {
 		List<MatchPlayerBasicVO> volist = new ArrayList<MatchPlayerBasicVO>();
 		List<MatchPlayerBasic> list = mdao.getMatchPlayerBasicByGameIdTeam(gameid, abbr);
 		for(MatchPlayerBasic mpb:list){

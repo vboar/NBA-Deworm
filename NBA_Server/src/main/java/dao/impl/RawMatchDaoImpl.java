@@ -79,7 +79,6 @@ public class RawMatchDaoImpl implements RawMatchDao {
 				else match.setNormal(false);
 				match.setLocation(s[5]);
 				match.setTime(s[6]);
-				System.out.println(s[6]);
 			}else if(i==1){
 				//从第1行获取客队比赛得分,最后一个是总分
 				String[] pts = lines.get(i).split(";");

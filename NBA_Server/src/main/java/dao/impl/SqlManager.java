@@ -30,7 +30,6 @@ public class SqlManager {
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static String URL = null;
     private static String IP = null;
-//  private static String PORT = null;
     private static String USER = null;
     private static String PASSWORD = null;
     private static String DB = null;
@@ -43,12 +42,11 @@ public class SqlManager {
     static{
     	Properties prop = new Properties();
     	try{
-    		InputStream in = new BufferedInputStream(new FileInputStream("data.properties"));
+    		InputStream in = new BufferedInputStream(new FileInputStream("nba.properties"));
     		prop.load(in);
-    		IP = prop.getProperty("ip");
-//    		PORT = prop.getProperty("port");
-    		USER = prop.getProperty("user");
-    		PASSWORD = prop.getProperty("password");
+    		IP = prop.getProperty("db_ip");
+    		USER = prop.getProperty("db_user");
+    		PASSWORD = prop.getProperty("db_password");
     		DB = prop.getProperty("db");
     		URL = "jdbc:mysql://" + IP +  "/" + DB;
     	}catch(Exception e){

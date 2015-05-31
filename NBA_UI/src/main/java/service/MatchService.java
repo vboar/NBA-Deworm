@@ -19,6 +19,7 @@ public interface MatchService extends Remote{
 	 * 获得某赛季的常规赛比赛基本信息
 	 * @param season
 	 * @return
+	 * @throws RemoteException 
 	 */
 	public List<MatchInfoVO> getRegularMatchInfoBySeason(String season) throws RemoteException;
 	
@@ -27,7 +28,7 @@ public interface MatchService extends Remote{
 	 * @param season
 	 * @return
 	 */
-	public List<MatchInfoVO> getPlayOffMatchInfoBySeason(String season) throws RemoteException;
+	public List<MatchInfoVO> getPlayOffMatchInfoBySeason(String season);
 	
 	/**
 	 * 获得某一时间段的比赛基本信息
@@ -35,7 +36,7 @@ public interface MatchService extends Remote{
 	 * @param end
 	 * @return
 	 */
-	public List<MatchInfoVO> getMatchInfoByDate(String begin, String end) throws RemoteException;
+	public List<MatchInfoVO> getMatchInfoByDate(String begin, String end);
 	
 	/**
 	 * 获得单场比赛中一支球队的球员高阶数据
@@ -43,7 +44,7 @@ public interface MatchService extends Remote{
 	 * @param abbr 球队缩写
 	 * @return
 	 */
-	public List<MatchPlayerAdvancedVO> getMatchPlayerAdvancedByGameIdTeam(String gameid, String abbr) throws RemoteException;
+	public List<MatchPlayerAdvancedVO> getMatchPlayerAdvancedByGameIdTeam(String gameid, String abbr);
 	
 	/**
 	 * 获得单场比赛一支球队的球员基本数据
@@ -51,6 +52,6 @@ public interface MatchService extends Remote{
 	 * @param abbr 球队缩写
 	 * @return
 	 */
-	public List<MatchPlayerBasicVO> getMatchPlayerBasicByGameIdTeam(String gameid, String abbr) throws RemoteException;
+	public List<MatchPlayerBasicVO> getMatchPlayerBasicByGameIdTeam(String gameid, String abbr);
 	
 }
