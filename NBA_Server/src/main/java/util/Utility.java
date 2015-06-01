@@ -13,7 +13,7 @@ public class Utility {
      * @return 分钟 double
      */
     public static Double minStringToDouble(String minutes){
-        if(minutes==null||minutes.contains("None")||minutes.contains("null")) {
+        if(minutes.equals("")) {
             return null;
         }else{
             String[] time = minutes.split(":");
@@ -67,5 +67,27 @@ public class Utility {
     	}catch(Exception e){
     		return null;
     	}
+    }
+    
+    /**
+     * 将对象转为Integer
+     * @param o
+     * @return
+     */
+    public static Integer objectToInt(Object o){
+    	if(o==null)
+    		return null;
+    	return Utility.stringToInt(o.toString());
+    }
+    
+    /**
+     * 将对象转为Double
+     * @param o
+     * @return
+     */
+    public static Double objectToDouble(Object o){
+    	if(o==null)
+    		return null;
+    	return Utility.stringToDouble(o.toString());
     }
 }

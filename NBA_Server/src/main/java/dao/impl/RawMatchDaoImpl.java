@@ -16,105 +16,130 @@ import entity.MatchPlayerBasic;
  * created by JaneLDQ on 2015年5月18日 下午8:31:22
  */
 public class RawMatchDaoImpl implements RawMatchDao {
-	
+
 	private static String MATCH_PATH = FileManager.DATA_PATH + "/matches/";
 
-	public RawMatchDaoImpl(){
-		System.out.println("Match Data："+MATCH_PATH);
+	public RawMatchDaoImpl() {
+		System.out.println("Match Data：" + MATCH_PATH);
 	}
-	
+
 	@Override
-    public List<Match> getAllMatch() {
-        File folder = new File(MATCH_PATH);
-        String[] seasons = folder.list();
-        //存放当前有的赛季
-        List<String> seasonlist = DaoFactoryImpl.getDaoFactory().getSeasonDao().getAllSeason();
-        List<String> newSeasonlist = new ArrayList<String>();
-        List<Match> list = new ArrayList<Match>();
-        for(int i=0; i<seasons.length;++i) {
-        	String path = MATCH_PATH  + seasons[i] +"/";
+	public List<Match> getAllMatch() {
+		File folder = new File(MATCH_PATH);
+		String[] seasons = folder.list();
+		// 存放当前有的赛季
+		List<String> seasonlist = DaoFactoryImpl.getDaoFactory().getSeasonDao()
+				.getAllSeason();
+		List<String> newSeasonlist = new ArrayList<String>();
+		List<Match> list = new ArrayList<Match>();
+		for (int i = 0; i < seasons.length; ++i) {
+			String path = MATCH_PATH + seasons[i] + "/";
 			File fs = new File(path);
-			if(!fs.isDirectory())
+			if (!fs.isDirectory())
 				continue;
-        	String[] names = fs.list();
-        	String season = seasons[i].substring(2,5)+seasons[i].substring(7);
-        	if(!seasonlist.contains(season))
-        		newSeasonlist.add(season);
-        	for(String name:names){
-        		list.add(getEntity(season,name,path));
-        	}
-        }
-        //插入赛季列表 
-        DaoFactoryImpl.getDaoFactory().getSeasonDao().insert(newSeasonlist);
-        return list;
-    }
+			String[] names = fs.list();
+			String season = seasons[i].substring(2, 5)
+					+ seasons[i].substring(7);
+			if (!seasonlist.contains(season))
+				newSeasonlist.add(season);
+			for (String name : names) {
+				list.add(getEntity(season, name, path));
+			}
+		}
+		// 插入赛季列表
+		DaoFactoryImpl.getDaoFactory().getSeasonDao().insert(newSeasonlist);
+		return list;
+	}
 
 	private Match getEntity(String season, String name, String path) {
 		Match match = new Match();
 		// 从比赛文件名中获得赛季、日期、对阵队伍名称信息
 		match.setGame_id(name);
 		match.setSeason(season);
-		match.setDate(name.substring(0,4)+"-"+name.substring(4,6)+"-"+name.substring(6,8));
-		match.setHome_team(name.substring(9,12));
-		match.setGuest_team(name.substring(13,16));
-		
-		//标志数据类型
+		match.setDate(name.substring(0, 4) + "-" + name.substring(4, 6) + "-"
+				+ name.substring(6, 8));
+		match.setHome_team(name.substring(9, 12));
+		match.setGuest_team(name.substring(13, 16));
+
+		// 标志数据类型
 		int playerType = -1;
 		int isStarter = 0;
-		
+
 		List<MatchPlayerBasic> home_basic = new ArrayList<MatchPlayerBasic>();
 		List<MatchPlayerBasic> guest_basic = new ArrayList<MatchPlayerBasic>();
 		List<MatchPlayerAdvanced> home_advanced = new ArrayList<MatchPlayerAdvanced>();
 		List<MatchPlayerAdvanced> guest_advanced = new ArrayList<MatchPlayerAdvanced>();
-		
-        // 从比赛文本文件中获得其他信息
-        List<String> lines = FileManager.read(path + name);
-		for(int i=0; i<lines.size();++i){
-			//从第0行获取是否为常规赛，地点，时长
-			if(i==0){
-				String[] s = lines.get(i).split(";",-1);
-				//判断是否为常规赛
-				if(s[3].equals("True")) 
+
+		// 从比赛文本文件中获得其他信息
+		List<String> lines = FileManager.read(path + name);
+		for (int i = 0; i < lines.size(); ++i) {
+			// 从第0行获取是否为常规赛，地点，时长
+			if (i == 0) {
+				String[] s = lines.get(i).split(";", -1);
+				// 判断是否为常规赛
+				if (s[3].equals("True"))
 					match.setNormal(true);
-				else match.setNormal(false);
+				else
+					match.setNormal(false);
 				match.setLocation(s[5]);
 				match.setTime(s[6]);
-			}else if(i==1){
-				//从第1行获取客队比赛得分,最后一个是总分
+			} else if (i == 1) {
+				// 从第1行获取客队比赛得分,最后一个是总分
 				String[] pts = lines.get(i).split(";");
-				for(int j=0; j<pts.length;++j){
+				for (int j = 0; j < pts.length; ++j) {
 					match.getGuest_pts().add(Utility.stringToInt(pts[j]));
 				}
-				match.setGuest_point(Utility.stringToInt(pts[pts.length-1]));
-			}else if(i==2){
-				//从第2行获取主队比赛得分,最后一个是总分
+				match.setGuest_point(Utility.stringToInt(pts[pts.length - 1]));
+			} else if (i == 2) {
+				// 从第2行获取主队比赛得分,最后一个是总分
 				String[] pts = lines.get(i).split(";");
-				for(int j=0; j<pts.length;++j){
+				for (int j = 0; j < pts.length; ++j) {
 					match.getHome_pts().add(Utility.stringToInt(pts[j]));
 				}
-				match.setHome_point(Utility.stringToInt(pts[pts.length-1]));	
-			}else{
-				switch(lines.get(i)){
-				case "Guest Basic": playerType = 0; isStarter = 0; continue;
-				case "Home Basic": playerType = 1; isStarter = 0; continue;
-				case "Guest Advanced":playerType = 2; isStarter = 0; continue;
-				case "Home Advanced":playerType = 3; isStarter = 0; continue;
-				default:break;
+				match.setHome_point(Utility.stringToInt(pts[pts.length - 1]));
+			} else {
+				switch (lines.get(i)) {
+				case "Guest Basic":
+					playerType = 0;
+					isStarter = 0;
+					continue;
+				case "Home Basic":
+					playerType = 1;
+					isStarter = 0;
+					continue;
+				case "Guest Advanced":
+					playerType = 2;
+					isStarter = 0;
+					continue;
+				case "Home Advanced":
+					playerType = 3;
+					isStarter = 0;
+					continue;
+				default:
+					break;
 				}
 			}
-			switch(playerType){
+			switch (playerType) {
 			case 0:
 				isStarter++;
-				guest_basic.add(getBasic(name, match.getGuest_team(), lines.get(i), isStarter));break;
+				guest_basic.add(getBasic(name, match.getGuest_team(),
+						lines.get(i), isStarter));
+				break;
 			case 1:
 				isStarter++;
-				home_basic.add(getBasic(name, match.getHome_team(), lines.get(i), isStarter));break;
+				home_basic.add(getBasic(name, match.getHome_team(),
+						lines.get(i), isStarter));
+				break;
 			case 2:
 				isStarter++;
-				guest_advanced.add(getAdvanced(name, match.getGuest_team(), lines.get(i), isStarter));break;
+				guest_advanced.add(getAdvanced(name, match.getGuest_team(),
+						lines.get(i), isStarter));
+				break;
 			case 3:
 				isStarter++;
-				home_advanced.add(getAdvanced(name, match.getHome_team(), lines.get(i), isStarter));break;
+				home_advanced.add(getAdvanced(name, match.getHome_team(),
+						lines.get(i), isStarter));
+				break;
 			default:
 			}
 		}
@@ -124,23 +149,24 @@ public class RawMatchDaoImpl implements RawMatchDao {
 		match.setGuest_advanced_list(guest_advanced);
 		return match;
 	}
-	
+
 	/**
 	 * 获取单个球员基本数据
 	 */
-	private MatchPlayerBasic getBasic(String game, String team, String str, int isStarter){
+	private MatchPlayerBasic getBasic(String game, String team, String str,
+			int isStarter) {
 		MatchPlayerBasic mpb = new MatchPlayerBasic();
 		String[] data = str.split(";", -1);
 		mpb.setGame_id(game);
 		mpb.setTeam_abbr(team);
 		mpb.setPlayer_name(data[0]);
-		//Team Total球队总数据，Starter首发球员，Reserve是非首发上场，DidNotPlayer冷板凳
-		if(data[0].equals("Team Totals")){
+		// Team Total球队总数据，Starter首发球员，Reserve是非首发上场，DidNotPlayer冷板凳
+		if (data[0].equals("Team Totals")) {
 			mpb.setStarter("Team Totals");
-		}else{
-			mpb.setStarter(isStarter<=5?"Starter":"Reserve");
+		} else {
+			mpb.setStarter(isStarter <= 5 ? "Starter" : "Reserve");
 		}
-		if(data.length<=2){
+		if (data.length <= 2) {
 			mpb.setStarter("DidNotPlay");
 			return mpb;
 		}
@@ -164,25 +190,26 @@ public class RawMatchDaoImpl implements RawMatchDao {
 		mpb.setPf(Utility.stringToInt(data[18]));
 		mpb.setPts(Utility.stringToInt(data[19]));
 		mpb.setPlus_minus(Utility.stringToDouble(data[20]));
-		
 		return mpb;
 	}
-	
+
 	/**
 	 * 获取单个球员高阶数据
 	 */
-	private MatchPlayerAdvanced getAdvanced(String game, String team, String str, int isStarter){
+	private MatchPlayerAdvanced getAdvanced(String game, String team,
+			String str, int isStarter) {
+
 		MatchPlayerAdvanced mpa = new MatchPlayerAdvanced();
-		String[] data = str.split(";",-1);
+		String[] data = str.split(";", -1);
 		mpa.setGame_id(game);
 		mpa.setTeam_abbr(team);
 		mpa.setPlayer_name(data[0]);
-		if(data[0].equals("Team Totals")){
+		if (data[0].equals("Team Totals")) {
 			mpa.setStarter("Team Totals");
-		}else{
-			mpa.setStarter(isStarter<=5?"Starter":"Reserve");
+		} else {
+			mpa.setStarter(isStarter <= 5 ? "Starter" : "Reserve");
 		}
-		if(data.length<=1){
+		if (data.length <= 2) {
 			mpa.setStarter("DidNotPlay");
 			return mpa;
 		}
@@ -201,8 +228,8 @@ public class RawMatchDaoImpl implements RawMatchDao {
 		mpa.setUsg_pct(Utility.stringToDouble(data[13]));
 		mpa.setOff_rtg(Utility.stringToDouble(data[14]));
 		mpa.setDef_rtg(Utility.stringToDouble(data[15]));
-		
 		return mpa;
+
 	}
 
 }

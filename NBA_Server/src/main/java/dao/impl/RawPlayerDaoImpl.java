@@ -14,15 +14,16 @@ import entity.PlayerStatsTotal;
 
 public class RawPlayerDaoImpl implements RawPlayerDao {
 
-	private static String PLAYER_PATH = FileManager.DATA_PATH + "/players/text/";
+	private static String PLAYER_PATH = FileManager.DATA_PATH
+			+ "/players/text/";
 
-	//存放各类数据
+	// 存放各类数据
 	private List<PlayerInfo> infolist;
 	private List<PlayerSalary> salarylist;
 	private List<PlayerStatsTotal> totallist;
 	private List<PlayerStatsPerGame> pergamelist;
 	private List<PlayerStatsAdvanced> advancedlist;
-
+	
 	public RawPlayerDaoImpl() {
 		System.out.println("Player Data：" + PLAYER_PATH);
 		infolist = new ArrayList<PlayerInfo>();
@@ -47,11 +48,11 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 			int dataType = -1;
 			// normal = 0, playoff = 1
 			int normal_playeroff = 0;
-			for(int i=0; i<lines.size(); ++i){
-				//从第0行获得姓名、位置、shoots、出生年月、出生地、身高、体重、高中、大学、
-				//Draft、debut、exp、number
-				if(i==0){
-					String[] data = lines.get(i).split(";",-1);
+			for (int i = 0; i < lines.size(); ++i) {
+				// 从第0行获得姓名、位置、shoots、出生年月、出生地、身高、体重、高中、大学、
+				// Draft、debut、exp、number
+				if (i == 0) {
+					String[] data = lines.get(i).split(";", -1);
 					info.setPosition(data[1]);
 					info.setShoots(data[2]);
 					info.setBorn(data[3]);
@@ -65,41 +66,66 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 					info.setExperience(Utility.stringToInt(data[11]));
 					info.setNumber(Utility.stringToInt(data[12]));
 					this.infolist.add(info);
-				}else{
-					switch(lines.get(i)){
-					case "Totals": dataType = 0; normal_playeroff = 1; continue;
-					case "Per Game": dataType = 1; normal_playeroff = 1; continue;
-					case "Advanced":dataType = 2; normal_playeroff = 1; continue;
-					case "Playoffs Totals": dataType = 0; normal_playeroff = 0; continue;
-					case "Playoffs Per Game": dataType = 1; normal_playeroff = 0; continue;
-					case "Playoffs Advanced":dataType = 2; normal_playeroff = 0; continue;
-					case "Salaries":dataType = 3;continue;
-					default:break;
+				} else {
+					switch (lines.get(i)) {
+					case "Totals":
+						dataType = 0;
+						normal_playeroff = 1;
+						continue;
+					case "Per Game":
+						dataType = 1;
+						normal_playeroff = 1;
+						continue;
+					case "Advanced":
+						dataType = 2;
+						normal_playeroff = 1;
+						continue;
+					case "Playoffs Totals":
+						dataType = 0;
+						normal_playeroff = 0;
+						continue;
+					case "Playoffs Per Game":
+						dataType = 1;
+						normal_playeroff = 0;
+						continue;
+					case "Playoffs Advanced":
+						dataType = 2;
+						normal_playeroff = 0;
+						continue;
+					case "Salaries":
+						dataType = 3;
+						continue;
+					default:
+						break;
 					}
 				}// end of else
-				
-				//依据dataType解析各类数据
-				switch(dataType){
+
+				// 依据dataType解析各类数据
+				switch (dataType) {
 				case 0:
-					this.totallist.add(getTotals(player,lines.get(i),normal_playeroff));
+					this.totallist.add(getTotals(player, lines.get(i),
+							normal_playeroff));
 					break;
 				case 1:
-					this.pergamelist.add(getPerGame(player,lines.get(i),normal_playeroff));
+					this.pergamelist.add(getPerGame(player, lines.get(i),
+							normal_playeroff));
 					break;
 				case 2:
-					this.advancedlist.add(getAdvanced(player,lines.get(i),normal_playeroff));
+					this.advancedlist.add(getAdvanced(player, lines.get(i),
+							normal_playeroff));
 					break;
 				case 3:
-					this.salarylist.add(getSalary(player,lines.get(i)));
+					this.salarylist.add(getSalary(player, lines.get(i)));
 					break;
 				default:
-				}	
+				}
 			}// end of lines circle
-		}// end of players circle		
+		}// end of players circle
 	}
 
 	/**
 	 * 将字符串解析为PlayerSalary
+	 * 
 	 * @param player
 	 * @param string
 	 * @return
@@ -107,7 +133,7 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 	private PlayerSalary getSalary(String player, String str) {
 		PlayerSalary slr = new PlayerSalary();
 		slr.setName(player);
-		String[] data = str.split(";",-1);
+		String[] data = str.split(";", -1);
 		slr.setSeason(data[0]);
 		slr.setTeam(data[1]);
 		slr.setSalary(data[2]);
@@ -116,6 +142,7 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 
 	/**
 	 * 将字符串解析为PlayerStatsAdvanced
+	 * 
 	 * @param player
 	 * @param string
 	 * @param normal_playeroff
@@ -126,7 +153,8 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 		PlayerStatsAdvanced advanced = new PlayerStatsAdvanced();
 		advanced.setName(player);
 		advanced.setIs_normal(normal_playeroff);
-		String[] data = str.split(";",-1);
+		String[] data = str.split(";", -1);
+		try{
 		advanced.setSeason(data[0]);
 		advanced.setTeam(data[1]);
 		advanced.setPosition(data[2]);
@@ -152,11 +180,15 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 		advanced.setDbpm(Utility.stringToDouble(data[22]));
 		advanced.setBpm(Utility.stringToDouble(data[23]));
 		advanced.setVorp(Utility.stringToDouble(data[24]));
+		}catch(Exception e){
+			System.out.println("Advanced--> "+player+" "+str);
+		}
 		return advanced;
 	}
 
 	/**
 	 * 将字符串解析为PlayerStatsPerGame
+	 * 
 	 * @param player
 	 * @param str
 	 * @param normal_playeroff
@@ -167,7 +199,8 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 		PlayerStatsPerGame pergame = new PlayerStatsPerGame();
 		pergame.setName(player);
 		pergame.setIs_normal(normal_playeroff);
-		String[] data = str.split(";",-1);
+		String[] data = str.split(";", -1);
+		try{
 		pergame.setSeason(data[0]);
 		pergame.setTeam(data[1]);
 		pergame.setPosition(data[2]);
@@ -196,14 +229,20 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 		pergame.setTov(Utility.stringToDouble(data[25]));
 		pergame.setPf(Utility.stringToDouble(data[26]));
 		pergame.setPts(Utility.stringToDouble(data[27]));
+		}catch(Exception e){
+			System.out.println("Pergame--> "+player+" "+str);
+		}
 		return pergame;
 	}
 
 	/**
 	 * 将字符串解析为PlayerStatsTotal
-	 * @param player 姓名
+	 * 
+	 * @param player
+	 *            姓名
 	 * @param str
-	 * @param normal_playeroff 常规赛=0，季后赛=1
+	 * @param normal_playeroff
+	 *            常规赛=0，季后赛=1
 	 * @return
 	 */
 	private PlayerStatsTotal getTotals(String player, String str,
@@ -211,38 +250,42 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 		PlayerStatsTotal total = new PlayerStatsTotal();
 		total.setName(player);
 		total.setIs_normal(normal_playeroff);
-		String[] data = str.split(";",-1);
-		total.setSeason(data[0]);
-		total.setTeam(data[1]);
-		total.setPosition(data[2]);
-		total.setGame(Utility.stringToInt(data[3]));
-		total.setGame_started(Utility.stringToInt(data[4]));
-		total.setMinute(Utility.stringToInt(data[5]));
-		total.setFg(Utility.stringToInt(data[6]));
-		total.setFga(Utility.stringToInt(data[7]));
-		total.setFga_pct(Utility.stringToDouble(data[8]));
-		total.setFg3(Utility.stringToInt(data[9]));
-		total.setFg3a(Utility.stringToInt(data[10]));
-		total.setFg3_pct(Utility.stringToDouble(data[11]));
-		total.setFg2(Utility.stringToInt(data[12]));
-		total.setFg2a(Utility.stringToInt(data[13]));
-		total.setFg2_pct(Utility.stringToDouble(data[14]));
-		total.setEfg_pct(Utility.stringToDouble(data[15]));
-		total.setFt(Utility.stringToInt(data[16]));
-		total.setFta(Utility.stringToInt(data[17]));
-		total.setFt_pct(Utility.stringToDouble(data[18]));
-		total.setOrb(Utility.stringToInt(data[19]));
-		total.setDrb(Utility.stringToInt(data[20]));
-		total.setTrb(Utility.stringToInt(data[21]));
-		total.setAst(Utility.stringToInt(data[22]));
-		total.setStl(Utility.stringToInt(data[23]));
-		total.setBlk(Utility.stringToInt(data[24]));
-		total.setTov(Utility.stringToInt(data[25]));
-		total.setPf(Utility.stringToInt(data[26]));
-		total.setPts(Utility.stringToInt(data[27]));
+		String[] data = str.split(";", -1);
+		try {
+			total.setSeason(data[0]);
+			total.setTeam(data[1]);
+			total.setPosition(data[2]);
+			total.setGame(Utility.stringToInt(data[3]));
+			total.setGame_started(Utility.stringToInt(data[4]));
+			total.setMinute(Utility.stringToInt(data[5]));
+			total.setFg(Utility.stringToInt(data[6]));
+			total.setFga(Utility.stringToInt(data[7]));
+			total.setFga_pct(Utility.stringToDouble(data[8]));
+			total.setFg3(Utility.stringToInt(data[9]));
+			total.setFg3a(Utility.stringToInt(data[10]));
+			total.setFg3_pct(Utility.stringToDouble(data[11]));
+			total.setFg2(Utility.stringToInt(data[12]));
+			total.setFg2a(Utility.stringToInt(data[13]));
+			total.setFg2_pct(Utility.stringToDouble(data[14]));
+			total.setEfg_pct(Utility.stringToDouble(data[15]));
+			total.setFt(Utility.stringToInt(data[16]));
+			total.setFta(Utility.stringToInt(data[17]));
+			total.setFt_pct(Utility.stringToDouble(data[18]));
+			total.setOrb(Utility.stringToInt(data[19]));
+			total.setDrb(Utility.stringToInt(data[20]));
+			total.setTrb(Utility.stringToInt(data[21]));
+			total.setAst(Utility.stringToInt(data[22]));
+			total.setStl(Utility.stringToInt(data[23]));
+			total.setBlk(Utility.stringToInt(data[24]));
+			total.setTov(Utility.stringToInt(data[25]));
+			total.setPf(Utility.stringToInt(data[26]));
+			total.setPts(Utility.stringToInt(data[27]));
+		} catch (Exception e) {
+			System.out.println("Total-->" + player + " " + str);
+		}
 		return total;
 	}
-	
+
 	@Override
 	public List<PlayerInfo> getAllPlayerInfo() {
 		return infolist;

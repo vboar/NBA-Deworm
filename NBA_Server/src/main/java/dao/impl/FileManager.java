@@ -25,7 +25,7 @@ public class FileManager {
     static{
     	Properties prop = new Properties();
     	try{
-    		InputStream in = new BufferedInputStream(new FileInputStream("data.properties"));
+    		InputStream in = new BufferedInputStream(new FileInputStream("nba.properties"));
     		prop.load(in);
     		DATA_PATH = prop.getProperty("datapath");
     	}catch(Exception e){

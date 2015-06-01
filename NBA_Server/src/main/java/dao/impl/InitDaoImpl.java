@@ -33,7 +33,7 @@ public class InitDaoImpl implements InitDao {
         String sql = "CREATE TABLE season (" +
                 "season VARCHAR(5) PRIMARY KEY NOT NULL" +
                 ")";
-        sqlManager.executeUpdate(sql);
+//        sqlManager.executeUpdate(sql);
 
         // 比赛概况表
         sql = "CREATE TABLE match_info (" +
@@ -48,7 +48,7 @@ public class InitDaoImpl implements InitDao {
                 "guest_point INT ," +
                 "time VARCHAR(6) " +
                 ")";
-        sqlManager.executeUpdate(sql);
+//        sqlManager.executeUpdate(sql);
 
         // 比赛比分表
         sql = "CREATE TABLE match_score (" +
@@ -57,7 +57,7 @@ public class InitDaoImpl implements InitDao {
                 "home_point INT ," +
                 "guest_point INT " +
                 ")";
-        sqlManager.executeUpdate(sql);
+//        sqlManager.executeUpdate(sql);
 
         // 比赛球员基本数据表
         sql = "CREATE TABLE match_player_basic (" +
@@ -86,7 +86,7 @@ public class InitDaoImpl implements InitDao {
                 "pts INT ," +
                 "plus_minus DOUBLE" +
                 ")";
-        sqlManager.executeUpdate(sql);
+//        sqlManager.executeUpdate(sql);
 
         //比赛球员高阶数据表
         sql = "CREATE TABLE match_player_advanced (" +
@@ -110,21 +110,21 @@ public class InitDaoImpl implements InitDao {
                 "off_rtg DOUBLE ," +
                 "def_rtg DOUBLE " +
         		")";
-        sqlManager.executeUpdate(sql);
+//        sqlManager.executeUpdate(sql);
 
         //球员基本信息表
         sql = "CREATE TABLE player_info ("+
                 "player_name VARCHAR(48) PRIMARY KEY NOT NULL," +
                 "born VARCHAR(10)," +
                 "hometown VARCHAR(64)," +
-                "position VARCHAR(48)," +
+                "position VARCHAR(64)," +
                 "height VARCHAR(5)," +
                 "weight INT," +
-                "shoots VARCHAR(5)," +
-                "high_school VARCHAR(64)," +
-                "college VARCHAR(32)," +
+                "shoots VARCHAR(64)," +
+                "high_school VARCHAR(128)," +
+                "college VARCHAR(128)," +
                 "draft VARCHAR(128)," +
-                "debut VARCHAR(32)," +
+                "debut VARCHAR(128)," +
                 "exp INT," +
                 "number INT" +
         		")";
@@ -412,11 +412,11 @@ public class InitDaoImpl implements InitDao {
 	@Override
 	public void dropTable() {
         sqlManager.getConnection();
-        sqlManager.executeUpdate("DROP TABLE season");
-        sqlManager.executeUpdate("DROP TABLE match_info");
-        sqlManager.executeUpdate("DROP TABLE match_score");
-        sqlManager.executeUpdate("DROP TABLE match_player_basic");
-        sqlManager.executeUpdate("DROP TABLE match_player_advanced");
+//        sqlManager.executeUpdate("DROP TABLE season");
+//        sqlManager.executeUpdate("DROP TABLE match_info");
+//        sqlManager.executeUpdate("DROP TABLE match_score");
+//        sqlManager.executeUpdate("DROP TABLE match_player_basic");
+//        sqlManager.executeUpdate("DROP TABLE match_player_advanced");
         sqlManager.executeUpdate("DROP TABLE player_info");
         sqlManager.executeUpdate("DROP TABLE player_total");
         sqlManager.executeUpdate("DROP TABLE player_per_game");
@@ -434,11 +434,11 @@ public class InitDaoImpl implements InitDao {
 	@Override
 	public void truncateTable() {
         sqlManager.getConnection();
-        sqlManager.executeUpdate("DELETE FROM season");
-        sqlManager.executeUpdate("DELETE FROM match_info");
-        sqlManager.executeUpdate("DELETE FROM match_score");
-        sqlManager.executeUpdate("DELETE FROM match_player_basic");
-        sqlManager.executeUpdate("DELETE FROM match_player_advanced");
+//        sqlManager.executeUpdate("DELETE FROM season");
+//        sqlManager.executeUpdate("DELETE FROM match_info");
+//        sqlManager.executeUpdate("DELETE FROM match_score");
+//        sqlManager.executeUpdate("DELETE FROM match_player_basic");
+//        sqlManager.executeUpdate("DELETE FROM match_player_advanced");
         sqlManager.executeUpdate("DELETE FROM player_info");
         sqlManager.executeUpdate("DELETE FROM player_total");
         sqlManager.executeUpdate("DELETE FROM player_per_game");
@@ -456,17 +456,18 @@ public class InitDaoImpl implements InitDao {
 	@Override
 	public void fillTable() {
 		// 比赛数据入库
-		RawMatchDao rawMatch = DaoFactoryImpl.getDaoFactory().getRawMatchDao();
-		MatchDao match = DaoFactoryImpl.getDaoFactory().getMatchDao();
-		match.insertMatch(rawMatch.getAllMatch());
+//		RawMatchDao rawMatch = DaoFactoryImpl.getDaoFactory().getRawMatchDao();
+//		MatchDao match = DaoFactoryImpl.getDaoFactory().getMatchDao();
+//		match.insertMatch(rawMatch.getAllMatch());
 		// 球员数据入库
-		RawPlayerDao rawPlayer = DaoFactoryImpl.getDaoFactory().getRawPlayerDao();
-		PlayerDao player = DaoFactoryImpl.getDaoFactory().getPlayerDao();
-		player.insertPlayerInfo(rawPlayer.getAllPlayerInfo());
-		player.insertPlayerSalary(rawPlayer.getAllPlayerSalary());
-		player.insertPlayerTotal(rawPlayer.getAllPlayerTotal());
-		player.insertPlayerPerGame(rawPlayer.getAllPlayerPerGame());
-		player.insertPlayerAdvanced(rawPlayer.getAllPlayerAdvanced());
+//		RawPlayerDao rawPlayer = DaoFactoryImpl.getDaoFactory().getRawPlayerDao();
+//		PlayerDao player = DaoFactoryImpl.getDaoFactory().getPlayerDao();
+//		player.insertPlayerInfo(rawPlayer.getAllPlayerInfo());
+//		player.insertPlayerSalary(rawPlayer.getAllPlayerSalary());
+//		player.insertPlayerTotal(rawPlayer.getAllPlayerTotal());
+//		player.insertPlayerPerGame(rawPlayer.getAllPlayerPerGame());
+//		player.insertPlayerAdvanced(rawPlayer.getAllPlayerAdvanced());
+		System.out.println("Insert Team Begin...");
 		// 球队数据入库
 		RawTeamDao rawTeam = DaoFactoryImpl.getDaoFactory().getRawTeamDao();
 		TeamDao team = DaoFactoryImpl.getDaoFactory().getTeamDao();
@@ -476,6 +477,7 @@ public class InitDaoImpl implements InitDao {
 		team.insertTeamAdvanced(rawTeam.getAllTeamAdvanced());
 		team.insertTeamOppTotal(rawTeam.getAllTeamOppTotal());
 		team.insertTeamOppPerGame(rawTeam.getAllTeamOppPerGame());
+		System.out.println("Insert Team Done!");
 	}
 
 }

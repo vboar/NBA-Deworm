@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import util.Utility;
 import dao.MatchDao;
 import entity.Match;
 import entity.MatchInfo;
@@ -295,8 +296,8 @@ public class MatchDaoImpl implements MatchDao {
 		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{map.get("game_id")});
 		for(Map<String, Object> sectionmap: maplist){
 			try{
-				homePoints.add(Integer.parseInt(sectionmap.get("home_point").toString()));
-				guestPoints.add(Integer.parseInt(sectionmap.get("guest_point").toString()));
+				homePoints.add(Utility.objectToInt(sectionmap.get("home_point")));
+				guestPoints.add(Utility.objectToInt(sectionmap.get("guest_point")));
 			}catch(Exception e){
 				System.out.println("Section Score Null-pointer!");
 				continue;
@@ -304,13 +305,13 @@ public class MatchDaoImpl implements MatchDao {
 		}
 		info.setGame_id(map.get("game_id").toString());
 		info.setSeason(map.get("season").toString());
-		info.setIs_normal(Integer.parseInt(map.get("is_normal").toString()));
+		info.setIs_normal(Utility.objectToInt(map.get("is_normal")));
 		info.setDate(map.get("date").toString());
 		info.setLocation(map.get("location").toString());
 		info.setHome_team(map.get("home_team").toString());
 		info.setGuest_team(map.get("guest_team").toString());
-		info.setHome_point(Integer.parseInt(map.get("home_point").toString()));
-		info.setGuest_point(Integer.parseInt(map.get("guest_point").toString()));
+		info.setHome_point(Utility.objectToInt(map.get("home_point")));
+		info.setGuest_point(Utility.objectToInt(map.get("guest_point")));
 		info.setTime(map.get("time").toString());
 		info.setHome_pts(guestPoints);
 		info.setGuest_pts(guestPoints);
@@ -326,21 +327,21 @@ public class MatchDaoImpl implements MatchDao {
 		mpa.setPlayer_name(map.get("player_name").toString());
 		mpa.setTeam_abbr(map.get("team_abbr").toString());
 		mpa.setStarter(map.get("starter").toString());
-		mpa.setMinute(Double.parseDouble(map.get("minute").toString()));
-		mpa.setTs_pct(Double.parseDouble(map.get("ts_pct").toString()));
-		mpa.setEfg_pct(Double.parseDouble(map.get("efg_pct").toString()));
-		mpa.setFa3a_per_fga_pct(Double.parseDouble(map.get("fa3a_per_fga_pct").toString()));
-		mpa.setFta_per_fga_pct(Double.parseDouble(map.get("fta_per_fga_pct").toString()));
-		mpa.setOrb_pct(Double.parseDouble(map.get("orb_pct").toString()));
-		mpa.setDrb_pct(Double.parseDouble(map.get("drb_pct").toString()));
-		mpa.setTrb_pct(Double.parseDouble(map.get("drb_pct").toString()));
-		mpa.setAst_pct(Double.parseDouble(map.get("ast_pct").toString()));
-		mpa.setStl_pct(Double.parseDouble(map.get("stl_pct").toString()));
-		mpa.setTov_pct(Double.parseDouble(map.get("tov_pct").toString()));
-		mpa.setBlk_pct(Double.parseDouble(map.get("blk_pct").toString()));
-		mpa.setUsg_pct(Double.parseDouble(map.get("usg_pct").toString()));
-		mpa.setOff_rtg(Double.parseDouble(map.get("off_rtg").toString()));
-		mpa.setDef_rtg(Double.parseDouble(map.get("def_rtg").toString()));
+		mpa.setMinute(Utility.objectToDouble(map.get("minute")));
+		mpa.setTs_pct(Utility.objectToDouble(map.get("ts_pct")));
+		mpa.setEfg_pct(Utility.objectToDouble(map.get("efg_pct")));
+		mpa.setFa3a_per_fga_pct(Utility.objectToDouble(map.get("fa3a_per_fga_pct")));
+		mpa.setFta_per_fga_pct(Utility.objectToDouble(map.get("fta_per_fga_pct")));
+		mpa.setOrb_pct(Utility.objectToDouble(map.get("orb_pct")));
+		mpa.setDrb_pct(Utility.objectToDouble(map.get("drb_pct")));
+		mpa.setTrb_pct(Utility.objectToDouble(map.get("drb_pct")));
+		mpa.setAst_pct(Utility.objectToDouble(map.get("ast_pct")));
+		mpa.setStl_pct(Utility.objectToDouble(map.get("stl_pct")));
+		mpa.setTov_pct(Utility.objectToDouble(map.get("tov_pct")));
+		mpa.setBlk_pct(Utility.objectToDouble(map.get("blk_pct")));
+		mpa.setUsg_pct(Utility.objectToDouble(map.get("usg_pct")));
+		mpa.setOff_rtg(Utility.objectToDouble(map.get("off_rtg")));
+		mpa.setDef_rtg(Utility.objectToDouble(map.get("def_rtg")));
 		return mpa;
 	}
 
@@ -353,25 +354,25 @@ public class MatchDaoImpl implements MatchDao {
 		mpb.setPlayer_name(map.get("player_name").toString());
 		mpb.setTeam_abbr(map.get("team_abbr").toString());
 		mpb.setStarter(map.get("starter").toString());
-		mpb.setMinute(Double.parseDouble(map.get("minute").toString()));
-		mpb.setFg(Integer.parseInt(map.get("fg").toString()));
-		mpb.setFga(Integer.parseInt(map.get("fga").toString()));
-		mpb.setFga_pct(Double.parseDouble(map.get("fga_pct").toString()));
-		mpb.setFg3(Integer.parseInt(map.get("fg3").toString()));
-		mpb.setFg3a(Integer.parseInt(map.get("fg3a").toString()));
-		mpb.setFg3_pct(Double.parseDouble(map.get("fg3_pct").toString()));
-		mpb.setFt(Integer.parseInt(map.get("ft").toString()));
-		mpb.setFta(Integer.parseInt(map.get("fta").toString()));
-		mpb.setFt_pct(Double.parseDouble(map.get("ft_pct").toString()));
-		mpb.setOrb(Integer.parseInt(map.get("orb").toString()));
-		mpb.setDrb(Integer.parseInt(map.get("drb").toString()));
-		mpb.setTrb(Integer.parseInt(map.get("trb").toString()));
-		mpb.setAst(Integer.parseInt(map.get("ast").toString()));
-		mpb.setBlk(Integer.parseInt(map.get("blk").toString()));
-		mpb.setTov(Integer.parseInt(map.get("tov").toString()));
-		mpb.setPf(Integer.parseInt(map.get("pf").toString()));
-		mpb.setPts(Integer.parseInt(map.get("pts").toString()));
-		mpb.setPlus_minus(Double.parseDouble(map.get("plus_minus").toString()));
+		mpb.setMinute(Utility.objectToDouble(map.get("minute")));
+		mpb.setFg(Utility.objectToInt(map.get("fg")));
+		mpb.setFga(Utility.objectToInt(map.get("fga")));
+		mpb.setFga_pct(Utility.objectToDouble(map.get("fga_pct")));
+		mpb.setFg3(Utility.objectToInt(map.get("fg3")));
+		mpb.setFg3a(Utility.objectToInt(map.get("fg3a")));	
+		mpb.setFg3_pct(Utility.objectToDouble(map.get("fg3_pct")));
+		mpb.setFt(Utility.objectToInt(map.get("ft")));
+		mpb.setFta(Utility.objectToInt(map.get("fta")));
+		mpb.setFt_pct(Utility.objectToDouble(map.get("ft_pct")));
+		mpb.setOrb(Utility.objectToInt(map.get("orb")));
+		mpb.setDrb(Utility.objectToInt(map.get("drb")));
+		mpb.setTrb(Utility.objectToInt(map.get("trb")));
+		mpb.setAst(Utility.objectToInt(map.get("ast")));
+		mpb.setBlk(Utility.objectToInt(map.get("blk")));
+		mpb.setTov(Utility.objectToInt(map.get("tov")));
+		mpb.setPf(Utility.objectToInt(map.get("pf")));
+		mpb.setPts(Utility.objectToInt(map.get("pts")));
+		mpb.setPlus_minus(Utility.objectToDouble(map.get("plus_minus")));
 		return mpb;
 	}
 	
