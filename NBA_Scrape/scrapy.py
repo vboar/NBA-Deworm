@@ -311,7 +311,7 @@ def scrape_each_player(name, url):
             pos = re.search(r'<td align="center" >(.*?)</td>', item).groups()[0]
             f.write(season + ';' + team + ';' + pos + ';')
             result = re.search(r'<td align="center" >.*?</td>(.*)', item, re.S).groups()[0]
-            result = re.findall(r'<td align="right" >(.*?)</td>', result)
+            result = re.findall(r'<td align="right" .*?>(.*?)</td>', result)
             for temp in result:
                 f.write(temp + ';')
             f.write('\n')
