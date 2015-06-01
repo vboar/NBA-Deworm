@@ -141,23 +141,23 @@ public class PlayerDaoImpl implements PlayerDao {
 	
 	@Override
 	public void insertPlayerInfo(List<PlayerInfo> list) {	
+		System.out.println("Insert Player Info : " + list.size());
 		
 		if(list.size()==0)	return;
 		
-		sqlManager.getConnection();
+		sqlManager.getConnection();	
 		
-		List<Object> infoObjects = new ArrayList<Object>();		
-		String sqlInfo = "INSERT INTO player_info (" + 
-				"player_name, " + 	"born, " +
-				"hometown, "	+ 	"position, " +
-				"height, "		+ 	"weight, " +
-				"shoots, "		+ 	"high_school, " +
-				"college, "		+ 	"draft, "	+
-				"debut, "		+ 	"exp, " +
-				"number " 		+
-				") VALUES";
-		
-		for(PlayerInfo info: list){		
+		for(PlayerInfo info: list){	
+			List<Object> infoObjects = new ArrayList<Object>();	
+			String sqlInfo = "INSERT INTO player_info (" + 
+					"player_name, " + 	"born, " +
+					"hometown, "	+ 	"position, " +
+					"height, "		+ 	"weight, " +
+					"shoots, "		+ 	"high_school, " +
+					"college, "		+ 	"draft, "	+
+					"debut, "		+ 	"exp, " +
+					"number " 		+
+					") VALUES";
 			infoObjects.add(info.getName());
 			infoObjects.add(info.getBorn());
 			infoObjects.add(info.getHometown());
@@ -173,69 +173,67 @@ public class PlayerDaoImpl implements PlayerDao {
 			infoObjects.add(info.getNumber());
 			
 			sqlInfo = sqlManager.appendSQL(sqlInfo, 13);
+			sqlInfo = sqlManager.fillSQL(sqlInfo);
+			sqlManager.executeUpdateByList(sqlInfo, infoObjects);
 		}
 		
-		sqlInfo = sqlManager.fillSQL(sqlInfo);
-		sqlManager.executeUpdateByList(sqlInfo, infoObjects);
 		sqlManager.releaseConnection();
 	}
 
 	@Override
 	public void insertPlayerSalary(List<PlayerSalary> list) {
-		
+		System.out.println("Insert Player Salary : " + list.size());
 		if(list.size()==0)	return;
 		
-		sqlManager.getConnection();	
-		
-		List<Object> salaryObjects = new ArrayList<Object>();		
-		String sqlSalary = "INSERT INTO player_salary (" +
-				"name, " +
-				"season, " +
-				"team, " +
-				"salary " +
-				") VALUES ";	
-		
-		for(PlayerSalary slr : list){		
+		sqlManager.getConnection();			
+		for(PlayerSalary slr : list){
+			List<Object> salaryObjects = new ArrayList<Object>();
+			String sqlSalary = "INSERT INTO player_salary (" +
+					"name, " +
+					"season, " +
+					"team, " +
+					"salary " +
+					") VALUES ";
 			salaryObjects.add(slr.getName());
 			salaryObjects.add(slr.getSeason());
 			salaryObjects.add(slr.getTeam());
 			salaryObjects.add(slr.getSalary());
 			
 			sqlSalary = sqlManager.appendSQL(sqlSalary, 4);
+			sqlSalary = sqlManager.fillSQL(sqlSalary);
+			sqlManager.executeUpdateByList(sqlSalary, salaryObjects);
+			
 		}
-		
-		sqlSalary = sqlManager.fillSQL(sqlSalary);
-		sqlManager.executeUpdateByList(sqlSalary, salaryObjects);
 		sqlManager.releaseConnection();
 	}
 
 	@Override
-	public void insertPlayerTotal(List<PlayerStatsTotal> list) {
+	public void insertPlayerTotal(List<PlayerStatsTotal> list) {		
+		System.out.println("Insert Player Total : " + list.size());
 		
 		if(list.size()==0)	return;
 		
 		sqlManager.getConnection();
-		
-		List<Object> ptObjects = new ArrayList<Object>();
-		String sqlTotal = "INSERT INTO player_total (" + 
-				"player_name, "		+ "season, " +
-				"is_normal, "		+ "team_abbr, " +
-				"position, "		+ "num_of_game, " +
-				"game_start, "		+ "minute, " +
-				"fg, "				+ "fga, " +
-				"fga_pct, "			+ "fg3, " +
-				"fg3a, "			+ "fg3_pct, " +
-				"fg2, "				+ "fg2a, " +
-				"fg2_pct, "			+ "efg_pct, " +
-				"ft, "				+ "fta, " +
-				"ft_pct, "			+ "orb, " +
-				"drb, "				+ "trb, " +
-				"ast, "				+ "stl, " +
-				"blk, "				+ "tov, " +
-				"pf, "				+ "pts " +
-				") VALUES ";
-		
-		for(PlayerStatsTotal pt : list){
+
+		for(PlayerStatsTotal pt : list){		
+			List<Object> ptObjects = new ArrayList<Object>();	
+			String sqlTotal = "INSERT INTO player_total (" + 
+					"player_name, "		+ "season, " +
+					"is_normal, "		+ "team_abbr, " +
+					"position, "		+ "num_of_game, " +
+					"game_start, "		+ "minute, " +
+					"fg, "				+ "fga, " +
+					"fga_pct, "			+ "fg3, " +
+					"fg3a, "			+ "fg3_pct, " +
+					"fg2, "				+ "fg2a, " +
+					"fg2_pct, "			+ "efg_pct, " +
+					"ft, "				+ "fta, " +
+					"ft_pct, "			+ "orb, " +
+					"drb, "				+ "trb, " +
+					"ast, "				+ "stl, " +
+					"blk, "				+ "tov, " +
+					"pf, "				+ "pts " +
+					") VALUES ";		
 			ptObjects.add(pt.getName());
 			ptObjects.add(pt.getSeason());
 			ptObjects.add(pt.getIs_normal());
@@ -268,40 +266,39 @@ public class PlayerDaoImpl implements PlayerDao {
 			ptObjects.add(pt.getPts());
 			
 			sqlTotal = sqlManager.appendSQL(sqlTotal, 30);
+			sqlTotal = sqlManager.fillSQL(sqlTotal);		
+			sqlManager.executeUpdateByList(sqlTotal, ptObjects);
 		}
-		
-		sqlTotal = sqlManager.fillSQL(sqlTotal);
-		sqlManager.executeUpdateByList(sqlTotal, ptObjects);
 		sqlManager.releaseConnection();
 	}
 
 	@Override
-	public void insertPlayerPerGame(List<PlayerStatsPerGame> list) {
+	public void insertPlayerPerGame(List<PlayerStatsPerGame> list) {		
+		System.out.println("Insert Player_PerGame : " + list.size());
 		
 		if(list.size()==0)	return;
 		
 		sqlManager.getConnection();
 		
-		List<Object> ppgObjects = new ArrayList<Object>();
-		String sqlPerGame = "INSERT INTO player_per_game (" + 
-				"player_name, "		+ "season, " +
-				"is_normal, "		+ "team_abbr, " +
-				"position, "		+ "num_of_game, " +
-				"game_start, "		+ "minute, " +
-				"fg, "				+ "fga, " +
-				"fga_pct, "			+ "fg3, " +
-				"fg3a, "			+ "fg3_pct, " +
-				"fg2, "				+ "fg2a, " +
-				"fg2_pct, "			+ "efg_pct, " +
-				"ft, "				+ "fta, " +
-				"ft_pct, "			+ "orb, " +
-				"drb, "				+ "trb, " +
-				"ast, "				+ "stl, " +
-				"blk, "				+ "tov, " +
-				"pf, "				+ "pts" +
-				") VALUES ";
-		
 		for(PlayerStatsPerGame ppg : list){
+			List<Object> ppgObjects = new ArrayList<Object>();
+			String sqlPerGame = "INSERT INTO player_per_game (" + 
+					"player_name, "		+ "season, " +
+					"is_normal, "		+ "team_abbr, " +
+					"position, "		+ "num_of_game, " +
+					"game_start, "		+ "minute, " +
+					"fg, "				+ "fga, " +
+					"fga_pct, "			+ "fg3, " +
+					"fg3a, "			+ "fg3_pct, " +
+					"fg2, "				+ "fg2a, " +
+					"fg2_pct, "			+ "efg_pct, " +
+					"ft, "				+ "fta, " +
+					"ft_pct, "			+ "orb, " +
+					"drb, "				+ "trb, " +
+					"ast, "				+ "stl, " +
+					"blk, "				+ "tov, " +
+					"pf, "				+ "pts" +
+					") VALUES ";		
 			ppgObjects.add(ppg.getName());
 			ppgObjects.add(ppg.getSeason());
 			ppgObjects.add(ppg.getIs_normal());
@@ -334,39 +331,38 @@ public class PlayerDaoImpl implements PlayerDao {
 			ppgObjects.add(ppg.getPts());
 			
 			sqlPerGame = sqlManager.appendSQL(sqlPerGame, 30);
+			sqlPerGame = sqlManager.fillSQL(sqlPerGame);
+			sqlManager.executeUpdateByList(sqlPerGame, ppgObjects);
 		}
-		
-		sqlPerGame = sqlManager.fillSQL(sqlPerGame);
-		sqlManager.executeUpdateByList(sqlPerGame, ppgObjects);
 		sqlManager.releaseConnection();
 	}
 
 	@Override
-	public void insertPlayerAdvanced(List<PlayerStatsAdvanced> list) {
+	public void insertPlayerAdvanced(List<PlayerStatsAdvanced> list) {	
+		System.out.println("Insert Player Advanced : " + list.size());
 		
 		if(list.size()==0)	return;
 		
 		sqlManager.getConnection();
 		
-		List<Object> padvObjects = new ArrayList<Object>();
-		String sqlAdvanced = "INSERT INTO player_advanced (" + 
-				"player_name, "		+ "season, " +
-				"is_normal, "		+ "team_abbr, " +
-				"position, "		+ "num_of_game, " +
-				"minute, " +
-				"per, "				+ "ts_pct, " +
-				"fa3a_per_fga_pct, "+ "fta_per_fga_pct, " +
-				"orb_pct, "			+ "drb_pct, " +
-				"trb_pct, "			+ "ast_pct, " +
-				"stl_pct, "			+ "blk_pct, " +
-				"tov_pct, "			+ "usg_pct, " +
-				"ows, "				+ "dws, " +
-				"ws, "				+ "ws_48, " +
-				"obpm, "			+ "dbpm, " +
-				"bpm, "				+ "vorp" +
-				") VALUES ";
-		
 		for(PlayerStatsAdvanced padv : list){
+			List<Object> padvObjects = new ArrayList<Object>();
+			String sqlAdvanced = "INSERT INTO player_advanced (" + 
+					"player_name, "		+ "season, " +
+					"is_normal, "		+ "team_abbr, " +
+					"position, "		+ "num_of_game, " +
+					"minute, " +
+					"per, "				+ "ts_pct, " +
+					"fa3a_per_fga_pct, "+ "fta_per_fga_pct, " +
+					"orb_pct, "			+ "drb_pct, " +
+					"trb_pct, "			+ "ast_pct, " +
+					"stl_pct, "			+ "blk_pct, " +
+					"tov_pct, "			+ "usg_pct, " +
+					"ows, "				+ "dws, " +
+					"ws, "				+ "ws_48, " +
+					"obpm, "			+ "dbpm, " +
+					"bpm, "				+ "vorp" +
+					") VALUES ";
 			padvObjects.add(padv.getName());
 			padvObjects.add(padv.getSeason());
 			padvObjects.add(padv.getIs_normal());
@@ -396,10 +392,9 @@ public class PlayerDaoImpl implements PlayerDao {
 			padvObjects.add(padv.getVorp());
 			
 			sqlAdvanced = sqlManager.appendSQL(sqlAdvanced, 27);
+			sqlAdvanced = sqlManager.fillSQL(sqlAdvanced);
+			sqlManager.executeUpdateByList(sqlAdvanced, padvObjects);
 		}
-		
-		sqlAdvanced = sqlManager.fillSQL(sqlAdvanced);
-		sqlManager.executeUpdateByList(sqlAdvanced, padvObjects);
 		sqlManager.releaseConnection();
 	}
 

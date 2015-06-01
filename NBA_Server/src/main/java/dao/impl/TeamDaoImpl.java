@@ -160,22 +160,21 @@ public class TeamDaoImpl implements TeamDao {
 	
 	@Override
 	public void insertTeamInfo(List<TeamInfo> list) {
+		System.out.println("Insert Team Info : " + list.size());
 		if(list.size()==0)
 			return;
 		
 		sqlManager.getConnection();
 		
-		List<Object> infoObjects = new ArrayList<Object>();	
-		String sqlInfo = "INSERT INTO team_info (" + 
-				"name, " 			+ 	"abbr, " +
-				"buildup_time, "	+ 	"location, " +
-				"league, "			+ 	"division, " +
-				"record, "			+ 	"playoff, " +
-				"championship"			+ 
-				") VALUES";
-		
 		for(TeamInfo info: list){
-			
+			List<Object> infoObjects = new ArrayList<Object>();	
+			String sqlInfo = "INSERT INTO team_info (" + 
+					"name, " 			+ 	"abbr, " +
+					"buildup_time, "	+ 	"location, " +
+					"league, "			+ 	"division, " +
+					"record, "			+ 	"playoff, " +
+					"championship"			+ 
+					") VALUES";
 			infoObjects.add(info.getName());
 			infoObjects.add(info.getAbbr());
 			infoObjects.add(info.getBuildup_time());
@@ -187,41 +186,40 @@ public class TeamDaoImpl implements TeamDao {
 			infoObjects.add(info.getChampionships());
 			
 			sqlInfo = sqlManager.appendSQL(sqlInfo, 9);
+			sqlInfo = sqlManager.fillSQL(sqlInfo);
+			sqlManager.executeUpdateByList(sqlInfo, infoObjects);
 		}
-		sqlInfo = sqlManager.fillSQL(sqlInfo);
-		sqlManager.executeUpdateByList(sqlInfo, infoObjects);
 		sqlManager.releaseConnection();
 	}
 
 	@Override
 	public void insertTeamTotal(List<TeamStatsTotal> list) {
+		System.out.println("Insert Team Total : " + list.size());
 		if(list.size()==0)
 			return;
 		
 		sqlManager.getConnection();
 		
-		List<Object> totalObjects = new ArrayList<Object>();
-		
-		String sqlTotal = "INSERT INTO team_total (" + 
-				"abbr, " 			+ 	"season, " +
-				"wins, "			+ 	"losses, " +
-				"finish, "			+ 	"age, " +
-				"height, "			+ 	"weight, " +
-				"num_of_game, "		+ 	"minute, " +
-				"fg, "				+	"fga," +
-				"fga_pct, "			+	"fg3," +
-				"fg3a, " 			+	"fg3_pct, " +
-				"fg2," 				+	"fg2a, " +
-				"fg2_pct, "			+ 	"ft, "	+	
-				"fta, " 			+	"ft_pct, " +
-				"orb, " 			+	"drb, " +
-				"trb, " 			+	"ast, " +
-				"stl, " 			+	"blk, " +
-				"tov, " 			+	"pf, " +
-				"pts " +
-				") VALUES";
-		
 		for(TeamStatsTotal tst: list){
+			List<Object> totalObjects = new ArrayList<Object>();			
+			String sqlTotal = "INSERT INTO team_total (" + 
+					"abbr, " 			+ 	"season, " +
+					"wins, "			+ 	"losses, " +
+					"finish, "			+ 	"age, " +
+					"height, "			+ 	"weight, " +
+					"num_of_game, "		+ 	"minute, " +
+					"fg, "				+	"fga," +
+					"fga_pct, "			+	"fg3," +
+					"fg3a, " 			+	"fg3_pct, " +
+					"fg2," 				+	"fg2a, " +
+					"fg2_pct, "			+ 	"ft, "	+	
+					"fta, " 			+	"ft_pct, " +
+					"orb, " 			+	"drb, " +
+					"trb, " 			+	"ast, " +
+					"stl, " 			+	"blk, " +
+					"tov, " 			+	"pf, " +
+					"pts " +
+					") VALUES";
 			totalObjects.add(tst.getAbbr());
 			totalObjects.add(tst.getSeason());
 			totalObjects.add(tst.getWins());
@@ -253,38 +251,38 @@ public class TeamDaoImpl implements TeamDao {
 			totalObjects.add(tst.getTov());
 			totalObjects.add(tst.getPf());
 			totalObjects.add(tst.getPts());
+			
 			sqlTotal = sqlManager.appendSQL(sqlTotal, 31);
+			sqlTotal = sqlManager.fillSQL(sqlTotal);
+			sqlManager.executeUpdateByList(sqlTotal, totalObjects);
 		}
-		sqlTotal = sqlManager.fillSQL(sqlTotal);
-		sqlManager.executeUpdateByList(sqlTotal, totalObjects);
 		sqlManager.releaseConnection();
 	}
 
 	@Override
 	public void insertTeamPerGame(List<TeamStatsPerGame> list) {
+		System.out.println("Insert Team PerGame : " + list.size());
 		if(list.size()==0)
 			return;
 		
 		sqlManager.getConnection();
 		
-		List<Object> pergameObjects = new ArrayList<Object>();
-		
-		String sqlPergame = "INSERT INTO team_per_game (" + 
-				"abbr, " 		+ 	"season, " +
-				"minute, "		+	"fg, "	+	
-				"fga, " 		+	"fga_pct, "	+	
-				"fg3, " 		+	"fg3a, " +	
-				"fg3_pct, " 	+	"fg2, " +	
-				"fg2a, " 		+	"fg2_pct, " 	+ 	
-				"ft, "			+	"fta, " +
-				"ft_pct, "		+	"orb, " +	
-				"drb, " 		+	"trb, " +	
-				"ast, " 		+	"stl, " +	
-				"blk, " 		+	"tov, " +	
-				"pf, " 			+	"pts " +
-				") VALUES";
-		
 		for(TeamStatsPerGame tsp: list){
+			List<Object> pergameObjects = new ArrayList<Object>();		
+			String sqlPergame = "INSERT INTO team_per_game (" + 
+					"abbr, " 		+ 	"season, " +
+					"minute, "		+	"fg, "	+	
+					"fga, " 		+	"fga_pct, "	+	
+					"fg3, " 		+	"fg3a, " +	
+					"fg3_pct, " 	+	"fg2, " +	
+					"fg2a, " 		+	"fg2_pct, " 	+ 	
+					"ft, "			+	"fta, " +
+					"ft_pct, "		+	"orb, " +	
+					"drb, " 		+	"trb, " +	
+					"ast, " 		+	"stl, " +	
+					"blk, " 		+	"tov, " +	
+					"pf, " 			+	"pts " +
+					") VALUES";
 			pergameObjects.add(tsp.getAbbr());
 			pergameObjects.add(tsp.getSeason());
 			pergameObjects.add(tsp.getMinute());
@@ -310,36 +308,34 @@ public class TeamDaoImpl implements TeamDao {
 			pergameObjects.add(tsp.getPf());
 			pergameObjects.add(tsp.getPts());
 			sqlPergame = sqlManager.appendSQL(sqlPergame, 24);
+			sqlPergame = sqlManager.fillSQL(sqlPergame);
+			sqlManager.executeUpdateByList(sqlPergame, pergameObjects);
 		}
-		sqlPergame = sqlManager.fillSQL(sqlPergame);
-		sqlManager.executeUpdateByList(sqlPergame, pergameObjects);
 		sqlManager.releaseConnection();
 	}
 
 	@Override
 	public void insertTeamAdvanced(List<TeamStatsAdvanced> list) {
+		System.out.println("Insert Team Advanced : " + list.size());
 		if(list.size()==0)
 			return;
 		
-		sqlManager.getConnection();
-		
-		List<Object> advObjects = new ArrayList<Object>();
-		
-		String sqlAdv = "INSERT INTO team_advanced (" + 
-				"abbr, " 				+ 	"season, " +
-				"pw, "					+	"pl, " 	+	
-				"mov, "					+	"sos, " +	
-				"srs, " 				+	"off_rtg, " 	+	
-				"def_rtg, " 			+	"pace," +	
-				"fta_per_fga_pct, " 	+ 	"fg3a_per_fga_pct, "	+	
-				"off_efg_pct, " 		+	"off_tov_pct, "	+	
-				"orb_pct, " 			+	"off_ft_rate, " 	+	
-				"opp_efg_pct, " 		+	"opp_tov_pct, " +	
-				"drb_pct, " 			+	"opp_ft_rate, " 	+	
-				"arena, "				+	"attendance" +	
-				") VALUES";
-		
+		sqlManager.getConnection();		
 		for(TeamStatsAdvanced tadv: list){
+			List<Object> advObjects = new ArrayList<Object>();		
+			String sqlAdv = "INSERT INTO team_advanced (" + 
+					"abbr, " 				+ 	"season, " +
+					"pw, "					+	"pl, " 	+	
+					"mov, "					+	"sos, " +	
+					"srs, " 				+	"off_rtg, " 	+	
+					"def_rtg, " 			+	"pace," +	
+					"fta_per_fga_pct, " 	+ 	"fg3a_per_fga_pct, "	+	
+					"off_efg_pct, " 		+	"off_tov_pct, "	+	
+					"orb_pct, " 			+	"off_ft_rate, " 	+	
+					"opp_efg_pct, " 		+	"opp_tov_pct, " +	
+					"drb_pct, " 			+	"opp_ft_rate, " 	+	
+					"arena, "				+	"attendance" +	
+					") VALUES";
 			advObjects.add(tadv.getAbbr());
 			advObjects.add(tadv.getSeason());
 			advObjects.add(tadv.getPw());
@@ -362,39 +358,39 @@ public class TeamDaoImpl implements TeamDao {
 			advObjects.add(tadv.getOff_ft_rate());
 			advObjects.add(tadv.getArena());
 			advObjects.add(tadv.getAttendance());
+			
 			sqlAdv = sqlManager.appendSQL(sqlAdv, 22);
+			sqlAdv = sqlManager.fillSQL(sqlAdv);
+			sqlManager.executeUpdateByList(sqlAdv, advObjects);
 		}
-		sqlAdv = sqlManager.fillSQL(sqlAdv);
-		sqlManager.executeUpdateByList(sqlAdv, advObjects);
 		sqlManager.releaseConnection();
 	}
 
 	@Override
 	public void insertTeamOppTotal(List<OpponentStatsTotal> list) {
+		System.out.println("Insert Team_Opp Total : " + list.size());
 		if(list.size()==0)
 			return;
 		
 		sqlManager.getConnection();
-		
-		List<Object> optObjects = new ArrayList<Object>();
-		
-		String sqlOpt = "INSERT INTO team_opp_total (" + 
-				"abbr, " 			+ 	"season, " +
-				"num_of_game, " 	+
-				"minute, "			+	"fg, "	+	
-				"fga, " 			+	"fga_pct, "	+	
-				"fg3, " 			+	"fg3a, " +	
-				"fg3_pct, " 		+	"fg2, " +	
-				"fg2a, " 			+	"fg2_pct, " 	+ 	
-				"ft, "				+	"fta, " +
-				"ft_pct, "			+	"orb, " +	
-				"drb, " 			+	"trb, " +	
-				"ast, " 			+	"stl, " +	
-				"blk, " 			+	"tov, " +	
-				"pf, " 				+	"pts " +
-				") VALUES";
-		
-		for(OpponentStatsTotal opt: list){
+
+		for(OpponentStatsTotal opt: list){			
+			List<Object> optObjects = new ArrayList<Object>();		
+			String sqlOpt = "INSERT INTO team_opp_total (" + 
+					"abbr, " 			+ 	"season, " +
+					"num_of_game, " 	+
+					"minute, "			+	"fg, "	+	
+					"fga, " 			+	"fga_pct, "	+	
+					"fg3, " 			+	"fg3a, " +	
+					"fg3_pct, " 		+	"fg2, " +	
+					"fg2a, " 			+	"fg2_pct, " 	+ 	
+					"ft, "				+	"fta, " +
+					"ft_pct, "			+	"orb, " +	
+					"drb, " 			+	"trb, " +	
+					"ast, " 			+	"stl, " +	
+					"blk, " 			+	"tov, " +	
+					"pf, " 				+	"pts " +
+					") VALUES";
 			optObjects.add(opt.getAbbr());
 			optObjects.add(opt.getSeason());
 			optObjects.add(opt.getNum_of_game());
@@ -420,38 +416,38 @@ public class TeamDaoImpl implements TeamDao {
 			optObjects.add(opt.getTov());
 			optObjects.add(opt.getPf());
 			optObjects.add(opt.getPts());
+			
 			sqlOpt = sqlManager.appendSQL(sqlOpt, 25);
+			sqlOpt = sqlManager.fillSQL(sqlOpt);
+			sqlManager.executeUpdateByList(sqlOpt, optObjects);
 		}
-		sqlOpt = sqlManager.fillSQL(sqlOpt);
-		sqlManager.executeUpdateByList(sqlOpt, optObjects);
 		sqlManager.releaseConnection();
 	}
 
 	@Override
 	public void insertTeamOppPerGame(List<OpponentStatsPerGame> list) {
+		System.out.println("Insert Team_Opp PerGame : " + list.size());
 		if(list.size()==0)
 			return;
 		
 		sqlManager.getConnection();
-		
-		List<Object> opgObjects = new ArrayList<Object>();
-		
-		String sqlOpg = "INSERT INTO team_opp_per_game (" + 
-				"abbr, " 		+ 	"season, " +
-				"minute, "		+	"fg, "	+	
-				"fga, " 			+	"fga_pct, "	+	
-				"fg3, " 			+	"fg3a, " +	
-				"fg3_pct, " 		+	"fg2, " +	
-				"fg2a, " 		+	"fg2_pct, " 	+ 	
-				"ft, "			+	"fta, " +
-				"ft_pct, "		+	"orb, " +	
-				"drb, " 		+	"trb, " +	
-				"ast, " 		+	"stl, " +	
-				"blk, " 		+	"tov, " +	
-				"pf, " 			+	"pts " +
-				") VALUES";
-		
+	
 		for(OpponentStatsPerGame tst: list){
+			List<Object> opgObjects = new ArrayList<Object>();	
+			String sqlOpg = "INSERT INTO team_opp_per_game (" + 
+					"abbr, " 		+ 	"season, " +
+					"minute, "		+	"fg, "	+	
+					"fga, " 			+	"fga_pct, "	+	
+					"fg3, " 			+	"fg3a, " +	
+					"fg3_pct, " 		+	"fg2, " +	
+					"fg2a, " 		+	"fg2_pct, " 	+ 	
+					"ft, "			+	"fta, " +
+					"ft_pct, "		+	"orb, " +	
+					"drb, " 		+	"trb, " +	
+					"ast, " 		+	"stl, " +	
+					"blk, " 		+	"tov, " +	
+					"pf, " 			+	"pts " +
+					") VALUES";
 			opgObjects.add(tst.getAbbr());
 			opgObjects.add(tst.getSeason());
 			opgObjects.add(tst.getMinute());
@@ -476,10 +472,11 @@ public class TeamDaoImpl implements TeamDao {
 			opgObjects.add(tst.getTov());
 			opgObjects.add(tst.getPf());
 			opgObjects.add(tst.getPts());
+			
 			sqlOpg = sqlManager.appendSQL(sqlOpg, 24);
+			sqlOpg = sqlManager.fillSQL(sqlOpg);
+			sqlManager.executeUpdateByList(sqlOpg, opgObjects);
 		}
-		sqlOpg = sqlManager.fillSQL(sqlOpg);
-		sqlManager.executeUpdateByList(sqlOpg, opgObjects);
 		sqlManager.releaseConnection();
 	}
 

@@ -89,6 +89,8 @@ public class MatchDaoImpl implements MatchDao {
 
 	@Override
 	public void insertMatch(List<Match> list) {
+		System.out.println("Insert Match: " + list.size());
+		
 		if(list.size()==0)	return;
 		
 		sqlManager.getConnection();
