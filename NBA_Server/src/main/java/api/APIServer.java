@@ -56,9 +56,9 @@ public class APIServer implements Runnable {
     public String handleGet(String str) {
         String request = str.split(" ")[1];
         String response = null;
-        if (request.startsWith("/?")) {
+        if (request.startsWith("/")) {
             // TODO
-            
+            response = request;
         } else {
             response = "APIs for NBA made by Deworm.";
         }

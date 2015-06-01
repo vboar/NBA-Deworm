@@ -1,0 +1,28 @@
+/match
+/team
+/player
+
+/match?id=201410280LAL-HOU
+[optional basic=1 advanced=1]
+
+/match?season=2014-2015
+/match?season=2014-2015&regular=1
+/match?season=2014-2015&team=HOU
+/match?season=2014-2015&team=HOU&regular=1
+/match?season=2014-2015&team=HOU&home=1
+/match?season=2014-2015&team=HOU&regular=1&home=1
+/match?season=2014-2015&player=Patrick Beverley
+/match?season=2014-2015&player=Patrick Beverley&regular=1
+[optional: limit=100 order=date/time&desc=1]
+
+/team/season
+/team?name=Detroit Pistons
+/team?abbr=HOU
+[optional season=2014-2015 total=1 pergame=1 advanced=1 opptotal=1 opppergame=1]
+
+/player/season
+/player?name=Patrick Beverley
+[optional season=2014-2015 total=1 pergame=1 advanced=1 salary=1]
+/player?team=HOU&season=2014-2015
+
+
