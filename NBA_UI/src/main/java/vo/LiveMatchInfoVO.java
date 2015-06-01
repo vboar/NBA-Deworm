@@ -16,6 +16,8 @@ public class LiveMatchInfoVO {
 
     public String time;
 
+    public String matchType;
+
     public String homeTeam;
 
     public String guestTeam;

@@ -37,6 +37,6 @@ public interface LiveService {
      * @param matchId
      * @return
      */
-    public List<LiveMsgVO> getAllMsg(String matchId);
+    public List<LiveMsgVO> getMsg(String matchId);
 
 }
