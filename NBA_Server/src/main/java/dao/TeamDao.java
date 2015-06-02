@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import vo.TeamFilter;
 import entity.OpponentStatsPerGame;
 import entity.OpponentStatsTotal;
 import entity.TeamInfo;
@@ -63,6 +64,20 @@ public interface TeamDao {
 	 * @param abbr 队名缩写
 	 */
 	public List<OpponentStatsPerGame> getTeamOppPerGameByAbbr(String abbr);
+	
+	/**
+	 * 多项条件筛选球队总数据
+	 * @param filter
+	 * @return
+	 */
+	public List<TeamStatsTotal> getTeamTotalByFilter(TeamFilter filter);
+	
+	/**
+	 * 多项条件筛选球队场均数据
+	 * @param filter
+	 * @return
+	 */
+	public List<TeamStatsPerGame> getTeamPerGameByFilter(TeamFilter filter);
 	
 	/**
 	 * 插入球队基本信息

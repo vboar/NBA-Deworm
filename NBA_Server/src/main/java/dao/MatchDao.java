@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import vo.MatchFilter;
 import entity.Match;
 import entity.MatchInfo;
 import entity.MatchPlayerAdvanced;
@@ -35,6 +36,13 @@ public interface MatchDao {
 	 * @return
 	 */
 	public List<MatchInfo> getMatchInfoByDate(String begin, String end);
+	
+	/**
+	 * 多项条件筛选比赛信息
+	 * @param filter
+	 * @return
+	 */
+	public List<MatchInfo> getMatchInfoByFilter(MatchFilter filter);
 	
 	/**
 	 * 获得单场比赛中一支球队的球员高阶数据

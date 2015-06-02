@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import vo.PlayerFilter;
 import entity.PlayerInfo;
 import entity.PlayerSalary;
 import entity.PlayerStatsAdvanced;
@@ -76,6 +77,34 @@ public interface PlayerDao {
 	 * @return
 	 */
 	public List<PlayerStatsAdvanced> getPlayerAdvancedBySeason(String season);
+	
+	/**
+	 * 多项条件筛选球员场均数据
+	 * @param filter
+	 * @return
+	 */
+	public List<PlayerStatsPerGame> getPlayerPerGameByFilter(PlayerFilter filter);
+	
+	/**
+	 * 多项条件筛选球员总数据
+	 * @param filter
+	 * @return
+	 */
+	public List<PlayerStatsTotal> getPlayerTotalByFilter(PlayerFilter filter);
+	
+	/**
+	 * 多项条件筛选球员高阶数据
+	 * @param filter
+	 * @return
+	 */
+	public List<PlayerStatsAdvanced> getPlayerAdvancedByFilter(PlayerFilter filter);
+	
+	/**
+	 * 获取某个球队某赛季的签约球员
+	 * @param season 赛季，如果为null则为所有赛季
+	 * @param abbr 球队缩写
+	 */
+	public List<PlayerInfo> getTeamPlayerBySeason(String season, String abbr);
 	
 	/**
 	 * 插入球员基本信息

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import util.Utility;
+import vo.MatchFilter;
 import dao.MatchDao;
 import entity.Match;
 import entity.MatchInfo;
@@ -376,6 +377,13 @@ public class MatchDaoImpl implements MatchDao {
 		mpb.setPts(Utility.objectToInt(map.get("pts")));
 		mpb.setPlus_minus(Utility.objectToDouble(map.get("plus_minus")));
 		return mpb;
+	}
+
+	@Override
+	public List<MatchInfo> getMatchInfoByFilter(MatchFilter filter) {
+		List<MatchInfo> list = new ArrayList<MatchInfo>();
+		// TODO 多个条件筛选比赛信息
+		return list;
 	}
 	
 }

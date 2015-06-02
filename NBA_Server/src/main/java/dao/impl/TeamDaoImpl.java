@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import util.Utility;
+import vo.TeamFilter;
 import dao.TeamDao;
 import entity.OpponentStatsPerGame;
 import entity.OpponentStatsTotal;
@@ -155,6 +156,119 @@ public class TeamDaoImpl implements TeamDao {
 		}
 		sqlManager.releaseAll();
 		
+		return list;
+	}
+
+	@Override
+	public List<TeamStatsTotal> getTeamTotalByFilter(TeamFilter filter) {
+		sqlManager.getConnection();
+		List<TeamStatsTotal> list = new ArrayList<TeamStatsTotal>();
+		String sql = "SELECT tt.abbr, " +
+        		"season, " +
+        		"wins," +
+        		"losses," +
+        		"finish," +
+        		"age," +
+        		"height," +
+        		"weight," +
+        		"num_of_game," +
+        		"minute," +
+        		"fg," +
+        		"fga," +
+        		"fga_pct," +
+        		"fg3," +
+        		"fg3a," +
+        		"fg3_pct," +
+        		"fg2," +
+        		"fg2a," +
+        		"fg2_pct," +
+        		"ft," +
+        		"fta," +
+        		"ft_pct," +
+        		"orb," +
+        		"drb," +
+        		"trb," +
+        		"ast," +
+        		"stl," +
+        		"blk," +
+        		"tov," +
+        		"pf," +
+        		"pts " +
+        		"FROM team_total as tt, team_info as ti "
+        		+ "WHERE tt.abbr = ti.abbr "
+        		+ "AND season=? ";
+		List<Object> objects = new ArrayList<Object>();
+		objects.add(filter.season);
+        if (filter.league != null) {
+            if (filter.league.equalsIgnoreCase("W")) {
+                sql += " AND ti.league='W' ";
+            } else {
+                sql += " AND ti.league='E' ";
+            }
+        }
+		if(filter.division!=null){
+			sql += " AND ti.division=? ";
+			objects.add(filter.division);
+		}
+		sql += " ORDER BY tt.abbr";
+        List<Map<String, Object>> mapList = sqlManager.queryMultiByList(sql, objects);
+        for (Map<String, Object> map: mapList) {
+            list.add(getTeamTotal(map));
+        }
+		sqlManager.releaseAll();
+		return list;
+	}
+
+	@Override
+	public List<TeamStatsPerGame> getTeamPerGameByFilter(TeamFilter filter) {
+		sqlManager.getConnection();
+		List<TeamStatsPerGame> list = new ArrayList<TeamStatsPerGame>();
+		String sql = "SELECT tp.abbr, " +
+        		"season, " +
+        		"minute," +
+        		"fg," +
+        		"fga," +
+        		"fga_pct," +
+        		"fg3," +
+        		"fg3a," +
+        		"fg3_pct," +
+        		"fg2," +
+        		"fg2a," +
+        		"fg2_pct," +
+        		"ft," +
+        		"fta," +
+        		"ft_pct," +
+        		"orb," +
+        		"drb," +
+        		"trb," +
+        		"ast," +
+        		"stl," +
+        		"blk," +
+        		"tov," +
+        		"pf," +
+        		"pts " +
+        		"FROM team_per_game as tp, team_info as ti "
+        		+ "WHERE tp.abbr = ti.abbr "
+        		+ "AND season=? ";
+		List<Object> objects = new ArrayList<Object>();
+		objects.add(filter.season);
+        if (filter.league != null) {
+            if (filter.league.equalsIgnoreCase("W")) {
+                sql += " AND ti.league='W' ";
+            } else {
+                sql += " AND ti.league='E' ";
+            }
+        }
+		if(filter.division!=null){
+			sql += " AND ti.division=? ";
+			objects.add(filter.division);
+		}
+		sql += " ORDER BY tp.abbr";
+        List<Map<String, Object>> mapList = sqlManager.queryMultiByList(sql, objects);
+        for (Map<String, Object> map: mapList) {
+            list.add(getTeamPerGame(map));
+        }
+		sqlManager.releaseAll();
 		return list;
 	}
 	
