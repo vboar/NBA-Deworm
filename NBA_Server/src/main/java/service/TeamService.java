@@ -4,6 +4,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import vo.TeamInfoVO;
 import vo.TeamOppPerGameVO;
 import vo.TeamOppTotalVO;
@@ -16,6 +18,21 @@ import vo.TeamTotalVO;
  * created by JaneLDQ on 2015年5月31日 下午6:31:24
  */
 public interface TeamService extends Remote{
+	
+	/**
+	 * 获得全部球队队徽
+	 * @return
+	 * @throws RemoteException
+	 */
+	public List<ImageIcon> getAllTeamLogo() throws RemoteException;
+	
+	/**
+	 * 根据球队缩写获得队徽
+	 * @param abbr
+	 * @return
+	 * @throws RemoteException
+	 */
+	public ImageIcon getTeamLogoByAbbr(String abbr) throws RemoteException;
 
 	/**
 	 * 获得全部球队基本信息

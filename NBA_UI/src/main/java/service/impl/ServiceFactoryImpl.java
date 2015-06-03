@@ -8,6 +8,10 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Properties;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import service.CommonService;
 import service.MatchService;
 import service.PlayerService;
@@ -37,6 +41,20 @@ public class ServiceFactoryImpl extends UnicastRemoteObject implements ServiceFa
 	 * 默认端口
 	 */
 	public static String port = null;
+	
+	// TODO ------- SrviceFactoryImpl main test------------------
+	public static void main(String[] args) {
+		try {
+			ImageIcon icon = ServiceFactoryImpl.getInstance().getTeamService().getTeamLogoByAbbr("ATL");
+			JLabel jl = new JLabel(icon);
+			JFrame jf = new JFrame();
+			jf.setSize(400, 400);
+			jf.getContentPane().add(jl);
+			jf.setVisible(true);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
 	
     static{
     	Properties prop = new Properties();

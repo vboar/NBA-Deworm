@@ -4,6 +4,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import service.PlayerService;
 import vo.PlayerAdvancedVO;
 import vo.PlayerInfoVO;
@@ -64,6 +66,18 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 	}
 
 	public List<PlayerAdvancedVO> getPlayerAdvancedBySeason(String season)
+			throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public List<ImageIcon> getPlayerPortraitByNameList(List<String> names)
+			throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public ImageIcon getPlayerPortraitByName(String name)
 			throws RemoteException {
 		return null;
 	}

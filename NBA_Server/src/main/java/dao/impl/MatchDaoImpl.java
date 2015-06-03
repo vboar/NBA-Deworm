@@ -21,6 +21,76 @@ public class MatchDaoImpl implements MatchDao {
 
 	private SqlManager sqlManager = SqlManager.getSqlManager();	
 
+	// TODO -------- MatchDao main test ---------------------------
+	public static void main(String[] args) {
+		MatchDao mdao = DaoFactoryImpl.getDaoFactory().getMatchDao();
+		MatchFilter mf = new MatchFilter();
+		mf.season = "13-14";
+		mf.begin_date = "2014-01-01";
+		mf.end_date = "2014-01-10";
+		mf.player = "Aaron Brooks";
+		List<MatchInfo> list = mdao.getMatchInfoByFilter(mf);
+		System.out.println(list.size());
+		for(MatchInfo info : list){
+			System.out.println(""+info.getGame_id());
+		}
+	}
+	
+	@Override
+	public List<MatchInfo> getMatchInfoByFilter(MatchFilter filter) {
+		sqlManager.getConnection();
+		List<MatchInfo> list = new ArrayList<MatchInfo>();
+		// TODO 多个条件筛选比赛信息
+		String sql = "SELECT a.game_id, "
+				+ "season, "
+				+ "is_normal, "
+				+ "date, "
+				+ "location, "
+				+ "home_team, "
+				+ "guest_team, "
+				+ "home_point, "
+				+ "guest_point, "
+				+ "time "
+				+ " FROM match_info a, match_player_basic b "
+				+ "WHERE a.game_id = b.game_id "
+				+ "AND season=? ";
+		List<Object> objects = new ArrayList<Object>();
+		objects.add(filter.season);
+		if(filter.regular != null){
+			sql += "AND is_normal=" + filter.regular; 
+		}
+		if(filter.team != null){
+			if(filter.home == null){
+				sql += " AND game_id LIKE '%'" + filter.team + "'%'";
+			}else{
+				if(filter.home){
+				sql += " AND home_team=? ";
+				}else{
+					sql += " AND guest_team=? ";
+				}
+				objects.add(filter.team);
+			}
+		}
+		if(filter.begin_date != null){
+			sql += " AND date >= ?";
+			objects.add(filter.begin_date);
+		}
+		if(filter.end_date != null){
+			sql += " AND date <= ?";
+			objects.add(filter.end_date);
+		}
+		if(filter.player != null){
+			sql += " AND b.player_name=? ";
+			objects.add(filter.player);
+		}
+		List<Map<String, Object>> maplist = sqlManager.queryMultiByList(sql, objects);
+		for(Map<String, Object> map: maplist){
+			list.add(getMatchInfo(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+	
 	@Override
 	public List<MatchInfo> getRegularMatchInfoBySeason(String season) {
 		sqlManager.getConnection();
@@ -377,13 +447,6 @@ public class MatchDaoImpl implements MatchDao {
 		mpb.setPts(Utility.objectToInt(map.get("pts")));
 		mpb.setPlus_minus(Utility.objectToDouble(map.get("plus_minus")));
 		return mpb;
-	}
-
-	@Override
-	public List<MatchInfo> getMatchInfoByFilter(MatchFilter filter) {
-		List<MatchInfo> list = new ArrayList<MatchInfo>();
-		// TODO 多个条件筛选比赛信息
-		return list;
 	}
 	
 }

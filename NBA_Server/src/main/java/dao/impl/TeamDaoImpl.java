@@ -1,8 +1,13 @@
 package dao.impl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import util.Utility;
 import vo.TeamFilter;
@@ -22,6 +27,39 @@ import entity.TeamStatsTotal;
 public class TeamDaoImpl implements TeamDao {
 
 	private SqlManager sqlManager = SqlManager.getSqlManager();	
+	
+	// TODO -------- TeamDao main test--------------
+	public static void main(String[] args) {
+		TeamDao tdao = DaoFactoryImpl.getDaoFactory().getTeamDao();
+		ImageIcon icon  = tdao.getTeamLogoByAbbr("ATL");
+		JLabel jl = new JLabel(icon);
+		JFrame jf = new JFrame();
+		jf.setSize(400, 400);
+		jf.getContentPane().add(jl);
+		jf.setVisible(true);
+	}
+	
+	@Override
+	public List<ImageIcon> getAllTeamLogo() {
+		List<ImageIcon> list = new ArrayList<ImageIcon>();
+		String path = FileManager.DATA_PATH + "/teams/logo/";
+		File f = new File(path);
+		String[] logos = f.list();
+		for(String team: logos){
+			ImageIcon lg = new ImageIcon(path+team);
+			lg.setDescription(team.substring(0,3));
+			list.add(lg);
+		}
+		return list;
+	}
+	
+	@Override
+	public ImageIcon getTeamLogoByAbbr(String abbr) {
+		String path = FileManager.DATA_PATH + "/teams/logo/"+abbr+".png";
+		ImageIcon icon = new ImageIcon(path);
+		icon.setDescription(abbr);
+		return icon;
+	}
 	
 	@Override
 	public List<TeamInfo> getAllTeamInfo() {
@@ -745,5 +783,5 @@ public class TeamDaoImpl implements TeamDao {
 		osp.setPts(Utility.objectToDouble(map.get("pts")));		
 		return osp;
 	}
-	
+
 }

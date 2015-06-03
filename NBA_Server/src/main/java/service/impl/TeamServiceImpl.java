@@ -5,6 +5,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import service.TeamService;
 import vo.TeamInfoVO;
 import vo.TeamOppPerGameVO;
@@ -33,6 +35,16 @@ public class TeamServiceImpl extends UnicastRemoteObject implements TeamService 
 	public TeamServiceImpl() throws RemoteException {
 		super();
 		tdao = DaoFactoryImpl.getDaoFactory().getTeamDao();
+	}
+
+	@Override
+	public List<ImageIcon> getAllTeamLogo() throws RemoteException {
+		return tdao.getAllTeamLogo();
+	}
+
+	@Override
+	public ImageIcon getTeamLogoByAbbr(String abbr) throws RemoteException {
+		return tdao.getTeamLogoByAbbr(abbr);
 	}
 	
 	@Override

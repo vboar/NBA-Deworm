@@ -4,6 +4,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import vo.PlayerAdvancedVO;
 import vo.PlayerInfoVO;
 import vo.PlayerPerGameVO;
@@ -17,6 +19,20 @@ import vo.PlayerTotalVO;
  */
 public interface PlayerService extends Remote{
 
+	/**
+	 * 获得一列球员头像
+	 * @param names 球员名字列表
+	 * @return
+	 */
+	public List<ImageIcon> getPlayerPortraitByNameList(List<String> names) throws RemoteException;
+	
+	/**
+	 * 获得单个球员头像
+	 * @param name 球员姓名
+	 * @return
+	 */
+	public ImageIcon getPlayerPortraitByName(String name) throws RemoteException;
+	
 	/**
 	 * 根据名字首字母获得球员信息
 	 * @param initial 首字母A-Z

@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 import util.Utility;
 import vo.PlayerFilter;
 import dao.PlayerDao;
@@ -22,6 +26,49 @@ public class PlayerDaoImpl implements PlayerDao {
 
 	private SqlManager sqlManager = SqlManager.getSqlManager();
 
+	// TODO -------- PlayerDao main test-----------------------
+	public static void main(String[] args) {
+		PlayerDao pdao = DaoFactoryImpl.getDaoFactory().getPlayerDao();
+		List<String> nl = new ArrayList<String>();
+		nl.add("Aaron Brooks");
+		nl.add("Alex Len");
+		List<ImageIcon> icons = pdao.getPlayerPortraitByNameList(nl);
+		for(ImageIcon icon:icons){
+			JLabel jl = new JLabel(icon);
+			JFrame jf = new JFrame();
+			jf.setSize(400, 400);
+			jf.getContentPane().add(jl);
+			jf.setVisible(true);
+		}
+	}
+	
+	@Override
+	public List<ImageIcon> getPlayerPortraitByNameList(List<String> names) {
+		List<ImageIcon> list = new ArrayList<ImageIcon>();
+		String now_pic = FileManager.DATA_PATH + "/players/now_pic/";
+		String pic = FileManager.DATA_PATH + "/players/pic/";
+		for(String p: names){
+			ImageIcon lg = new ImageIcon(now_pic+p+".png");
+			if(lg.getImage()==null){
+				lg = new ImageIcon(pic+p+".png");
+			}
+			lg.setDescription(p.split(",")[0]);
+			list.add(lg);
+		}
+		return list;
+	}
+
+	@Override
+	public ImageIcon getPlayerPortraitByName(String name) {
+		String now_pic = FileManager.DATA_PATH + "/players/now_pic/"+name+".png";
+		String pic = FileManager.DATA_PATH + "/players/pic/"+name+".png";
+		ImageIcon icon = new ImageIcon(now_pic);
+		if(icon.getImage()==null)
+			icon = new ImageIcon(pic);
+		icon.setDescription(name);
+		return icon;
+	}
+	
 	@Override
 	public List<PlayerInfo> getPlayerInfoByNameInitial(String initial) {
         sqlManager.getConnection();

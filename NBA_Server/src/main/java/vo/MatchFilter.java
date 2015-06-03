@@ -13,6 +13,11 @@ public class MatchFilter {
 	public String season;
 	
 	/**
+	 * 常规赛/季后赛  = 1/0
+	 */
+	public Integer regular;
+	
+	/**
 	 * 参赛队伍
 	 */
 	public String team;

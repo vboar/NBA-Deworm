@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import vo.TeamFilter;
 import entity.OpponentStatsPerGame;
 import entity.OpponentStatsTotal;
@@ -11,6 +13,16 @@ import entity.TeamStatsPerGame;
 import entity.TeamStatsTotal;
 
 public interface TeamDao {
+	
+	/**
+	 * 获得全部球队队徽
+	 */
+	public List<ImageIcon> getAllTeamLogo();
+	
+	/*
+	 * 根据缩写获得队徽 
+	 */
+	public ImageIcon getTeamLogoByAbbr(String abbr);
 	
 	/**
 	 * 获得球队基本信息

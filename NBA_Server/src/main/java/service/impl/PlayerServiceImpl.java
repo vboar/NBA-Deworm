@@ -5,6 +5,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import service.PlayerService;
 import vo.PlayerAdvancedVO;
 import vo.PlayerInfoVO;
@@ -34,7 +36,17 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		super();
 		pdao = DaoFactoryImpl.getDaoFactory().getPlayerDao();
 	}
+	
+	@Override
+	public List<ImageIcon> getPlayerPortraitByNameList(List<String> names) throws RemoteException{
+		return pdao.getPlayerPortraitByNameList(names);
+	}
 
+	@Override
+	public ImageIcon getPlayerPortraitByName(String name) throws RemoteException{
+		return pdao.getPlayerPortraitByName(name);
+	}
+	
 	@Override
 	public List<PlayerInfoVO> getPlayerInfoByNameInitial(String initial)
 			throws RemoteException {
