@@ -84,4 +84,10 @@ public abstract class TablePanel extends JPanel{
 	public String[] getColumnNames() {
 		return columnNames;
 	}
+
+	public RowTableScrollPane getRollpane() {
+		return rollpane;
+	}
+	
+	
 }

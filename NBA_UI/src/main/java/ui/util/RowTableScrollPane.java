@@ -48,4 +48,6 @@ public class RowTableScrollPane extends JScrollPane implements PropertyChangeLis
 		this.rowHeader.setPreferredScrollableViewportSize(new Dimension(width,0));
 	}
 
+	
+	
 }

@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -14,13 +13,13 @@ import javax.swing.JPanel;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
+import ui.live.LivePanel;
 import ui.match.MatchNav;
 import ui.player.PlayerNav;
 import ui.player.PlayerPanel;
 import ui.team.TeamNav;
 import ui.team.TeamPanel;
 import ui.util.MyButton;
-import ui.util.MyLabel;
 
 public class MotherPanel extends JPanel {
 
@@ -41,6 +40,8 @@ public class MotherPanel extends JPanel {
 	public MatchNav matchnav;
 	public PlayerPanel playerPanel;
 	public TeamPanel teamPanel;
+	
+	public LivePanel livePanel;
 	
 	int show = 0;
 	
@@ -93,12 +94,19 @@ public class MotherPanel extends JPanel {
 			matchnav.setVisible(false);
 		}
 		
+		livePanel = new LivePanel(frame);
+		if(panel!=4){
+			livePanel.setVisible(false);
+		}
+
+		
 		add(dropdown);
 		add(playernav);
 		add(teamnav);
 		add(matchnav);
 		add(playerPanel);
 		add(teamPanel);
+		add(livePanel);
 
 	}
 	
