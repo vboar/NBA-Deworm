@@ -1,11 +1,10 @@
 package ui.player;
 
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import ui.config.PanelConfig;
@@ -23,6 +22,8 @@ public class PlayerPanel extends JPanel {
 	
 	private PlayerAllTablePane table;
 	public PlayerFilter playerfilter;
+	
+	private JFrame coverFrame;
 	
 	private MyTab stat;
 	
@@ -52,12 +53,18 @@ public class PlayerPanel extends JPanel {
 		initButtons();
 		initLabels();
 		initTab();
+		coverFrame = new JFrame();
+		coverFrame.setBounds(457,221,690, 260);
+		coverFrame.setUndecorated(true);
+		coverFrame.add(playerfilter);
+			
 	}
 	
 	private void initPanel(){
 		playerfilter = new PlayerFilter(frame);
 		playerfilter.setVisible(false);
-		add(playerfilter);
+		add(playerfilter);	
+		
 	}
 	
 	//table的内容
@@ -94,11 +101,16 @@ public class PlayerPanel extends JPanel {
 			
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				
 				if(playerfilter.isVisible() == false){
 					playerfilter.setFocusable(true);
+					coverFrame.setVisible(true);
+					
 					playerfilter.setVisible(true);
+					coverFrame.setVisible(true);
 					}else{
 						playerfilter.setVisible(false);
+						coverFrame.setVisible(false);
 						
 					}
 				
@@ -131,5 +143,6 @@ public class PlayerPanel extends JPanel {
 	public void filter(){
 		setting.setIcon(new ImageIcon(pcfg.getButtons().element("setting").attributeValue("path")));
 		playerfilter.setVisible(false);
+		coverFrame.setVisible(false);
 	}
 }

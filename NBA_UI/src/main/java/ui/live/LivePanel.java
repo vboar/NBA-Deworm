@@ -18,7 +18,18 @@ public class LivePanel extends JPanel {
 	private Image bg;
 	
 	private MyLabel score1;
+	private MyLabel score2;
+	private MyLabel team1;
+	private MyLabel team2;
+	private MyLabel img1;
+	private MyLabel img2;
+	
 	private MessageTablePane table;
+	
+	private String team1Str;
+	private String team2Str;
+	private String path1;
+	private String path2;
 
 	public static boolean islive = true;
 	public LivePanel(HomeUI frame){
@@ -42,8 +53,26 @@ public class LivePanel extends JPanel {
 	}
 	
 	private void initLabels(){
-		score1 = new MyLabel(pcfg.getLabels().element("score1"));
+		team1Str = "骑士";
+		team2Str = "勇士";
+		path1 = "img/team/final/CLE.png";
+		path2 = "img/team/final/GSW.png";
+		score1 = new MyLabel("0",pcfg.getLabels().element("score1"));
 		add(score1);
+		
+		score2 = new MyLabel("0",pcfg.getLabels().element("score2"));
+		add(score2);
+		
+		team1 = new MyLabel(team1Str,pcfg.getLabels().element("team1"));
+		add(team1);
+		team2 = new MyLabel(team2Str,pcfg.getLabels().element("team2"));
+		add(team2);
+		
+		img1 = new MyLabel(pcfg.getLabels().element("img1"),path1,0);
+		add(img1);
+		img2 = new MyLabel(pcfg.getLabels().element("img2"),path2,0);
+		add(img2);
+		
 	}
 	
 	private void initTable(){

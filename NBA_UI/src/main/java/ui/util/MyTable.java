@@ -36,6 +36,7 @@ public class MyTable extends JTable {
 		this.getTableHeader().setForeground(Color.WHITE);
 		this.getTableHeader().setBackground(new Color(0xB0,0xC4,0xDE));
 		//this.getTableHeader().setBorder(BorderFactory.createLineBorder(new Color(164,174,185)));
+		
 		this.getTableHeader().setLayout(null);
 
 		//this.setShowGrid(false);

@@ -182,15 +182,15 @@
 			<score2 text="hh" w="103" h="60" x="30" y="0" />
 			<team1  text="hh" w="103" h="60" x="60" y="0" />
 			<team2  text="hh" w="103" h="60" x="90" y="0" />
-			<img1  text="hh" w="103" h="60" x="60" y="0" />
-			<img2  text="hh" w="103" h="60" x="90" y="0" />
+			<img1   w="150" h="150" x="40" y="0" />
+			<img2   w="150" h="150" x="700" y="0" />
 			
 			
 			
 			</labels>
 			
 			<tablepane className="ui.live.MessageTablePane" width="940"
-				height="290" x="0" y="296">
+				height="390" x="0" y="196">
 				<columnnames>
 					<columnname name="时间" />
 					<columnname name="球队" />
@@ -201,7 +201,10 @@
 			
 			
 			
+			</panel>
 			
+			<panel className="ui.player.CoverPanel" width="940" height="511"
+			x="0" y="0" bg="img/home/background.jpg">
 			</panel>
 	</homeframe>
 </nba>
