@@ -95,9 +95,11 @@ public class PlayerPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(playerfilter.isVisible() == false){
+					playerfilter.setFocusable(true);
 					playerfilter.setVisible(true);
 					}else{
 						playerfilter.setVisible(false);
+						
 					}
 				
 			}

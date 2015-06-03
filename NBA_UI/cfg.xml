@@ -172,5 +172,36 @@
 			<search w="177" h="27" x="485" y="215" path="img/common/filter/search.png"/>
 			</buttons>
 			</panel>
+			
+			
+			<!-- 直播panel -->
+			<panel className="ui.live.LivePanel" width="940" height="511"
+			x="37" y="148" >
+			<labels>
+			<score1  text="hh" w="103" h="60" x="0" y="0" />
+			<score2 text="hh" w="103" h="60" x="30" y="0" />
+			<team1  text="hh" w="103" h="60" x="60" y="0" />
+			<team2  text="hh" w="103" h="60" x="90" y="0" />
+			<img1  text="hh" w="103" h="60" x="60" y="0" />
+			<img2  text="hh" w="103" h="60" x="90" y="0" />
+			
+			
+			
+			</labels>
+			
+			<tablepane className="ui.live.MessageTablePane" width="940"
+				height="290" x="0" y="296">
+				<columnnames>
+					<columnname name="时间" />
+					<columnname name="球队" />
+					<columnname name="事件" />
+					<columnname name="比分" />
+				</columnnames>
+			</tablepane>
+			
+			
+			
+			
+			</panel>
 	</homeframe>
 </nba>

@@ -11,13 +11,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 import ui.common.MotherPanel;
 import ui.config.FrameConfig;
 import ui.config.SystemConfig;
-import ui.home.HomeUI;
-import ui.player.PlayerPanel;
+import ui.live.LivePanel;
 import ui.util.FrameUtil;
 
 public class HomeUI extends JFrame {
 	public HomePanel home;
 	public MotherPanel motherPanel;
+	public LivePanel livePanel;
 	
 	public HomeUI() {
 		// 获得窗口配置
@@ -56,6 +56,7 @@ public class HomeUI extends JFrame {
 		home = new HomePanel(this);
 		this.getContentPane().add(home);
 		//this.getContentPane().add(new MotherPanel(this));
+		//this.getContentPane().add(new LivePanel(this));
 		this.setVisible(true);
 	}
 
