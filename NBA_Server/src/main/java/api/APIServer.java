@@ -16,6 +16,7 @@ import java.net.Socket;
 public class APIServer implements Runnable {
 
     private ServerSocket serverSocket;
+    private TeamAPI teamAPI;
 
     public static void main(String[] args) {
         new APIServer();
@@ -29,6 +30,8 @@ public class APIServer implements Runnable {
         }
 
         new Thread(this).start();
+
+        teamAPI = new TeamAPI();
     }
 
     @Override
@@ -56,8 +59,10 @@ public class APIServer implements Runnable {
     public String handleGet(String str) {
         String request = str.split(" ")[1];
         String response = null;
-        if (request.startsWith("/")) {
-            // TODO
+        if (request.length() > 1) {
+            if (request.startsWith("/team")) {
+                return teamAPI.getStr(request.substring(5));
+            }
             response = request;
         } else {
             response = "APIs for NBA made by Deworm.";

@@ -4,8 +4,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.python.util.PythonInterpreter;
-
 public class PythonTest {
 	public static void main(String[] args) throws IOException {
 		

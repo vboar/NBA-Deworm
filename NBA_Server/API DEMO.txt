@@ -16,15 +16,16 @@
 [optional: limit=100 order=date/time&desc=1]
 
 /team/all
-/team/season
 /team?name=Detroit Pistons
+/team/season?name=Detroit Pistons
 /team?abbr=HOU
+/team/season?abbr=HOU
 [optional season=2014-2015 total=1 pergame=1 advanced=1 opptotal=1 opppergame=1]
 
 /player/all
-/player/season
 /player?initial=A
 /player?name=Patrick Beverley
+/player/season?name=Patrick Beverley
 [optional season=2014-2015 total=1 pergame=1 advanced=1 salary=1]
 /player?team=HOU&season=2014-2015
 
