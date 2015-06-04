@@ -116,4 +116,5 @@ public class MyLabel extends JLabel {
 		icon.setImage(icon.getImage().getScaledInstance(w, h,
 				Image.SCALE_DEFAULT));
 	}
+	
 }

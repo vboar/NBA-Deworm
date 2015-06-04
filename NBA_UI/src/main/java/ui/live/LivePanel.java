@@ -1,15 +1,18 @@
 package ui.live;
 
 import java.awt.Image;
+import java.util.List;
 
 import javax.swing.JPanel;
 
+import service.impl.LiveServiceImpl;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
 import ui.player.PlayerAllTablePane;
 import ui.util.MyLabel;
+import vo.LiveMsgVO;
 
 public class LivePanel extends JPanel {
 	
@@ -31,11 +34,13 @@ public class LivePanel extends JPanel {
 	private String path1;
 	private String path2;
 
-	public static boolean islive = true;
-	public LivePanel(HomeUI frame){
+	public static boolean islive = false;
+	public static String matchId;
+	public LivePanel(HomeUI frame,String matchId){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
 		this.frame = frame;
+		matchId = LivePanel.matchId;
 		// 设置布局管理器为自由布局
 		this.setLayout(null);
 		this.setSize(pcfg.getW(), pcfg.getH());
@@ -89,6 +94,41 @@ public class LivePanel extends JPanel {
 			add(table);
 	}
 	
+	public void autoRefresh(Object[][] data){
+		table.setData(data);
+		String scores = data[0][3].toString();
+		score1.setText(scores.split("-")[0]);
+		score2.setText(scores.split("-")[1]);
+		
+		
+		
+		
+		
+	}
 	
+	
+
+	public static Object[][] chageData(List<LiveMsgVO> list){
+		Object[][] data =new Object[list.size()][4];
+		for(int i=data.length-1;i>=0;i--){
+			if(list.get(i).type ==0){
+				data[i][0] = "";
+				data[i][1] = "";
+				data[i][2] = list.get(i).content;
+				data[i][3] = "";
+			}else{
+				data[i][0] = list.get(i).residualTime;
+				data[i][1] = list.get(i).team;
+				data[i][2] = list.get(i).content;
+				data[i][3] = list.get(i).scores;
+			}
+		}
+		return data;
+		
+	}
+	
+	public MessageTablePane getTable() {
+		return table;
+	}
 	
 }

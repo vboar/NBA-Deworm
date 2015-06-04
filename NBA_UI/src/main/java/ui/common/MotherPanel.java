@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
+import ui.live.LiveChoosePane;
 import ui.live.LivePanel;
 import ui.match.MatchNav;
 import ui.player.PlayerNav;
@@ -41,7 +42,7 @@ public class MotherPanel extends JPanel {
 	public PlayerPanel playerPanel;
 	public TeamPanel teamPanel;
 	
-	public LivePanel livePanel;
+	public LiveChoosePane liveChoosePane;
 	
 	int show = 0;
 	
@@ -94,9 +95,9 @@ public class MotherPanel extends JPanel {
 			matchnav.setVisible(false);
 		}
 		
-		livePanel = new LivePanel(frame);
+		liveChoosePane = new LiveChoosePane(frame);
 		if(panel!=4){
-			livePanel.setVisible(false);
+			liveChoosePane.setVisible(false);
 		}
 
 		
@@ -106,7 +107,7 @@ public class MotherPanel extends JPanel {
 		add(matchnav);
 		add(playerPanel);
 		add(teamPanel);
-		add(livePanel);
+		add(liveChoosePane);
 
 	}
 	
