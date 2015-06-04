@@ -21,6 +21,7 @@ public class PlayerPanel extends JPanel {
 	private HomeUI frame;
 	
 	private PlayerAllTablePane table;
+	private PlayerIndex indexpanel;
 	public PlayerFilter playerfilter;
 	
 	private JFrame coverFrame;
@@ -49,8 +50,8 @@ public class PlayerPanel extends JPanel {
 	
 	private void initComponent(){
 		initPanel();
-		initTable();
-		initButtons();
+		//initTable();
+		//initButtons();
 		initLabels();
 		initTab();
 		coverFrame = new JFrame();
@@ -65,6 +66,8 @@ public class PlayerPanel extends JPanel {
 		playerfilter.setVisible(false);
 		add(playerfilter);	
 		
+		indexpanel = new PlayerIndex(frame);
+		add(indexpanel);
 	}
 	
 	//table的内容

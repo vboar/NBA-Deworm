@@ -4,6 +4,7 @@ package ui.home;
  * 主界面panel
  * @author wang 
  */
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -52,6 +53,9 @@ public class HomeUI extends JFrame {
 		this.setDefaultCloseOperation(3);
 		// 居中
 		FrameUtil.setFrameCenter(this, fcfg.getWindowUp());
+		//设置程序小图标
+		ImageIcon icon = new ImageIcon("img/common/icon.png");
+		this.setIconImage(icon.getImage());
 		
 		home = new HomePanel(this);
 		this.getContentPane().add(home);

@@ -90,6 +90,7 @@
 
 			<labels>
 			<settingbg w="940" h="50" x="0" y="0" path="img/player/setting/bg.png" />
+			
 			</labels>
 						
 			<tab>
@@ -99,9 +100,46 @@
 			</tab>
 			</panel>
 			
+			<!-- 球员索引界面 --> 
+			<panel className="ui.player.PlayerIndex" width="940" height="511"
+			x="0" y="0">
+			<textfields>
+			<name w="150" h="25" x="21" y="13" />
+			</textfields>
+			<labels>
+			<indexbg w="940" h="50" x="0" y="0" path="img/player/index/indexbg.png" />
+			<search w="180" h="28" x="20" y="12" path="img/common/search/search.png"/>		
+			<a w="28" h="45" x="209" y="2" path="img/player/index/a.png" />
+			<b w="28" h="45" x="237" y="2" path="img/player/index/b.png" />
+			<c w="28" h="45" x="265" y="2" path="img/player/index/c.png" />
+			<d w="28" h="45" x="293" y="2" path="img/player/index/d.png" />
+			<e w="28" h="45" x="321" y="2" path="img/player/index/e.png" />
+			<f w="28" h="45" x="349" y="2" path="img/player/index/f.png" />
+			<g w="28" h="45" x="377" y="2" path="img/player/index/g.png" />
+			<h w="28" h="45" x="405" y="2" path="img/player/index/h.png" />
+			<i w="28" h="45" x="433" y="2" path="img/player/index/i.png" />
+			<j w="28" h="45" x="461" y="2" path="img/player/index/j.png" />
+			<k w="28" h="45" x="489" y="2" path="img/player/index/k.png" />
+			<l w="28" h="45" x="517" y="2" path="img/player/index/l.png" />
+			<m w="28" h="45" x="545" y="2" path="img/player/index/m.png" />
+			<n w="28" h="45" x="573" y="2" path="img/player/index/n.png" />
+			<o w="28" h="45" x="601" y="2" path="img/player/index/o.png" />
+			<p w="28" h="45" x="629" y="2" path="img/player/index/p.png" />
+			<q w="28" h="45" x="657" y="2" path="img/player/index/q.png" />
+			<r w="28" h="45" x="685" y="2" path="img/player/index/r.png" />
+			<s w="28" h="45" x="713" y="2" path="img/player/index/s.png" />
+			<t w="28" h="45" x="741" y="2" path="img/player/index/t.png" />
+			<u w="28" h="45" x="769" y="2" path="img/player/index/u.png" />
+			<v w="28" h="45" x="797" y="2" path="img/player/index/v.png" />
+			<w w="28" h="45" x="825" y="2" path="img/player/index/w.png" />
+			<x w="28" h="45" x="853" y="2" path="img/player/index/x.png" />
+			<y w="28" h="45" x="881" y="2" path="img/player/index/y.png" />
+			<z w="28" h="45" x="909" y="2" path="img/player/index/z.png" />
+			</labels>
+			</panel>
+			
 			<panel className="ui.team.TeamPanel" width="940" height="511"
 			x="37" y="148" >
-			
 			<buttons>
 			<setting w="53" h="46" x="888" y="0" path="img/common/btn/setting.png"/>
 			<menu w="52" h="46" x="0" y="0" path="img/common/btn/dropdownmenu2.png"/>

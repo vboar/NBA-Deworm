@@ -90,7 +90,7 @@ public class MatchNav extends JPanel{
 			public void mouseClicked(MouseEvent arg0) {
 				live.setIcon(new ImageIcon(path+"_click."+fix));
 				show =1;
-				matchstat.setIcon(new ImageIcon(pcfg.getLabels().element("index").attributeValue("path")));
+				matchstat.setIcon(new ImageIcon(pcfg.getLabels().element("matchstat").attributeValue("path")));
 			}
 
 			@Override
