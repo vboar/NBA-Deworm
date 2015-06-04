@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import service.CommonService;
-import service.LiveService;
 import service.MatchService;
 import service.PlayerService;
 import service.ServiceFactory;
@@ -104,11 +103,6 @@ public class ServiceFactoryImpl extends UnicastRemoteObject implements ServiceFa
 
 	public CommonService getCommonService() throws RemoteException {
 		return new CommonServiceImpl();
-	}
-
-	@Override
-	public LiveService getLiveService() throws RemoteException {
-		return new LiveServiceImpl();
 	}
 
 
