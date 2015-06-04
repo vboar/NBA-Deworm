@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import vo.MatchFilter;
 import vo.MatchInfoVO;
 import vo.MatchPlayerAdvancedVO;
 import vo.MatchPlayerBasicVO;
@@ -14,12 +15,18 @@ import vo.MatchPlayerBasicVO;
  * created by JaneLDQ on 2015年5月31日 下午6:31:54
  */
 public interface MatchService extends Remote{
-
+	
+	/**
+	 * 多项条件筛选比赛信息
+	 * @param filter
+	 * @return
+	 */
+	public List<MatchInfoVO> getMatchInfoByFilter(MatchFilter filter) throws RemoteException;
+	
 	/**
 	 * 获得某赛季的常规赛比赛基本信息
 	 * @param season
 	 * @return
-	 * @throws RemoteException 
 	 */
 	public List<MatchInfoVO> getRegularMatchInfoBySeason(String season) throws RemoteException;
 	
@@ -28,7 +35,7 @@ public interface MatchService extends Remote{
 	 * @param season
 	 * @return
 	 */
-	public List<MatchInfoVO> getPlayOffMatchInfoBySeason(String season);
+	public List<MatchInfoVO> getPlayOffMatchInfoBySeason(String season) throws RemoteException;
 	
 	/**
 	 * 获得某一时间段的比赛基本信息
@@ -36,7 +43,7 @@ public interface MatchService extends Remote{
 	 * @param end
 	 * @return
 	 */
-	public List<MatchInfoVO> getMatchInfoByDate(String begin, String end);
+	public List<MatchInfoVO> getMatchInfoByDate(String begin, String end) throws RemoteException;
 	
 	/**
 	 * 获得单场比赛中一支球队的球员高阶数据
@@ -44,7 +51,7 @@ public interface MatchService extends Remote{
 	 * @param abbr 球队缩写
 	 * @return
 	 */
-	public List<MatchPlayerAdvancedVO> getMatchPlayerAdvancedByGameIdTeam(String gameid, String abbr);
+	public List<MatchPlayerAdvancedVO> getMatchPlayerAdvancedByGameIdTeam(String gameid, String abbr) throws RemoteException;
 	
 	/**
 	 * 获得单场比赛一支球队的球员基本数据
@@ -52,6 +59,6 @@ public interface MatchService extends Remote{
 	 * @param abbr 球队缩写
 	 * @return
 	 */
-	public List<MatchPlayerBasicVO> getMatchPlayerBasicByGameIdTeam(String gameid, String abbr);
+	public List<MatchPlayerBasicVO> getMatchPlayerBasicByGameIdTeam(String gameid, String abbr) throws RemoteException;
 	
 }

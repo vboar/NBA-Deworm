@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import util.Utility;
 import vo.PlayerFilter;
@@ -29,16 +27,9 @@ public class PlayerDaoImpl implements PlayerDao {
 	// TODO -------- PlayerDao main test-----------------------
 	public static void main(String[] args) {
 		PlayerDao pdao = DaoFactoryImpl.getDaoFactory().getPlayerDao();
-		List<String> nl = new ArrayList<String>();
-		nl.add("Aaron Brooks");
-		nl.add("Alex Len");
-		List<ImageIcon> icons = pdao.getPlayerPortraitByNameList(nl);
-		for(ImageIcon icon:icons){
-			JLabel jl = new JLabel(icon);
-			JFrame jf = new JFrame();
-			jf.setSize(400, 400);
-			jf.getContentPane().add(jl);
-			jf.setVisible(true);
+		List<PlayerInfo> list = pdao.getTeamPlayerBySeason("13-14", "ATL");
+		for(PlayerInfo info: list){
+			System.out.println(info.getName());
 		}
 	}
 	
@@ -197,11 +188,31 @@ public class PlayerDaoImpl implements PlayerDao {
 		List<PlayerInfo> list = new ArrayList<PlayerInfo>();		
 		sqlManager.getConnection();
 		
-		String sql="SELECT * FROM player_info WHERE season=? AND abbr=? ORDER BY player_name";
-		if(season==null)
-			sql = "SELECT * FROM player_info WHERE abbr=? ORDER BY player_name";
-		
-		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{season,abbr});
+		String sql="SELECT DISTINCT a.player_name, "
+				+ "born, "
+				+ "hometown, "
+				+ "a.position, "
+				+ "height, "
+				+ "weight, "
+				+ "shoots, "
+				+ "high_school, "
+				+ "college, "
+				+ "draft, "
+				+ "debut, "
+				+ "exp, "
+				+ "number "
+				+ "FROM player_info as a, match_player_basic as b, match_info as c "
+				+ "WHERE a.player_name=b.player_name "
+				+ "AND b.game_id = c.game_id "
+				+ "AND b.team_abbr=? ";
+		List<Object> objects = new ArrayList<Object>();
+		objects.add(abbr);
+		if(season!=null){	
+			sql += "AND c.season=? ";
+			objects.add(season);
+		}
+		sql += "ORDER BY a.player_name";
+		List<Map<String,Object>> maplist = sqlManager.queryMultiByList(sql,objects);
 		for(Map<String,Object> map: maplist){
 			list.add(getPlayerInfo(map));
 		}

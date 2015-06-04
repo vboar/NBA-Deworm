@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import service.MatchService;
+import vo.MatchFilter;
 import vo.MatchInfoVO;
 import vo.MatchPlayerAdvancedVO;
 import vo.MatchPlayerBasicVO;
@@ -93,6 +94,19 @@ public class MatchServiceImpl extends UnicastRemoteObject implements MatchServic
 		return volist;
 	}
 
+	@Override
+	public List<MatchInfoVO> getMatchInfoByFilter(MatchFilter filter)
+			throws RemoteException {
+		List<MatchInfo> list = mdao.getMatchInfoByFilter(filter);
+		List<MatchInfoVO> volist = new ArrayList<MatchInfoVO>();
+		for(MatchInfo info:list){
+			MatchInfoVO vo = getInfoVO(info);
+			if(vo!=null)
+				volist.add(vo);
+		}
+		return volist;
+	}
+	
 	private MatchInfoVO getInfoVO(MatchInfo info) {
 		if(info==null)
 			return null;

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import service.TeamService;
+import vo.TeamFilter;
 import vo.TeamInfoVO;
 import vo.TeamOppPerGameVO;
 import vo.TeamOppTotalVO;
@@ -77,6 +78,23 @@ public class TeamServiceImpl extends UnicastRemoteObject implements TeamService 
 
 	@Override
 	public ImageIcon getTeamLogoByAbbr(String abbr) throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public List<TeamTotalVO> getTeamTotalByFilter(TeamFilter filter)
+			throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public List<TeamPerGameVO> getTeamPerGameByFilter(TeamFilter filter)
+			throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public TeamInfoVO getTeamInfoByAbbr(String abbr) throws RemoteException {
 		return null;
 	}
 

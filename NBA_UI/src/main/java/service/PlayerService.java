@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import vo.PlayerAdvancedVO;
+import vo.PlayerFilter;
 import vo.PlayerInfoVO;
 import vo.PlayerPerGameVO;
 import vo.PlayerSalaryVO;
@@ -95,4 +96,31 @@ public interface PlayerService extends Remote{
 	 */
 	public List<PlayerAdvancedVO> getPlayerAdvancedBySeason(String season) throws RemoteException;
 	
+	/**
+	 * 多项条件筛选球员场均数据
+	 * @param filter
+	 * @return
+	 */
+	public List<PlayerPerGameVO> getPlayerPerGameByFilter(PlayerFilter filter) throws RemoteException;
+	
+	/**
+	 * 多项条件筛选球员总数据
+	 * @param filter
+	 * @return
+	 */
+	public List<PlayerTotalVO> getPlayerTotalByFilter(PlayerFilter filter) throws RemoteException;
+	
+	/**
+	 * 多项条件筛选球员高阶数据
+	 * @param filter
+	 * @return
+	 */
+	public List<PlayerAdvancedVO> getPlayerAdvancedByFilter(PlayerFilter filter) throws RemoteException;
+	
+	/**
+	 * 获取某个球队某赛季的签约球员
+	 * @param season 赛季，如果为null则为所有赛季
+	 * @param abbr 球队缩写
+	 */
+	public List<PlayerInfoVO> getTeamPlayerBySeason(String season, String abbr) throws RemoteException;
 }

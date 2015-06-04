@@ -40,7 +40,6 @@ public class MatchDaoImpl implements MatchDao {
 	public List<MatchInfo> getMatchInfoByFilter(MatchFilter filter) {
 		sqlManager.getConnection();
 		List<MatchInfo> list = new ArrayList<MatchInfo>();
-		// TODO 多个条件筛选比赛信息
 		String sql = "SELECT a.game_id, "
 				+ "season, "
 				+ "is_normal, "

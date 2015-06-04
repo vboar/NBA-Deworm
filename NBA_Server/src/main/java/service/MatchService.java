@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import vo.MatchFilter;
 import vo.MatchInfoVO;
 import vo.MatchPlayerAdvancedVO;
 import vo.MatchPlayerBasicVO;
@@ -14,7 +15,14 @@ import vo.MatchPlayerBasicVO;
  * created by JaneLDQ on 2015年5月31日 下午6:31:54
  */
 public interface MatchService extends Remote{
-
+	
+	/**
+	 * 多项条件筛选比赛信息
+	 * @param filter
+	 * @return
+	 */
+	public List<MatchInfoVO> getMatchInfoByFilter(MatchFilter filter) throws RemoteException;
+	
 	/**
 	 * 获得某赛季的常规赛比赛基本信息
 	 * @param season

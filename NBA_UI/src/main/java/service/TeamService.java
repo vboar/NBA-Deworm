@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import vo.TeamFilter;
 import vo.TeamInfoVO;
 import vo.TeamOppPerGameVO;
 import vo.TeamOppTotalVO;
@@ -34,6 +35,12 @@ public interface TeamService extends Remote{
 	 */
 	public ImageIcon getTeamLogoByAbbr(String abbr) throws RemoteException;
 
+	/**
+	 * 根据缩写获取球队信息
+	 * @param abbr 缩写
+	 */
+	public TeamInfoVO getTeamInfoByAbbr(String abbr) throws RemoteException;
+	
 	/**
 	 * 获得全部球队基本信息
 	 * @return
@@ -88,4 +95,20 @@ public interface TeamService extends Remote{
 	 * @param abbr 队名缩写
 	 */
 	public List<TeamOppPerGameVO> getTeamOppPerGameByAbbr(String abbr) throws RemoteException;
+	
+	/**
+	 * 多项条件筛选球队总数据
+	 * @param filter
+	 * @return
+	 */
+	public List<TeamTotalVO> getTeamTotalByFilter(TeamFilter filter) throws RemoteException;
+	
+	/**
+	 * 多项条件筛选球队场均数据
+	 * @param filter
+	 * @return
+	 */
+	public List<TeamPerGameVO> getTeamPerGameByFilter(TeamFilter filter) throws RemoteException;
+	
+	
 }

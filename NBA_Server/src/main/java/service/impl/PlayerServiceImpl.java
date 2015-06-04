@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 
 import service.PlayerService;
 import vo.PlayerAdvancedVO;
+import vo.PlayerFilter;
 import vo.PlayerInfoVO;
 import vo.PlayerPerGameVO;
 import vo.PlayerSalaryVO;
@@ -118,17 +119,6 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		return volist;
 	}
 
-	private PlayerSalaryVO getSalaryVO(PlayerSalary ps) {
-		if(ps==null)
-			return null;
-		PlayerSalaryVO vo = new PlayerSalaryVO();
-		vo.name = ps.getName();
-		vo.season = ps.getSeason();
-		vo.team = ps.getTeam();
-		vo.salary = ps.getSalary();
-		return vo;
-	}
-
 	@Override
 	public List<PlayerTotalVO> getPlayerTotalBySeason(String season)
 			throws RemoteException {
@@ -168,6 +158,69 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		return volist;
 	}
 
+	@Override
+	public List<PlayerPerGameVO> getPlayerPerGameByFilter(PlayerFilter filter)
+			throws RemoteException {
+		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameByFilter(filter);
+		List<PlayerPerGameVO> volist = new ArrayList<PlayerPerGameVO>();
+		for(PlayerStatsPerGame psp: list){
+			PlayerPerGameVO vo = getPerGameVO(psp);
+			if(vo!=null)
+				volist.add(vo);
+		}
+		return volist;
+	}
+
+	@Override
+	public List<PlayerTotalVO> getPlayerTotalByFilter(PlayerFilter filter)
+			throws RemoteException {
+		List<PlayerStatsTotal> list = pdao.getPlayerTotalByFilter(filter);
+		List<PlayerTotalVO> volist = new ArrayList<PlayerTotalVO>();
+		for(PlayerStatsTotal pst: list){
+			PlayerTotalVO vo = getTotalVO(pst);
+			if(vo!=null)
+				volist.add(vo);
+		}
+		return volist;
+	}
+
+	@Override
+	public List<PlayerAdvancedVO> getPlayerAdvancedByFilter(PlayerFilter filter)
+			throws RemoteException {
+		List<PlayerStatsAdvanced> list = pdao.getPlayerAdvancedByFilter(filter);
+		List<PlayerAdvancedVO> volist = new ArrayList<PlayerAdvancedVO>();
+		for(PlayerStatsAdvanced psp: list){
+			PlayerAdvancedVO vo = getAdvancedVO(psp);
+			if(vo!=null)
+				volist.add(vo);
+		}
+		return volist;
+	}
+	
+	@Override
+	public List<PlayerInfoVO> getTeamPlayerBySeason(String season, String abbr)
+			throws RemoteException {
+		List<PlayerInfoVO> volist = new ArrayList<PlayerInfoVO>();
+		List<PlayerInfo> list = pdao.getTeamPlayerBySeason(season, abbr);
+		for(PlayerInfo info: list){
+			PlayerInfoVO vo = getInfoVO(info);
+			if(vo!=null)
+				volist.add(vo);
+		}
+		return volist;
+	}
+	
+	private PlayerSalaryVO getSalaryVO(PlayerSalary ps) {
+		if(ps==null)
+			return null;
+		PlayerSalaryVO vo = new PlayerSalaryVO();
+		vo.name = ps.getName();
+		vo.season = ps.getSeason();
+		vo.team = ps.getTeam();
+		vo.salary = ps.getSalary();
+		return vo;
+	}
+	
 	private PlayerInfoVO getInfoVO(PlayerInfo info) {
 		if(info==null)
 			return null;

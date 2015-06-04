@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 import service.MatchService;
+import vo.MatchFilter;
 import vo.MatchInfoVO;
 import vo.MatchPlayerAdvancedVO;
 import vo.MatchPlayerBasicVO;
@@ -43,6 +44,12 @@ public class MatchServiceImpl extends UnicastRemoteObject implements MatchServic
 
 	public List<MatchPlayerBasicVO> getMatchPlayerBasicByGameIdTeam(
 			String gameid, String abbr) {
+		return null;
+	}
+
+	@Override
+	public List<MatchInfoVO> getMatchInfoByFilter(MatchFilter filter)
+			throws RemoteException {
 		return null;
 	}
 

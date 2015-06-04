@@ -30,6 +30,12 @@ public interface TeamDao {
 	public List<TeamInfo> getAllTeamInfo();
 	
 	/**
+	 * 根据缩写获取球队信息
+	 * @param abbr 缩写
+	 */
+	public TeamInfo getTeamInfoByAbbr(String abbr);
+	
+	/**
 	 * 获得全部球队某赛季总数据
 	 * @param season 赛季
 	 */

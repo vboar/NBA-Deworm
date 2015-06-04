@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import service.TeamService;
+import vo.TeamFilter;
 import vo.TeamInfoVO;
 import vo.TeamOppPerGameVO;
 import vo.TeamOppTotalVO;
@@ -45,6 +46,11 @@ public class TeamServiceImpl extends UnicastRemoteObject implements TeamService 
 	@Override
 	public ImageIcon getTeamLogoByAbbr(String abbr) throws RemoteException {
 		return tdao.getTeamLogoByAbbr(abbr);
+	}	
+
+	@Override
+	public TeamInfoVO getTeamInfoByAbbr(String abbr) throws RemoteException {
+		return getInfoToVO(tdao.getTeamInfoByAbbr(abbr));
 	}
 	
 	@Override
@@ -163,6 +169,30 @@ public class TeamServiceImpl extends UnicastRemoteObject implements TeamService 
 		return volist;
 	}
 
+	@Override
+	public List<TeamTotalVO> getTeamTotalByFilter(TeamFilter filter) throws RemoteException{
+		List<TeamStatsTotal> list = tdao.getTeamTotalByFilter(filter);
+		List<TeamTotalVO> volist = new ArrayList<TeamTotalVO>();
+		for(TeamStatsTotal tst: list){
+			TeamTotalVO vo = getTeamTotalToVO(tst);
+			if(vo!=null)
+				volist.add(vo);
+		}
+		return volist;
+	}
+
+	@Override
+	public List<TeamPerGameVO> getTeamPerGameByFilter(TeamFilter filter) throws RemoteException{
+		List<TeamStatsPerGame> list = tdao.getTeamPerGameByFilter(filter);
+		List<TeamPerGameVO> volist = new ArrayList<TeamPerGameVO>();
+		for(TeamStatsPerGame tsp: list){
+			TeamPerGameVO vo = getTeamPerGameVO(tsp);
+			if(vo!=null)
+				volist.add(vo);
+		}
+		return volist;
+	}
+	
 	private TeamInfoVO getInfoToVO(TeamInfo info) {
 		if(info==null)
 			return null;

@@ -42,9 +42,4 @@ public class PlayerFilter {
 	 */
 	public String weight;
 	
-	/**
-	 * 球队
-	 */
-	public String team;
-	
 }

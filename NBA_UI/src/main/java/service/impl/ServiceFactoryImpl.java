@@ -42,7 +42,7 @@ public class ServiceFactoryImpl extends UnicastRemoteObject implements ServiceFa
 	 */
 	public static String port = null;
 	
-	// TODO ------- SrviceFactoryImpl main test------------------
+	// TODO ------- ServiceFactoryImpl main test------------------
 	public static void main(String[] args) {
 		try {
 			ImageIcon icon = ServiceFactoryImpl.getInstance().getTeamService().getTeamLogoByAbbr("ATL");

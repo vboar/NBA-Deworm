@@ -31,12 +31,14 @@ public class TeamDaoImpl implements TeamDao {
 	// TODO -------- TeamDao main test--------------
 	public static void main(String[] args) {
 		TeamDao tdao = DaoFactoryImpl.getDaoFactory().getTeamDao();
-		ImageIcon icon  = tdao.getTeamLogoByAbbr("ATL");
+		TeamInfo info = tdao.getTeamInfoByAbbr("ATL");
+		ImageIcon icon  = tdao.getTeamLogoByAbbr(info.getAbbr());
 		JLabel jl = new JLabel(icon);
 		JFrame jf = new JFrame();
 		jf.setSize(400, 400);
 		jf.getContentPane().add(jl);
 		jf.setVisible(true);
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	@Override
@@ -75,6 +77,18 @@ public class TeamDaoImpl implements TeamDao {
 
         sqlManager.releaseAll();
         return list;
+	}
+	
+
+	@Override
+	public TeamInfo getTeamInfoByAbbr(String abbr) {
+        sqlManager.getConnection();
+
+        String sql = "SELECT * FROM team_info WHERE abbr=?";
+        Map<String, Object> object = sqlManager.querySimple(sql, new Object[]{abbr});
+        sqlManager.releaseAll();
+        
+        return getTeamInfo(object);
 	}
 
 	@Override

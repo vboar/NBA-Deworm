@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 
 import service.PlayerService;
 import vo.PlayerAdvancedVO;
+import vo.PlayerFilter;
 import vo.PlayerInfoVO;
 import vo.PlayerPerGameVO;
 import vo.PlayerSalaryVO;
@@ -78,6 +79,30 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 
 	@Override
 	public ImageIcon getPlayerPortraitByName(String name)
+			throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public List<PlayerPerGameVO> getPlayerPerGameByFilter(PlayerFilter filter)
+			throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public List<PlayerTotalVO> getPlayerTotalByFilter(PlayerFilter filter)
+			throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public List<PlayerAdvancedVO> getPlayerAdvancedByFilter(PlayerFilter filter)
+			throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public List<PlayerInfoVO> getTeamPlayerBySeason(String season, String abbr)
 			throws RemoteException {
 		return null;
 	}
