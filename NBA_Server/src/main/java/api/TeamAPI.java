@@ -34,6 +34,10 @@ public class TeamAPI {
             // command is /team/all or /team/all/
             return all();
         }
+        if (str.startsWith("?abbr=")) {
+            // command is /team?abbr={}
+            return abbr(str);
+        }
         return null;
     }
 
@@ -49,6 +53,10 @@ public class TeamAPI {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private String abbr(String str) {
+        return str;
     }
 
     /**

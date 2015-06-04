@@ -16,28 +16,41 @@ import java.net.Socket;
 public class APIServer implements Runnable {
 
     private ServerSocket serverSocket;
+    private Thread thread;
+    private boolean run;
     private TeamAPI teamAPI;
 
     public static void main(String[] args) {
-        new APIServer();
+        new APIServer().start();
     }
 
     public APIServer() {
+        teamAPI = new TeamAPI();
+    }
+
+    public void start() {
         try {
             serverSocket = new ServerSocket(80);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        run = true;
+        thread = new Thread(this);
+        thread.start();
+    }
 
-        new Thread(this).start();
-
-        teamAPI = new TeamAPI();
+    public void stop() {
+        run = false;
     }
 
     @Override
     public void run() {
         while (true) {
             try {
+                if (!run) {
+                    serverSocket.close();
+                    break;
+                }
                 Socket socket = serverSocket.accept();
                 InputStream is = socket.getInputStream();
                 BufferedReader br = new BufferedReader(new InputStreamReader(is));

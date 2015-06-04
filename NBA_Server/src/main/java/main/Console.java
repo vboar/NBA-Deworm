@@ -13,6 +13,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Properties;
 
+import api.APIServer;
 import service.ServiceFactory;
 import service.impl.ServiceFactoryImpl;
 import dao.impl.InitDaoImpl;
@@ -41,6 +42,8 @@ public class Console {
      * IP地址
      */
     public static String address;
+
+    private APIServer apiServer;
     
     static{
     	Properties prop = new Properties();
@@ -52,6 +55,10 @@ public class Console {
     	}catch(Exception e){
     		System.out.println(e);
     	}
+    }
+
+    public Console() {
+        apiServer = new APIServer();
     }
 
     public static void main(String[] args) {
@@ -98,7 +105,6 @@ public class Console {
         } else {
             rmiServerOn = true;
             try {
-            	
 				reg = LocateRegistry.createRegistry(Integer.parseInt(port));
 				ServiceFactory serviceFactory = ServiceFactoryImpl.getInstance();
 				Naming.rebind("rmi://" + address + ":" + port + "/ServiceFactory", serviceFactory);
@@ -129,6 +135,7 @@ public class Console {
         if (apiServerOn) {
             System.out.println("Api server has already been on!");
         } else {
+            apiServer.start();
             apiServerOn = true;
             System.out.println("Api server is on now!");
         }
@@ -137,6 +144,7 @@ public class Console {
     private void stopApiServer() {
         if (apiServerOn) {
             apiServerOn = false;
+            apiServer.stop();
             System.out.println("Api server is off now!");
         } else {
             System.out.println("Api server has already been off!");
