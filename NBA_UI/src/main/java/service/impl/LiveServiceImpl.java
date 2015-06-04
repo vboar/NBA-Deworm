@@ -18,6 +18,17 @@ import vo.LiveMsgVO;
  */
 public class LiveServiceImpl implements LiveService {
 
+    private static LiveService liveService;
+
+    private LiveServiceImpl() {}
+
+    public static LiveService getInstance() {
+        if (liveService != null) {
+            return liveService;
+        }
+        return new LiveServiceImpl();
+    }
+
     private Process process;
 
     public void startLiveService() {
