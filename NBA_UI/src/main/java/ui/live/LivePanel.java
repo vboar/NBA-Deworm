@@ -5,13 +5,12 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import service.impl.LiveServiceImpl;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
-import ui.player.PlayerAllTablePane;
 import ui.util.MyLabel;
+import vo.LiveMatchInfoVO;
 import vo.LiveMsgVO;
 
 public class LivePanel extends JPanel {
@@ -36,11 +35,12 @@ public class LivePanel extends JPanel {
 
 	public static boolean islive = false;
 	public static String matchId;
-	public LivePanel(HomeUI frame,String matchId){
+	
+	public LivePanel(HomeUI frame,LiveMatchInfoVO info){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
 		this.frame = frame;
-		matchId = LivePanel.matchId;
+		matchId = info.id;
 		// 设置布局管理器为自由布局
 		this.setLayout(null);
 		this.setSize(pcfg.getW(), pcfg.getH());
