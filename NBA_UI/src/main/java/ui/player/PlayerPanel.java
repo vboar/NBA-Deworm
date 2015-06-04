@@ -21,12 +21,10 @@ public class PlayerPanel extends JPanel {
 	private HomeUI frame;
 	
 	private PlayerAllTablePane table;
-	private PlayerIndex indexpanel;
+	public PlayerIndex indexpanel;
 	public PlayerFilter playerfilter;
-	
+	public PlayerStat playerstat;
 	private JFrame coverFrame;
-	
-	private MyTab stat;
 	
 	private MyLabel settingbg;
 	
@@ -50,16 +48,12 @@ public class PlayerPanel extends JPanel {
 	
 	private void initComponent(){
 		initPanel();
+		initCover();
 		//initTable();
-		//initButtons();
+		initButtons();
 		initLabels();
-		initTab();
-		coverFrame = new JFrame();
-		coverFrame.setBounds(457,221,690, 260);
-		coverFrame.setUndecorated(true);
-		coverFrame.add(playerfilter);
-			
 	}
+	
 	
 	private void initPanel(){
 		playerfilter = new PlayerFilter(frame);
@@ -68,6 +62,17 @@ public class PlayerPanel extends JPanel {
 		
 		indexpanel = new PlayerIndex(frame);
 		add(indexpanel);
+		
+		playerstat = new PlayerStat(frame);
+		playerstat.setVisible(false);
+		add(playerstat);
+	}
+	
+	private void initCover(){
+		coverFrame = new JFrame();
+		coverFrame.setBounds(458,218,690, 260);
+		coverFrame.setUndecorated(true);
+		coverFrame.add(playerfilter);
 	}
 	
 	//table的内容
@@ -87,10 +92,6 @@ public class PlayerPanel extends JPanel {
 		add(settingbg);
 	}
 	
-	private void initTab(){
-		stat = new MyTab(pcfg.getTab().element("stat"));
-		add(stat);
-	}
 	
 	private void initButtons(){
 		menu = new MyButton(pcfg.getButtons().element("menu"),true);

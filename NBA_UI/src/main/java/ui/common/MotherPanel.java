@@ -75,7 +75,7 @@ public class MotherPanel extends JPanel {
 		dropdown = new Dropdownmenu(frame);
 		dropdown.setVisible(false);
 		
-		playernav = new PlayerNav();
+		playernav = new PlayerNav(frame);
 		playerPanel = new PlayerPanel(frame);
 		if(panel!=1){
 			playernav.setVisible(false);

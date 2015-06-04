@@ -90,14 +90,8 @@
 
 			<labels>
 			<settingbg w="940" h="50" x="0" y="0" path="img/player/setting/bg.png" />
-			
 			</labels>
 						
-			<tab>
-			<stat w1="67" h1="30" w2="67" h2="30" x="794" y="58" 
-			      path1="img/common/tab/avg.jpg" 
-			      path2="img/common/tab/all.jpg"/>
-			</tab>
 			</panel>
 			
 			<!-- 球员索引界面 --> 
@@ -136,6 +130,15 @@
 			<y w="28" h="45" x="881" y="2" path="img/player/index/y.png" />
 			<z w="28" h="45" x="909" y="2" path="img/player/index/z.png" />
 			</labels>
+			</panel>
+			
+			<panel className="ui.player.PlayerStat" width="940" height="511"
+			x="0" y="0" >
+			<tab>
+			<stat w1="67" h1="30" w2="67" h2="30" x="794" y="58" 
+			      path1="img/common/tab/avg.jpg" 
+			      path2="img/common/tab/all.jpg"/>
+			</tab>
 			</panel>
 			
 			<panel className="ui.team.TeamPanel" width="940" height="511"
@@ -190,9 +193,20 @@
 			</panel>
 			
 			<panel className="ui.player.PlayerFilter" width="690" height="260"
-			x="250" y="46" bg="img/common/filter/filterbg.jpg">
+			x="0" y="0" bg="img/common/filter/filterbg.jpg">
 			<labels>
 			<season w="177" h="27" x="40" y="13" path="img/common/filter/filtercdt.png"/>
+			<type w="177" h="27" x="256" y="13" path="img/common/filter/filtercdt.png"/>
+			<league w="177" h="27" x="479" y="13" path="img/common/filter/filtercdt.png"/>
+			<division w="177" h="27" x="40" y="13" path="img/common/filter/filtercdt.png"/>
+			<team w="177" h="27" x="40" y="13" path="img/common/filter/filtercdt.png"/>
+			<posision w="177" h="27" x="40" y="13" path="img/common/filter/filtercdt.png"/>
+			<college w="177" h="27" x="40" y="13" path="img/common/filter/filtercdt.png"/>
+			<country w="177" h="27" x="40" y="13" path="img/common/filter/filtercdt.png"/>
+			<height w="177" h="27" x="40" y="13" path="img/common/filter/filtercdt.png"/>
+			<weight w="177" h="27" x="40" y="13" path="img/common/filter/filtercdt.png"/>
+			<begindate w="177" h="27" x="40" y="13" path="img/common/filter/filtercdt.png"/>
+			<enddate w="177" h="27" x="40" y="13" path="img/common/filter/filtercdt.png"/>
 			</labels>
 			
 			<buttons>

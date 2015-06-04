@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
+import ui.home.HomeUI;
 import ui.util.MyLabel;
 
 public class PlayerNav extends JPanel{
@@ -20,15 +21,17 @@ public class PlayerNav extends JPanel{
 	private PanelConfig pcfg;
 	private Image bg;
 	
+	private HomeUI frame;
 	private MyLabel index;
 	private MyLabel playerstat;
 	private MyLabel hotplayer;
 	private MyLabel playerpast;
 	int show =0;
 	
-	public PlayerNav(){
+	public PlayerNav(HomeUI frame){
 	this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 			.get(this.getClass().getName());
+	this.frame = frame;
 	this.bg = pcfg.getBg();
 	
 	this.setLayout(null);
@@ -48,6 +51,7 @@ public class PlayerNav extends JPanel{
 	
 	private void initLabels(){
 		index = new MyLabel(pcfg.getLabels().element("index"));
+		index.setIcon(new ImageIcon("img/player/nav/index_click.png"));
 		index.addMouseListener(new MouseAdapter(){
 			String[] temp = pcfg.getLabels().element("index").attributeValue("path").split("\\.");
 			String path = temp[0];
@@ -60,6 +64,10 @@ public class PlayerNav extends JPanel{
 				playerstat.setIcon(new ImageIcon(pcfg.getLabels().element("playerstat").attributeValue("path")));
 				hotplayer.setIcon(new ImageIcon(pcfg.getLabels().element("hotplayer").attributeValue("path")));
 				playerpast.setIcon(new ImageIcon(pcfg.getLabels().element("playerpast").attributeValue("path")));
+			
+				//更改playerpanel内容
+				frame.motherPanel.playerPanel.indexpanel.setVisible(true);
+				frame.motherPanel.playerPanel.playerstat.setVisible(false);
 			}
 
 			@Override
@@ -87,6 +95,7 @@ public class PlayerNav extends JPanel{
 			}
 			
 		});
+		
 		playerstat = new MyLabel(pcfg.getLabels().element("playerstat"));
 		playerstat.addMouseListener(new MouseAdapter(){
 			String[] temp = pcfg.getLabels().element("playerstat").attributeValue("path").split("\\.");
@@ -100,6 +109,10 @@ public class PlayerNav extends JPanel{
 				index.setIcon(new ImageIcon(pcfg.getLabels().element("index").attributeValue("path")));
 				hotplayer.setIcon(new ImageIcon(pcfg.getLabels().element("hotplayer").attributeValue("path")));
 				playerpast.setIcon(new ImageIcon(pcfg.getLabels().element("playerpast").attributeValue("path")));
+				
+				//更改playerpanel内容
+				frame.motherPanel.playerPanel.indexpanel.setVisible(false);
+				frame.motherPanel.playerPanel.playerstat.setVisible(true);
 			}
 
 			@Override
@@ -140,6 +153,9 @@ public class PlayerNav extends JPanel{
 				index.setIcon(new ImageIcon(pcfg.getLabels().element("index").attributeValue("path")));
 				playerstat.setIcon(new ImageIcon(pcfg.getLabels().element("playerstat").attributeValue("path")));
 				playerpast.setIcon(new ImageIcon(pcfg.getLabels().element("playerpast").attributeValue("path")));
+			
+				//更改playerpanel内容
+				frame.motherPanel.playerPanel.indexpanel.setVisible(false);
 			}
 
 			@Override
@@ -180,6 +196,9 @@ public class PlayerNav extends JPanel{
 				index.setIcon(new ImageIcon(pcfg.getLabels().element("index").attributeValue("path")));
 				hotplayer.setIcon(new ImageIcon(pcfg.getLabels().element("hotplayer").attributeValue("path")));
 				playerstat.setIcon(new ImageIcon(pcfg.getLabels().element("playerstat").attributeValue("path")));
+			
+				//更改playerpanel内容
+				frame.motherPanel.playerPanel.indexpanel.setVisible(false);
 			}
 
 			@Override
