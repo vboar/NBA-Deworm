@@ -242,7 +242,7 @@
 			</labels>
 			
 			<tablepane className="ui.live.MessageTablePane" width="940"
-				height="390" x="0" y="196">
+				height="380" x="0" y="196">
 				<columnnames>
 					<columnname name="时间" />
 					<columnname name="球队" />
@@ -262,7 +262,7 @@
 			<panel className="ui.live.LiveChoosePane"  width="940" height="511"
 			x="37" y="148" >
 			<labels>
-			<news  text="hh" w="103" h="60" x="0" y="0" />			
+			<news  text="hh" w="1030" h="60" x="0" y="0" />			
 			</labels>
 			<buttons>
 			<btn text="观看" w="177" h="27" x="485" y="215"/>

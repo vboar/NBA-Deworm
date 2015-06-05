@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import service.impl.LiveServiceImpl;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
@@ -21,6 +22,7 @@ import ui.player.PlayerPanel;
 import ui.team.TeamNav;
 import ui.team.TeamPanel;
 import ui.util.MyButton;
+import vo.LiveMatchInfoVO;
 
 public class MotherPanel extends JPanel {
 
@@ -43,6 +45,7 @@ public class MotherPanel extends JPanel {
 	public TeamPanel teamPanel;
 	
 	public LiveChoosePane liveChoosePane;
+	public LivePanel livePanel;
 	
 	int show = 0;
 	
@@ -94,6 +97,7 @@ public class MotherPanel extends JPanel {
 		if(panel!=3){
 			matchnav.setVisible(false);
 		}
+	
 		
 		liveChoosePane = new LiveChoosePane(frame);
 		if(panel!=4){
@@ -108,6 +112,7 @@ public class MotherPanel extends JPanel {
 		add(playerPanel);
 		add(teamPanel);
 		add(liveChoosePane);
+		//add(livePanel);
 
 	}
 	
