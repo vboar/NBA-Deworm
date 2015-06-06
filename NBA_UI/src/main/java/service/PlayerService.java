@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import util.FieldType;
+import vo.HotPlayerInfoVO;
 import vo.PlayerAdvancedVO;
 import vo.PlayerFilter;
 import vo.PlayerInfoVO;
@@ -20,6 +22,13 @@ import vo.PlayerTotalVO;
  */
 public interface PlayerService extends Remote{
 
+	/**
+	 * 模糊查找匹配的球员名字
+	 * @param str 查找输入字符（球员姓名）
+	 * @return
+	 */
+	public List<String> getNameList(String str) throws RemoteException;
+	
 	/**
 	 * 获得一列球员头像
 	 * @param names 球员名字列表
@@ -97,6 +106,30 @@ public interface PlayerService extends Remote{
 	public List<PlayerAdvancedVO> getPlayerAdvancedBySeason(String season) throws RemoteException;
 	
 	/**
+	 * 根据姓名查找球员某赛季总数据
+	 * @param season
+	 * @param name
+	 * @return
+	 */
+	public PlayerTotalVO getPlayerTotalBySeasonName(String season, String name) throws RemoteException;
+	
+	/**
+	 * 根据姓名查找球员某赛季场均数据
+	 * @param season
+	 * @param name
+	 * @return
+	 */
+	public PlayerPerGameVO getPlayerPerGameBySeasonName(String season, String name) throws RemoteException;
+	
+	/**
+	 * 根据姓名查找球员某赛季高阶数据
+	 * @param season
+	 * @param name
+	 * @return
+	 */
+	public PlayerAdvancedVO getPlayerAdvancedBySeasonName(String season, String name) throws RemoteException;
+	
+	/**
 	 * 多项条件筛选球员场均数据
 	 * @param filter
 	 * @return
@@ -123,4 +156,14 @@ public interface PlayerService extends Remote{
 	 * @param abbr 球队缩写
 	 */
 	public List<PlayerInfoVO> getTeamPlayerBySeason(String season, String abbr) throws RemoteException;
+
+	/**
+	 * 获取某赛季热门属性的热点球队
+	 * @param season
+	 * @param field
+	 * @return
+	 */
+	public List<HotPlayerInfoVO> getSeasonHotPlayer(String season, FieldType field) throws RemoteException;
+
+
 }

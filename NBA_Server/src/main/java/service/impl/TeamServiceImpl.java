@@ -8,6 +8,8 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import service.TeamService;
+import util.FieldType;
+import vo.HotTeamInfoVO;
 import vo.TeamFilter;
 import vo.TeamInfoVO;
 import vo.TeamOppPerGameVO;
@@ -16,6 +18,7 @@ import vo.TeamPerGameVO;
 import vo.TeamTotalVO;
 import dao.TeamDao;
 import dao.impl.DaoFactoryImpl;
+import entity.HotTeamInfo;
 import entity.OpponentStatsPerGame;
 import entity.OpponentStatsTotal;
 import entity.TeamInfo;
@@ -158,6 +161,30 @@ public class TeamServiceImpl extends UnicastRemoteObject implements TeamService 
 	}
 	
 	@Override
+	public TeamTotalVO getTeamTotalBySeasonAbbr(String season, String abbr)
+			throws RemoteException {
+		return getTeamTotalToVO(tdao.getTeamTotalBySeasonAbbr(season, abbr));
+	}
+
+	@Override
+	public TeamPerGameVO getTeamPerGameBySeasonAbbr(String season, String abbr)
+			throws RemoteException {
+		return getTeamPerGameVO(tdao.getTeamPerGameBySeasonAbbr(season, abbr));
+	}
+
+	@Override
+	public TeamOppTotalVO getTeamOppTotalBySeasonAbbr(String season, String abbr)
+			throws RemoteException {
+		return getOppTotalVO(tdao.getTeamOppTotalBySeasonAbbr(season, abbr));
+	}
+
+	@Override
+	public TeamOppPerGameVO getTeamOppPerGameBySeasonAbbr(String season,
+			String abbr) throws RemoteException {
+		return getOppPerGameVO(tdao.getTeamOppPerGameBySeasonAbbr(season, abbr));
+	}
+
+	@Override
 	public List<TeamInfoVO> getAllTeamInfo() throws RemoteException{
 		List<TeamInfo> list = tdao.getAllTeamInfo();
 		List<TeamInfoVO> volist = new ArrayList<TeamInfoVO>();
@@ -187,6 +214,19 @@ public class TeamServiceImpl extends UnicastRemoteObject implements TeamService 
 		List<TeamPerGameVO> volist = new ArrayList<TeamPerGameVO>();
 		for(TeamStatsPerGame tsp: list){
 			TeamPerGameVO vo = getTeamPerGameVO(tsp);
+			if(vo!=null)
+				volist.add(vo);
+		}
+		return volist;
+	}
+	
+	@Override
+	public List<HotTeamInfoVO> getSeasonHotTeam(String season, FieldType field)
+			throws RemoteException {
+		List<HotTeamInfo> list = tdao.getSeasonHotTeam(season, field);
+		List<HotTeamInfoVO> volist = new ArrayList<HotTeamInfoVO>();
+		for(HotTeamInfo info : list){
+			HotTeamInfoVO vo = getHotTeamToVO(info);
 			if(vo!=null)
 				volist.add(vo);
 		}
@@ -337,6 +377,19 @@ public class TeamServiceImpl extends UnicastRemoteObject implements TeamService 
 		vo.tov = osp.getTov();
 		vo.pf = osp.getPf();
 		vo.pts = osp.getPts();	
+		return vo;
+	}
+
+	private HotTeamInfoVO getHotTeamToVO(HotTeamInfo info) {
+		if(info==null)
+			return null;
+		HotTeamInfoVO vo = new HotTeamInfoVO();
+		vo.name = info.getName();
+		vo.abbr = info.getAbbr();
+		vo.field = info.getField();
+		vo.value = info.getValue();
+		vo.season = info.getSeason();
+		vo.league = info.getLeague();
 		return vo;
 	}
 	

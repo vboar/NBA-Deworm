@@ -8,6 +8,8 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import service.PlayerService;
+import util.FieldType;
+import vo.HotPlayerInfoVO;
 import vo.PlayerAdvancedVO;
 import vo.PlayerFilter;
 import vo.PlayerInfoVO;
@@ -16,6 +18,7 @@ import vo.PlayerSalaryVO;
 import vo.PlayerTotalVO;
 import dao.PlayerDao;
 import dao.impl.DaoFactoryImpl;
+import entity.HotPlayerInfo;
 import entity.PlayerInfo;
 import entity.PlayerSalary;
 import entity.PlayerStatsAdvanced;
@@ -46,6 +49,11 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 	@Override
 	public ImageIcon getPlayerPortraitByName(String name) throws RemoteException{
 		return pdao.getPlayerPortraitByName(name);
+	}
+
+	@Override
+	public List<String> getNameList(String str) throws RemoteException {
+		return pdao.getNameList(str);
 	}
 	
 	@Override
@@ -159,6 +167,24 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 	}
 
 	@Override
+	public PlayerTotalVO getPlayerTotalBySeasonName(String season, String name)
+			throws RemoteException {
+		return getTotalVO(pdao.getPlayerTotalBySeasonName(season, name));
+	}
+
+	@Override
+	public PlayerPerGameVO getPlayerPerGameBySeasonName(String season,
+			String name) throws RemoteException {
+		return getPerGameVO(pdao.getPlayerPerGameBySeasonName(season, name));
+	}
+
+	@Override
+	public PlayerAdvancedVO getPlayerAdvancedBySeasonName(String season,
+			String name) throws RemoteException {
+		return getAdvancedVO(pdao.getPlayerAdvancedBySeasonName(season, name));
+	}
+	
+	@Override
 	public List<PlayerPerGameVO> getPlayerPerGameByFilter(PlayerFilter filter)
 			throws RemoteException {
 		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameByFilter(filter);
@@ -204,6 +230,19 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		List<PlayerInfo> list = pdao.getTeamPlayerBySeason(season, abbr);
 		for(PlayerInfo info: list){
 			PlayerInfoVO vo = getInfoVO(info);
+			if(vo!=null)
+				volist.add(vo);
+		}
+		return volist;
+	}
+
+	@Override
+	public List<HotPlayerInfoVO> getSeasonHotPlayer(String season,
+			FieldType field) throws RemoteException {
+		List<HotPlayerInfoVO> volist = new ArrayList<HotPlayerInfoVO>();
+		List<HotPlayerInfo> list = pdao.getSeasonHotPlayer(season, field);
+		for(HotPlayerInfo info : list){
+			HotPlayerInfoVO vo = getHotPlayerToVO(info);
 			if(vo!=null)
 				volist.add(vo);
 		}
@@ -345,6 +384,19 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		vo.tov = pst.getTov();
 		vo.pf = pst.getPf();
 		vo.pts = pst.getPts();	
+		return vo;
+	}
+
+	private HotPlayerInfoVO getHotPlayerToVO(HotPlayerInfo info) {
+		if(info==null)
+			return null;
+		HotPlayerInfoVO vo = new HotPlayerInfoVO();
+		vo.name = info.getName();
+		vo.team = info.getTeam();
+		vo.position = info.getPosition();
+		vo.field = info.getField();
+		vo.value = info.getValue();
+		vo.season = info.getSeason();
 		return vo;
 	}
 	

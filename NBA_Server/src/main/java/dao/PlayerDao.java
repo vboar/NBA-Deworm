@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import util.FieldType;
 import vo.PlayerFilter;
+import entity.HotPlayerInfo;
 import entity.PlayerInfo;
 import entity.PlayerSalary;
 import entity.PlayerStatsAdvanced;
@@ -17,6 +19,13 @@ import entity.PlayerStatsTotal;
  * created by JaneLDQ on 2015年5月28日 下午6:59:16
  */
 public interface PlayerDao {
+	
+	/**
+	 * 模糊查找匹配的球员名字
+	 * @param str 查找输入字符（球员姓名）
+	 * @return
+	 */
+	public List<String> getNameList(String str);
 	
 	/**
 	 * 获得一列球员头像
@@ -95,6 +104,30 @@ public interface PlayerDao {
 	public List<PlayerStatsAdvanced> getPlayerAdvancedBySeason(String season);
 	
 	/**
+	 * 根据姓名查找球员某赛季总数据
+	 * @param season
+	 * @param name
+	 * @return
+	 */
+	public PlayerStatsTotal getPlayerTotalBySeasonName(String season, String name);
+	
+	/**
+	 * 根据姓名查找球员某赛季场均数据
+	 * @param season
+	 * @param name
+	 * @return
+	 */
+	public PlayerStatsPerGame getPlayerPerGameBySeasonName(String season, String name);
+	
+	/**
+	 * 根据姓名查找球员某赛季高阶数据
+	 * @param season
+	 * @param name
+	 * @return
+	 */
+	public PlayerStatsAdvanced getPlayerAdvancedBySeasonName(String season, String name);
+	
+	/**
 	 * 多项条件筛选球员场均数据
 	 * @param filter
 	 * @return
@@ -121,6 +154,14 @@ public interface PlayerDao {
 	 * @param abbr 球队缩写
 	 */
 	public List<PlayerInfo> getTeamPlayerBySeason(String season, String abbr);
+	
+	/**
+	 * 获取某赛季热门属性的热点球队
+	 * @param season
+	 * @param field
+	 * @return
+	 */
+	public List<HotPlayerInfo> getSeasonHotPlayer(String season, FieldType field);
 	
 	/**
 	 * 插入球员基本信息

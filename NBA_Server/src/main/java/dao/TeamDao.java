@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import util.FieldType;
 import vo.TeamFilter;
+import entity.HotTeamInfo;
 import entity.OpponentStatsPerGame;
 import entity.OpponentStatsTotal;
 import entity.TeamInfo;
@@ -84,6 +86,38 @@ public interface TeamDao {
 	public List<OpponentStatsPerGame> getTeamOppPerGameByAbbr(String abbr);
 	
 	/**
+	 * 获得球队某赛季总数据
+	 * @param season
+	 * @param abbr
+	 * @return
+	 */
+	public TeamStatsTotal getTeamTotalBySeasonAbbr(String season, String abbr);	
+	
+	/**
+	 * 获得球队某赛季场均数据
+	 * @param season
+	 * @param abbr
+	 * @return
+	 */
+	public TeamStatsPerGame getTeamPerGameBySeasonAbbr(String season, String abbr);
+	
+	/**
+	 * 获得球队某赛季对手总数据
+	 * @param season
+	 * @param abbr
+	 * @return
+	 */
+	public OpponentStatsTotal getTeamOppTotalBySeasonAbbr(String season,String abbr);
+	
+	/**
+	 * 获得球队对手某赛季场均数据
+	 * @param season
+	 * @param abbr
+	 * @return
+	 */
+	public OpponentStatsPerGame getTeamOppPerGameBySeasonAbbr(String season, String abbr);
+	
+	/**
 	 * 多项条件筛选球队总数据
 	 * @param filter
 	 * @return
@@ -96,6 +130,13 @@ public interface TeamDao {
 	 * @return
 	 */
 	public List<TeamStatsPerGame> getTeamPerGameByFilter(TeamFilter filter);
+	
+	/**
+	 * 赛季热点球队
+	 * @param field
+	 * @return
+	 */
+	public List<HotTeamInfo> getSeasonHotTeam(String season, FieldType field);
 	
 	/**
 	 * 插入球队基本信息

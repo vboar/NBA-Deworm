@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 
+import util.FieldType;
 import util.Utility;
 import vo.TeamFilter;
 import dao.TeamDao;
+import entity.HotTeamInfo;
 import entity.OpponentStatsPerGame;
 import entity.OpponentStatsTotal;
 import entity.TeamInfo;
@@ -31,14 +31,10 @@ public class TeamDaoImpl implements TeamDao {
 	// TODO -------- TeamDao main test--------------
 	public static void main(String[] args) {
 		TeamDao tdao = DaoFactoryImpl.getDaoFactory().getTeamDao();
-		TeamInfo info = tdao.getTeamInfoByAbbr("ATL");
-		ImageIcon icon  = tdao.getTeamLogoByAbbr(info.getAbbr());
-		JLabel jl = new JLabel(icon);
-		JFrame jf = new JFrame();
-		jf.setSize(400, 400);
-		jf.getContentPane().add(jl);
-		jf.setVisible(true);
-		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		List<HotTeamInfo> list = tdao.getSeasonHotTeam("13-14", FieldType.AST);
+		for(HotTeamInfo i:list){
+			System.out.println(i.getAbbr() + " " + i.getValue());
+		}
 	}
 	
 	@Override
@@ -322,6 +318,46 @@ public class TeamDaoImpl implements TeamDao {
         }
 		sqlManager.releaseAll();
 		return list;
+	}
+	
+	@Override
+	public TeamStatsTotal getTeamTotalBySeasonAbbr(String season,
+			String abbr) {
+		sqlManager.getConnection();		
+		String sql = "SELECT * FROM team_total WHERE season=? AND abbr=?";
+		Map<String,Object> map = sqlManager.querySimple(sql, new Object[]{season,abbr});
+		sqlManager.releaseAll();
+		return getTeamTotal(map);
+	}
+
+	@Override
+	public TeamStatsPerGame getTeamPerGameBySeasonAbbr(String season,
+			String abbr) {
+		sqlManager.getConnection();		
+		String sql = "SELECT * FROM team_per_game WHERE season=? AND abbr=?";
+		Map<String,Object> map = sqlManager.querySimple(sql, new Object[]{season,abbr});
+		sqlManager.releaseAll();
+		return getTeamPerGame(map);
+	}
+
+	@Override
+	public OpponentStatsTotal getTeamOppTotalBySeasonAbbr(String season,
+			String abbr) {
+		sqlManager.getConnection();		
+		String sql = "SELECT * FROM team_opp_total WHERE season=? AND abbr=?";
+		Map<String,Object> map = sqlManager.querySimple(sql, new Object[]{season,abbr});
+		sqlManager.releaseAll();
+		return getOppTotal(map);
+	}
+
+	@Override
+	public OpponentStatsPerGame getTeamOppPerGameBySeasonAbbr(
+			String season, String abbr) {
+		sqlManager.getConnection();		
+		String sql = "SELECT * FROM team_opp_per_game WHERE season=? AND abbr=?";
+		Map<String,Object> map = sqlManager.querySimple(sql, new Object[]{season,abbr});
+		sqlManager.releaseAll();
+		return getOppPerGame(map);
 	}
 	
 	@Override
@@ -646,6 +682,30 @@ public class TeamDaoImpl implements TeamDao {
 		sqlManager.releaseConnection();
 	}
 
+	@Override
+	public List<HotTeamInfo> getSeasonHotTeam(String season, FieldType field) {
+		List<HotTeamInfo> list = new ArrayList<HotTeamInfo>();
+		sqlManager.getConnection();
+		String sql ="";
+		if(!isFieldAdvanced(field)){
+			sql += "SELECT a.name, b.abbr, league, season, "
+				+ field.toString()
+				+ " FROM team_info as a, team_per_game as b "
+				+ " WHERE a.abbr = b.abbr AND b.season = ?";
+		}else{
+			sql += "SELECT a.name, b.abbr, league, season, ? "
+					+ "FROM team_info as a, team_advanced as b "
+					+ "WHERE a.abbr = b.abbr AND b.season = ?";
+		}
+		sql += "ORDER BY " + field.toString() + " DESC LIMIT 0,5";
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, new Object[]{season});
+		for(Map<String, Object> map: maplist){
+			list.add(getHotTeamInfo(map, field));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+	
 	private TeamInfo getTeamInfo(Map<String, Object> map) {
 		TeamInfo info = new TeamInfo();
         if (map.get("name") == null) {
@@ -798,4 +858,29 @@ public class TeamDaoImpl implements TeamDao {
 		return osp;
 	}
 
+	private HotTeamInfo getHotTeamInfo(Map<String, Object> map, FieldType field) {
+		if(map.get("name")==null){
+			return null;
+		}
+		HotTeamInfo info = new HotTeamInfo();
+		info.setName(map.get("name").toString());
+		info.setAbbr(map.get("abbr").toString());
+		info.setField(field);
+		info.setLeague(map.get("league").toString());
+		info.setSeason(map.get("season").toString());
+		info.setValue(map.get(field.toString()).toString());
+		return info;
+	}
+
+	private boolean isFieldAdvanced(FieldType field){
+		switch(field){
+		case DEF_RTG:
+		case OFF_RTG:
+		case DRB_PCT:
+		case ORB_PCT:
+			return true;
+		default:
+			return false;
+		}
+	}
 }

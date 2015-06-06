@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import util.FieldType;
+import vo.HotTeamInfoVO;
 import vo.TeamFilter;
 import vo.TeamInfoVO;
 import vo.TeamOppPerGameVO;
@@ -110,5 +112,42 @@ public interface TeamService extends Remote{
 	 */
 	public List<TeamPerGameVO> getTeamPerGameByFilter(TeamFilter filter) throws RemoteException;
 	
+	/**
+	 * 获得球队某赛季总数据
+	 * @param season
+	 * @param abbr
+	 * @return
+	 */
+	public TeamTotalVO getTeamTotalBySeasonAbbr(String season, String abbr) throws RemoteException;	
 	
+	/**
+	 * 获得球队某赛季场均数据
+	 * @param season
+	 * @param abbr
+	 * @return
+	 */
+	public TeamPerGameVO getTeamPerGameBySeasonAbbr(String season, String abbr) throws RemoteException;
+	
+	/**
+	 * 获得球队某赛季对手总数据
+	 * @param season
+	 * @param abbr
+	 * @return
+	 */
+	public TeamOppTotalVO getTeamOppTotalBySeasonAbbr(String season,String abbr) throws RemoteException;
+	
+	/**
+	 * 获得球队对手某赛季场均数据
+	 * @param season
+	 * @param abbr
+	 * @return
+	 */
+	public TeamOppPerGameVO getTeamOppPerGameBySeasonAbbr(String season, String abbr) throws RemoteException;
+
+	/**
+	 * 赛季热点球队
+	 * @param field
+	 * @return
+	 */
+	public List<HotTeamInfoVO> getSeasonHotTeam(String season, FieldType field) throws RemoteException;
 }
