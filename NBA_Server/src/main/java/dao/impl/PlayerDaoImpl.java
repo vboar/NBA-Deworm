@@ -994,4 +994,17 @@ public class PlayerDaoImpl implements PlayerDao {
 		return map.get("team_abbr").toString();
 	}
 
+	@Override
+	public List<PlayerSalary> getPlayerSalaryBySeason(String season) {
+		List<PlayerSalary> list = new ArrayList<PlayerSalary>();
+		sqlManager.getConnection();
+		String sql = "SELECT * FROM player_salary WHERE season=" + season;
+		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{season});
+		for(Map<String,Object> map: maplist){
+			list.add(getPlayerSalary(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+
 }

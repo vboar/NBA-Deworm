@@ -426,4 +426,17 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		return pdao.getNameByNameInitial(initial);
 	}
 
+	@Override
+	public List<PlayerSalaryVO> getPlayerSalaryBySeason(String season)
+			throws RemoteException {
+		List<PlayerSalary> list = pdao.getPlayerSalaryBySeason(season);
+		List<PlayerSalaryVO> volist = new ArrayList<PlayerSalaryVO>();
+		for(PlayerSalary ps: list){
+			PlayerSalaryVO vo = getSalaryVO(ps);
+			if(vo!=null)
+				volist.add(vo);
+		}
+		return volist;
+	}
+
 }

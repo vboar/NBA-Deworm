@@ -181,6 +181,13 @@ public interface PlayerDao {
 	public List<PlayerSalary> getPlayerSalaryByName(String name);
 	
 	/**
+	 * 获得某赛季全部球员的薪水列表
+	 * @param season
+	 * @return
+	 */
+	public List<PlayerSalary> getPlayerSalaryBySeason(String season);
+	
+	/**
 	 * 插入球员基本信息
 	 */
 	public void insertPlayerInfo(List<PlayerInfo> list);

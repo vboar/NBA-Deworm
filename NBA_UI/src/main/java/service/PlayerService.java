@@ -173,5 +173,12 @@ public interface PlayerService extends Remote{
 	 * @return
 	 */
 	public List<PlayerSalaryVO> getPlayerSalaryByName(String name) throws RemoteException;
+	
+	/**
+	 * 获得某赛季全部球员的薪水列表
+	 * @param season
+	 * @return
+	 */
+	public List<PlayerSalaryVO> getPlayerSalaryBySeason(String season) throws RemoteException; 
 
 }

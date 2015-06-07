@@ -149,4 +149,10 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		return null;
 	}
 
+	@Override
+	public List<PlayerSalaryVO> getPlayerSalaryBySeason(String season)
+			throws RemoteException {
+		return null;
+	}
+
 }
