@@ -65,10 +65,10 @@ public class PlayerAPI {
         String initial = str.substring(9);
         if (initial.length() > 1) return APIServer.NOTSUPPORT;
         try {
-            List<PlayerInfoVO> list = ps.getPlayerInfoByNameInitial(initial);
+            List<String> list = ps.getNameByNameInitial(initial);
             JSONArray array = new JSONArray();
-            for (PlayerInfoVO vo : list) {
-                array.put(vo.name);
+            for (String s: list) {
+                array.put(s);
             }
             return array.toString();
         } catch (RemoteException e) {

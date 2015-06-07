@@ -5,14 +5,15 @@
 /match?id=201410280LAL-HOU
 [optional basic=1 advanced=1]
 
-/match?season=2014-2015
-/match?season=2014-2015&regular=1
-/match?season=2014-2015&team=HOU
-/match?season=2014-2015&team=HOU&regular=1
-/match?season=2014-2015&team=HOU&home=1
-/match?season=2014-2015&team=HOU&regular=1&home=1
-/match?season=2014-2015&player=Patrick Beverley
-/match?season=2014-2015&player=Patrick Beverley&regular=1
+/match?begin=2015-01-01&end=2015-01-02
+/match?season=14-15
+/match?season=14-15&regular=1
+/match?season=14-15&team=HOU
+/match?season=14-15&team=HOU&regular=1
+/match?season=14-215&team=HOU&home=1
+/match?season=14-15&team=HOU&regular=1&home=1
+/match?season=14-15&player=Patrick Beverley
+/match?season=14-15&player=Patrick Beverley&regular=1
 [optional: limit=100 order=date&desc=1]
 
 /team/all
