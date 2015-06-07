@@ -3,6 +3,7 @@ package api;
 import entity.Match;
 import entity.MatchInfo;
 import org.json.JSONArray;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import service.MatchService;
 import service.impl.ServiceFactoryImpl;
 import vo.MatchFilter;
@@ -89,7 +90,7 @@ public class MatchAPI {
         if (m.find()) {
             team = m.group().substring(5);
         }
-        p = Pattern.compile("player=(.*)&");
+        p = Pattern.compile("player=(.*?)&");
         m = p.matcher(str);
         if (m.find()) {
             player = m.group().substring(7);
@@ -151,8 +152,7 @@ public class MatchAPI {
         mf.team = team;
         mf.player = player;
         mf.season = season;
-        // TODO
-        System.out.println(team);
+        // TODO 排序 order desc
         try {
             List<MatchInfoVO> list = ms.getMatchInfoByFilter(mf);
             JSONArray array = new JSONArray();
