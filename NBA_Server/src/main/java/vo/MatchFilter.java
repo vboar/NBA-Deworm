@@ -50,7 +50,7 @@ public class MatchFilter {
 	/**
 	 * 个数
 	 */
-	public int limit = 10;
+	public Integer limit;
 	
 
 }

@@ -67,10 +67,19 @@ public class MatchDaoImpl implements MatchDao {
 		}
 		if(filter.player != null){
 			sql += " AND b.player_name=? ";
+			if(filter.home!=null){
+				if(filter.home){
+					sql += " AND b.team_abbr=a.home_team ";
+				}else{
+					sql += " AND b.team_abbr=a.guest_team ";
+				}
+			}
 			objects.add(filter.player);
 		}
-		sql += " ORDER BY date " + filter.order + " LIMIT 0,"+filter.limit;
-		
+		sql += " ORDER BY date " + filter.order;
+		if(filter.limit != null){
+			sql +=  " LIMIT 0,"+filter.limit;
+		}		
 		List<Map<String, Object>> maplist = sqlManager.queryMultiByList(sql, objects);
 		for(Map<String, Object> map: maplist){
 			list.add(getMatchInfo(map));
