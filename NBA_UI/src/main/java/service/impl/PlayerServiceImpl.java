@@ -138,4 +138,9 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		return null;
 	}
 
+	@Override
+	public List<PlayerInfoVO> getAllPlayerInfo() throws RemoteException {
+		return null;
+	}
+
 }

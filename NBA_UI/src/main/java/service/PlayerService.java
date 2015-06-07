@@ -21,6 +21,12 @@ import vo.PlayerTotalVO;
  * created by JaneLDQ on 2015年5月31日 下午6:31:07
  */
 public interface PlayerService extends Remote{
+	
+    /**
+     * 获得所有球员信息
+     * @return
+     */
+    public List<PlayerInfoVO> getAllPlayerInfo() throws RemoteException;
 
 	/**
 	 * 模糊查找匹配的球员名字
