@@ -52,6 +52,7 @@ public class Console {
     		prop.load(in);
     		address = prop.getProperty("rmi_address");
     		port = prop.getProperty("rmi_port");
+            System.setProperty("java.rmi.server.hostname", address);
     	}catch(Exception e){
     		System.out.println(e);
     	}
@@ -105,7 +106,6 @@ public class Console {
         } else {
             rmiServerOn = true;
             try {
-            	System.setProperty("java.rmi.server.hostname", address);
 				reg = LocateRegistry.createRegistry(Integer.parseInt(port));
 				ServiceFactory serviceFactory = ServiceFactoryImpl.getInstance();
 				Naming.rebind("rmi://" + address + ":" + port + "/ServiceFactory", serviceFactory);

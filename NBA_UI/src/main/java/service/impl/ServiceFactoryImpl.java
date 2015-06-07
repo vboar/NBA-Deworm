@@ -70,7 +70,6 @@ public class ServiceFactoryImpl extends UnicastRemoteObject implements ServiceFa
     		prop.load(in);
     		address = prop.getProperty("address");
     		port = prop.getProperty("port");
-    		System.setProperty("java.rmi.server.hostname ", address);  
     	}catch(Exception e){
     		System.out.println(e);
     	}

@@ -82,8 +82,9 @@ public class APIServer implements Runnable {
                 return teamAPI.getStr(request.substring(5));
             } else if (request.startsWith("/player")) {
                 return playerAPI.getStr(request.substring(7));
+            } else if (request.startsWith("/match")) {
+                return playerAPI.getStr(request.substring(6));
             }
-            response = request;
         } else {
             response = "APIs for NBA made by Deworm.";
         }
