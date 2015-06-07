@@ -458,11 +458,11 @@ public class PlayerIndex extends JPanel {
 		
 		layerPane.revalidate();
 		System.out.println("418: " + ini + "-------------");
-		List<PlayerInfoVO> volist = ServiceFactoryImpl.getInstance()
+		List<String> volist = ServiceFactoryImpl.getInstance()
 				.getPlayerService()
-				.getPlayerInfoByNameInitial(ini.toUpperCase());
+				.getNameByNameInitial(ini.toUpperCase());
 		for (int i = 0; i < volist.size(); i++) {
-			System.out.println("i:"+i+" "+volist.get(i).name);
+			System.out.println("i:"+i+" "+volist.get(i));
 		}
 
 		for (int i = 0; i < volist.size(); i += 4) {
@@ -471,25 +471,25 @@ public class PlayerIndex extends JPanel {
 			MyLabel middle2;
 			MyLabel right;
 			if (i < volist.size()) {
-				left = new MyLabel(volist.get(i).name, pcfg.getLabels()
+				left = new MyLabel(volist.get(i), pcfg.getLabels()
 						.element("left"));
 				layerPane.add(left);
 				left.setLocation(left.getX(), left.getY() + i / 4 * 35);
 			}
 			if (i < volist.size() - 1) {
-				middle1 = new MyLabel(volist.get(i + 1).name, pcfg.getLabels()
+				middle1 = new MyLabel(volist.get(i + 1), pcfg.getLabels()
 						.element("middle1"));
 				layerPane.add(middle1);
 				middle1.setLocation(middle1.getX(), middle1.getY() + i / 4 * 35);
 			}
 			if (i < volist.size() - 2) {
-				middle2 = new MyLabel(volist.get(i + 2).name, pcfg.getLabels()
+				middle2 = new MyLabel(volist.get(i + 2), pcfg.getLabels()
 						.element("middle2"));
 				layerPane.add(middle2);
 				middle2.setLocation(middle2.getX(), middle2.getY() + i / 4 * 35);
 			}
 			if (i < volist.size() - 3) {
-				right = new MyLabel(volist.get(i + 3).name, pcfg.getLabels()
+				right = new MyLabel(volist.get(i + 3), pcfg.getLabels()
 						.element("right"));
 				layerPane.add(right);
 				right.setLocation(right.getX(), right.getY() + i / 4 * 35);
