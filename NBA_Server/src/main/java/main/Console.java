@@ -13,9 +13,9 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Properties;
 
-import api.APIServer;
 import service.ServiceFactory;
 import service.impl.ServiceFactoryImpl;
+import api.APIServer;
 import dao.impl.InitDaoImpl;
 
 /**
@@ -105,12 +105,12 @@ public class Console {
         } else {
             rmiServerOn = true;
             try {
+            	System.setProperty("java.rmi.server.hostname", address);
 				reg = LocateRegistry.createRegistry(Integer.parseInt(port));
 				ServiceFactory serviceFactory = ServiceFactoryImpl.getInstance();
 				Naming.rebind("rmi://" + address + ":" + port + "/ServiceFactory", serviceFactory);
 				System.out.println("Rmi server is on now!");
-				
-            } catch (Exception e) {
+	       } catch (Exception e) {
 				e.printStackTrace();
             }
         }

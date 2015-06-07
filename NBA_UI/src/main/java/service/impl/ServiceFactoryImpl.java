@@ -3,9 +3,12 @@ package service.impl;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 import java.util.Properties;
 
 import javax.swing.ImageIcon;
@@ -45,12 +48,16 @@ public class ServiceFactoryImpl extends UnicastRemoteObject implements ServiceFa
 	// TODO ------- ServiceFactoryImpl main test------------------
 	public static void main(String[] args) {
 		try {
-			ImageIcon icon = ServiceFactoryImpl.getInstance().getTeamService().getTeamLogoByAbbr("ATL");
-			JLabel jl = new JLabel(icon);
+			ServiceFactory sf = ServiceFactoryImpl.getInstance();
+			System.out.println(System.currentTimeMillis());
+			List<ImageIcon> icon = sf.getTeamService().getAllTeamLogo();			
+			JLabel jl = new JLabel(icon.get(0));
 			JFrame jf = new JFrame();
 			jf.setSize(400, 400);
 			jf.getContentPane().add(jl);
 			jf.setVisible(true);
+			jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			System.out.println(System.currentTimeMillis()); 
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -63,6 +70,7 @@ public class ServiceFactoryImpl extends UnicastRemoteObject implements ServiceFa
     		prop.load(in);
     		address = prop.getProperty("address");
     		port = prop.getProperty("port");
+    		System.setProperty("java.rmi.server.hostname ", address);  
     	}catch(Exception e){
     		System.out.println(e);
     	}
@@ -83,8 +91,9 @@ public class ServiceFactoryImpl extends UnicastRemoteObject implements ServiceFa
 	public static ServiceFactory getInstance() {
 		try{
 			serviceFactory = (ServiceFactory)Naming.lookup("rmi://"+address+":"+port+"/ServiceFactory");
-		}catch(Exception e){
-			System.out.println("Get Service error!");
+		}catch(RemoteException | NotBoundException |MalformedURLException e){
+			e.printStackTrace();
+			System.out.println("\n-------- Get Service Error ------ ");
 		}
 		return serviceFactory;
 	}
