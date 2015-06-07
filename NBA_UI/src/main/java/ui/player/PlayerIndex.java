@@ -1,17 +1,32 @@
 package ui.player;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import service.PlayerService;
+import service.impl.ServiceFactoryImpl;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
 import ui.util.MyLabel;
 import ui.util.MyTextField;
+import vo.PlayerInfoVO;
 
 public class PlayerIndex extends JPanel{
 	private PanelConfig pcfg;
 	
+	//private PlayerService ps;
 	private MyTextField name;
 	private MyLabel indexbg;
 	private MyLabel search;
@@ -42,10 +57,18 @@ public class PlayerIndex extends JPanel{
 	private MyLabel y;
 	private MyLabel z;
 	
+	private String show = "A";
+
 	public PlayerIndex(HomeUI frame){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
-		
+		/*
+		try {
+			ps = ServiceFactoryImpl.getInstance().getPlayerService();
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}*/
 		this.setOpaque(false);
 		this.setLayout(null);
 		this.setSize(pcfg.getW(), pcfg.getH());
@@ -62,6 +85,46 @@ public class PlayerIndex extends JPanel{
 		indexbg = new MyLabel(pcfg.getLabels().element("indexbg"));
 		search = new MyLabel(pcfg.getLabels().element("search"));
 		a = new MyLabel(pcfg.getLabels().element("a"));
+		a.addMouseListener(new MouseAdapter(){
+			String[] temp = pcfg.getLabels().element("a").attributeValue("path").split("\\.");
+			String path = temp[0];
+			String fix = temp[1];
+			List<PlayerInfoVO> infolist = new ArrayList<PlayerInfoVO>();
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				a.setIcon(new ImageIcon(path+"_click."+fix));
+				
+			/*	
+				try {
+					infolist = ps.getPlayerInfoByNameInitial("A");
+				} catch (RemoteException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+				*/
+				//show(infolist);
+				show("A");
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				a.setIcon(new ImageIcon(path+"_click."+fix));
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				if(!show.equals("A"))
+					a.setIcon(new ImageIcon(path+"."+fix));
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				a.setIcon(new ImageIcon(path+"_click."+fix));				
+			}
+	
+		});
 		b = new MyLabel(pcfg.getLabels().element("b"));
 		c = new MyLabel(pcfg.getLabels().element("c"));
 		d = new MyLabel(pcfg.getLabels().element("d"));
@@ -123,6 +186,33 @@ public class PlayerIndex extends JPanel{
 	private void initTextFields(){
 		name = new MyTextField(pcfg.getTextFields().element("name"));
 		name.setBorder(new EmptyBorder(0,0,0,0));
+		name.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String text = name.getText();
+				text = text.replace(" ", "");
+				if(text!=null&&!text.equals("")&&text.length()>1){
+					
+				}
+			}
+			
+		});
 		add(name);
+	}
+	
+	private void show(List<PlayerInfoVO> infolist){
+		int x = 0;
+		int y = 0;
+		
+		for(int i=0;i<infolist.size();i++){
+			JLabel temp = new JLabel();
+			
+			
+		}
+	}
+	
+	private void show(String initial){
+		
 	}
 }

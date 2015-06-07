@@ -2,6 +2,7 @@ package ui.player;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -55,7 +56,7 @@ public class PlayerPanel extends JPanel {
 	}
 	
 	
-	private void initPanel(){
+	private void initPanel() {
 		playerfilter = new PlayerFilter(frame);
 		playerfilter.setVisible(false);
 		add(playerfilter);	
