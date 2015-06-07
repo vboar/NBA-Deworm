@@ -213,6 +213,16 @@
 			
 			</panel>
 			
+			<panel className="ui.match.MatchPanel" width="940" heigth="511"
+			>
+			<labels>
+			<livebg w="940" h="46" x="0" y="0" path="img/match/live/livebg.png"/>
+			<live w="150" h="46" x="0" y="0" path="img/match/live/live.png" />
+			<stat w="150" h="46" x="150" y="0" path="img/match/live/stat.png" />
+			<rank w="150" h="46" x="300" y="0" path="img/match/live/rank.png" />
+			</labels>
+			</panel>
+			
 			<panel className="ui.player.PlayerNav" width="770" 
 			height="60" x="106" y="45" bg="img/common/nav/navbg.jpg" >
 			
@@ -322,6 +332,12 @@
 			<btn text="观看" w="177" h="27" x="485" y="215"/>
 			</buttons>
 			</panel>
-			
+
+			<panel className="ui.team.TeamDetail" width="940" height="511"
+			x="0" y="0">
+			<labels>
+			<basicinfo w="150" h="46" x="0" y="0" path="img/match/live/live.png"/>
+			</labels>
+			</panel>
 	</homeframe>
 </nba>

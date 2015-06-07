@@ -2,16 +2,19 @@ package ui.team;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import service.impl.ServiceFactoryImpl;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
 import ui.util.MyButton;
 import ui.util.MyLabel;
 import ui.util.MyTab;
+import vo.TeamInfoVO;
 
 public class TeamStat extends JPanel{
 
@@ -24,6 +27,8 @@ public class TeamStat extends JPanel{
 	private MyLabel settingbg;
 	private MyButton setting;
 	private MyButton menu;
+	
+	private TeamInfoVO teaminfo;
 	
 	public TeamStat(HomeUI frame){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap().
@@ -43,6 +48,7 @@ public class TeamStat extends JPanel{
 		initLabels();
 		initPanels();
 		initTabs();
+		initTable();
 	}
 	
 	private void initLabels(){
@@ -104,6 +110,18 @@ public class TeamStat extends JPanel{
 		teamfilter.setVisible(false);
 		
 		add(teamfilter);
+	}
+	
+	
+	private void initTable(){
+		try {
+			teaminfo = ServiceFactoryImpl.getInstance().getTeamService().getTeamInfoByAbbr("ATL");
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		
+		System.out.println(teaminfo.abbr);
 	}
 	
 	public void filter(){

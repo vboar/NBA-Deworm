@@ -46,6 +46,7 @@ public class TeamNav extends JPanel{
 	
 	private void initLabels(){
 		index = new MyLabel(pcfg.getLabels().element("index"));
+		index.setIcon(new ImageIcon("img/team/nav/index_click.png"));
 		index.addMouseListener(new MouseAdapter(){
 			String[] temp = pcfg.getLabels().element("index").attributeValue("path").split("\\.");
 			String path = temp[0];
@@ -60,6 +61,7 @@ public class TeamNav extends JPanel{
 				
 				frame.motherPanel.teamPanel.teamindex.setVisible(true);
 				frame.motherPanel.teamPanel.teamstat.setVisible(false);
+				frame.motherPanel.teamPanel.teamhot.setVisible(false);
 			}
 
 			@Override
@@ -103,6 +105,7 @@ public class TeamNav extends JPanel{
 				//更改teampanel内容
 				frame.motherPanel.teamPanel.teamindex.setVisible(false);
 				frame.motherPanel.teamPanel.teamstat.setVisible(true);
+				frame.motherPanel.teamPanel.teamhot.setVisible(false);
 			}
 
 			@Override
@@ -141,7 +144,11 @@ public class TeamNav extends JPanel{
 				hotteam.setIcon(new ImageIcon(path+"_click."+fix));
 				show = 2;
 				index.setIcon(new ImageIcon(pcfg.getLabels().element("index").attributeValue("path")));
-				teamstat.setIcon(new ImageIcon(pcfg.getLabels().element("playerstat").attributeValue("path")));
+				teamstat.setIcon(new ImageIcon(pcfg.getLabels().element("teamstat").attributeValue("path")));
+			
+				frame.motherPanel.teamPanel.teamindex.setVisible(false);
+				frame.motherPanel.teamPanel.teamstat.setVisible(false);
+				frame.motherPanel.teamPanel.teamhot.setVisible(true);
 			}
 
 			@Override

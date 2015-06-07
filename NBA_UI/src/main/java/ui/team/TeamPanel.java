@@ -20,6 +20,7 @@ public class TeamPanel extends JPanel{
 
 	public TeamIndex teamindex;
 	public TeamStat teamstat; 
+	public TeamHot teamhot;
 	
 	public TeamPanel(HomeUI frame){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
@@ -47,6 +48,10 @@ public class TeamPanel extends JPanel{
 		teamstat = new TeamStat(frame);
 		teamstat.setVisible(false);
 		add(teamstat);
+		
+		teamhot = new TeamHot();
+		teamhot.setVisible(false);
+		add(teamhot);
 	}
 
 }

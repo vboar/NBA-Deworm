@@ -1,4 +1,4 @@
-package ui.match;
+package ui.team;
 
 import javax.swing.JPanel;
 
@@ -7,16 +7,14 @@ import ui.config.SystemConfig;
 import ui.home.HomeUI;
 import ui.util.MyLabel;
 
-public class MatchPanel extends JPanel{
-
+public class TeamDetail extends JPanel{
 	private PanelConfig pcfg;
 	private HomeUI frame;
 	
-	private MyLabel live;
-	private MyLabel stat;
-	private MyLabel rank;
+	private MyLabel basicinfo;
+	private MyLabel cseason;
 	
-	public MatchPanel(HomeUI frame){
+	public TeamDetail(HomeUI frame){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
 		this.frame = frame;
@@ -24,22 +22,12 @@ public class MatchPanel extends JPanel{
 		this.setLayout(null);
 		this.setOpaque(false);
 		this.setSize(pcfg.getW(), pcfg.getH());
-		this.setLocation(pcfg.getX(),pcfg.getY());
+		this.setLocation(pcfg.getX(), pcfg.getY());
 		
 		initComponent();
-	}
+	} 
 	
 	private void initComponent(){
-		initLabels();
-	}
-	
-	private void initLabels(){
-		live = new MyLabel(pcfg.getLabels().element("live"));
-		stat = new MyLabel(pcfg.getLabels().element("stat"));
-		rank = new MyLabel(pcfg.getLabels().element("rank"));
 		
-		add(live);
-		add(stat);
-		add(rank);
 	}
 }
