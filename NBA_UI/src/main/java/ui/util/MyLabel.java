@@ -8,6 +8,7 @@ package ui.util;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.MouseListener;
 import java.io.File;
 
 import javax.swing.ImageIcon;
@@ -28,6 +29,7 @@ public class MyLabel extends JLabel {
 	}
 
 	public MyLabel(Element ele) {
+		this.setName(ele.getName());
 		this.ele = ele;
 		this.setText(ele.attributeValue("text"));
 		this.setSize(Integer.parseInt(ele.attributeValue("w")),
@@ -90,9 +92,21 @@ public class MyLabel extends JLabel {
 		icon.setImage(icon.getImage().getScaledInstance(
 				Integer.parseInt(ele.attributeValue("w")),
 				Integer.parseInt(ele.attributeValue("h")), Image.SCALE_DEFAULT));
-
+		
 		this.setIcon(icon);
 
+		
+	}
+	public MyLabel(Element ele,boolean threePic){
+		this.ele = ele;
+		this.setSize(Integer.parseInt(ele.attributeValue("w")),
+				Integer.parseInt(ele.attributeValue("h")));
+		this.setLocation(Integer.parseInt(ele.attributeValue("x")),
+				Integer.parseInt(ele.attributeValue("y")));
+		if (ele.attributeValue("path") != null) {
+			this.setIcon(new ImageIcon(ele.attributeValue("path")));
+		}
+		
 	}
 	
 	public MyLabel(Element ele,int width) {
@@ -116,5 +130,6 @@ public class MyLabel extends JLabel {
 		icon.setImage(icon.getImage().getScaledInstance(w, h,
 				Image.SCALE_DEFAULT));
 	}
+	
 	
 }

@@ -63,7 +63,6 @@ public class MyButton extends JButton{
 			this.setRolloverIcon(new ImageIcon(first+"_point."+second));
 			this.setPressedIcon(new ImageIcon(first+"_click."+second));
 		
-			
 		}
 		if(ele.attributeValue("pathroll")!=null){
 			this.setRolloverIcon(new ImageIcon(ele.attributeValue("pathroll")));
