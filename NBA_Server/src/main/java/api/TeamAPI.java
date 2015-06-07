@@ -13,6 +13,8 @@ import vo.TeamInfoVO;
 
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Vboar on 2015/6/3.
@@ -38,7 +40,7 @@ public class TeamAPI {
             // command is /team?abbr={}
             return abbr(str);
         }
-        return null;
+        return APIServer.NOTSUPPORT;
     }
 
     private String all() {
@@ -52,11 +54,27 @@ public class TeamAPI {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return null;
+        return APIServer.ERROR;
     }
 
     private String abbr(String str) {
-        return str;
+        if (str.length() == 9) {
+            // command is /team?abbr={}
+            String abbr = str.substring(6);
+            try {
+                TeamInfoVO vo = ts.getTeamInfoByAbbr(abbr);
+                if (vo == null) return APIServer.NOTFOUND;
+                return getTeamInfoJO(vo).toString();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+                return APIServer.ERROR;
+            }
+        }
+        Pattern p = Pattern.compile("[0-9]{8}");
+        Matcher m = p.matcher(str);
+        if (m.find()) System.out.println(m.group());
+
+        return APIServer.NOTSUPPORT;
     }
 
     /**

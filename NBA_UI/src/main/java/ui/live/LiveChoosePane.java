@@ -38,7 +38,6 @@ public class LiveChoosePane extends JPanel {
 	}
 
 	private void initComponent(){
-		LiveServiceImpl.getInstance().startLiveService();
 		List<LiveMatchInfoVO>  list=LiveServiceImpl.getInstance().getAllLiveList();
 		for(int i=0;i<list.size();i++){
 			String text = list.get(i).date+ " "+list.get(i).time+" "+list.get(i).matchType+" "+list.get(i).homeTeam+" "+list.get(i).guestTeam;

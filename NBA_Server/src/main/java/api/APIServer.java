@@ -19,6 +19,10 @@ public class APIServer implements Runnable {
     private Thread thread;
     private boolean run;
     private TeamAPI teamAPI;
+    private PlayerAPI playerAPI;
+    public static final String NOTFOUND = "Not found.";
+    public static final String NOTSUPPORT = "Not support.";
+    public static final String ERROR = "Error.";
 
     public static void main(String[] args) {
         new APIServer().start();
@@ -26,6 +30,7 @@ public class APIServer implements Runnable {
 
     public APIServer() {
         teamAPI = new TeamAPI();
+        playerAPI = new PlayerAPI();
     }
 
     public void start() {
@@ -75,11 +80,13 @@ public class APIServer implements Runnable {
         if (request.length() > 1) {
             if (request.startsWith("/team")) {
                 return teamAPI.getStr(request.substring(5));
+            } else if (request.startsWith("/player")) {
+                return playerAPI.getStr(request.substring(7));
             }
             response = request;
         } else {
             response = "APIs for NBA made by Deworm.";
         }
-        return response;
+        return NOTSUPPORT;
     }
 }

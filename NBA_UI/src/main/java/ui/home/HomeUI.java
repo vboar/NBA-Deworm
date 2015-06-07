@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import service.impl.LiveServiceImpl;
 import ui.common.MotherPanel;
 import ui.config.FrameConfig;
 import ui.config.SystemConfig;
@@ -62,6 +63,9 @@ public class HomeUI extends JFrame {
 		//this.getContentPane().add(new MotherPanel(this));
 		//this.getContentPane().add(new LivePanel(this));
 		this.setVisible(true);
+
+
+		LiveServiceImpl.getInstance().startLiveService();
 	}
 
 	public static void main(String[] args) {

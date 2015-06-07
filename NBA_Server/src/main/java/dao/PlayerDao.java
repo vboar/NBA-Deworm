@@ -46,6 +46,12 @@ public interface PlayerDao {
 	 * @param initial 首字母A-Z
 	 */
 	public List<PlayerInfo> getPlayerInfoByNameInitial(String initial);
+
+    /**
+     * 获得所有球员信息
+     * @return
+     */
+    public List<PlayerInfo> getAllPlayerInfo();
 	
 	/**
 	 * 获取单个球员基本信息
@@ -133,7 +139,7 @@ public interface PlayerDao {
 	 * @return
 	 */
 	public List<PlayerStatsPerGame> getPlayerPerGameByFilter(PlayerFilter filter);
-	
+
 	/**
 	 * 多项条件筛选球员总数据
 	 * @param filter

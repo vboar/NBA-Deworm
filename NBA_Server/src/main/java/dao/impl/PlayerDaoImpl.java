@@ -92,7 +92,21 @@ public class PlayerDaoImpl implements PlayerDao {
 		return list;
 	}
 
-	@Override
+    @Override
+    public List<PlayerInfo> getAllPlayerInfo() {
+        sqlManager.getConnection();
+
+        List<PlayerInfo> list = new ArrayList<PlayerInfo>();
+        String sql = "SELECT * FROM player_info ORDER BY player_name";
+        List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, null);
+        for(Map<String,Object> map: maplist){
+            list.add(getPlayerInfo(map));
+        }
+        sqlManager.releaseAll();
+        return list;
+    }
+
+    @Override
 	public PlayerInfo getPlayerInfoByName(String name) {
         sqlManager.getConnection();
 

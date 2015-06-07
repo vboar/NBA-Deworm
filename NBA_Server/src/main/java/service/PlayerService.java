@@ -48,6 +48,12 @@ public interface PlayerService extends Remote{
 	 * @param initial 首字母A-Z
 	 */
 	public List<PlayerInfoVO> getPlayerInfoByNameInitial(String initial) throws RemoteException;
+
+    /**
+     * 获得所有球员信息
+     * @return
+     */
+    public List<PlayerInfoVO> getAllPlayerInfo() throws RemoteException;
 	
 	/**
 	 * 获取单个球员基本信息

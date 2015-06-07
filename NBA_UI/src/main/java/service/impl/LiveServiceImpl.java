@@ -22,6 +22,10 @@ public class LiveServiceImpl implements LiveService {
 
     private LiveServiceImpl() {}
 
+    public static void main(String[] args) {
+        LiveServiceImpl.getInstance().startLiveService();
+    }
+
     public static LiveService getInstance() {
         if (liveService != null) {
             return liveService;

@@ -69,7 +69,19 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		return volist;
 	}
 
-	@Override
+    @Override
+    public List<PlayerInfoVO> getAllPlayerInfo() throws RemoteException {
+        List<PlayerInfoVO> volist = new ArrayList<PlayerInfoVO>();
+        List<PlayerInfo> list = pdao.getAllPlayerInfo();
+        for(PlayerInfo info: list){
+            PlayerInfoVO vo = getInfoVO(info);
+            if(vo!=null)
+                volist.add(vo);
+        }
+        return volist;
+    }
+
+    @Override
 	public PlayerInfoVO getPlayerInfoByName(String name) throws RemoteException {
 		PlayerInfo info = pdao.getPlayerInfoByName(name);
 		return getInfoVO(info);

@@ -57,7 +57,7 @@ def save_match(mid):
         team_b = tree.xpath('//div[@class="team_vs_box"]/div[@class="team_b"]/div[@class="message"]/p/a')
         away_team = team_b[0].text_content().strip().encode('utf8')
         live = live_url.format(mid, urllib.quote(home_team), urllib.quote(away_team))
-     #   live = live_url.format('150116', urllib.quote('勇士'), urllib.quote('火箭'))
+        # live = live_url.format('150116', urllib.quote('勇士'), urllib.quote('火箭'))
         r = urllib2.urlopen(live)
         text = r.read().decode('utf8', 'ignore')
         msg = decode_messages(text)
