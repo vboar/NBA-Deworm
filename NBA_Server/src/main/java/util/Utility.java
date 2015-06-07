@@ -90,4 +90,28 @@ public class Utility {
     		return null;
     	return Utility.stringToDouble(o.toString());
     }
+
+    /**
+     * 将Object转为Long
+     * @param o
+     * @return
+     */
+	public static Long salaryObjectToLong(Object o) {
+		if(o==null)
+			return null;
+		return Utility.salaryToLong(o.toString());
+	}
+
+	/**
+	 * 将
+	 * @param str
+	 * @return
+	 */
+	public static Long salaryToLong(String str) {
+		if(str==null)
+			return null;
+		str = str.replace("$", "");
+		str = str.replace(",", "");
+		return Long.parseLong(str);
+	}
 }

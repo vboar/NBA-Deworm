@@ -28,15 +28,6 @@ public class TeamDaoImpl implements TeamDao {
 
 	private SqlManager sqlManager = SqlManager.getSqlManager();	
 	
-	// TODO -------- TeamDao main test--------------
-	public static void main(String[] args) {
-		TeamDao tdao = DaoFactoryImpl.getDaoFactory().getTeamDao();
-		List<HotTeamInfo> list = tdao.getSeasonHotTeam("13-14", FieldType.AST,5);
-		for(HotTeamInfo i:list){
-			System.out.println(i.getAbbr() + " " + i.getValue());
-		}
-	}
-	
 	@Override
 	public List<ImageIcon> getAllTeamLogo() {
 		List<ImageIcon> list = new ArrayList<ImageIcon>();
@@ -402,13 +393,12 @@ public class TeamDaoImpl implements TeamDao {
 		sqlManager.getConnection();
 		String sql = "SELECT ta.abbr, "
         		+ "season, "
-        		+ "minute,"
         		+ "pw, "
         		+ "pl, "
         		+ "pw, "
         		+ "mov, "
         		+ "sos, "
-        		+ "srs. "
+        		+ "srs, "
         		+ "off_rtg, "
         		+ "def_rtg, "
         		+ "pace, "

@@ -22,7 +22,7 @@ public interface SeasonDao {
     public void insert(List<String> list);
 
     /**
-     * 获得所有赛季信息
+     * 获得所有赛季信息,倒序排列
      */
     public List<String> getAllSeason();
     

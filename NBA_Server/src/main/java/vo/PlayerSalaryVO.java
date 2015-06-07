@@ -29,7 +29,7 @@ public class PlayerSalaryVO implements Serializable{
 	/**
 	 * 薪水
 	 */
-	public String salary;
+	public Long salary;
 	
 	/**
 	 * 无参构造函数

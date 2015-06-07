@@ -35,7 +35,7 @@ public class PlayerStatsTotal {
 	/**
 	 * 比赛场数
 	 */
-	private Integer game;
+	private Integer num_of_game;
 	
 	/**
 	 * 首发场数
@@ -194,12 +194,12 @@ public class PlayerStatsTotal {
 		this.position = position;
 	}
 
-	public Integer getGame() {
-		return game;
+	public Integer getNum_Of_Game() {
+		return num_of_game;
 	}
 
-	public void setGame(Integer game) {
-		this.game = game;
+	public void setNum_Of_Game(Integer game) {
+		this.num_of_game = game;
 	}
 
 	public Integer getGame_started() {

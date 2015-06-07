@@ -239,7 +239,7 @@ public class InitDaoImpl implements InitDao {
         		"name VARCHAR(32) NOT NULL," +
         		"season VARCHAR(6) NOT NULL," +
         		"team VARCHAR(48) NOT NULL," +
-        		"salary VARCHAR(16) NOT NULL" +
+        		"salary BIGINT NOT NULL" +
         		")";
         sqlManager.executeUpdate(sql);
         

@@ -42,10 +42,10 @@ public interface PlayerDao {
 	public ImageIcon getPlayerPortraitByName(String name);
 	
 	/**
-	 * 根据名字首字母获得球员信息
+	 * 根据名字首字母获得球员名字
 	 * @param initial 首字母A-Z
 	 */
-	public List<PlayerInfo> getPlayerInfoByNameInitial(String initial);
+	public List<String> getNameByNameInitial(String initial);
 
     /**
      * 获得所有球员信息
@@ -68,32 +68,33 @@ public interface PlayerDao {
 	public List<PlayerStatsTotal> getPlayerTotalByName(String name);
 	
 	/**
-	 * 获取单个球员所有赛季的场均数据
-	 * @param name 球员姓名
-	 * @return
-	 */
-	public List<PlayerStatsPerGame> getPlayerPerGameByName(String name);
-	
-	/**
-	 * 获取单个球员所有赛季的高阶数据
-	 * @param name 球员姓名
-	 * @return
-	 */
-	public List<PlayerStatsAdvanced> getPlayerAdvancedByName(String name);
-	
-	/**
-	 * 获得单个球员每赛季的薪水列表
-	 * @param name
-	 * @return
-	 */
-	public List<PlayerSalary> getPlayerSalaryByName(String name);
-	
-	/**
 	 * 获取单赛季的所有球员总数据
 	 * @param season 赛季
 	 * @return
 	 */
 	public List<PlayerStatsTotal> getPlayerTotalBySeason(String season);
+	
+	/**
+	 * 根据姓名查找球员某赛季总数据
+	 * @param season
+	 * @param name
+	 * @return
+	 */
+	public List<PlayerStatsTotal> getPlayerTotalBySeasonName(String season, String name, int regular);
+	
+	/**
+	 * 多项条件筛选球员总数据
+	 * @param filter
+	 * @return
+	 */
+	public List<PlayerStatsTotal> getPlayerTotalByFilter(PlayerFilter filter);
+	
+	/**
+	 * 获取单个球员所有赛季的场均数据
+	 * @param name 球员姓名
+	 * @return
+	 */
+	public List<PlayerStatsPerGame> getPlayerPerGameByName(String name);
 	
 	/**
 	 * 获取单个赛季的所有球员场均数据
@@ -103,35 +104,13 @@ public interface PlayerDao {
 	public List<PlayerStatsPerGame> getPlayerPerGameBySeason(String season);
 	
 	/**
-	 * 获取单个赛季所有球员的高阶数据
-	 * @param season 赛季
-	 * @return
-	 */
-	public List<PlayerStatsAdvanced> getPlayerAdvancedBySeason(String season);
-	
-	/**
-	 * 根据姓名查找球员某赛季总数据
-	 * @param season
-	 * @param name
-	 * @return
-	 */
-	public PlayerStatsTotal getPlayerTotalBySeasonName(String season, String name);
-	
-	/**
 	 * 根据姓名查找球员某赛季场均数据
 	 * @param season
 	 * @param name
+	 * @param regular/off 1/0
 	 * @return
 	 */
-	public PlayerStatsPerGame getPlayerPerGameBySeasonName(String season, String name);
-	
-	/**
-	 * 根据姓名查找球员某赛季高阶数据
-	 * @param season
-	 * @param name
-	 * @return
-	 */
-	public PlayerStatsAdvanced getPlayerAdvancedBySeasonName(String season, String name);
+	public List<PlayerStatsPerGame> getPlayerPerGameBySeasonName(String season, String name, int regular);
 	
 	/**
 	 * 多项条件筛选球员场均数据
@@ -140,13 +119,30 @@ public interface PlayerDao {
 	 */
 	public List<PlayerStatsPerGame> getPlayerPerGameByFilter(PlayerFilter filter);
 
+	
 	/**
-	 * 多项条件筛选球员总数据
-	 * @param filter
+	 * 获取单个球员所有赛季的高阶数据
+	 * @param name 球员姓名
 	 * @return
 	 */
-	public List<PlayerStatsTotal> getPlayerTotalByFilter(PlayerFilter filter);
+	public List<PlayerStatsAdvanced> getPlayerAdvancedByName(String name);
 	
+	/**
+	 * 获取单个赛季所有球员的高阶数据
+	 * @param season 赛季
+	 * @return
+	 */
+	public List<PlayerStatsAdvanced> getPlayerAdvancedBySeason(String season);
+	
+	/**
+	 * 根据姓名查找球员某赛季高阶数据
+	 * @param season
+	 * @param name
+	 * @param regular
+	 * @return
+	 */
+	public List<PlayerStatsAdvanced> getPlayerAdvancedBySeasonName(String season, String name, int regular);
+			
 	/**
 	 * 多项条件筛选球员高阶数据
 	 * @param filter
@@ -168,6 +164,21 @@ public interface PlayerDao {
 	 * @return
 	 */
 	public List<HotPlayerInfo> getSeasonHotPlayer(String season, FieldType field);
+	
+	/** 
+	 * TODO 拿到一个球员最新赛季所属球队
+	 * @param name 球员姓名
+	 * @param season 赛季
+	 * @return
+	 */
+	public String getTeamByPlayerName(String name);
+	
+	/**
+	 * 获得单个球员每赛季的薪水列表
+	 * @param name
+	 * @return
+	 */
+	public List<PlayerSalary> getPlayerSalaryByName(String name);
 	
 	/**
 	 * 插入球员基本信息
@@ -193,5 +204,6 @@ public interface PlayerDao {
 	 * 插入球员高阶数据
 	 */
 	public void insertPlayerAdvanced(List<PlayerStatsAdvanced> list);
+	
 	
 }

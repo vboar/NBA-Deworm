@@ -26,24 +26,18 @@ public class PlayerDaoImpl implements PlayerDao {
 
 	private SqlManager sqlManager = SqlManager.getSqlManager();
 
-	// TODO -------- PlayerDao main test-----------------------
-	public static void main(String[] args) {
-		PlayerDao pdao = DaoFactoryImpl.getDaoFactory().getPlayerDao();
-		List<HotPlayerInfo> list = pdao.getSeasonHotPlayer("13-14", FieldType.PTS);
-		for(HotPlayerInfo i: list){
-			System.out.println(i.getName()+" "+i.getValue());
-		}		
+	public PlayerDaoImpl() {
 	}
-	
+
 	@Override
 	public List<ImageIcon> getPlayerPortraitByNameList(List<String> names) {
 		List<ImageIcon> list = new ArrayList<ImageIcon>();
 		String now_pic = FileManager.DATA_PATH + "/players/now_pic/";
 		String pic = FileManager.DATA_PATH + "/players/pic/";
-		for(String p: names){
-			ImageIcon lg = new ImageIcon(now_pic+p+".png");
-			if(lg.getImage()==null){
-				lg = new ImageIcon(pic+p+".png");
+		for (String p : names) {
+			ImageIcon lg = new ImageIcon(now_pic + p + ".png");
+			if (lg.getImage() == null) {
+				lg = new ImageIcon(pic + p + ".png");
 			}
 			lg.setDescription(p.split(",")[0]);
 			list.add(lg);
@@ -53,121 +47,83 @@ public class PlayerDaoImpl implements PlayerDao {
 
 	@Override
 	public ImageIcon getPlayerPortraitByName(String name) {
-		String now_pic = FileManager.DATA_PATH + "/players/now_pic/"+name+".png";
-		String pic = FileManager.DATA_PATH + "/players/pic/"+name+".png";
+		String now_pic = FileManager.DATA_PATH + "/players/now_pic/" + name
+				+ ".png";
+		String pic = FileManager.DATA_PATH + "/players/pic/" + name + ".png";
 		ImageIcon icon = new ImageIcon(now_pic);
-		if(icon.getImage()==null)
+		if (icon.getImage() == null)
 			icon = new ImageIcon(pic);
 		icon.setDescription(name);
 		return icon;
 	}
-	
+
 	@Override
 	public List<String> getNameList(String str) {
-		List<String> names= new ArrayList<String>();
+		List<String> names = new ArrayList<String>();
 		sqlManager.getConnection();
 		String sql = "SELECT player_name FROM player_info "
-				+ "WHERE player_name LIKE '%"+ str + "%' ORDER BY player_name";
+				+ "WHERE player_name LIKE '%" + str + "%' ORDER BY player_name";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, null);
-		for(Map<String, Object> map : maplist){
+		for (Map<String, Object> map : maplist) {
 			String name = map.get("player_name").toString();
-			if(name!=null)
+			if (name != null)
 				names.add(name);
 		}
 		sqlManager.releaseAll();
 		return names;
 	}
-	
-	@Override
-	public List<PlayerInfo> getPlayerInfoByNameInitial(String initial) {
-        sqlManager.getConnection();
 
-        List<PlayerInfo> list = new ArrayList<PlayerInfo>();
-        String sql = "SELECT * FROM player_info WHERE player_name LIKE '" + initial + "%' ORDER BY player_name";
-        List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, null);
-        for(Map<String,Object> map: maplist){
-        	list.add(getPlayerInfo(map));
-        }
-        sqlManager.releaseAll();
+	@Override
+	public List<String> getNameByNameInitial(String initial) {
+		sqlManager.getConnection();
+
+		List<String> list = new ArrayList<String>();
+		String sql = "SELECT player_name FROM player_info WHERE player_name LIKE '"
+				+ initial + "%' ORDER BY player_name";
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, null);
+		for (Map<String, Object> map : maplist) {
+			list.add(map.get("player_name").toString());
+		}
+		sqlManager.releaseAll();
 		return list;
 	}
 
-    @Override
-    public List<PlayerInfo> getAllPlayerInfo() {
-        sqlManager.getConnection();
+	@Override
+	public List<PlayerInfo> getAllPlayerInfo() {
+		sqlManager.getConnection();
 
-        List<PlayerInfo> list = new ArrayList<PlayerInfo>();
-        String sql = "SELECT * FROM player_info ORDER BY player_name";
-        List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, null);
-        for(Map<String,Object> map: maplist){
-            list.add(getPlayerInfo(map));
-        }
-        sqlManager.releaseAll();
-        return list;
-    }
+		List<PlayerInfo> list = new ArrayList<PlayerInfo>();
+		String sql = "SELECT * FROM player_info ORDER BY player_name";
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, null);
+		for (Map<String, Object> map : maplist) {
+			list.add(getPlayerInfo(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
 
-    @Override
+	@Override
 	public PlayerInfo getPlayerInfoByName(String name) {
-        sqlManager.getConnection();
+		sqlManager.getConnection();
 
-        String sql = "SELECT * FROM player_info WHERE player_name=? ";
-        Map<String, Object> map = sqlManager.querySimple(sql, new Object[]{name});
+		String sql = "SELECT * FROM player_info WHERE player_name=? ";
+		Map<String, Object> map = sqlManager.querySimple(sql,
+				new Object[] { name });
 
-        sqlManager.releaseAll();
-        return getPlayerInfo(map);
+		sqlManager.releaseAll();
+		return getPlayerInfo(map);
 	}
 
 	@Override
 	public List<PlayerStatsTotal> getPlayerTotalByName(String name) {
 		sqlManager.getConnection();
-		
+
 		List<PlayerStatsTotal> list = new ArrayList<PlayerStatsTotal>();
 		String sql = "SELECT * FROM player_total WHERE player_name=? ORDER BY season DESC";
-		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{name});
-		for(Map<String,Object> map: maplist){
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
+				new Object[] { name });
+		for (Map<String, Object> map : maplist) {
 			list.add(getPlayerTotal(map));
-		}
-		sqlManager.releaseAll();
-		return list;
-	}
-
-	@Override
-	public List<PlayerStatsPerGame> getPlayerPerGameByName(String name) {
-		sqlManager.getConnection();
-		
-		List<PlayerStatsPerGame> list = new ArrayList<PlayerStatsPerGame>();
-		String sql = "SELECT * FROM player_per_game WHERE player_name=? ORDER BY season DESC";
-		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{name});
-		for(Map<String,Object> map: maplist){
-			list.add(getPlayerPerGame(map));
-		}
-		sqlManager.releaseAll();
-		return list;
-	}
-
-	@Override
-	public List<PlayerStatsAdvanced> getPlayerAdvancedByName(String name) {
-		sqlManager.getConnection();
-		
-		List<PlayerStatsAdvanced> list = new ArrayList<PlayerStatsAdvanced>();
-		String sql = "SELECT * FROM player_advanced WHERE player_name=? ORDER BY season DESC";
-		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{name});
-		for(Map<String,Object> map: maplist){
-			list.add(getPlayerAdvanced(map));
-		}
-		sqlManager.releaseAll();
-		return list;
-	}
-
-	@Override
-	public List<PlayerSalary> getPlayerSalaryByName(String name) {
-		sqlManager.getConnection();
-		
-		List<PlayerSalary> list = new ArrayList<PlayerSalary>();
-		String sql = "SELECT * FROM player_salary WHERE player_name=? ORDER BY season DESC";
-		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{name});
-		for(Map<String,Object> map: maplist){
-			list.add(getPlayerSalary(map));
 		}
 		sqlManager.releaseAll();
 		return list;
@@ -176,12 +132,125 @@ public class PlayerDaoImpl implements PlayerDao {
 	@Override
 	public List<PlayerStatsTotal> getPlayerTotalBySeason(String season) {
 		sqlManager.getConnection();
-		
+
 		List<PlayerStatsTotal> list = new ArrayList<PlayerStatsTotal>();
 		String sql = "SELECT * FROM player_total WHERE season=? ORDER BY player_name";
-		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{season});
-		for(Map<String,Object> map: maplist){
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
+				new Object[] { season });
+		for (Map<String, Object> map : maplist) {
 			list.add(getPlayerTotal(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+
+	@Override
+	public List<PlayerStatsTotal> getPlayerTotalBySeasonName(String season,
+			String name, int regular) {
+		sqlManager.getConnection();
+		List<PlayerStatsTotal> list = new ArrayList<PlayerStatsTotal>();
+		String sql = "SELECT * FROM player_total WHERE season=? AND player_name=?";
+		if (regular == 0 || regular == 1) {
+			sql += " AND is_normal=" + regular;
+		}
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
+				new Object[] { season, name });
+		for (Map<String, Object> map : maplist) {
+			list.add(getPlayerTotal(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+
+	@Override
+	public List<PlayerStatsTotal> getPlayerTotalByFilter(PlayerFilter filter) {
+		List<PlayerStatsTotal> list = new ArrayList<PlayerStatsTotal>();
+		sqlManager.getConnection();
+		String sql = "SELECT DISTINCT pt.player_name, "
+				+ "season, "
+				+ "is_normal, "
+				+ "team_abbr, "
+				+ "pt.position, "
+				+ "num_of_game, "
+				+ "game_start, "
+				+ "minute, "
+				+ "fg, "
+				+ "fga, "
+				+ "fga_pct, "
+				+ "fg3, "
+				+ "fg3a, "
+				+ "fg3_pct, "
+				+ "fg2, "
+				+ "fg2a, "
+				+ "fg2_pct, "
+				+ "efg_pct, "
+				+ "ft, "
+				+ "fta, "
+				+ "ft_pct, "
+				+ "orb, "
+				+ "drb, "
+				+ "trb, "
+				+ "ast, "
+				+ "stl, "
+				+ "blk, "
+				+ "tov, "
+				+ "pf, "
+				+ "pts "
+				+ "FROM player_total as pt, player_info as pi, team_info as ti "
+				+ "WHERE pt.player_name = pi.player_name "
+				+ "AND pt.team_abbr = ti.abbr ";
+		List<Object> objects = new ArrayList<Object>();
+		if (filter.season != null) {
+			sql += " AND pt.season=? ";
+			objects.add(filter.season);
+		}
+		if (filter.regular != null) {
+			sql += " AND is_normal=? ";
+			objects.add(filter.regular);
+		}
+		if (filter.position != null && !filter.position.equalsIgnoreCase("All")) {
+			sql += " AND pt.position like '%" + filter.position + "%' ";
+		}
+		if (filter.league != null) {
+			if (filter.league.equals("W")) {
+				sql += " AND ti.league='W' ";
+			} 
+			else if(filter.league.equals("E")){
+				sql += " AND ti.league='E' ";
+			}
+		}
+		if (filter.division != null) {
+			sql += " AND ti.division=? ";
+			objects.add(filter.division);
+		}
+		if (filter.height != null) {
+			sql += " AND pi.height " + filter.height.substring(0, 1) + "'"
+					+ filter.height.substring(1) + "'";
+		}
+		if (filter.weight != null) {
+			sql += " AND pi.weight " + filter.weight;
+		}
+		sql += " ORDER BY pt.player_name";
+		List<Map<String, Object>> mapList = sqlManager.queryMultiByList(sql,
+				objects);
+		for (Map<String, Object> map : mapList) {
+			list.add(getPlayerTotal(map));
+		}
+
+		sqlManager.releaseAll();
+		return list;
+	}
+
+	@Override
+	public List<PlayerStatsPerGame> getPlayerPerGameByName(String name) {
+		sqlManager.getConnection();
+
+		List<PlayerStatsPerGame> list = new ArrayList<PlayerStatsPerGame>();
+		String sql = "SELECT * FROM player_per_game WHERE player_name=? ORDER BY season DESC";
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
+				new Object[] { name });
+		for (Map<String, Object> map : maplist) {
+			list.add(getPlayerPerGame(map));
 		}
 		sqlManager.releaseAll();
 		return list;
@@ -190,12 +259,128 @@ public class PlayerDaoImpl implements PlayerDao {
 	@Override
 	public List<PlayerStatsPerGame> getPlayerPerGameBySeason(String season) {
 		sqlManager.getConnection();
-		
+
 		List<PlayerStatsPerGame> list = new ArrayList<PlayerStatsPerGame>();
 		String sql = "SELECT * FROM player_per_game WHERE season=? ORDER BY player_name";
-		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{season});
-		for(Map<String,Object> map: maplist){
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
+				new Object[] { season });
+		for (Map<String, Object> map : maplist) {
 			list.add(getPlayerPerGame(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+
+	@Override
+	public List<PlayerStatsPerGame> getPlayerPerGameBySeasonName(String season,
+			String name, int regular) {
+		sqlManager.getConnection();
+		List<PlayerStatsPerGame> list = new ArrayList<PlayerStatsPerGame>();
+		String sql = "SELECT * FROM player_per_game WHERE season=? AND player_name=?";
+		if (regular == 0 || regular == 1) {
+			sql += " AND is_normal=" + regular;
+		}
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
+				new Object[] { season, name });
+		for (Map<String, Object> map : maplist) {
+			list.add(getPlayerPerGame(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+
+	@Override
+	public List<PlayerStatsPerGame> getPlayerPerGameByFilter(PlayerFilter filter) {
+		List<PlayerStatsPerGame> list = new ArrayList<PlayerStatsPerGame>();
+		sqlManager.getConnection();
+		String sql = "SELECT DISTINCT pg.player_name, "
+				+ "season, "
+				+ "is_normal, "
+				+ "team_abbr, "
+				+ "pg.position, "
+				+ "num_of_game, "
+				+ "game_start, "
+				+ "minute, "
+				+ "fg, "
+				+ "fga, "
+				+ "fga_pct, "
+				+ "fg3, "
+				+ "fg3a, "
+				+ "fg3_pct, "
+				+ "fg2, "
+				+ "fg2a, "
+				+ "fg2_pct, "
+				+ "efg_pct, "
+				+ "ft, "
+				+ "fta, "
+				+ "ft_pct, "
+				+ "orb, "
+				+ "drb, "
+				+ "trb, "
+				+ "ast, "
+				+ "stl, "
+				+ "blk, "
+				+ "tov, "
+				+ "pf, "
+				+ "pts "
+				+ "FROM player_per_game as pg, player_info as pi, team_info as ti "
+				+ "WHERE pg.player_name = pi.player_name "
+				+ "AND pg.team_abbr = ti.abbr ";
+		List<Object> objects = new ArrayList<Object>();
+		if (filter.season != null) {
+			sql += " AND pg.season=? ";
+			objects.add(filter.season);
+		}
+		if (filter.regular != null) {
+			sql += " AND is_normal=? ";
+			objects.add(filter.regular);
+		}
+		if (filter.position != null && !filter.position.equalsIgnoreCase("All")) {
+			sql += " AND pg.position like '%" + filter.position + "%' ";
+		}
+		if (filter.league != null) {
+			if (filter.league.equals("W")) {
+				sql += " AND ti.league='W' ";
+			}
+			else if(filter.league.equals("E")){
+				sql += " AND ti.league='E' ";
+			}
+		}
+		if (filter.division != null) {
+			sql += " AND ti.division=? ";
+			objects.add(filter.division);
+		}
+		if (filter.height != null) {
+			sql += " AND pi.height " + filter.height.substring(0, 1) + "'"
+					+ filter.height.substring(1) + "'";
+		}
+		if (filter.weight != null) {
+			sql += " AND pi.weight " + filter.weight;
+		}
+		if(filter.team != null){
+			sql += " AND pg.team_abbr='" + filter.team+"' ";
+		}
+		sql += " ORDER BY pg.player_name";
+		List<Map<String, Object>> mapList = sqlManager.queryMultiByList(sql,
+				objects);
+		for (Map<String, Object> map : mapList) {
+			list.add(getPlayerPerGame(map));
+		}
+
+		sqlManager.releaseAll();
+		return list;
+	}
+
+	@Override
+	public List<PlayerStatsAdvanced> getPlayerAdvancedByName(String name) {
+		sqlManager.getConnection();
+
+		List<PlayerStatsAdvanced> list = new ArrayList<PlayerStatsAdvanced>();
+		String sql = "SELECT * FROM player_advanced WHERE player_name=? ORDER BY season DESC";
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
+				new Object[] { name });
+		for (Map<String, Object> map : maplist) {
+			list.add(getPlayerAdvanced(map));
 		}
 		sqlManager.releaseAll();
 		return list;
@@ -204,11 +389,12 @@ public class PlayerDaoImpl implements PlayerDao {
 	@Override
 	public List<PlayerStatsAdvanced> getPlayerAdvancedBySeason(String season) {
 		sqlManager.getConnection();
-		
+
 		List<PlayerStatsAdvanced> list = new ArrayList<PlayerStatsAdvanced>();
 		String sql = "SELECT * FROM player_advanced WHERE season=? ORDER BY player_name";
-		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{season});
-		for(Map<String,Object> map: maplist){
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
+				new Object[] { season });
+		for (Map<String, Object> map : maplist) {
 			list.add(getPlayerAdvanced(map));
 		}
 		sqlManager.releaseAll();
@@ -216,11 +402,124 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	@Override
-	public List<PlayerInfo> getTeamPlayerBySeason(String season, String abbr) {
-		List<PlayerInfo> list = new ArrayList<PlayerInfo>();		
+	public List<PlayerStatsAdvanced> getPlayerAdvancedBySeasonName(
+			String season, String name, int regular) {
 		sqlManager.getConnection();
-		
-		String sql="SELECT DISTINCT a.player_name, "
+		List<PlayerStatsAdvanced> list = new ArrayList<PlayerStatsAdvanced>();
+		String sql = "SELECT * FROM player_advanced WHERE season=? AND player_name=?";
+		if (regular == 0 || regular == 1) {
+			sql += " AND is_normal=" + regular;
+		}
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
+				new Object[] { season, name });
+		for (Map<String, Object> map : maplist) {
+			list.add(getPlayerAdvanced(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+
+	@Override
+	public List<PlayerStatsAdvanced> getPlayerAdvancedByFilter(
+			PlayerFilter filter) {
+		List<PlayerStatsAdvanced> list = new ArrayList<PlayerStatsAdvanced>();
+		sqlManager.getConnection();
+		String sql = "SELECT DISTINCT pa.player_name,"
+				+ "season,"
+				+ "is_normal, "
+				+ "team_abbr, "
+				+ "pa.position, "
+				+ "num_of_game, "
+				+ "minute, "
+				+ "per, "
+				+ "ts_pct,"
+				+ "fa3a_per_fga_pct, "
+				+ "fta_per_fga_pct, "
+				+ "orb_pct, "
+				+ "drb_pct, "
+				+ "trb_pct, "
+				+ "ast_pct, "
+				+ "stl_pct, "
+				+ "blk_pct, "
+				+ "tov_pct, "
+				+ "usg_pct, "
+				+ "ows, "
+				+ "dws, "
+				+ "ws, "
+				+ "ws_48, "
+				+ "obpm, "
+				+ "dbpm, "
+				+ "bpm, "
+				+ "vorp "
+				+ " FROM player_advanced as pa, player_info as pi, team_info as ti "
+				+ "WHERE pa.player_name = pi.player_name "
+				+ "AND pa.team_abbr = ti.abbr ";
+		List<Object> objects = new ArrayList<Object>();
+		if (filter.season != null) {
+			sql += " AND pa.season=? ";
+			objects.add(filter.season);
+		}
+		if (filter.regular != null) {
+			sql += " AND is_normal=? ";
+			objects.add(filter.regular);
+		}
+		if (filter.position != null && !filter.position.equalsIgnoreCase("All")) {
+			sql += " AND pa.position like '%" + filter.position + "%' ";
+		}
+		if (filter.league != null) {
+			if (filter.league.equals("W")) {
+				sql += " AND ti.league='W' ";
+			}
+			else if(filter.league.equals("E")){
+				sql += " AND ti.league='E' ";
+			}
+		}
+		if (filter.division != null) {
+			sql += " AND ti.division=? ";
+			objects.add(filter.division);
+		}
+		if (filter.height != null) {
+			sql += " AND pi.height " + filter.height.substring(0, 1) + "'"
+					+ filter.height.substring(1) + "'";
+		}
+		if (filter.weight != null) {
+			sql += " AND pi.weight " + filter.weight;
+		}
+		if(filter.team != null){
+			sql += " AND pa.team_abbr='" + filter.team +"' ";  
+		}
+		sql += " ORDER BY pa.player_name";
+		List<Map<String, Object>> mapList = sqlManager.queryMultiByList(sql,
+				objects);
+		for (Map<String, Object> map : mapList) {
+			list.add(getPlayerAdvanced(map));
+		}
+
+		sqlManager.releaseAll();
+		return list;
+	}
+
+	@Override
+	public List<PlayerSalary> getPlayerSalaryByName(String name) {
+		sqlManager.getConnection();
+
+		List<PlayerSalary> list = new ArrayList<PlayerSalary>();
+		String sql = "SELECT * FROM player_salary WHERE name=? ORDER BY season DESC";
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
+				new Object[] { name });
+		for (Map<String, Object> map : maplist) {
+			list.add(getPlayerSalary(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+
+	@Override
+	public List<PlayerInfo> getTeamPlayerBySeason(String season, String abbr) {
+		List<PlayerInfo> list = new ArrayList<PlayerInfo>();
+		sqlManager.getConnection();
+
+		String sql = "SELECT DISTINCT a.player_name, "
 				+ "born, "
 				+ "hometown, "
 				+ "a.position, "
@@ -235,17 +534,17 @@ public class PlayerDaoImpl implements PlayerDao {
 				+ "number "
 				+ "FROM player_info as a, match_player_basic as b, match_info as c "
 				+ "WHERE a.player_name=b.player_name "
-				+ "AND b.game_id = c.game_id "
-				+ "AND b.team_abbr=? ";
+				+ "AND b.game_id = c.game_id " + "AND b.team_abbr=? ";
 		List<Object> objects = new ArrayList<Object>();
 		objects.add(abbr);
-		if(season!=null){	
+		if (season != null) {
 			sql += "AND c.season=? ";
 			objects.add(season);
 		}
 		sql += "ORDER BY a.player_name";
-		List<Map<String,Object>> maplist = sqlManager.queryMultiByList(sql,objects);
-		for(Map<String,Object> map: maplist){
+		List<Map<String, Object>> maplist = sqlManager.queryMultiByList(sql,
+				objects);
+		for (Map<String, Object> map : maplist) {
 			list.add(getPlayerInfo(map));
 		}
 		sqlManager.releaseAll();
@@ -253,288 +552,41 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	@Override
-	public PlayerStatsTotal getPlayerTotalBySeasonName(String season, String name) {
-		sqlManager.getConnection();
-		String sql = "SELECT * FROM player_total WHERE season=? AND name=?";
-		Map<String,Object> map = sqlManager.querySimple(sql, new Object[]{season,name});
-		sqlManager.releaseAll();
-		return getPlayerTotal(map);
-	}
-
-	@Override
-	public PlayerStatsPerGame getPlayerPerGameBySeasonName(String season,
-			String name) {
-		sqlManager.getConnection();
-		String sql = "SELECT * FROM player_per_game WHERE season=? AND name=?";
-		Map<String,Object> map = sqlManager.querySimple(sql, new Object[]{season,name});
-		sqlManager.releaseAll();
-		return getPlayerPerGame(map);
-	}
-
-	@Override
-	public PlayerStatsAdvanced getPlayerAdvancedBySeasonName(String season,
-			String name) {
-		sqlManager.getConnection();
-		String sql = "SELECT * FROM player_advanced WHERE season=? AND name=?";
-		Map<String,Object> map = sqlManager.querySimple(sql, new Object[]{season,name});
-		sqlManager.releaseAll();
-		return getPlayerAdvanced(map);
-	}
-	
-	@Override
-	public List<PlayerStatsTotal> getPlayerTotalByFilter(PlayerFilter filter) {
-		List<PlayerStatsTotal> list = new ArrayList<PlayerStatsTotal>();
-		sqlManager.getConnection();
-		String sql = "SELECT pt.player_name, " +
-				"season, " +
-        		"is_normal, " +
-        		"team_abbr, " +
-        		"pt.position, " +
-        		"num_of_game, " +
-        		"game_start, " +
-        		"minute, " +
-        		"fg, " +
-        		"fga, " +
-        		"fga_pct, " +
-        		"fg3, " +
-        		"fg3a, " +
-        		"fg3_pct, " +
-        		"fg2, " +
-        		"fg2a, " +
-        		"fg2_pct, " +
-        		"efg_pct, " +
-        		"ft, " +
-        		"fta, " +
-        		"ft_pct, " +
-        		"orb, " +
-        		"drb, " +
-        		"trb, " +
-        		"ast, " +
-        		"stl, " +
-        		"blk, " +
-        		"tov, " +
-        		"pf, " +
-        		"pts " +
-        		"FROM player_total as pt, player_info as pi, team_info as ti "
-        		+ "WHERE pt.player_name = pi.player_name "
-        		+ "AND pt.team_abbr = ti.abbr "
-        		+ "AND season=? "
-        		+ "AND is_normal=? ";
-		List<Object> objects = new ArrayList<Object>();
-		objects.add(filter.season);
-		objects.add(filter.regular);
-        if (filter.position != null && !filter.position.equalsIgnoreCase("All")) {
-            sql += " AND pt.position like '%" + filter.position +  "%' ";
-        }
-        if (filter.league != null) {
-            if (filter.league.equalsIgnoreCase("W")) {
-                sql += " AND ti.league='W' ";
-            } else {
-                sql += " AND ti.league='E' ";
-            }
-        }
-		if(filter.division!=null){
-			sql += " AND ti.division=? ";
-			objects.add(filter.division);
-		}
-		if(filter.height!=null){
-			sql += " AND pi.height " + filter.height.substring(0,1) + "'"+filter.height.substring(1)+"'";
-		}
-		if(filter.weight!=null){
-			sql += " AND pi.weight " + filter.weight;
-		}
-		sql += " ORDER BY pt.player_name";
-        List<Map<String, Object>> mapList = sqlManager.queryMultiByList(sql, objects);
-        for (Map<String, Object> map: mapList) {
-            list.add(getPlayerTotal(map));
-        }
-        		
-		sqlManager.releaseAll();
-		return list;
-	}
-
-	@Override
-	public List<PlayerStatsPerGame> getPlayerPerGameByFilter(PlayerFilter filter) {
-		List<PlayerStatsPerGame> list = new ArrayList<PlayerStatsPerGame>();
-		sqlManager.getConnection();
-		String sql = "SELECT pg.player_name, " +
-				"season, " +
-        		"is_normal, " +
-        		"team_abbr, " +
-        		"pg.position, " +
-        		"num_of_game, " +
-        		"game_start, " +
-        		"minute, " +
-        		"fg, " +
-        		"fga, " +
-        		"fga_pct, " +
-        		"fg3, " +
-        		"fg3a, " +
-        		"fg3_pct, " +
-        		"fg2, " +
-        		"fg2a, " +
-        		"fg2_pct, " +
-        		"efg_pct, " +
-        		"ft, " +
-        		"fta, " +
-        		"ft_pct, " +
-        		"orb, " +
-        		"drb, " +
-        		"trb, " +
-        		"ast, " +
-        		"stl, " +
-        		"blk, " +
-        		"tov, " +
-        		"pf, " +
-        		"pts " +
-        		"FROM player_per_game as pg, player_info as pi, team_info as ti "
-        		+ "WHERE pg.player_name = pi.player_name "
-        		+ "AND pg.team_abbr = ti.abbr "
-        		+ "AND season=? "
-        		+ "AND is_normal=? ";
-		List<Object> objects = new ArrayList<Object>();
-		objects.add(filter.season);
-		objects.add(filter.regular);
-        if (filter.position != null && !filter.position.equalsIgnoreCase("All")) {
-            sql += " AND pg.position like '%" + filter.position +  "%' ";
-        }
-        if (filter.league != null) {
-            if (filter.league.equalsIgnoreCase("W")) {
-                sql += " AND ti.league='W' ";
-            } else {
-                sql += " AND ti.league='E' ";
-            }
-        }
-		if(filter.division!=null){
-			sql += " AND ti.division=? ";
-			objects.add(filter.division);
-		}
-		if(filter.height!=null){
-			sql += " AND pi.height " + filter.height.substring(0,1) + "'"+filter.height.substring(1)+"'";
-		}
-		if(filter.weight!=null){
-			sql += " AND pi.weight " + filter.weight;
-		}
-		sql += " ORDER BY pg.player_name";
-		
-        List<Map<String, Object>> mapList = sqlManager.queryMultiByList(sql, objects);
-        for (Map<String, Object> map: mapList) {
-            list.add(getPlayerPerGame(map));
-        }
-        		
-		sqlManager.releaseAll();
-		return list;
-	}
-	
-	@Override
-	public List<PlayerStatsAdvanced> getPlayerAdvancedByFilter(
-			PlayerFilter filter) {
-		List<PlayerStatsAdvanced> list = new  ArrayList<PlayerStatsAdvanced>();
-		sqlManager.getConnection();
-		String sql = "SELECT pa.player_name," +
-        		"season," +
-        		"is_normal, " +
-        		"team_abbr, " +
-        		"pa.position, " +
-        		"num_of_game, " +
-        		"minute, " +
-        		"per, " +
-        		"ts_pct," +
-        		"fa3a_per_fga_pct, " +
-        		"fta_per_fga_pct, " +
-        		"orb_pct, " +
-        		"drb_pct, " +
-        		"trb_pct, " +
-        		"ast_pct, " +
-        		"stl_pct, " +
-        		"blk_pct, " +
-        		"tov_pct, " +
-        		"usg_pct, " +
-        		"ows, " +
-        		"dws, " +
-        		"ws, " +
-        		"ws_48, " +
-        		"obpm, " +
-        		"dbpm, " +
-        		"bpm, " +
-        		"vorp " +
-				" FROM player_advanced as pa, player_info as pi, team_info as ti "
-				+ "WHERE pa.player_name = pi.player_name "
-				+ "AND pa.team_abbr = ti.abbr "
-				+ "AND season=? "
-				+ "AND is_normal=? ";
-		List<Object> objects = new ArrayList<Object>();
-        objects.add(filter.season);
-        objects.add(filter.regular);
-        if (filter.position != null && !filter.position.equalsIgnoreCase("All")) {
-            sql += " AND pa.position like '%" + filter.position +  "%' ";
-        }
-        if (filter.league != null) {
-            if (filter.league.equalsIgnoreCase("W")) {
-                sql += " AND ti.league='W' ";
-            } else {
-                sql += " AND ti.league='E' ";
-            }
-        }
-		if(filter.division!=null){
-			sql += " AND ti.division=? ";
-			objects.add(filter.division);
-		}
-		if(filter.height!=null){
-			sql += " AND pi.height " + filter.height.substring(0,1) + "'"+filter.height.substring(1)+"'";
-		}
-		if(filter.weight!=null){
-			sql += " AND pi.weight " + filter.weight;
-		}
-		sql += " ORDER BY pa.player_name";
-        List<Map<String, Object>> mapList = sqlManager.queryMultiByList(sql, objects);
-        for (Map<String, Object> map: mapList) {
-            list.add(getPlayerAdvanced(map));
-        }
-        
-        sqlManager.releaseAll();
-		return list;
-	}
-
-	@Override
 	public List<HotPlayerInfo> getSeasonHotPlayer(String season, FieldType field) {
 		List<HotPlayerInfo> list = new ArrayList<HotPlayerInfo>();
-		if(!isFieldValid(field))
+		if (!isFieldValid(field))
 			return list;
 		sqlManager.getConnection();
 		String sql = "SELECT player_name, team_abbr, season, position,"
-				+  field.toString() 
+				+ field.toString()
 				+ " FROM player_per_game WHERE season=? AND is_normal=1 "
 				+ " ORDER BY " + field.toString() + " DESC LIMIT 0,5";
 		List<Object> objects = new ArrayList<Object>();
 		objects.add(season);
-		List<Map<String, Object>> maplist = sqlManager.queryMultiByList(sql, objects);
-		for(Map<String, Object> map: maplist){
-			list.add(getHotPlayerInfo(map,field));
+		List<Map<String, Object>> maplist = sqlManager.queryMultiByList(sql,
+				objects);
+		for (Map<String, Object> map : maplist) {
+			list.add(getHotPlayerInfo(map, field));
 		}
 		sqlManager.releaseAll();
 		return list;
 	}
-	
+
 	@Override
-	public void insertPlayerInfo(List<PlayerInfo> list) {	
+	public void insertPlayerInfo(List<PlayerInfo> list) {
 		System.out.println("Insert Player Info : " + list.size());
-		
-		if(list.size()==0)	return;
-		
-		sqlManager.getConnection();	
-		
-		for(PlayerInfo info: list){	
-			List<Object> infoObjects = new ArrayList<Object>();	
-			String sqlInfo = "INSERT INTO player_info (" + 
-					"player_name, " + 	"born, " +
-					"hometown, "	+ 	"position, " +
-					"height, "		+ 	"weight, " +
-					"shoots, "		+ 	"high_school, " +
-					"college, "		+ 	"draft, "	+
-					"debut, "		+ 	"exp, " +
-					"number " 		+
-					") VALUES";
+
+		if (list.size() == 0)
+			return;
+
+		sqlManager.getConnection();
+
+		for (PlayerInfo info : list) {
+			List<Object> infoObjects = new ArrayList<Object>();
+			String sqlInfo = "INSERT INTO player_info (" + "player_name, "
+					+ "born, " + "hometown, " + "position, " + "height, "
+					+ "weight, " + "shoots, " + "high_school, " + "college, "
+					+ "draft, " + "debut, " + "exp, " + "number " + ") VALUES";
 			infoObjects.add(info.getName());
 			infoObjects.add(info.getBorn());
 			infoObjects.add(info.getHometown());
@@ -548,75 +600,64 @@ public class PlayerDaoImpl implements PlayerDao {
 			infoObjects.add(info.getDebut());
 			infoObjects.add(info.getExperience());
 			infoObjects.add(info.getNumber());
-			
+
 			sqlInfo = sqlManager.appendSQL(sqlInfo, 13);
 			sqlInfo = sqlManager.fillSQL(sqlInfo);
 			sqlManager.executeUpdateByList(sqlInfo, infoObjects);
 		}
-		
+
 		sqlManager.releaseConnection();
 	}
 
 	@Override
 	public void insertPlayerSalary(List<PlayerSalary> list) {
 		System.out.println("Insert Player Salary : " + list.size());
-		if(list.size()==0)	return;
-		
-		sqlManager.getConnection();			
-		for(PlayerSalary slr : list){
+		if (list.size() == 0)
+			return;
+
+		sqlManager.getConnection();
+		for (PlayerSalary slr : list) {
 			List<Object> salaryObjects = new ArrayList<Object>();
-			String sqlSalary = "INSERT INTO player_salary (" +
-					"name, " +
-					"season, " +
-					"team, " +
-					"salary " +
-					") VALUES ";
+			String sqlSalary = "INSERT INTO player_salary (" + "name, "
+					+ "season, " + "team, " + "salary " + ") VALUES ";
 			salaryObjects.add(slr.getName());
 			salaryObjects.add(slr.getSeason());
 			salaryObjects.add(slr.getTeam());
 			salaryObjects.add(slr.getSalary());
-			
+
 			sqlSalary = sqlManager.appendSQL(sqlSalary, 4);
 			sqlSalary = sqlManager.fillSQL(sqlSalary);
 			sqlManager.executeUpdateByList(sqlSalary, salaryObjects);
-			
+
 		}
 		sqlManager.releaseConnection();
 	}
 
 	@Override
-	public void insertPlayerTotal(List<PlayerStatsTotal> list) {		
+	public void insertPlayerTotal(List<PlayerStatsTotal> list) {
 		System.out.println("Insert Player Total : " + list.size());
-		
-		if(list.size()==0)	return;
-		
+
+		if (list.size() == 0)
+			return;
+
 		sqlManager.getConnection();
 
-		for(PlayerStatsTotal pt : list){		
-			List<Object> ptObjects = new ArrayList<Object>();	
-			String sqlTotal = "INSERT INTO player_total (" + 
-					"player_name, "		+ "season, " +
-					"is_normal, "		+ "team_abbr, " +
-					"position, "		+ "num_of_game, " +
-					"game_start, "		+ "minute, " +
-					"fg, "				+ "fga, " +
-					"fga_pct, "			+ "fg3, " +
-					"fg3a, "			+ "fg3_pct, " +
-					"fg2, "				+ "fg2a, " +
-					"fg2_pct, "			+ "efg_pct, " +
-					"ft, "				+ "fta, " +
-					"ft_pct, "			+ "orb, " +
-					"drb, "				+ "trb, " +
-					"ast, "				+ "stl, " +
-					"blk, "				+ "tov, " +
-					"pf, "				+ "pts " +
-					") VALUES ";		
+		for (PlayerStatsTotal pt : list) {
+			List<Object> ptObjects = new ArrayList<Object>();
+			String sqlTotal = "INSERT INTO player_total (" + "player_name, "
+					+ "season, " + "is_normal, " + "team_abbr, " + "position, "
+					+ "num_of_game, " + "game_start, " + "minute, " + "fg, "
+					+ "fga, " + "fga_pct, " + "fg3, " + "fg3a, " + "fg3_pct, "
+					+ "fg2, " + "fg2a, " + "fg2_pct, " + "efg_pct, " + "ft, "
+					+ "fta, " + "ft_pct, " + "orb, " + "drb, " + "trb, "
+					+ "ast, " + "stl, " + "blk, " + "tov, " + "pf, " + "pts "
+					+ ") VALUES ";
 			ptObjects.add(pt.getName());
 			ptObjects.add(pt.getSeason());
 			ptObjects.add(pt.getIs_normal());
 			ptObjects.add(pt.getTeam());
 			ptObjects.add(pt.getPosition());
-			ptObjects.add(pt.getGame());
+			ptObjects.add(pt.getNum_Of_Game());
 			ptObjects.add(pt.getGame_started());
 			ptObjects.add(pt.getMinute());
 			ptObjects.add(pt.getFg());
@@ -641,47 +682,40 @@ public class PlayerDaoImpl implements PlayerDao {
 			ptObjects.add(pt.getTov());
 			ptObjects.add(pt.getPf());
 			ptObjects.add(pt.getPts());
-			
+
 			sqlTotal = sqlManager.appendSQL(sqlTotal, 30);
-			sqlTotal = sqlManager.fillSQL(sqlTotal);		
+			sqlTotal = sqlManager.fillSQL(sqlTotal);
 			sqlManager.executeUpdateByList(sqlTotal, ptObjects);
 		}
 		sqlManager.releaseConnection();
 	}
 
 	@Override
-	public void insertPlayerPerGame(List<PlayerStatsPerGame> list) {		
+	public void insertPlayerPerGame(List<PlayerStatsPerGame> list) {
 		System.out.println("Insert Player_PerGame : " + list.size());
-		
-		if(list.size()==0)	return;
-		
+
+		if (list.size() == 0)
+			return;
+
 		sqlManager.getConnection();
-		
-		for(PlayerStatsPerGame ppg : list){
+
+		for (PlayerStatsPerGame ppg : list) {
 			List<Object> ppgObjects = new ArrayList<Object>();
-			String sqlPerGame = "INSERT INTO player_per_game (" + 
-					"player_name, "		+ "season, " +
-					"is_normal, "		+ "team_abbr, " +
-					"position, "		+ "num_of_game, " +
-					"game_start, "		+ "minute, " +
-					"fg, "				+ "fga, " +
-					"fga_pct, "			+ "fg3, " +
-					"fg3a, "			+ "fg3_pct, " +
-					"fg2, "				+ "fg2a, " +
-					"fg2_pct, "			+ "efg_pct, " +
-					"ft, "				+ "fta, " +
-					"ft_pct, "			+ "orb, " +
-					"drb, "				+ "trb, " +
-					"ast, "				+ "stl, " +
-					"blk, "				+ "tov, " +
-					"pf, "				+ "pts" +
-					") VALUES ";		
+			String sqlPerGame = "INSERT INTO player_per_game ("
+					+ "player_name, " + "season, " + "is_normal, "
+					+ "team_abbr, " + "position, " + "num_of_game, "
+					+ "game_start, " + "minute, " + "fg, " + "fga, "
+					+ "fga_pct, " + "fg3, " + "fg3a, " + "fg3_pct, " + "fg2, "
+					+ "fg2a, " + "fg2_pct, " + "efg_pct, " + "ft, " + "fta, "
+					+ "ft_pct, " + "orb, " + "drb, " + "trb, " + "ast, "
+					+ "stl, " + "blk, " + "tov, " + "pf, " + "pts"
+					+ ") VALUES ";
 			ppgObjects.add(ppg.getName());
 			ppgObjects.add(ppg.getSeason());
 			ppgObjects.add(ppg.getIs_normal());
 			ppgObjects.add(ppg.getTeam());
 			ppgObjects.add(ppg.getPosition());
-			ppgObjects.add(ppg.getGame());
+			ppgObjects.add(ppg.getNum_Of_Game());
 			ppgObjects.add(ppg.getGame_started());
 			ppgObjects.add(ppg.getMinute());
 			ppgObjects.add(ppg.getFg());
@@ -706,7 +740,7 @@ public class PlayerDaoImpl implements PlayerDao {
 			ppgObjects.add(ppg.getTov());
 			ppgObjects.add(ppg.getPf());
 			ppgObjects.add(ppg.getPts());
-			
+
 			sqlPerGame = sqlManager.appendSQL(sqlPerGame, 30);
 			sqlPerGame = sqlManager.fillSQL(sqlPerGame);
 			sqlManager.executeUpdateByList(sqlPerGame, ppgObjects);
@@ -715,37 +749,31 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	@Override
-	public void insertPlayerAdvanced(List<PlayerStatsAdvanced> list) {	
+	public void insertPlayerAdvanced(List<PlayerStatsAdvanced> list) {
 		System.out.println("Insert Player Advanced : " + list.size());
-		
-		if(list.size()==0)	return;
-		
+
+		if (list.size() == 0)
+			return;
+
 		sqlManager.getConnection();
-		
-		for(PlayerStatsAdvanced padv : list){
+
+		for (PlayerStatsAdvanced padv : list) {
 			List<Object> padvObjects = new ArrayList<Object>();
-			String sqlAdvanced = "INSERT INTO player_advanced (" + 
-					"player_name, "		+ "season, " +
-					"is_normal, "		+ "team_abbr, " +
-					"position, "		+ "num_of_game, " +
-					"minute, " +
-					"per, "				+ "ts_pct, " +
-					"fa3a_per_fga_pct, "+ "fta_per_fga_pct, " +
-					"orb_pct, "			+ "drb_pct, " +
-					"trb_pct, "			+ "ast_pct, " +
-					"stl_pct, "			+ "blk_pct, " +
-					"tov_pct, "			+ "usg_pct, " +
-					"ows, "				+ "dws, " +
-					"ws, "				+ "ws_48, " +
-					"obpm, "			+ "dbpm, " +
-					"bpm, "				+ "vorp" +
-					") VALUES ";
+			String sqlAdvanced = "INSERT INTO player_advanced ("
+					+ "player_name, " + "season, " + "is_normal, "
+					+ "team_abbr, " + "position, " + "num_of_game, "
+					+ "minute, " + "per, " + "ts_pct, " + "fa3a_per_fga_pct, "
+					+ "fta_per_fga_pct, " + "orb_pct, " + "drb_pct, "
+					+ "trb_pct, " + "ast_pct, " + "stl_pct, " + "blk_pct, "
+					+ "tov_pct, " + "usg_pct, " + "ows, " + "dws, " + "ws, "
+					+ "ws_48, " + "obpm, " + "dbpm, " + "bpm, " + "vorp"
+					+ ") VALUES ";
 			padvObjects.add(padv.getName());
 			padvObjects.add(padv.getSeason());
 			padvObjects.add(padv.getIs_normal());
 			padvObjects.add(padv.getTeam());
 			padvObjects.add(padv.getPosition());
-			padvObjects.add(padv.getGame());
+			padvObjects.add(padv.getNum_Of_Game());
 			padvObjects.add(padv.getMinute());
 			padvObjects.add(padv.getPer());
 			padvObjects.add(padv.getTs_pct());
@@ -767,7 +795,7 @@ public class PlayerDaoImpl implements PlayerDao {
 			padvObjects.add(padv.getDbpm());
 			padvObjects.add(padv.getBpm());
 			padvObjects.add(padv.getVorp());
-			
+
 			sqlAdvanced = sqlManager.appendSQL(sqlAdvanced, 27);
 			sqlAdvanced = sqlManager.fillSQL(sqlAdvanced);
 			sqlManager.executeUpdateByList(sqlAdvanced, padvObjects);
@@ -777,7 +805,7 @@ public class PlayerDaoImpl implements PlayerDao {
 
 	private PlayerInfo getPlayerInfo(Map<String, Object> map) {
 		PlayerInfo info = new PlayerInfo();
-		if(map.get("player_name")==null){
+		if (map.get("player_name") == null) {
 			return null;
 		}
 		info.setName(map.get("player_name").toString());
@@ -795,10 +823,10 @@ public class PlayerDaoImpl implements PlayerDao {
 		info.setNumber(Utility.objectToInt(map.get("number")));
 		return info;
 	}
-	
+
 	private PlayerStatsTotal getPlayerTotal(Map<String, Object> map) {
 		PlayerStatsTotal pst = new PlayerStatsTotal();
-		if(map.get("player_name")==null){
+		if (map.get("player_name") == null) {
 			return null;
 		}
 		pst.setName(map.get("player_name").toString());
@@ -806,7 +834,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		pst.setIs_normal(Utility.objectToInt(map.get("is_normal")));
 		pst.setTeam(map.get("team_abbr").toString());
 		pst.setPosition(map.get("position").toString());
-		pst.setGame(Utility.objectToInt(map.get("num_of_game")));
+		pst.setNum_Of_Game(Utility.objectToInt(map.get("num_of_game")));
 		pst.setGame_started(Utility.objectToInt(map.get("game_start")));
 		pst.setMinute(Utility.objectToInt(map.get("minute")));
 		pst.setFg(Utility.objectToInt(map.get("fg")));
@@ -829,14 +857,14 @@ public class PlayerDaoImpl implements PlayerDao {
 		pst.setStl(Utility.objectToInt(map.get("stl")));
 		pst.setBlk(Utility.objectToInt(map.get("blk")));
 		pst.setTov(Utility.objectToInt(map.get("tov")));
-		pst.setPf(Utility.objectToInt(map.get("pf")));		
-		pst.setPts(Utility.objectToInt(map.get("pts")));		
+		pst.setPf(Utility.objectToInt(map.get("pf")));
+		pst.setPts(Utility.objectToInt(map.get("pts")));
 		return pst;
 	}
 
 	private PlayerStatsPerGame getPlayerPerGame(Map<String, Object> map) {
 		PlayerStatsPerGame psp = new PlayerStatsPerGame();
-		if(map.get("player_name")==null){
+		if (map.get("player_name") == null) {
 			return null;
 		}
 		psp.setName(map.get("player_name").toString());
@@ -844,7 +872,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		psp.setIs_normal(Utility.objectToInt(map.get("is_normal")));
 		psp.setTeam(map.get("team_abbr").toString());
 		psp.setPosition(map.get("position").toString());
-		psp.setGame(Utility.objectToInt(map.get("num_of_game")));
+		psp.setNum_Of_Game(Utility.objectToInt(map.get("num_of_game")));
 		psp.setGame_started(Utility.objectToInt(map.get("game_start")));
 		psp.setMinute(Utility.objectToDouble(map.get("minute")));
 		psp.setFg(Utility.objectToDouble(map.get("fg")));
@@ -867,14 +895,14 @@ public class PlayerDaoImpl implements PlayerDao {
 		psp.setStl(Utility.objectToDouble(map.get("stl")));
 		psp.setBlk(Utility.objectToDouble(map.get("blk")));
 		psp.setTov(Utility.objectToDouble(map.get("tov")));
-		psp.setPf(Utility.objectToDouble(map.get("pf")));		
-		psp.setPts(Utility.objectToDouble(map.get("pts")));	
+		psp.setPf(Utility.objectToDouble(map.get("pf")));
+		psp.setPts(Utility.objectToDouble(map.get("pts")));
 		return psp;
 	}
-	
+
 	private PlayerStatsAdvanced getPlayerAdvanced(Map<String, Object> map) {
 		PlayerStatsAdvanced psa = new PlayerStatsAdvanced();
-		if(map.get("player_name")==null){
+		if (map.get("player_name") == null) {
 			return null;
 		}
 		psa.setName(map.get("player_name").toString());
@@ -882,12 +910,14 @@ public class PlayerDaoImpl implements PlayerDao {
 		psa.setIs_normal(Utility.objectToInt(map.get("is_normal")));
 		psa.setTeam(map.get("team_abbr").toString());
 		psa.setPosition(map.get("position").toString());
-		psa.setGame(Utility.objectToInt(map.get("num_of_game")));
+		psa.setNum_Of_Game(Utility.objectToInt(map.get("num_of_game")));
 		psa.setMinute(Utility.objectToInt(map.get("minute")));
 		psa.setPer(Utility.objectToDouble(map.get("per")));
 		psa.setTs_pct(Utility.objectToDouble(map.get("ts_pct")));
-		psa.setFa3a_per_fga_pct(Utility.objectToDouble(map.get("fa3a_per_fga_pct")));
-		psa.setFta_per_fga_pct(Utility.objectToDouble(map.get("fta_per_fga_pct")));
+		psa.setFa3a_per_fga_pct(Utility.objectToDouble(map
+				.get("fa3a_per_fga_pct")));
+		psa.setFta_per_fga_pct(Utility.objectToDouble(map
+				.get("fta_per_fga_pct")));
 		psa.setOrb_pct(Utility.objectToDouble(map.get("orb_pct")));
 		psa.setDrb_pct(Utility.objectToDouble(map.get("drb_pct")));
 		psa.setTrb_pct(Utility.objectToDouble(map.get("trb_pct")));
@@ -906,21 +936,22 @@ public class PlayerDaoImpl implements PlayerDao {
 		psa.setVorp(Utility.objectToDouble(map.get("vorp")));
 		return psa;
 	}
-	
+
 	private PlayerSalary getPlayerSalary(Map<String, Object> map) {
 		PlayerSalary ps = new PlayerSalary();
-		if(map.get("name")==null){
+		if (map.get("name") == null) {
 			return null;
 		}
 		ps.setName(map.get("name").toString());
 		ps.setSeason(map.get("season").toString());
 		ps.setTeam(map.get("team").toString());
-		ps.setSalary(map.get("salary").toString());
+		ps.setSalary(Utility.salaryObjectToLong(map.get("salary")));
 		return ps;
 	}
 
-	private HotPlayerInfo getHotPlayerInfo(Map<String, Object> map, FieldType field) {
-		if(map.get("player_name")==null)
+	private HotPlayerInfo getHotPlayerInfo(Map<String, Object> map,
+			FieldType field) {
+		if (map.get("player_name") == null)
 			return null;
 		HotPlayerInfo info = new HotPlayerInfo();
 		info.setName(map.get("player_name").toString());
@@ -928,20 +959,39 @@ public class PlayerDaoImpl implements PlayerDao {
 		info.setSeason(map.get("season").toString());
 		info.setPosition(map.get("position").toString());
 		info.setField(field);
-		info.setValue(map.get(field.toString()).toString());	
+		info.setValue(map.get(field.toString()).toString());
 		return info;
 	}
-	
-	private boolean isFieldValid(FieldType field){
-		switch(field){
-			case DEF_RTG:
-			case OFF_RTG:
-			case DRB_PCT:
-			case ORB_PCT:
-				return false;
-			default:
-				return true;
+
+	private boolean isFieldValid(FieldType field) {
+		switch (field) {
+		case DEF_RTG:
+		case OFF_RTG:
+		case DRB_PCT:
+		case ORB_PCT:
+			return false;
+		default:
+			return true;
 		}
 	}
-	
+
+	@Override
+	public String getTeamByPlayerName(String name) {
+		sqlManager.getConnection();
+		List<String> slist = DaoFactoryImpl.getDaoFactory().getSeasonDao()
+				.getAllSeason();
+		String season = slist.size() > 0 ? slist.get(0) : null;
+		String sql = "SELECT a.team_abbr FROM match_player_basic as a, match_info as b "
+				+ "WHERE player_name = ? "
+				+ "AND a.game_id = b.game_id"
+				+ "AND b.season = ? " + "ORDER BY b.date DESC LIMIT 1";
+		Map<String, Object> map = sqlManager.querySimple(sql, new Object[] {
+				name, season });
+		sqlManager.releaseAll();
+		if (map.get("team_abbr") == null) {
+			return null;
+		}
+		return map.get("team_abbr").toString();
+	}
+
 }

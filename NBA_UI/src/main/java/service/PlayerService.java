@@ -22,12 +22,6 @@ import vo.PlayerTotalVO;
  */
 public interface PlayerService extends Remote{
 	
-    /**
-     * 获得所有球员信息
-     * @return
-     */
-    public List<PlayerInfoVO> getAllPlayerInfo() throws RemoteException;
-
 	/**
 	 * 模糊查找匹配的球员名字
 	 * @param str 查找输入字符（球员姓名）
@@ -50,10 +44,16 @@ public interface PlayerService extends Remote{
 	public ImageIcon getPlayerPortraitByName(String name) throws RemoteException;
 	
 	/**
-	 * 根据名字首字母获得球员信息
+	 * 根据名字首字母获得球员名字
 	 * @param initial 首字母A-Z
 	 */
-	public List<PlayerInfoVO> getPlayerInfoByNameInitial(String initial) throws RemoteException;
+	public List<String> getNameByNameInitial(String initial) throws RemoteException;
+
+    /**
+     * 获得所有球员信息
+     * @return
+     */
+    public List<PlayerInfoVO> getAllPlayerInfo() throws RemoteException;
 	
 	/**
 	 * 获取单个球员基本信息
@@ -70,32 +70,33 @@ public interface PlayerService extends Remote{
 	public List<PlayerTotalVO> getPlayerTotalByName(String name) throws RemoteException;
 	
 	/**
-	 * 获取单个球员所有赛季的场均数据
-	 * @param name 球员姓名
-	 * @return
-	 */
-	public List<PlayerPerGameVO> getPlayerPerGameByName(String name) throws RemoteException;
-	
-	/**
-	 * 获取单个球员所有赛季的高阶数据
-	 * @param name 球员姓名
-	 * @return
-	 */
-	public List<PlayerAdvancedVO> getPlayerAdvancedByName(String name) throws RemoteException;
-	
-	/**
-	 * 获得单个球员每赛季的薪水列表
-	 * @param name
-	 * @return
-	 */
-	public List<PlayerSalaryVO> getPlayerSalaryByName(String name) throws RemoteException;
-	
-	/**
 	 * 获取单赛季的所有球员总数据
 	 * @param season 赛季
 	 * @return
 	 */
 	public List<PlayerTotalVO> getPlayerTotalBySeason(String season) throws RemoteException;
+	
+	/**
+	 * 根据姓名查找球员某赛季总数据
+	 * @param season
+	 * @param name
+	 * @return
+	 */
+	public List<PlayerTotalVO> getPlayerTotalBySeasonName(String season, String name, int regular) throws RemoteException;
+	
+	/**
+	 * 多项条件筛选球员总数据
+	 * @param filter
+	 * @return
+	 */
+	public List<PlayerTotalVO> getPlayerTotalByFilter(PlayerFilter filter) throws RemoteException;
+	
+	/**
+	 * 获取单个球员所有赛季的场均数据
+	 * @param name 球员姓名
+	 * @return
+	 */
+	public List<PlayerPerGameVO> getPlayerPerGameByName(String name) throws RemoteException;
 	
 	/**
 	 * 获取单个赛季的所有球员场均数据
@@ -105,35 +106,13 @@ public interface PlayerService extends Remote{
 	public List<PlayerPerGameVO> getPlayerPerGameBySeason(String season) throws RemoteException;
 	
 	/**
-	 * 获取单个赛季所有球员的高阶数据
-	 * @param season 赛季
-	 * @return
-	 */
-	public List<PlayerAdvancedVO> getPlayerAdvancedBySeason(String season) throws RemoteException;
-	
-	/**
-	 * 根据姓名查找球员某赛季总数据
-	 * @param season
-	 * @param name
-	 * @return
-	 */
-	public PlayerTotalVO getPlayerTotalBySeasonName(String season, String name) throws RemoteException;
-	
-	/**
 	 * 根据姓名查找球员某赛季场均数据
 	 * @param season
 	 * @param name
+	 * @param regular/off 1/0
 	 * @return
 	 */
-	public PlayerPerGameVO getPlayerPerGameBySeasonName(String season, String name) throws RemoteException;
-	
-	/**
-	 * 根据姓名查找球员某赛季高阶数据
-	 * @param season
-	 * @param name
-	 * @return
-	 */
-	public PlayerAdvancedVO getPlayerAdvancedBySeasonName(String season, String name) throws RemoteException;
+	public List<PlayerPerGameVO> getPlayerPerGameBySeasonName(String season, String name, int regular) throws RemoteException;
 	
 	/**
 	 * 多项条件筛选球员场均数据
@@ -141,14 +120,31 @@ public interface PlayerService extends Remote{
 	 * @return
 	 */
 	public List<PlayerPerGameVO> getPlayerPerGameByFilter(PlayerFilter filter) throws RemoteException;
+
 	
 	/**
-	 * 多项条件筛选球员总数据
-	 * @param filter
+	 * 获取单个球员所有赛季的高阶数据
+	 * @param name 球员姓名
 	 * @return
 	 */
-	public List<PlayerTotalVO> getPlayerTotalByFilter(PlayerFilter filter) throws RemoteException;
+	public List<PlayerAdvancedVO> getPlayerAdvancedByName(String name) throws RemoteException;
 	
+	/**
+	 * 获取单个赛季所有球员的高阶数据
+	 * @param season 赛季
+	 * @return
+	 */
+	public List<PlayerAdvancedVO> getPlayerAdvancedBySeason(String season) throws RemoteException;
+	
+	/**
+	 * 根据姓名查找球员某赛季高阶数据
+	 * @param season
+	 * @param name
+	 * @param regular
+	 * @return
+	 */
+	public List<PlayerAdvancedVO> getPlayerAdvancedBySeasonName(String season, String name, int regular) throws RemoteException;
+			
 	/**
 	 * 多项条件筛选球员高阶数据
 	 * @param filter
@@ -162,7 +158,7 @@ public interface PlayerService extends Remote{
 	 * @param abbr 球队缩写
 	 */
 	public List<PlayerInfoVO> getTeamPlayerBySeason(String season, String abbr) throws RemoteException;
-
+	
 	/**
 	 * 获取某赛季热门属性的热点球队
 	 * @param season
@@ -170,6 +166,12 @@ public interface PlayerService extends Remote{
 	 * @return
 	 */
 	public List<HotPlayerInfoVO> getSeasonHotPlayer(String season, FieldType field) throws RemoteException;
-
+	
+	/**
+	 * 获得单个球员每赛季的薪水列表
+	 * @param name
+	 * @return
+	 */
+	public List<PlayerSalaryVO> getPlayerSalaryByName(String name) throws RemoteException;
 
 }

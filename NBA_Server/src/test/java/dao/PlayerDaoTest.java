@@ -1,9 +1,22 @@
 package dao;
 
+import java.util.List;
+
 import junit.framework.TestCase;
+import util.FieldType;
+import vo.PlayerFilter;
+import dao.impl.DaoFactoryImpl;
+import entity.HotPlayerInfo;
+import entity.PlayerInfo;
+import entity.PlayerSalary;
+import entity.PlayerStatsAdvanced;
+import entity.PlayerStatsPerGame;
+import entity.PlayerStatsTotal;
 
 public class PlayerDaoTest extends TestCase {
 
+	PlayerDao pdao = DaoFactoryImpl.getDaoFactory().getPlayerDao();
+	
 	protected static void setUpBeforeClass() throws Exception {
 	}
 
@@ -11,79 +24,158 @@ public class PlayerDaoTest extends TestCase {
 	}
 
 	public void testGetNameList() {
-		fail("Not yet implemented");
+		List<String> list = pdao.getNameList("Aaron");
+		for(String s: list){
+			boolean b = s.contains("Aaron");
+			assertEquals(b,true);
+		}
 	}
 
 	public void testGetPlayerInfoByNameInitial() {
-		fail("Not yet implemented");
+		List<String> list = pdao.getNameByNameInitial("Z");
+		for(String s: list){
+			boolean b = s.startsWith("Z");
+			assertEquals(b, true);
+		}
 	}
 
 	public void testGetAllPlayerInfo() {
-		fail("Not yet implemented");
+		List<PlayerInfo> list = pdao.getAllPlayerInfo();
+		assertEquals(1465,list.size());
 	}
 
 	public void testGetPlayerInfoByName() {
-		fail("Not yet implemented");
+		PlayerInfo info = pdao.getPlayerInfoByName("Aaron Brooks");
+		assertEquals("Aaron Brooks", info.getName());
 	}
 
 	public void testGetPlayerTotalByName() {
-		fail("Not yet implemented");
+		List<PlayerStatsTotal> list = pdao.getPlayerTotalByName("Kevin Durant");
+		for(PlayerStatsTotal pst: list){
+			assertEquals("Kevin Durant", pst.getName());
+		}
 	}
 
 	public void testGetPlayerPerGameByName() {
-		fail("Not yet implemented");
+		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameByName("Kevin Durant");
+		for(PlayerStatsPerGame psp: list){
+			assertEquals("Kevin Durant", psp.getName());
+		}
 	}
 
 	public void testGetPlayerAdvancedByName() {
-		fail("Not yet implemented");
+		List<PlayerStatsAdvanced> list = pdao.getPlayerAdvancedByName("Kevin Durant");
+		for(PlayerStatsAdvanced psp: list){
+			assertEquals("Kevin Durant", psp.getName());
+		}
 	}
 
 	public void testGetPlayerSalaryByName() {
-		fail("Not yet implemented");
+		List<PlayerSalary> list = pdao.getPlayerSalaryByName("Kobe Bryant");
+		for(PlayerSalary ps: list){
+			assertEquals("Kobe Bryant", ps.getName());
+		}
 	}
 
 	public void testGetPlayerTotalBySeason() {
-		fail("Not yet implemented");
+		List<PlayerStatsTotal> list = pdao.getPlayerTotalBySeason("13-14");
+		for(PlayerStatsTotal pst: list){
+			assertEquals("13-14", pst.getSeason());
+		}
 	}
 
 	public void testGetPlayerPerGameBySeason() {
-		fail("Not yet implemented");
+		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameBySeason("13-14");
+		for(PlayerStatsPerGame pst: list){
+			assertEquals("13-14", pst.getSeason());
+		}
 	}
 
 	public void testGetPlayerAdvancedBySeason() {
-		fail("Not yet implemented");
+		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameBySeason("13-14");
+		for(PlayerStatsPerGame pst: list){
+			assertEquals("13-14", pst.getSeason());
+		}
 	}
 
 	public void testGetTeamPlayerBySeason() {
-		fail("Not yet implemented");
+		List<PlayerInfo> list = pdao.getTeamPlayerBySeason("13-14", "ATL");
+		for(PlayerInfo info: list){
+			System.out.println(info.getName());
+		}
 	}
 
 	public void testGetPlayerTotalBySeasonName() {
-		fail("Not yet implemented");
+		List<PlayerStatsTotal> pst= pdao.getPlayerTotalBySeasonName("13-14","Kevin Durant",1);
+		assertEquals("Kevin Durant", pst.get(0).getName());
+		assertEquals("13-14", pst.get(0).getSeason());
 	}
 
 	public void testGetPlayerPerGameBySeasonName() {
-		fail("Not yet implemented");
+		List<PlayerStatsPerGame> pst= pdao.getPlayerPerGameBySeasonName("13-14","Kevin Durant",-1);
+		assertEquals("Kevin Durant", pst.get(0).getName());
+		assertEquals("13-14", pst.get(0).getSeason());
 	}
 
 	public void testGetPlayerAdvancedBySeasonName() {
-		fail("Not yet implemented");
+		List<PlayerStatsAdvanced> pst= pdao.getPlayerAdvancedBySeasonName("13-14","Kevin Durant",-1);
+		assertEquals("Kevin Durant", pst.get(0).getName());
+		assertEquals("13-14", pst.get(0).getSeason());
 	}
 
 	public void testGetPlayerTotalByFilter() {
-		fail("Not yet implemented");
+		PlayerFilter pf = new PlayerFilter();
+		pf.position = "PF";
+		pf.league = "Atlantic";
+		pf.season = "13-14";
+		pf.regular = 1;
+		List<PlayerStatsTotal> list = pdao.getPlayerTotalByFilter(pf);
+		System.out.println(list.size());
+		for(PlayerStatsTotal pst: list){
+			assertEquals("PF", pst.getPosition());
+			assertEquals("13-14", pst.getSeason());
+		}
 	}
 
 	public void testGetPlayerPerGameByFilter() {
-		fail("Not yet implemented");
+		PlayerFilter pf = new PlayerFilter();
+		pf.position = "PF";
+		pf.league = "E";
+		pf.season = "13-14";
+		pf.team = "ATL";
+		pf.regular = 1;
+		pf.height = ">6-5";
+		pf.weight = ">270";
+		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameByFilter(pf);
+		System.out.println(list.size());
+		for(PlayerStatsPerGame pst: list){
+			assertEquals("PF", pst.getPosition());
+			assertEquals("13-14", pst.getSeason());
+		}
 	}
 
 	public void testGetPlayerAdvancedByFilter() {
-		fail("Not yet implemented");
+		PlayerFilter pf = new PlayerFilter();
+		pf.position = "PF";
+		pf.league = "E";
+		pf.season = "13-14";
+		pf.team = "ATL";
+		pf.regular = 1;
+		pf.height = ">6-5";
+		pf.weight = ">270";
+		List<PlayerStatsAdvanced> list = pdao.getPlayerAdvancedByFilter(pf);
+		for(PlayerStatsAdvanced pst: list){
+			assertEquals("PF", pst.getPosition());
+			assertEquals("13-14", pst.getSeason());
+		}
 	}
 
 	public void testGetSeasonHotPlayer() {
-		fail("Not yet implemented");
+		List<HotPlayerInfo> list = pdao.getSeasonHotPlayer("13-14", FieldType.AST);
+		for(HotPlayerInfo info : list){
+			assertEquals("13-14", info.getSeason());
+			assertEquals(FieldType.AST, info.getField());
+		}
 	}
 
 }

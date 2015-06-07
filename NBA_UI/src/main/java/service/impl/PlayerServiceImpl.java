@@ -110,24 +110,6 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 	}
 
 	@Override
-	public PlayerTotalVO getPlayerTotalBySeasonName(String season, String name)
-			throws RemoteException {
-		return null;
-	}
-
-	@Override
-	public PlayerPerGameVO getPlayerPerGameBySeasonName(String season,
-			String name) throws RemoteException {
-		return null;
-	}
-
-	@Override
-	public PlayerAdvancedVO getPlayerAdvancedBySeasonName(String season,
-			String name) throws RemoteException {
-		return null;
-	}
-
-	@Override
 	public List<String> getNameList(String str) throws RemoteException {
 		return null;
 	}
@@ -140,6 +122,30 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 
 	@Override
 	public List<PlayerInfoVO> getAllPlayerInfo() throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public List<String> getNameByNameInitial(String initial)
+			throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public List<PlayerTotalVO> getPlayerTotalBySeasonName(String season,
+			String name, int regular) throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public List<PlayerPerGameVO> getPlayerPerGameBySeasonName(String season,
+			String name, int regular) throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public List<PlayerAdvancedVO> getPlayerAdvancedBySeasonName(String season,
+			String name, int regular) throws RemoteException {
 		return null;
 	}
 

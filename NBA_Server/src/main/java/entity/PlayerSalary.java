@@ -25,7 +25,7 @@ public class PlayerSalary {
 	/**
 	 * 薪水
 	 */
-	private String salary;
+	private Long salary;
 	
 	/**
 	 * 无参构造函数
@@ -56,11 +56,11 @@ public class PlayerSalary {
 		this.team = team;
 	}
 
-	public String getSalary() {
+	public Long getSalary() {
 		return salary;
 	}
 
-	public void setSalary(String salary) {
+	public void setSalary(Long salary) {
 		this.salary = salary;
 	}
 

@@ -163,7 +163,7 @@ public interface TeamDao {
 	 * @param field
 	 * @return
 	 */
-	public List<HotTeamInfo> getSeasonHotTeam(String season, FieldType field, int nuber);
+	public List<HotTeamInfo> getSeasonHotTeam(String season, FieldType field, int number);
 	
 	/**
 	 * 插入球队基本信息

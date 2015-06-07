@@ -20,27 +20,12 @@ import entity.MatchPlayerBasic;
 public class MatchDaoImpl implements MatchDao {
 
 	private SqlManager sqlManager = SqlManager.getSqlManager();	
-
-	// TODO -------- MatchDao main test ---------------------------
-	public static void main(String[] args) {
-		MatchDao mdao = DaoFactoryImpl.getDaoFactory().getMatchDao();
-		MatchFilter mf = new MatchFilter();
-		mf.season = "13-14";
-		mf.begin_date = "2014-01-01";
-		mf.end_date = "2014-01-10";
-		mf.player = "Aaron Brooks";
-		List<MatchInfo> list = mdao.getMatchInfoByFilter(mf);
-		System.out.println(list.size());
-		for(MatchInfo info : list){
-			System.out.println(""+info.getGame_id());
-		}
-	}
 	
 	@Override
 	public List<MatchInfo> getMatchInfoByFilter(MatchFilter filter) {
 		sqlManager.getConnection();
 		List<MatchInfo> list = new ArrayList<MatchInfo>();
-		String sql = "SELECT a.game_id, "
+		String sql = "SELECT DISTINCT a.game_id, "
 				+ "season, "
 				+ "is_normal, "
 				+ "date, "
@@ -51,16 +36,18 @@ public class MatchDaoImpl implements MatchDao {
 				+ "guest_point, "
 				+ "time "
 				+ " FROM match_info a, match_player_basic b "
-				+ "WHERE a.game_id = b.game_id "
-				+ "AND season=? ";
+				+ "WHERE a.game_id = b.game_id ";
 		List<Object> objects = new ArrayList<Object>();
-		objects.add(filter.season);
+		if(filter.season!=null){
+			sql += " AND season=? ";
+			objects.add(filter.season);
+		}
 		if(filter.regular != null){
 			sql += "AND is_normal=" + filter.regular; 
 		}
 		if(filter.team != null){
 			if(filter.home == null){
-				sql += " AND game_id LIKE '%'" + filter.team + "'%'";
+				sql += " AND a.game_id LIKE '%" + filter.team + "%'";
 			}else{
 				if(filter.home){
 				sql += " AND home_team=? ";
@@ -82,6 +69,8 @@ public class MatchDaoImpl implements MatchDao {
 			sql += " AND b.player_name=? ";
 			objects.add(filter.player);
 		}
+		sql += " ORDER BY date " + filter.order + " LIMIT 0,"+filter.limit;
+		
 		List<Map<String, Object>> maplist = sqlManager.queryMultiByList(sql, objects);
 		for(Map<String, Object> map: maplist){
 			list.add(getMatchInfo(map));
@@ -94,7 +83,7 @@ public class MatchDaoImpl implements MatchDao {
 	public List<MatchInfo> getRegularMatchInfoBySeason(String season) {
 		sqlManager.getConnection();
 		List<MatchInfo> list = new ArrayList<MatchInfo>();
-		String sql = "SELECT * FROM match_info WHERE season=? and is_normal=1 ORDER BY date";
+		String sql = "SELECT * FROM match_info WHERE season=? and is_normal=1 ORDER BY date ";
 		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{season});
 		for(Map<String,Object> map: maplist){
 			list.add(getMatchInfo(map));

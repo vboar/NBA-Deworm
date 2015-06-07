@@ -136,7 +136,7 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 		String[] data = str.split(";", -1);
 		slr.setSeason(data[0]);
 		slr.setTeam(data[1]);
-		slr.setSalary(data[2]);
+		slr.setSalary(Utility.salaryToLong(data[2]));
 		return slr;
 	}
 
@@ -158,7 +158,7 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 		advanced.setSeason(data[0]);
 		advanced.setTeam(data[1]);
 		advanced.setPosition(data[2]);
-		advanced.setGame(Utility.stringToInt(data[3]));
+		advanced.setNum_Of_Game(Utility.stringToInt(data[3]));
 		advanced.setMinute(Utility.stringToInt(data[4]));
 		advanced.setPer(Utility.stringToDouble(data[5]));
 		advanced.setTs_pct(Utility.stringToDouble(data[6]));
@@ -204,7 +204,7 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 		pergame.setSeason(data[0]);
 		pergame.setTeam(data[1]);
 		pergame.setPosition(data[2]);
-		pergame.setGame(Utility.stringToInt(data[3]));
+		pergame.setNum_Of_Game(Utility.stringToInt(data[3]));
 		pergame.setGame_started(Utility.stringToInt(data[4]));
 		pergame.setMinute(Utility.stringToDouble(data[5]));
 		pergame.setFg(Utility.stringToDouble(data[6]));
@@ -255,7 +255,7 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 			total.setSeason(data[0]);
 			total.setTeam(data[1]);
 			total.setPosition(data[2]);
-			total.setGame(Utility.stringToInt(data[3]));
+			total.setNum_Of_Game(Utility.stringToInt(data[3]));
 			total.setGame_started(Utility.stringToInt(data[4]));
 			total.setMinute(Utility.stringToInt(data[5]));
 			total.setFg(Utility.stringToInt(data[6]));
