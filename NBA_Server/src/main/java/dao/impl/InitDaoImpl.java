@@ -363,7 +363,6 @@ public class InitDaoImpl implements InitDao {
         		"fg2 INT ," +
         		"fg2a INT ," +
         		"fg2_pct DOUBLE ," +
-        		"efg_pct DOUBLE ," +
         		"ft INT ," +
         		"fta INT ," +
         		"ft_pct DOUBLE ," +

@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import service.TeamService;
 import util.FieldType;
 import vo.HotTeamInfoVO;
+import vo.TeamAdvancedVO;
 import vo.TeamFilter;
 import vo.TeamInfoVO;
 import vo.TeamOppPerGameVO;
@@ -125,7 +126,31 @@ public class TeamServiceImpl extends UnicastRemoteObject implements TeamService 
 	}
 
 	@Override
-	public List<HotTeamInfoVO> getSeasonHotTeam(String season, FieldType field)
+	public List<HotTeamInfoVO> getSeasonHotTeam(String season, FieldType field, int number)
+			throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public List<TeamAdvancedVO> getTeamAdvancedByFilter(TeamFilter filter)
+			throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public TeamAdvancedVO getTeamAdvancedBySeasonAbbr(String season, String abbr)
+			throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public List<TeamAdvancedVO> getTeamAdvancedByAbbr(String abbr)
+			throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public List<TeamAdvancedVO> getTeamAdvancedBySeason(String season)
 			throws RemoteException {
 		return null;
 	}

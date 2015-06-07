@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import service.TeamService;
 import util.FieldType;
 import vo.HotTeamInfoVO;
+import vo.TeamAdvancedVO;
 import vo.TeamFilter;
 import vo.TeamInfoVO;
 import vo.TeamOppPerGameVO;
@@ -22,6 +23,7 @@ import entity.HotTeamInfo;
 import entity.OpponentStatsPerGame;
 import entity.OpponentStatsTotal;
 import entity.TeamInfo;
+import entity.TeamStatsAdvanced;
 import entity.TeamStatsPerGame;
 import entity.TeamStatsTotal;
 
@@ -221,12 +223,57 @@ public class TeamServiceImpl extends UnicastRemoteObject implements TeamService 
 	}
 	
 	@Override
-	public List<HotTeamInfoVO> getSeasonHotTeam(String season, FieldType field)
+	public List<HotTeamInfoVO> getSeasonHotTeam(String season, FieldType field, int number)
 			throws RemoteException {
-		List<HotTeamInfo> list = tdao.getSeasonHotTeam(season, field);
+		List<HotTeamInfo> list = tdao.getSeasonHotTeam(season, field, number);
 		List<HotTeamInfoVO> volist = new ArrayList<HotTeamInfoVO>();
 		for(HotTeamInfo info : list){
 			HotTeamInfoVO vo = getHotTeamToVO(info);
+			if(vo!=null)
+				volist.add(vo);
+		}
+		return volist;
+	}
+
+	@Override
+	public List<TeamAdvancedVO> getTeamAdvancedByFilter(TeamFilter filter)
+			throws RemoteException {
+		List<TeamAdvancedVO> volist = new ArrayList<TeamAdvancedVO>();
+		List<TeamStatsAdvanced> list = tdao.getTeamAdvancedByFilter(filter);
+		for(TeamStatsAdvanced tsa: list){
+			TeamAdvancedVO vo = getAdvancedToVO(tsa);
+			if(vo!=null)
+				volist.add(vo);
+		}
+		return volist;
+	}
+
+	@Override
+	public TeamAdvancedVO getTeamAdvancedBySeasonAbbr(String season, String abbr)
+			throws RemoteException {
+		return getAdvancedToVO(tdao.getTeamAdvancedBySeasonAbbr(season, abbr));
+	}
+
+	@Override
+	public List<TeamAdvancedVO> getTeamAdvancedByAbbr(String abbr)
+			throws RemoteException {
+		List<TeamAdvancedVO> volist = new ArrayList<TeamAdvancedVO>();
+		List<TeamStatsAdvanced> list = tdao.getTeamAdvancedByAbbr(abbr);
+		for(TeamStatsAdvanced tsa: list){
+			TeamAdvancedVO vo = getAdvancedToVO(tsa);
+			if(vo!=null)
+				volist.add(vo);
+		}
+		return volist;
+	}
+
+	@Override
+	public List<TeamAdvancedVO> getTeamAdvancedBySeason(String season)
+			throws RemoteException {
+		List<TeamAdvancedVO> volist = new ArrayList<TeamAdvancedVO>();
+		List<TeamStatsAdvanced> list = tdao.getTeamAdvancedBySeason(season);
+		for(TeamStatsAdvanced tsa: list){
+			TeamAdvancedVO vo = getAdvancedToVO(tsa);
 			if(vo!=null)
 				volist.add(vo);
 		}
@@ -390,6 +437,37 @@ public class TeamServiceImpl extends UnicastRemoteObject implements TeamService 
 		vo.value = info.getValue();
 		vo.season = info.getSeason();
 		vo.league = info.getLeague();
+		return vo;
+	}
+	
+	private TeamAdvancedVO getAdvancedToVO(
+			TeamStatsAdvanced tsa) {
+		if(tsa == null){
+			return null;
+		}
+		TeamAdvancedVO vo = new TeamAdvancedVO();
+		vo.abbr = tsa.getAbbr();
+		vo.season = tsa.getSeason();
+		vo.pw = tsa.getPw();
+		vo.pl = tsa.getPl();
+		vo.mov = tsa.getMov();
+		vo.sos = tsa.getSos();
+		vo.srs = tsa.getSrs();
+		vo.off_rtg = tsa.getOff_rtg();
+		vo.def_rtg = tsa.getDef_rtg();
+		vo.pace = tsa.getPace();
+		vo.fta_per_fga_pct = tsa.getFta_per_fga_pct();
+		vo.fg3a_per_fga_pct = tsa.getFg3a_per_fga_pct();
+		vo.off_efg_pct = tsa.getOff_efg_pct();
+		vo.off_tov_pct = tsa.getOff_tov_pct();
+		vo.orb_pct = tsa.getOrb_pct();
+		vo.off_ft_rate = tsa.getOff_ft_rate();
+		vo.opp_efg_pct = tsa.getOff_efg_pct();
+		vo.opp_tov_pct = tsa.getOpp_tov_pct();
+		vo.drb_pct = tsa.getDrb_pct();
+		vo.opp_ft_rate = tsa.getOpp_ft_rate();
+		vo.arena = tsa.getArena();
+		vo.attendance = tsa.getAttendance();
 		return vo;
 	}
 	

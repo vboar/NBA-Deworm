@@ -31,7 +31,7 @@ public class TeamDaoImpl implements TeamDao {
 	// TODO -------- TeamDao main test--------------
 	public static void main(String[] args) {
 		TeamDao tdao = DaoFactoryImpl.getDaoFactory().getTeamDao();
-		List<HotTeamInfo> list = tdao.getSeasonHotTeam("13-14", FieldType.AST);
+		List<HotTeamInfo> list = tdao.getSeasonHotTeam("13-14", FieldType.AST,5);
 		for(HotTeamInfo i:list){
 			System.out.println(i.getAbbr() + " " + i.getValue());
 		}
@@ -359,6 +359,95 @@ public class TeamDaoImpl implements TeamDao {
 		sqlManager.releaseAll();
 		return getOppPerGame(map);
 	}
+
+	@Override
+	public List<TeamStatsAdvanced> getTeamAdvancedBySeason(String season) {
+		List<TeamStatsAdvanced> list = new ArrayList<TeamStatsAdvanced>();
+		sqlManager.getConnection();
+		String sql = "SELECT * FROM team_advanced WHERE season=?";
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, new Object[]{season});
+		for(Map<String, Object> map: maplist){
+			list.add(getTeamAdvanced(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+
+	@Override
+	public List<TeamStatsAdvanced> getTeamAdvancedByAbbr(String abbr) {
+		List<TeamStatsAdvanced> list = new ArrayList<TeamStatsAdvanced>();
+		sqlManager.getConnection();
+		String sql = "SELECT * FROM team_advanced WHERE abbr=?";
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, new Object[]{abbr});
+		for(Map<String, Object> map: maplist){
+			list.add(getTeamAdvanced(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+
+	@Override
+	public TeamStatsAdvanced getTeamAdvancedBySeasonAbbr(String season,
+			String abbr) {
+		sqlManager.getConnection();		
+		String sql = "SELECT * FROM team_advanced WHERE season=? AND abbr=?";
+		Map<String,Object> map = sqlManager.querySimple(sql, new Object[]{season,abbr});
+		sqlManager.releaseAll();
+		return getTeamAdvanced(map);
+	}
+
+	@Override
+	public List<TeamStatsAdvanced> getTeamAdvancedByFilter(TeamFilter filter) {
+		List<TeamStatsAdvanced> list = new ArrayList<TeamStatsAdvanced>();
+		sqlManager.getConnection();
+		String sql = "SELECT ta.abbr, "
+        		+ "season, "
+        		+ "minute,"
+        		+ "pw, "
+        		+ "pl, "
+        		+ "pw, "
+        		+ "mov, "
+        		+ "sos, "
+        		+ "srs. "
+        		+ "off_rtg, "
+        		+ "def_rtg, "
+        		+ "pace, "
+        		+ "fta_per_fga_pct, "
+        		+ "fg3a_per_fga_pct, "
+        		+ "off_efg_pct, "
+        		+ "off_tov_pct, "
+        		+ "orb_pct, "
+        		+ "off_ft_rate, "
+        		+ "opp_efg_pct, "
+        		+ "opp_tov_pct, "
+        		+ "drb_pct, "
+        		+ "opp_ft_rate, "
+        		+ "arena, "
+        		+ "attendance "
+        		+ "FROM team_advanced as ta, team_info as ti "
+        		+ "WHERE ta.abbr = ti.abbr "
+        		+ "AND season=? ";
+		List<Object> objects = new ArrayList<Object>();
+		objects.add(filter.season);
+        if (filter.league != null) {
+            if (filter.league.equalsIgnoreCase("W")) {
+                sql += " AND ti.league='W' ";
+            } else {
+                sql += " AND ti.league='E' ";
+            }
+        }
+		if(filter.division!=null){
+			sql += " AND ti.division=? ";
+			objects.add(filter.division);
+		}
+		sql += " ORDER BY ta.abbr";
+		List<Map<String, Object>> maplist = sqlManager.queryMultiByList(sql, objects);
+		for(Map<String, Object> map: maplist){
+			list.add(getTeamAdvanced(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
 	
 	@Override
 	public void insertTeamInfo(List<TeamInfo> list) {
@@ -683,7 +772,7 @@ public class TeamDaoImpl implements TeamDao {
 	}
 
 	@Override
-	public List<HotTeamInfo> getSeasonHotTeam(String season, FieldType field) {
+	public List<HotTeamInfo> getSeasonHotTeam(String season, FieldType field, int number) {
 		List<HotTeamInfo> list = new ArrayList<HotTeamInfo>();
 		sqlManager.getConnection();
 		String sql ="";
@@ -697,7 +786,7 @@ public class TeamDaoImpl implements TeamDao {
 					+ "FROM team_info as a, team_advanced as b "
 					+ "WHERE a.abbr = b.abbr AND b.season = ?";
 		}
-		sql += "ORDER BY " + field.toString() + " DESC LIMIT 0,5";
+		sql += "ORDER BY " + field.toString() + " DESC LIMIT 0," + number;
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, new Object[]{season});
 		for(Map<String, Object> map: maplist){
 			list.add(getHotTeamInfo(map, field));
@@ -872,6 +961,36 @@ public class TeamDaoImpl implements TeamDao {
 		return info;
 	}
 
+	private TeamStatsAdvanced getTeamAdvanced(Map<String, Object> map) {
+		if(map.get("abbr")==null){
+			return null;
+		}
+		TeamStatsAdvanced tsa = new TeamStatsAdvanced();
+		tsa.setAbbr(map.get("abbr").toString());
+		tsa.setSeason(map.get("season").toString());
+		tsa.setPw(Utility.objectToDouble(map.get("pw")));
+		tsa.setPl(Utility.objectToDouble(map.get("pl")));
+		tsa.setMov(Utility.objectToDouble(map.get("mov")));
+		tsa.setSos(Utility.objectToDouble(map.get("sos")));
+		tsa.setSrs(Utility.objectToDouble(map.get("srs")));
+		tsa.setOff_rtg(Utility.objectToDouble(map.get("off_rtg")));
+		tsa.setDef_rtg(Utility.objectToDouble(map.get("def_rtg")));
+		tsa.setPace(Utility.objectToDouble(map.get("pace")));
+		tsa.setFta_per_fga_pct(Utility.objectToDouble(map.get("fta_per_fga_pct")));
+		tsa.setFg3a_per_fga_pct(Utility.objectToDouble(map.get("fg3a_per_fga_pct")));
+		tsa.setOff_efg_pct(Utility.objectToDouble(map.get("off_efg_pct")));
+		tsa.setOff_tov_pct(Utility.objectToDouble(map.get("off_tov_pct")));
+		tsa.setOrb_pct(Utility.objectToDouble(map.get("orb_pct")));
+		tsa.setOff_ft_rate(Utility.objectToDouble(map.get("off_ft_rate")));
+		tsa.setOpp_efg_pct(Utility.objectToDouble(map.get("opp_efg_pct")));
+		tsa.setOpp_tov_pct(Utility.objectToDouble(map.get("off_tov_pct")));
+		tsa.setDrb_pct(Utility.objectToDouble(map.get("drb_pct")));
+		tsa.setOpp_ft_rate(Utility.objectToDouble(map.get("opp_ft_rate")));
+		tsa.setArena(map.get("arena").toString());
+		tsa.setAttendance(Utility.objectToInt(map.get("attendance")));
+		return tsa;
+	}
+	
 	private boolean isFieldAdvanced(FieldType field){
 		switch(field){
 		case DEF_RTG:
@@ -883,4 +1002,5 @@ public class TeamDaoImpl implements TeamDao {
 			return false;
 		}
 	}
+	
 }
