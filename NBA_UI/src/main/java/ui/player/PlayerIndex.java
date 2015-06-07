@@ -427,11 +427,11 @@ public class PlayerIndex extends JPanel {
 		jsp = new JScrollPane();
 		jsp.setSize(940, 461);
 		jsp.setLocation(0, 50);
-		jsp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		jsp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
 		layerPane = new JLayeredPane();
-		layerPane.setPreferredSize(new Dimension(940, 461));
+		layerPane.setPreferredSize(new Dimension(940, 1020));
 		layerPane.setLayout(null);
 		setIndex("A");
 		jsp.setViewportView(layerPane);
@@ -453,6 +453,9 @@ public class PlayerIndex extends JPanel {
 	private void setIndex(String ini) throws RemoteException {
 		layerPane.removeAll();
 		layerPane.repaint();
+		
+		layerPane.setPreferredSize(new Dimension(940, 1020));
+		
 		layerPane.revalidate();
 		System.out.println("418: " + ini + "-------------");
 		List<PlayerInfoVO> volist = ServiceFactoryImpl.getInstance()
@@ -493,6 +496,7 @@ public class PlayerIndex extends JPanel {
 			}
 		}
 		layerPane.repaint();
+		jsp.repaint();
 	}
 
 }
