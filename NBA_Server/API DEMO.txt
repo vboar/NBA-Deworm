@@ -10,11 +10,11 @@
 /match?season=14-15&regular=1
 /match?season=14-15&team=HOU
 /match?season=14-15&team=HOU&regular=1
-/match?season=14-215&team=HOU&home=1
+/match?season=14-15&team=HOU&home=1
 /match?season=14-15&team=HOU&regular=1&home=1
 /match?season=14-15&player=Patrick Beverley
 /match?season=14-15&player=Patrick Beverley&regular=1
-[optional: limit=100 order=date&desc=1]
+[optional: limit=100 desc=1]
 
 /team/all
 /team?abbr=HOU

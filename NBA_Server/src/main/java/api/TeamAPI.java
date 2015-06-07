@@ -40,6 +40,9 @@ public class TeamAPI {
             // command is /team?abbr={}
             return abbr(str);
         }
+        if (str.length() == 0 || str.equals("/")) {
+            return "Team API.";
+        }
         return APIServer.NOTSUPPORT;
     }
 

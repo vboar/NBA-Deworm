@@ -42,7 +42,11 @@ public class PlayerAPI {
             return teamSeason(str);
         }
         if (str.startsWith("?name=")) {
+            // command is /player?name={}...
             return name(str);
+        }
+        if (str.length() == 0 || str.equals("/")) {
+            return "Player API.";
         }
         return APIServer.NOTSUPPORT;
     }
@@ -187,118 +191,90 @@ public class PlayerAPI {
                 regular = false;
             }
         }
-        if (season == null) {
-            JSONObject jo = new JSONObject();
-            JSONObject jo1 = new JSONObject();
-            try {
-                PlayerInfoVO vo = ps.getPlayerInfoByName(name);
-                if (vo == null) return APIServer.NOTFOUND;
-                jo1.put("info", getPlayerInfoJO(vo));
-
-                if (total) {
-                    if (regular) {
-                        PlayerFilter pf = new PlayerFilter();
-                        pf.regular = 1;
-                        List<PlayerTotalVO> list = ps.getPlayerTotalByFilter(pf);
-                        JSONObject jo2 = new JSONObject();
-                        for (PlayerTotalVO temp: list) {
-                            jo2.put(temp.season, getPlayerTotalJO(temp));
-                        }
-                        jo1.put("total_regular", jo2);
-                    }
-                    if (playoff) {
-                        PlayerFilter pf = new PlayerFilter();
-                        pf.regular = 0;
-                        List<PlayerTotalVO> list = ps.getPlayerTotalByFilter(pf);
-                        JSONObject jo2 = new JSONObject();
-                        for (PlayerTotalVO temp: list) {
-                            jo2.put(temp.season, getPlayerTotalJO(temp));
-                        }
-                        jo1.put("total_playoff", jo2);
-                    }
-                }
-
-                if (pergame) {
-                    if (regular) {
-                        PlayerFilter pf = new PlayerFilter();
-                        pf.regular = 1;
-                        List<PlayerPerGameVO> list = ps.getPlayerPerGameByFilter(pf);
-                        JSONObject jo2 = new JSONObject();
-                        for (PlayerPerGameVO temp: list) {
-                            jo2.put(temp.season, getPlayerPergameJO(temp));
-                        }
-                        jo1.put("pergame_regular", jo2);
-                    }
-                    if (playoff) {
-                        PlayerFilter pf = new PlayerFilter();
-                        pf.regular = 0;
-                        List<PlayerPerGameVO> list = ps.getPlayerPerGameByFilter(pf);
-                        JSONObject jo2 = new JSONObject();
-                        for (PlayerPerGameVO temp: list) {
-                            jo2.put(temp.season, getPlayerPergameJO(temp));
-                        }
-                        jo1.put("pergame_playoff", jo2);
-                    }
-                }
-
-                if (advanced) {
-                    if (regular) {
-                        PlayerFilter pf = new PlayerFilter();
-                        pf.regular = 1;
-                        List<PlayerAdvancedVO> list = ps.getPlayerAdvancedByFilter(pf);
-                        JSONObject jo2 = new JSONObject();
-                        for (PlayerAdvancedVO temp: list) {
-                            jo2.put(temp.season, getPlayerAdvancedJO(temp));
-                        }
-                        jo1.put("advanced_regular", jo2);
-                    }
-                    if (playoff) {
-                        PlayerFilter pf = new PlayerFilter();
-                        pf.regular = 0;
-                        List<PlayerAdvancedVO> list = ps.getPlayerAdvancedByFilter(pf);
-                        JSONObject jo2 = new JSONObject();
-                        for (PlayerAdvancedVO temp: list) {
-                            jo2.put(temp.season, getPlayerAdvancedJO(temp));
-                        }
-                        jo1.put("advanced_playoff", jo2);
-                    }
-                }
-
-                if (salary) {
-                    List<PlayerSalaryVO> list = ps.getPlayerSalaryByName(name);
-                    JSONObject jo2 = new JSONObject();
-                    for (PlayerSalaryVO temp: list) {
-                        jo2.put(temp.season, getPlayerSalaryJO(temp));
-                    }
-                    jo1.put("salary", jo2);
-                }
-
-                jo.put(name, jo1);
-                return jo.toString();
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-        }
 
         JSONObject jo = new JSONObject();
+        JSONObject jo1 = new JSONObject();
         try {
             PlayerInfoVO vo = ps.getPlayerInfoByName(name);
             if (vo == null) return APIServer.NOTFOUND;
-            JSONObject jo1 = new JSONObject();
             jo1.put("info", getPlayerInfoJO(vo));
 
-            // TODO 单赛季
+            if (total) {
+                if (regular) {
+                    List<PlayerTotalVO> list = ps.getPlayerTotalBySeasonName(season, name, 1);
+                    JSONObject jo2 = new JSONObject();
+                    for (PlayerTotalVO temp: list) {
+                        jo2.put(temp.season, getPlayerTotalJO(temp));
+                    }
+                    jo1.put("total_regular", jo2);
+                }
+                if (playoff) {
+                    List<PlayerTotalVO> list = ps.getPlayerTotalBySeasonName(season, name, 0);
+                    JSONObject jo2 = new JSONObject();
+                    for (PlayerTotalVO temp: list) {
+                        jo2.put(temp.season, getPlayerTotalJO(temp));
+                    }
+                    jo1.put("total_playoff", jo2);
+                }
+            }
 
+            if (pergame) {
+                if (regular) {
+                    List<PlayerPerGameVO> list = ps.getPlayerPerGameBySeasonName(season, name, 1);
+                    JSONObject jo2 = new JSONObject();
+                    for (PlayerPerGameVO temp: list) {
+                        jo2.put(temp.season, getPlayerPergameJO(temp));
+                    }
+                    jo1.put("pergame_regular", jo2);
+                }
+                if (playoff) {
+                    List<PlayerPerGameVO> list = ps.getPlayerPerGameBySeasonName(season, name, 0);
+                    JSONObject jo2 = new JSONObject();
+                    for (PlayerPerGameVO temp: list) {
+                        jo2.put(temp.season, getPlayerPergameJO(temp));
+                    }
+                    jo1.put("pergame_playoff", jo2);
+                }
+            }
 
+            if (advanced) {
+                if (regular) {
+                    List<PlayerAdvancedVO> list = ps.getPlayerAdvancedBySeasonName(season, name, 1);
+                    JSONObject jo2 = new JSONObject();
+                    for (PlayerAdvancedVO temp: list) {
+                        jo2.put(temp.season, getPlayerAdvancedJO(temp));
+                    }
+                    jo1.put("advanced_regular", jo2);
+                }
+                if (playoff) {
+                    List<PlayerAdvancedVO> list = ps.getPlayerAdvancedBySeasonName(season, name, 0);
+                    JSONObject jo2 = new JSONObject();
+                    for (PlayerAdvancedVO temp: list) {
+                        jo2.put(temp.season, getPlayerAdvancedJO(temp));
+                    }
+                    jo1.put("advanced_playoff", jo2);
+                }
+            }
 
-
-
-            jo.put(vo.name, jo1);
+            if (salary) {
+                List<PlayerSalaryVO> list;
+                if (season != null) {
+                    // TODO 调用不对
+                    list = ps.getPlayerSalaryByName(name);
+                } else {
+                    list = ps.getPlayerSalaryByName(name);
+                }
+                JSONObject jo2 = new JSONObject();
+                for (PlayerSalaryVO temp: list) {
+                    jo2.put(temp.season, getPlayerSalaryJO(temp));
+                }
+                jo1.put("salary", jo2);
+            }
+            jo.put(name, jo1);
+            return jo.toString();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-
-
         return APIServer.NOTSUPPORT;
     }
 

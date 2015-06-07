@@ -89,6 +89,7 @@ public class APIServer implements Runnable {
             }
         } else {
             response = "APIs for NBA made by Deworm.";
+            return response;
         }
         return NOTSUPPORT;
     }

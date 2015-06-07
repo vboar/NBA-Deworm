@@ -1,5 +1,6 @@
 package api;
 
+import dao.InitDao;
 import entity.Match;
 import entity.MatchInfo;
 import org.json.JSONArray;
@@ -36,6 +37,45 @@ public class MatchAPI {
         if (str.startsWith("?season")) {
             return season(str);
         }
+        if (str.startsWith("?id=")) {
+            return id(str);
+        }
+        if (str.length() == 0 || str.equals("/")) {
+            return "Match API.";
+        }
+        return APIServer.NOTSUPPORT;
+    }
+
+    private String id(String str) {
+        String id = null;
+        boolean basic = false;
+        boolean advanced = false;
+
+        Pattern p = Pattern.compile("id=.{16}");
+        Matcher m = p.matcher(str);
+        if (m.find()) {
+            id = m.group().substring(3);
+        }
+        p = Pattern.compile("basic=[0-1]");
+        m = p.matcher(str);
+        if (m.find()) {
+            String temp = m.group().substring(6);
+            if (temp.equals("1")) {
+                basic = true;
+            }
+        }
+        p = Pattern.compile("advanced=[0-1]");
+        m = p.matcher(str);
+        if (m.find()) {
+            String temp = m.group().substring(9);
+            if (temp.equals("1")) {
+                advanced = true;
+            }
+        }
+
+        // TODO 缺少接口
+
+
         return APIServer.NOTSUPPORT;
     }
 
@@ -77,7 +117,6 @@ public class MatchAPI {
         int regular = 2;
         int home = 2;
         String limit = null;
-        String order = null;
         boolean desc = false;
 
         Pattern p = Pattern.compile("season=.{5}");
@@ -127,11 +166,6 @@ public class MatchAPI {
         if (m.find()) {
             limit = m.group().substring(6);
         }
-        p = Pattern.compile("order=date");
-        m = p.matcher(str);
-        if (m.find()) {
-            order = m.group().substring(6);
-        }
         p = Pattern.compile("desc=[0-1]");
         m = p.matcher(str);
         if (m.find()) {
@@ -152,7 +186,9 @@ public class MatchAPI {
         mf.team = team;
         mf.player = player;
         mf.season = season;
-        // TODO 排序 order desc
+        if (desc) mf.order = "DESC";
+        else mf.order = "ASC";
+        if (limit != null) mf.limit = Integer.parseInt(limit);
         try {
             List<MatchInfoVO> list = ms.getMatchInfoByFilter(mf);
             JSONArray array = new JSONArray();
@@ -163,7 +199,6 @@ public class MatchAPI {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-
         return APIServer.NOTSUPPORT;
     }
 
