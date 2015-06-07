@@ -17,15 +17,9 @@ public class TeamPanel extends JPanel{
 
 	private PanelConfig pcfg ;
 	private HomeUI frame;
-	
-	public TeamFilter teamfilter;
-	
-	private MyTab stat;
-	
-	private MyLabel settingbg;
-	
-	private MyButton setting;
-	private MyButton menu;
+
+	public TeamIndex teamindex;
+	public TeamStat teamstat; 
 	
 	public TeamPanel(HomeUI frame){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
@@ -44,73 +38,15 @@ public class TeamPanel extends JPanel{
 	
 	private void initComponent(){
 		initPanel();
-		initButtons();
-		initLabels();
-		initTab();
 	}
 	
 	private void initPanel(){
-		teamfilter = new TeamFilter(frame);
-		teamfilter.setVisible(false);
-		add(teamfilter);
-	}
-	
-	private void initLabels(){
-		settingbg = new MyLabel(pcfg.getLabels().element("settingbg"));
-		add(settingbg);
-	}
-	
-	private void initTab(){
-		stat = new MyTab(pcfg.getTab().element("stat"));
-		add(stat);
-	}
-	
-	private void initButtons(){
-		menu = new MyButton(pcfg.getButtons().element("menu"),true);
-		add(menu);
+		teamindex = new TeamIndex(frame);
+		add(teamindex);
 		
-		setting = new MyButton(pcfg.getButtons().element("setting"));
-		setting.addMouseListener(new MouseAdapter(){
-			String[] temp = pcfg.getButtons().element("setting").attributeValue("path").split("\\.");
-			String path = temp[0];
-			String fix = temp[1];
-			
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				if(teamfilter.isVisible() == false){
-					teamfilter.setVisible(true);
-					}else{
-						teamfilter.setVisible(false);
-					}
-				
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				if(teamfilter.isVisible()==false)
-				setting.setIcon(new ImageIcon(path+"_point."+fix));
-				
-			}
-
-			@Override
-			public void mouseExited(MouseEvent arg0) {
-				if(teamfilter.isVisible() == false)
-					setting.setIcon(new ImageIcon(path+"."+fix));
-				
-			}
-
-			@Override
-			public void mousePressed(MouseEvent arg0) {
-				setting.setIcon(new ImageIcon(path+"_click."+fix));
-				
-			}
-
-		});
-		add(setting);
+		teamstat = new TeamStat(frame);
+		teamstat.setVisible(false);
+		add(teamstat);
 	}
 
-	public void filter(){
-		setting.setIcon(new ImageIcon(pcfg.getButtons().element("setting").attributeValue("path")));
-		teamfilter.setVisible(false);
-	}
 }

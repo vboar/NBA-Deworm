@@ -30,6 +30,7 @@ public class MotherPanel extends JPanel {
 	private HomeUI frame;
 	private Image bg;
 	
+	//系统按钮
 	private MyButton back;
 	private MyButton menu;
 	private MyButton exit;
@@ -38,6 +39,7 @@ public class MotherPanel extends JPanel {
 	
 	public Dropdownmenu dropdown;
 	
+	//主功能panel
 	public PlayerNav playernav; 
 	public TeamNav teamnav;
 	public MatchNav matchnav;
@@ -47,9 +49,9 @@ public class MotherPanel extends JPanel {
 	public LiveChoosePane liveChoosePane;
 	public LivePanel livePanel;
 	
-	int show = 0;
+	private int show = 0;
 	
-	int panel;
+	private int panel;
 	public MotherPanel(HomeUI frame,int panel){
 		this.panel = panel;
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
@@ -86,7 +88,7 @@ public class MotherPanel extends JPanel {
 			playerPanel.setVisible(false);
 		}
 		
-		teamnav = new TeamNav();
+		teamnav = new TeamNav(frame);
 		teamPanel = new TeamPanel(frame);
 		if(panel!=2){
 			teamnav.setVisible(false);

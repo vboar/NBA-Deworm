@@ -143,6 +143,36 @@
 			
 			<panel className="ui.team.TeamPanel" width="940" height="511"
 			x="37" y="148" >
+			
+			</panel>
+			
+			<panel className="ui.team.TeamIndex" width="940" height="511"
+			x="0" y="0">
+			<buttons>
+			<hou w="150" h="70" x="140" y="15" path="img/team/index/HOU.jpg"/>
+			<mem w="150" h="70" x="300" y="15" path="img/team/index/MEM.jpg" />
+			<sas w="150" h="70" x="460" y="15" path="img/team/index/SAS.jpg" />
+			<dal w="150" h="70" x="620" y="15" path="img/team/index/DAL.jpg" />
+			<nop w="150" h="70" x="780" y="15" path="img/team/index/NOP.jpg" />
+			
+			<gsw w="150" h="70" x="140" y="95" path="img/team/index/GSW.jpg" />
+			<nop w="150" h="70" x="780" y="40" path="img/team/index/NOP.jpg" />
+			<nop w="150" h="70" x="780" y="40" path="img/team/index/NOP.jpg" />
+			<nop w="150" h="70" x="780" y="40" path="img/team/index/NOP.jpg" />
+			<nop w="150" h="70" x="780" y="40" path="img/team/index/NOP.jpg" />
+			
+			<por w="150" h="70" x="140" y="175" path="img/team/index/POR.jpg" />
+			
+			<tor w="150" h="70" x="140" y="270" path="img/team/index/TOR.jpg" />
+			
+			<atl w="150" h="70" x="140" y="350" path="img/team/index/ATL.jpg" />
+			
+			<cle w="150" h="70" x="140" y="430" path="img/team/index/CLE.jpg" />
+			</buttons>
+			</panel>
+			
+			<panel className="ui.team.TeamStat" width="940" height="511"
+			x="0" y="0">
 			<buttons>
 			<setting w="53" h="46" x="888" y="0" path="img/common/btn/setting.png"/>
 			<menu w="52" h="46" x="0" y="0" path="img/common/btn/dropdownmenu2.png"/>
@@ -157,6 +187,7 @@
 			      path1="img/common/tab/avg.jpg" 
 			      path2="img/common/tab/all.jpg"/>
 			</tab>
+			
 			</panel>
 			
 			<panel className="ui.player.PlayerNav" width="770" 
@@ -176,7 +207,7 @@
 			
 			<labels>
 			<index  w="103" h="60" x="0" y="0" path="img/team/nav/index.png"/>
-			<playerstat  w="103" h="60" x="104" y="0" path="img/team/nav/stat.png"/>
+			<teamstat  w="103" h="60" x="104" y="0" path="img/team/nav/stat.png"/>
 			<hotteam  w="103" h="60" x="208" y="0" path="img/team/nav/hotteam.png"/>
 			</labels>
 			

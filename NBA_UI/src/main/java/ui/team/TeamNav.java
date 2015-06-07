@@ -10,23 +10,25 @@ import javax.swing.JPanel;
 
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
+import ui.home.HomeUI;
 import ui.util.MyLabel;
 
 public class TeamNav extends JPanel{
 	private PanelConfig pcfg;
+	private HomeUI frame;
 	private Image bg;
 	
 	private MyLabel index;
-	private MyLabel playerstat;
+	private MyLabel teamstat;
 	private MyLabel hotteam;
 
 	int show =0;
 	
-	public TeamNav(){
+	public TeamNav(HomeUI frame){
 	this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 			.get(this.getClass().getName());
 	this.bg = pcfg.getBg();
-	
+	this.frame = frame;
 	this.setLayout(null);
 	this.setSize(pcfg.getW(),pcfg.getH());
 	this.setLocation(pcfg.getX(), pcfg.getY());
@@ -53,8 +55,11 @@ public class TeamNav extends JPanel{
 			public void mouseClicked(MouseEvent arg0) {
 				index.setIcon(new ImageIcon(path+"_click."+fix));
 				show = 0;
-				playerstat.setIcon(new ImageIcon(pcfg.getLabels().element("playerstat").attributeValue("path")));
+				teamstat.setIcon(new ImageIcon(pcfg.getLabels().element("teamstat").attributeValue("path")));
 				hotteam.setIcon(new ImageIcon(pcfg.getLabels().element("hotteam").attributeValue("path")));
+				
+				frame.motherPanel.teamPanel.teamindex.setVisible(true);
+				frame.motherPanel.teamPanel.teamstat.setVisible(false);
 			}
 
 			@Override
@@ -82,41 +87,45 @@ public class TeamNav extends JPanel{
 			}
 			
 		});
-		playerstat = new MyLabel(pcfg.getLabels().element("playerstat"));
-		playerstat.addMouseListener(new MouseAdapter(){
-			String[] temp = pcfg.getLabels().element("playerstat").attributeValue("path").split("\\.");
+		teamstat = new MyLabel(pcfg.getLabels().element("teamstat"));
+		teamstat.addMouseListener(new MouseAdapter(){
+			String[] temp = pcfg.getLabels().element("teamstat").attributeValue("path").split("\\.");
 			String path = temp[0];
 			String fix = temp[1];
 			
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				playerstat.setIcon(new ImageIcon(path+"_click."+fix));
+				teamstat.setIcon(new ImageIcon(path+"_click."+fix));
 				show =1;
 				index.setIcon(new ImageIcon(pcfg.getLabels().element("index").attributeValue("path")));
-				hotteam.setIcon(new ImageIcon(pcfg.getLabels().element("hotplayer").attributeValue("path")));
+				hotteam.setIcon(new ImageIcon(pcfg.getLabels().element("hotteam").attributeValue("path")));
+			
+				//更改teampanel内容
+				frame.motherPanel.teamPanel.teamindex.setVisible(false);
+				frame.motherPanel.teamPanel.teamstat.setVisible(true);
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				playerstat.setIcon(new ImageIcon(path+"_click."+fix));	
+				teamstat.setIcon(new ImageIcon(path+"_click."+fix));	
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				if(show!=1)
-					playerstat.setIcon(new ImageIcon(path+"."+fix));
+					teamstat.setIcon(new ImageIcon(path+"."+fix));
 		
 			}
 
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				playerstat.setIcon(new ImageIcon(path+"_click."+fix));
+				teamstat.setIcon(new ImageIcon(path+"_click."+fix));
 				
 			}
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				playerstat.setIcon(new ImageIcon(path+"_click."+fix));
+				teamstat.setIcon(new ImageIcon(path+"_click."+fix));
 				
 			}
 			
@@ -132,7 +141,7 @@ public class TeamNav extends JPanel{
 				hotteam.setIcon(new ImageIcon(path+"_click."+fix));
 				show = 2;
 				index.setIcon(new ImageIcon(pcfg.getLabels().element("index").attributeValue("path")));
-				playerstat.setIcon(new ImageIcon(pcfg.getLabels().element("playerstat").attributeValue("path")));
+				teamstat.setIcon(new ImageIcon(pcfg.getLabels().element("playerstat").attributeValue("path")));
 			}
 
 			@Override
@@ -162,7 +171,7 @@ public class TeamNav extends JPanel{
 		});
 		
 		add(index);
-		add(playerstat);
+		add(teamstat);
 		add(hotteam);
 	}
 }
