@@ -451,12 +451,10 @@ public class PlayerIndex extends JPanel {
 	}
 
 	private void setIndex(String ini) throws RemoteException {
-		layerPane.removeAll();
-		layerPane.repaint();
-		
-		layerPane.setPreferredSize(new Dimension(940, 1020));
-		
-		layerPane.revalidate();
+		jsp.remove(layerPane);
+		layerPane = new JLayeredPane();
+		layerPane.setPreferredSize(new Dimension(940, 1130));
+		layerPane.setLayout(null);		
 		System.out.println("418: " + ini + "-------------");
 		List<String> volist = ServiceFactoryImpl.getInstance()
 				.getPlayerService()
@@ -496,6 +494,7 @@ public class PlayerIndex extends JPanel {
 			}
 		}
 		layerPane.repaint();
+		jsp.setViewportView(layerPane);
 		jsp.repaint();
 	}
 

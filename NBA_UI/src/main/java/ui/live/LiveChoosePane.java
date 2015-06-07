@@ -39,7 +39,9 @@ public class LiveChoosePane extends JPanel {
 
 	private void initComponent(){
 		List<LiveMatchInfoVO>  list=LiveServiceImpl.getInstance().getAllLiveList();
+		System.out.println("hhhhhhhhhh"+list.size());
 		for(int i=0;i<list.size();i++){
+			
 			String text = list.get(i).date+ " "+list.get(i).time+" "+list.get(i).matchType+" "+list.get(i).homeTeam+" "+list.get(i).guestTeam;
 			MyLabel lb = new MyLabel(text, pcfg.getLabels().element("news"));
 			lb.setLocation(lb.getX(), lb.getY()+100*i);
@@ -69,8 +71,8 @@ public class LiveChoosePane extends JPanel {
 				}else{
 					LivePanel livePanel = new LivePanel(frame, vo);
 					//frame.getContentPane().add(livePanel);
-					frame.motherPanel.liveChoosePane.setVisible(false);
-					frame.motherPanel.add(livePanel);
+					frame.motherPanel.matchPanel.liveChoosePane.setVisible(false);
+					frame.motherPanel.matchPanel.add(livePanel);
 					//add(livePanel);
 
 				}

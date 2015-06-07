@@ -213,8 +213,8 @@
 			
 			</panel>
 			
-			<panel className="ui.match.MatchPanel" width="940" heigth="511"
-			>
+			<panel className="ui.match.MatchPanel" width="940" height="511"
+			x="37" y="148">
 			<labels>
 			<livebg w="940" h="46" x="0" y="0" path="img/match/live/livebg.png"/>
 			<live w="150" h="46" x="0" y="0" path="img/match/live/live.png" />
@@ -292,7 +292,7 @@
 			
 			<!-- 直播panel -->
 			<panel className="ui.live.LivePanel" width="940" height="511"
-			x="37" y="148" >
+			x="0" y="20" >
 			<labels>
 			<score1  text="hh" w="103" h="60" x="0" y="0" />
 			<score2 text="hh" w="103" h="60" x="30" y="0" />
@@ -323,8 +323,8 @@
 			x="0" y="0" bg="img/home/background.jpg">
 			</panel>
 			
-			<panel className="ui.live.LiveChoosePane"  width="940" height="511"
-			x="37" y="148" >
+			<panel className="ui.live.LiveChoosePane"  width="940" height="491"
+			x="0" y="20" >
 			<labels>
 			<news  text="hh" w="1030" h="60" x="0" y="0" />			
 			</labels>
@@ -334,7 +334,7 @@
 			</panel>
 
 			<panel className="ui.team.TeamDetail" width="940" height="511"
-			x="0" y="0">
+			x="37" y="148" >
 			<labels>
 			<basicinfo w="150" h="46" x="0" y="0" path="img/match/live/live.png"/>
 			</labels>

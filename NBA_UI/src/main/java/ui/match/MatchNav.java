@@ -10,18 +10,25 @@ import javax.swing.JPanel;
 
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
+import ui.home.HomeUI;
+import ui.live.LiveChoosePane;
 import ui.util.MyLabel;
 
 public class MatchNav extends JPanel{
+	
+	private HomeUI frame;
 	private PanelConfig pcfg;
 	private Image bg;
 	
 	private MyLabel matchstat;
 	private MyLabel live;
+	
+	
 
 	int show =0;
 	
-	public MatchNav(){
+	public MatchNav(HomeUI frame){
+		this.frame = frame;
 	this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 			.get(this.getClass().getName());
 	this.bg = pcfg.getBg();
@@ -91,6 +98,11 @@ public class MatchNav extends JPanel{
 				live.setIcon(new ImageIcon(path+"_click."+fix));
 				show =1;
 				matchstat.setIcon(new ImageIcon(pcfg.getLabels().element("matchstat").attributeValue("path")));
+				frame.motherPanel.matchPanel.liveChoosePane.setVisible(true);
+				
+				
+				
+
 			}
 
 			@Override
@@ -122,4 +134,6 @@ public class MatchNav extends JPanel{
 		add(matchstat);
 		add(live);
 	}
+	
+	
 }
