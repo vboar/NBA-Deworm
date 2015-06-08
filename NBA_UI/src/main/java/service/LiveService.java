@@ -53,4 +53,11 @@ public interface LiveService {
      */
     public LiveMatchVO getMatchVO(String matchId);
 
+    /**
+     * 将虎扑直播ID转化为数据库GameId
+     * @param hupuId
+     * @return
+     */
+    public String hupuIdToGameId(String hupuId);
+
 }

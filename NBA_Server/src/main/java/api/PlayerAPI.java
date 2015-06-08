@@ -259,8 +259,7 @@ public class PlayerAPI {
             if (salary) {
                 List<PlayerSalaryVO> list;
                 if (season != null) {
-                    // TODO 调用不对
-                    list = ps.getPlayerSalaryByName(name);
+                    list = ps.getPlayerSalaryBySeason(season, name);
                 } else {
                     list = ps.getPlayerSalaryByName(name);
                 }

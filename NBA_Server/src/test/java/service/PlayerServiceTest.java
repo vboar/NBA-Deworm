@@ -103,6 +103,7 @@ public class PlayerServiceTest extends TestCase {
 	public void testGetPlayerTotalByName() {
 		try {
 			List<PlayerTotalVO> list = ps.getPlayerTotalByName("Kevin Durant");
+            System.out.println(list.size());
 			for(PlayerTotalVO pst: list){
 				assertEquals("Kevin Durant", pst.name);
 			}

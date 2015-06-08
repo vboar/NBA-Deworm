@@ -159,6 +159,22 @@ public class LiveServiceImpl implements LiveService {
         return vo;
     }
 
+    @Override
+    public String hupuIdToGameId(String hupuId) {
+        // TODO 临时解决方案
+        switch (hupuId) {
+            case "150119":
+                return "201506040GSW-CLE";
+            case "150120":
+                return "201506070GSW-CLE";
+            case "150121":
+                return "201506090CLE-GSW";
+            case "150122":
+                return "201506110CLE-GSW";
+        }
+        return "201506040GSW-CLE";
+    }
+
     private List<String> read(String path) {
         List<String> lists = new ArrayList<String>();
         try {

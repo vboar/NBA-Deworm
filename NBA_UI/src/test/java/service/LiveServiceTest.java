@@ -67,4 +67,10 @@ public class LiveServiceTest extends TestCase {
         }
         System.out.println();
     }
+
+    public void testHupuIdToGameId() throws Exception {
+        System.out.println("testHupuIdToGameId");
+        String id = ls.hupuIdToGameId("150120");
+        System.out.println(id);
+    }
 }

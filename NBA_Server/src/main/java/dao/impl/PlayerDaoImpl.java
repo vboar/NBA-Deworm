@@ -518,10 +518,10 @@ public class PlayerDaoImpl implements PlayerDao {
 	public List<PlayerSalary> getPlayerSalaryBySeason(String season, String name) {
 		List<PlayerSalary> list = new ArrayList<PlayerSalary>();
 		sqlManager.getConnection();
-		String sql = "SELECT * FROM player_salary WHERE season="+season;
+		String sql = "SELECT * FROM player_salary WHERE season=?";
 		if(name != null)
-			sql += " AND name=" + name;
-		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, null);
+			sql += " AND name=?";
+		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{season, name});
 		for(Map<String,Object> map: maplist){
 			list.add(getPlayerSalary(map));
 		}
