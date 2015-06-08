@@ -1,6 +1,7 @@
 package service;
 
 import vo.LiveMatchInfoVO;
+import vo.LiveMatchVO;
 import vo.LiveMsgVO;
 
 import java.util.List;
@@ -38,5 +39,18 @@ public interface LiveService {
      * @return
      */
     public List<LiveMsgVO> getMsg(String matchId);
+
+    /**
+     * 获得历史比赛列表
+     * @return
+     */
+    public List<LiveMatchInfoVO> getHistoryList();
+
+    /**
+     * 获得动态比赛信息VO类
+     * @param matchId
+     * @return
+     */
+    public LiveMatchVO getMatchVO(String matchId);
 
 }

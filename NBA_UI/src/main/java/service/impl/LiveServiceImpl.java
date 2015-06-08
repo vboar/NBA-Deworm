@@ -10,6 +10,7 @@ import java.util.List;
 
 import service.LiveService;
 import vo.LiveMatchInfoVO;
+import vo.LiveMatchVO;
 import vo.LiveMsgVO;
 
 /**
@@ -23,7 +24,20 @@ public class LiveServiceImpl implements LiveService {
     private LiveServiceImpl() {}
 
     public static void main(String[] args) {
-        LiveServiceImpl.getInstance().startLiveService();
+//        LiveServiceImpl.getInstance().startLiveService();
+//        while (true) {
+//            try {
+//                Thread.sleep(5000);
+//                List<LiveMsgVO> list = LiveServiceImpl.getInstance().getMsg("150120");
+//                for (LiveMsgVO vo: list) {
+//                    System.out.println(vo.content);
+//                }
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+        LiveMatchVO vo = LiveServiceImpl.getInstance().getMatchVO("150120");
+        System.out.println(vo.residualTime);
     }
 
     public static LiveService getInstance() {
@@ -73,9 +87,8 @@ public class LiveServiceImpl implements LiveService {
     public LiveMatchInfoVO checkMatchStart() {
         List<LiveMatchInfoVO> list = getAllLiveList();
         for (LiveMatchInfoVO vo: list) {
-            if (!vo.state.equals("等待更新")) {
-                return vo;
-            }
+            List<String> strs = read("live/" + vo.id + ".txt");
+            if (strs.size() > 0) return vo;
         }
         return null;
     }
@@ -101,6 +114,49 @@ public class LiveServiceImpl implements LiveService {
             list.add(vo);
         }
         return list;
+    }
+
+    @Override
+    public List<LiveMatchInfoVO> getHistoryList() {
+        List<LiveMatchInfoVO> list = new ArrayList<LiveMatchInfoVO>();
+        List<String> strs = read("live/history.txt");
+        for (String s: strs) {
+            String[] t = s.split(";");
+            LiveMatchInfoVO vo = new LiveMatchInfoVO();
+            vo.id = t[0];
+            vo.date = t[1];
+            vo.day = t[2];
+            vo.time = t[3];
+            String[] temp = t[4].split(" ");
+            vo.matchType = temp[0];
+            temp = temp[1].split("-");
+            vo.homeTeam = temp[0];
+            vo.guestTeam = temp[1];
+            vo.state = t[5];
+            list.add(vo);
+        }
+        return list;
+    }
+
+    @Override
+    public LiveMatchVO getMatchVO(String matchId) {
+        List<String> strs = read("live/" + matchId + "_info.txt");
+        LiveMatchVO vo = new LiveMatchVO();
+        String[] temp = strs.get(0).split(";");
+        vo.id = matchId;
+        vo.time = temp[0];
+        vo.gym = temp[1];
+        vo.attendance = temp[2];
+        vo.residualTime = temp[3];
+        temp = strs.get(1).split(";");
+        for (String t: temp) {
+            vo.scoresA.add(t);
+        }
+        temp = strs.get(2).split(";");
+        for (String t: temp) {
+            vo.scoresB.add(t);
+        }
+        return vo;
     }
 
     private List<String> read(String path) {

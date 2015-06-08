@@ -8,10 +8,12 @@ from lxml import html
 import os
 import json
 import urllib
+import re
 
 list_url = 'http://v.opahnet.com/nba/tv/'
 basic_url = 'http://g.hupu.com/nba/homepage/getMatchBasicInfo?matchId={0}'
 live_url = 'http://g.hupu.com/node/playbyplay/matchLives?s_count=0&match_id={0}&homeTeamName={1}&awayTeamName={2}'
+pbp_url = 'http://g.hupu.com/nba/playbyplay_{0}.html'
 match_ids = []
 
 
@@ -101,6 +103,66 @@ def decode_messages(text):
     return msg_list
 
 
+def save_match_info(mid):
+    f = open('live/' + mid.__str__() + '_info.txt', 'w')
+    url = pbp_url.format(mid)
+    try:
+        text = urllib2.urlopen(url).read()
+        result = re.search(r'<div class="about_fonts clearfix">([\s\S]*?)</div>', text)
+        result = result.groups()[0].replace('\n', '')
+        temp = re.search(r'<p class="consumTime">耗时：(.*?)</p>', result)
+        s_time = temp.groups()[0]
+        temp = re.search(r'<p class="arena">球馆：(.*?)</p>', result)
+        gym = temp.groups()[0]
+        temp = re.search(r'<p class="peopleNum">上座：(.*?)</p>', result)
+        attendance = temp.groups()[0]
+        result = re.search(r'<div class="team_num">([\s\S]*?)</div>', text)
+        if result is None:
+            r_time = ''
+        else:
+            r_time = result.groups()[0].replace('\n', '').replace(' ', '')
+        f.write(s_time + ';' + gym + ';' + attendance + ';' + r_time + ';\n')
+        result = re.search(r'<table class="itinerary_table">([\s\S]*?)</div>', text)
+        if result is None:
+            f.write(';;;;\n;;;;\n')
+        else:
+            result = result.groups()[0].replace('\n', '').replace(' ', '')
+            result = re.findall(r'<tr>(.*?)</tr>', result)
+            for item in result:
+                temp = re.findall(r'<td>([0-9]*?)</td>', item)
+                for temp1 in temp:
+                    f.write(temp1 + ';')
+                f.write('\n')
+        f.close()
+    except Exception as e:
+        print 'error'
+        print e
+    pass
+
+
+def save_history():
+    f = open('live/history.txt', 'w')
+    f.write('150119;06月05日;星期五;09：00;季后赛 勇士-骑士;比赛结束\n')
+    save_history_match('150119', '勇士', '骑士')
+    save_match_info(150119)
+
+
+def save_history_match(mid, home, guest):
+    url = basic_url.format(mid)
+    try:
+        live = live_url.format(mid, urllib.quote(home), urllib.quote(guest))
+        r = urllib2.urlopen(live)
+        text = r.read().decode('utf8', 'ignore')
+        msg = decode_messages(text)
+        f = open('live/' + mid.__str__() + '.txt', 'w')
+        for m in msg:
+            f.write(m)
+        f.close()
+    except Exception as e:
+        print 'error'
+        print e
+
+
 def create_folder():
     if os.path.isdir('live'):
         pass
@@ -109,9 +171,10 @@ def create_folder():
 
 if __name__ == '__main__':
     create_folder()
+    save_history()
     while True:
         save_match_list()
         for match_id in match_ids:
             save_match(match_id)
+            save_match_info(match_id)
         print 'update...'
-        time.sleep(2)

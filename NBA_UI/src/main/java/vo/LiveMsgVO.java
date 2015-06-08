@@ -11,14 +11,29 @@ public class LiveMsgVO {
      */
     public int type;
 
+    /**
+     * sid
+     */
     public String sid;
 
+    /**
+     * 内容
+     */
     public String content;
 
+    /**
+     * 当节剩余时间
+     */
     public String residualTime;
 
+    /**
+     * 相关内容的球队
+     */
     public String team;
 
+    /**
+     * 相关内容的得分
+     */
     public String scores;
 
     public LiveMsgVO() {}
