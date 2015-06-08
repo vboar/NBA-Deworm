@@ -292,6 +292,7 @@ public class TeamServiceImpl extends UnicastRemoteObject implements TeamService 
 		vo.league = info.getLeague();
 		vo.record = info.getRecord();
 		vo.playeroff_appearance = info.getPlayeroff_appearance();
+        vo.championships = info.getChampionships();
 		return vo;
 	}
 

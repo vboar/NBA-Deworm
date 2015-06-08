@@ -65,6 +65,8 @@ public class APIServer implements Runnable {
                 if (str != null && !str.contains("favicon.ico")) {
                     OutputStream os = socket.getOutputStream();
                     PrintWriter pw = new PrintWriter(os);
+                    pw.print("HTTP/1.1 200 OK\r\n");
+                    pw.println("Content-Type: text/html;charset=utf-8\r\n");
                     pw.println(handleGet(str));
                     pw.flush();
                     pw.close();
