@@ -64,7 +64,7 @@ public class PlayerTotalVO implements Serializable{
 	/**
 	 * 投篮命中率
 	 */
-	public double fga_pct;
+	public Double fga_pct;
 	
 	/**
 	 * 三分命中数 
@@ -79,7 +79,7 @@ public class PlayerTotalVO implements Serializable{
 	/**
 	 * 三分命中率
 	 */
-	public double fg3_pct;
+	public Double fg3_pct;
 	
 	/**
 	 * 两分命中数
@@ -94,12 +94,12 @@ public class PlayerTotalVO implements Serializable{
 	/**
 	 * 两分命中率
 	 */
-	public double fg2_pct;
+	public Double fg2_pct;
 	
 	/**
 	 * effectivce field goal percentage
 	 */
-	public double efg_pct;
+	public Double efg_pct;
 	
 	/**
 	 * 罚球命中数
@@ -114,7 +114,7 @@ public class PlayerTotalVO implements Serializable{
 	/**
 	 * 罚球命中率
 	 */
-	public double ft_pct;
+	public Double ft_pct;
 	
 	/**
 	 * 进攻篮板

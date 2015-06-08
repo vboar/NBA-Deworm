@@ -41,5 +41,16 @@ public class MatchFilter {
 	 * 参赛球员
 	 */
 	public String player;
+	
+	/**
+	 * date的排序,默认逆序
+	 */
+	public String order = "DESC";
+	
+	/**
+	 * 个数
+	 */
+	public Integer limit;
+	
 
 }

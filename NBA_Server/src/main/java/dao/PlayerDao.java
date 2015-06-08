@@ -169,7 +169,7 @@ public interface PlayerDao {
 	 * 拿到一个球员某赛季所属球队（返回按日期倒序，第一个最新所属球队）
 	 * @param name 球员姓名
 	 * @param season 赛季
-	 * @return
+	 * @return String  格式： "team_abbr;begin_date;end_date"
 	 */
 	public List<String> getTeamByPlayerNameSeason(String name, String season);
 	

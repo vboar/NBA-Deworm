@@ -145,9 +145,10 @@ public class PlayerServiceTest extends TestCase {
 
 	public void testGetPlayerTotalBySeason() {
 		try {
-			List<PlayerTotalVO> list = ps.getPlayerTotalBySeason("13-14");
+			List<PlayerTotalVO> list = ps.getPlayerTotalBySeason("14-15");
 			for(PlayerTotalVO pst: list){
-				assertEquals("13-14", pst.season);
+				System.out.println(pst.efg_pct);
+				assertEquals("14-15", pst.season);
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();

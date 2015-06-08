@@ -13,9 +13,9 @@ public class PlayerFilter {
 	public String season;
 	
 	/**
-	 * 常规赛/季后赛  = 1/0
+	 * 常规赛/季后赛  = 1/0, null为全部
 	 */
-	public int regular;
+	public Integer regular;
 	
 	/**
 	 * 分区
@@ -41,5 +41,10 @@ public class PlayerFilter {
 	 * 体重(e.g. "<275" )
 	 */
 	public String weight;
+	
+	/**
+	 * 球队
+	 */
+	public String team;
 	
 }

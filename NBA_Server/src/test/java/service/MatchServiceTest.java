@@ -38,6 +38,15 @@ public class MatchServiceTest extends TestCase{
 		}
 	}
 
+	public void testGetSectionScoreByGameid(){	
+		try {
+			List<List<Integer>> list = ms.getSectionScoreByGameId("200010310ATL-CHH");
+			assertEquals(13, list.get(0).get(0).intValue());
+		} catch (RemoteException e) {
+				e.printStackTrace();
+		}
+	}
+	
 	public void testGetPlayOffMatchInfoBySeason() {
 		try {
 			List<MatchInfoVO> list;

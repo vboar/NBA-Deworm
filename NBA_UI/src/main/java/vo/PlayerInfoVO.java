@@ -76,6 +76,11 @@ public class PlayerInfoVO implements Serializable{
 	 */
 	public Integer number;
 	
+	/**
+	 * 所属球队（最新一年）
+	 */
+	public String team;
+	
 	public PlayerInfoVO(){}
 	
 }
