@@ -1,7 +1,5 @@
 package entity;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 比赛基本信息
@@ -59,16 +57,6 @@ public class MatchInfo {
 	 * 比赛时长
 	 */
 	private String time="";
-	
-	/**
-	 * 主队小节比分
-	 */
-	private List<Integer> home_pts = new ArrayList<Integer>();
-	
-	/**
-	 * 客队小节比分
-	 */
-	private List<Integer> guest_pts = new ArrayList<Integer>();
 	
 	/**
 	 *  无参构造函数
@@ -153,22 +141,6 @@ public class MatchInfo {
 
 	public void setIs_normal(Integer is_normal) {
 		this.is_normal = is_normal;
-	}
-
-	public List<Integer> getHome_pts() {
-		return home_pts;
-	}
-
-	public void setHome_pts(List<Integer> home_pts) {
-		this.home_pts = home_pts;
-	}
-
-	public List<Integer> getGuest_pts() {
-		return guest_pts;
-	}
-
-	public void setGuest_pts(List<Integer> guest_pts) {
-		this.guest_pts = guest_pts;
 	}
 	
 }

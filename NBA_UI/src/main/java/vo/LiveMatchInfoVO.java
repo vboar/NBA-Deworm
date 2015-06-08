@@ -1,6 +1,5 @@
 package vo;
 
-import java.awt.*;
 
 /**
  * 直播比赛信息VO类

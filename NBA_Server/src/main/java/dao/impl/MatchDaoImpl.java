@@ -24,10 +24,30 @@ public class MatchDaoImpl implements MatchDao {
 	@Override
 	public MatchInfo getMatchInfoByGameId(String gameid) {
 		sqlManager.getConnection();
-		String sql = "SELECT * FROM match_info WHERE game_id="+gameid;
-		Map<String, Object> map = sqlManager.querySimple(sql, null);
+		String sql = "SELECT * FROM match_info WHERE game_id=?";
+		Map<String, Object> map = sqlManager.querySimple(sql, new Object[]{gameid});
 		sqlManager.releaseAll();
 		return getMatchInfo(map);
+	}
+
+	@Override
+	public List<Integer> getSectionScoreByGameId(String gameid, boolean home) {
+		List<Integer> list = new ArrayList<Integer>();
+		sqlManager.getConnection();
+		String sql = "";
+		String point = home? "home_point" : "guest_point";
+		if(home){
+			sql = "SELECT home_point ";
+		}else{
+			sql = "SELECT guest_point ";
+		}
+		sql += "FROM match_score WHERE game_id=?";
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, new Object[]{gameid});
+		for(Map<String, Object> map : maplist){
+			list.add(Utility.objectToInt(map.get(point)));
+		}
+		sqlManager.releaseAll();
+		return list;
 	}
 	
 	@Override
@@ -369,19 +389,6 @@ public class MatchDaoImpl implements MatchDao {
 		if(map.get("game_id")==null){
 			return null;
 		}
-		List<Integer> homePoints = new ArrayList<Integer>();
-		List<Integer> guestPoints = new ArrayList<Integer>();
-		String sql = "SELECT * FROM match_score WHERE game_id=?";
-		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{map.get("game_id")});
-		for(Map<String, Object> sectionmap: maplist){
-			try{
-				homePoints.add(Utility.objectToInt(sectionmap.get("home_point")));
-				guestPoints.add(Utility.objectToInt(sectionmap.get("guest_point")));
-			}catch(Exception e){
-				System.out.println("Section Score Null-pointer!");
-				continue;
-			}
-		}
 		info.setGame_id(map.get("game_id").toString());
 		info.setSeason(map.get("season").toString());
 		info.setIs_normal(Utility.objectToInt(map.get("is_normal")));
@@ -392,8 +399,6 @@ public class MatchDaoImpl implements MatchDao {
 		info.setHome_point(Utility.objectToInt(map.get("home_point")));
 		info.setGuest_point(Utility.objectToInt(map.get("guest_point")));
 		info.setTime(map.get("time").toString());
-		info.setHome_pts(guestPoints);
-		info.setGuest_pts(guestPoints);
 		return info;
 	}
 
@@ -454,5 +459,5 @@ public class MatchDaoImpl implements MatchDao {
 		mpb.setPlus_minus(Utility.objectToDouble(map.get("plus_minus")));
 		return mpb;
 	}
-
+	
 }

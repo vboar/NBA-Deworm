@@ -190,7 +190,6 @@ public class PlayerDaoTest extends TestCase {
 
 	public void testGetPlayerSalaryByTeam(){
 		List<PlayerSalary> list = pdao.getPlayerSalaryByTeam("13-14", "ATL");
-		System.out.println(list.size());
 		for(PlayerSalary ps: list){
 			assertEquals("ATL", ps.getTeam());
 			assertEquals("13-14", ps.getSeason());

@@ -19,6 +19,20 @@ public class MatchDaoTest extends TestCase {
 	protected static void tearDownAfterClass() throws Exception {
 	}
 
+	public void testGetMatchInfoByGameid(){
+		MatchInfo info = mdao.getMatchInfoByGameId("200010310ATL-CHH");
+		assertEquals("200010310ATL-CHH", info.getGame_id());
+	}
+	
+	public void testGetSectionScoreByGameid(){
+		List<Integer> list = mdao.getSectionScoreByGameId("200010310ATL-CHH", true);
+		assertEquals(13, list.get(0).intValue());
+		list = mdao.getSectionScoreByGameId("200010310ATL-CHH", false);
+		for(Integer i: list){
+			System.out.println(i);
+		}
+	}
+	
 	public void testGetMatchInfoByFilter() {
 		MatchFilter mf = new MatchFilter();
 		mf.begin_date = "2014-01-01";

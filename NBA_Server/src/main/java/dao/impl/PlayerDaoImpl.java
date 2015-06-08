@@ -149,12 +149,17 @@ public class PlayerDaoImpl implements PlayerDao {
 			String name, int regular) {
 		sqlManager.getConnection();
 		List<PlayerStatsTotal> list = new ArrayList<PlayerStatsTotal>();
-		String sql = "SELECT * FROM player_total WHERE season=? AND player_name=?";
+		String sql = "SELECT * FROM player_total WHERE player_name=?";
+		List<Object> objects = new ArrayList<Object>();
+		objects.add(name);
+		if(season != null){
+			sql += " AND season=? ";
+			objects.add(season);
+		}
 		if (regular == 0 || regular == 1) {
 			sql += " AND is_normal=" + regular;
 		}
-		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
-				new Object[] { season, name });
+		List<Map<String, Object>> maplist = sqlManager.queryMultiByList(sql, objects);
 		for (Map<String, Object> map : maplist) {
 			list.add(getPlayerTotal(map));
 		}
@@ -276,12 +281,18 @@ public class PlayerDaoImpl implements PlayerDao {
 			String name, int regular) {
 		sqlManager.getConnection();
 		List<PlayerStatsPerGame> list = new ArrayList<PlayerStatsPerGame>();
-		String sql = "SELECT * FROM player_per_game WHERE season=? AND player_name=?";
+		String sql = "SELECT * FROM player_per_game WHERE player_name=? ";
+		List<Object> objects = new ArrayList<Object>();
+		objects.add(name);
+		if(season != null){
+			sql += " AND season=? ";
+			objects.add(season);
+		}
 		if (regular == 0 || regular == 1) {
 			sql += " AND is_normal=" + regular;
 		}
-		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
-				new Object[] { season, name });
+		List<Map<String, Object>> maplist = sqlManager.queryMultiByList(sql, objects);
+
 		for (Map<String, Object> map : maplist) {
 			list.add(getPlayerPerGame(map));
 		}
@@ -358,7 +369,8 @@ public class PlayerDaoImpl implements PlayerDao {
 			sql += " AND pi.weight " + filter.weight;
 		}
 		if(filter.team != null){
-			sql += " AND pg.team_abbr='" + filter.team+"' ";
+			sql += " AND pg.team_abbr=? ";
+			objects.add(filter.team);
 		}
 		sql += " ORDER BY pg.player_name";
 		List<Map<String, Object>> mapList = sqlManager.queryMultiByList(sql,
@@ -406,12 +418,18 @@ public class PlayerDaoImpl implements PlayerDao {
 			String season, String name, int regular) {
 		sqlManager.getConnection();
 		List<PlayerStatsAdvanced> list = new ArrayList<PlayerStatsAdvanced>();
-		String sql = "SELECT * FROM player_advanced WHERE season=? AND player_name=?";
+		String sql = "SELECT * FROM player_advanced WHERE player_name=?";
+		List<Object> objects = new ArrayList<Object>();
+		objects.add(name);
+		if(season != null){
+			sql += " AND season=? ";
+			objects.add(season);
+		}
 		if (regular == 0 || regular == 1) {
 			sql += " AND is_normal=" + regular;
 		}
-		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
-				new Object[] { season, name });
+		List<Map<String, Object>> maplist = sqlManager.queryMultiByList(sql, objects);
+
 		for (Map<String, Object> map : maplist) {
 			list.add(getPlayerAdvanced(map));
 		}
@@ -486,7 +504,8 @@ public class PlayerDaoImpl implements PlayerDao {
 			sql += " AND pi.weight " + filter.weight;
 		}
 		if(filter.team != null){
-			sql += " AND pa.team_abbr='" + filter.team +"' ";  
+			sql += " AND pa.team_abbr=? ";
+			objects.add(filter.team);
 		}
 		sql += " ORDER BY pa.player_name";
 		List<Map<String, Object>> mapList = sqlManager.queryMultiByList(sql,
@@ -518,10 +537,14 @@ public class PlayerDaoImpl implements PlayerDao {
 	public List<PlayerSalary> getPlayerSalaryBySeason(String season, String name) {
 		List<PlayerSalary> list = new ArrayList<PlayerSalary>();
 		sqlManager.getConnection();
-		String sql = "SELECT * FROM player_salary WHERE season=?";
-		if(name != null)
-			sql += " AND name=?";
-		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{season, name});
+		String sql = "SELECT * FROM player_salary WHERE name=?";
+		List<Object> objects = new ArrayList<Object>();
+		objects.add(name);
+		if(season != null){
+			sql += " AND season=? ";
+			objects.add(season);
+		}
+		List<Map<String,Object>> maplist = sqlManager.queryMultiByList(sql, objects);
 		for(Map<String,Object> map: maplist){
 			list.add(getPlayerSalary(map));
 		}
@@ -533,15 +556,19 @@ public class PlayerDaoImpl implements PlayerDao {
 	public List<PlayerSalary> getPlayerSalaryByTeam(String season, String team) {
 		List<PlayerSalary> list = new ArrayList<PlayerSalary>();
 		sqlManager.getConnection();
-		String sql = "SELECT * FROM player_salary WHERE season="+season;
-		if(team != null)
-			sql += " AND name=" + team;
-		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, null);
+		String sql = "SELECT * FROM player_salary WHERE team=? ";
+		List<Object> objects = new ArrayList<Object>();
+		objects.add(team);
+		if(season != null){
+			sql += " AND season=?";
+			objects.add(season);
+		}
+		List<Map<String,Object>> maplist = sqlManager.queryMultiByList(sql, objects);
 		for(Map<String,Object> map: maplist){
 			list.add(getPlayerSalary(map));
 		}
 		sqlManager.releaseAll();
-		return null;
+		return list;
 	}
 
 	@Override
@@ -605,10 +632,14 @@ public class PlayerDaoImpl implements PlayerDao {
 	@Override
 	public List<String> getTeamByPlayerNameSeason(String name, String season) {
 		sqlManager.getConnection();
-		String sql = "SELECT DISTINCT a.team_abbr FROM match_player_basic as a, match_info as b "
-				+ "WHERE player_name = ? "
-				+ "AND a.game_id = b.game_id"
-				+ "AND b.season = ? " + "ORDER BY b.date DESC";
+		String sql = "SELECT DISTINCT a.team_abbr, "
+				+ "min(b.date) as begin_date, "
+				+ "max(b.date) as end_date "
+				+ "FROM match_player_basic as a, match_info as b "
+				+ " WHERE player_name = ? "
+				+ " AND a.game_id = b.game_id"
+				+ " AND b.season = ? "
+				+ " GROUP BY a.team_abbr ";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, new Object[] {
 				name, season });
 		List<String> teams = new ArrayList<String>();
@@ -616,7 +647,8 @@ public class PlayerDaoImpl implements PlayerDao {
 			if (map.get("team_abbr") == null) {
 				continue;
 			}
-			teams.add(map.get("team_abbr").toString());
+			teams.add(map.get("team_abbr").toString()+";"+map.get("begin_date").toString() 
+					+ ";" + map.get("end_date").toString());
 		}
 		sqlManager.releaseAll();
 		return teams;

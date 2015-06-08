@@ -22,6 +22,14 @@ public interface MatchService extends Remote{
 	public MatchInfoVO getMatchInfoByGameId(String gameid) throws RemoteException;
 	
 	/**
+	 * 获取单场比赛小分
+	 * @param gameid
+	 * @param home 主队/客队得分 = true/false
+	 * @return List<Integer> ,最后一个是总分
+	 */
+	public List<Integer> getSectionScoreByGameId(String gameid, boolean home) throws RemoteException;
+	
+	/**
 	 * 多项条件筛选比赛信息
 	 * @param filter
 	 * @return

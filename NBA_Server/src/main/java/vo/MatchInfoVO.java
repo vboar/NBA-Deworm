@@ -1,8 +1,6 @@
 package vo;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * MatchInfoVO类
@@ -62,16 +60,6 @@ public class MatchInfoVO implements Serializable {
 	 * 比赛时长
 	 */
 	public String time;
-	
-	/**
-	 * 主队小节比分
-	 */
-	public List<Integer> home_pts = new ArrayList<Integer>();
-	
-	/**
-	 * 客队小节比分
-	 */
-	public List<Integer> guest_pts = new ArrayList<Integer>();
 	
 	/**
 	 *  无参构造函数

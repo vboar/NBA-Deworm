@@ -21,6 +21,14 @@ public interface MatchDao {
 	public MatchInfo getMatchInfoByGameId(String gameid);
 	
 	/**
+	 * 获取单场比赛小分
+	 * @param gameid
+	 * @param home 主队/客队得分 = true/false
+	 * @return List<Integer> ,最后一个是总分
+	 */
+	public List<Integer> getSectionScoreByGameId(String gameid, boolean home);
+	
+	/**
 	 * 获得某赛季的常规赛比赛基本信息
 	 * @param season
 	 * @return

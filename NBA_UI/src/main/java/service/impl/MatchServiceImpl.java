@@ -59,4 +59,10 @@ public class MatchServiceImpl extends UnicastRemoteObject implements MatchServic
 		return null;
 	}
 
+	@Override
+	public List<Integer> getSectionScoreByGameId(String gameid, boolean home)
+			throws RemoteException {
+		return null;
+	}
+
 }

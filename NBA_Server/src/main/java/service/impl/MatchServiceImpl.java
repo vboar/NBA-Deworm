@@ -127,8 +127,6 @@ public class MatchServiceImpl extends UnicastRemoteObject implements MatchServic
 		vo.guest_team = info.getGuest_team();
 		vo.guest_point = info.getGuest_point();
 		vo.time = info.getTime();
-		vo.home_pts = info.getHome_pts();
-		vo.guest_pts = info.getGuest_pts();
 		return vo;
 	}
 	
@@ -187,6 +185,12 @@ public class MatchServiceImpl extends UnicastRemoteObject implements MatchServic
 		vo.pts = mpb.getPts();	
 		vo.plus_minus = mpb.getPlus_minus();
 		return vo;
+	}
+
+	@Override
+	public List<Integer> getSectionScoreByGameId(String gameid, boolean home)
+			throws RemoteException {
+		return mdao.getSectionScoreByGameId(gameid, home);
 	}
 
 }
