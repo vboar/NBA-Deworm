@@ -163,15 +163,15 @@ public interface PlayerDao {
 	 * @param field
 	 * @return
 	 */
-	public List<HotPlayerInfo> getSeasonHotPlayer(String season, FieldType field);
+	public List<HotPlayerInfo> getHotPlayerBySeason(String season, FieldType field);
 	
 	/** 
-	 * TODO 拿到一个球员最新赛季所属球队
+	 * 拿到一个球员某赛季所属球队（返回按日期倒序，第一个最新所属球队）
 	 * @param name 球员姓名
 	 * @param season 赛季
 	 * @return
 	 */
-	public String getTeamByPlayerName(String name);
+	public List<String> getTeamByPlayerNameSeason(String name, String season);
 	
 	/**
 	 * 获得单个球员每赛季的薪水列表
@@ -183,9 +183,17 @@ public interface PlayerDao {
 	/**
 	 * 获得某赛季全部球员的薪水列表
 	 * @param season
+	 * @param name null则为该赛季全部球员
 	 * @return
 	 */
-	public List<PlayerSalary> getPlayerSalaryBySeason(String season);
+	public List<PlayerSalary> getPlayerSalaryBySeason(String season, String name);
+	
+	/**
+	 * 获得某赛季某球队球员的薪水列表
+	 * @param season 
+	 * @param team 球队缩写
+	 */
+	public List<PlayerSalary> getPlayerSalaryByTeam(String season, String team);
 	
 	/**
 	 * 插入球员基本信息

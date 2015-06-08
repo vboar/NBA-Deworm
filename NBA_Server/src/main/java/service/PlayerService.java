@@ -180,8 +180,14 @@ public interface PlayerService extends Remote{
 	 * @param season
 	 * @return
 	 */
-	public List<PlayerSalaryVO> getPlayerSalaryBySeason(String season) throws RemoteException; 
+	public List<PlayerSalaryVO> getPlayerSalaryBySeason(String season, String name) throws RemoteException; 
 	
-	
+	/** 
+	 * 拿到一个球员某赛季所属球队（返回按日期倒序，第一个最新所属球队）
+	 * @param name 球员姓名
+	 * @param season 赛季
+	 * @return
+	 */
+	public List<String> getTeamByPlayerNameSeason(String name, String season) throws RemoteException;
 
 }

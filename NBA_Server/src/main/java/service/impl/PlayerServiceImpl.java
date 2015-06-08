@@ -56,6 +56,12 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		return pdao.getNameList(str);
 	}
 
+	@Override
+	public List<String> getNameByNameInitial(String initial)
+			throws RemoteException {
+		return pdao.getNameByNameInitial(initial);
+	}
+
     @Override
     public List<PlayerInfoVO> getAllPlayerInfo() throws RemoteException {
         List<PlayerInfoVO> volist = new ArrayList<PlayerInfoVO>();
@@ -169,7 +175,7 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 	public List<PlayerTotalVO> getPlayerTotalBySeasonName(String season, String name, int regular)
 			throws RemoteException {
 		List<PlayerTotalVO> volist = new ArrayList<PlayerTotalVO>();
-		List<PlayerStatsTotal> list = new ArrayList<PlayerStatsTotal>();
+		List<PlayerStatsTotal> list = pdao.getPlayerTotalBySeasonName(season, name, regular);
 		for(PlayerStatsTotal pst: list){
 			PlayerTotalVO vo = getTotalVO(pst);
 			if(vo!=null)
@@ -257,16 +263,34 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 	}
 
 	@Override
+	public List<PlayerSalaryVO> getPlayerSalaryBySeason(String season, String name)
+			throws RemoteException {
+		List<PlayerSalary> list = pdao.getPlayerSalaryBySeason(season,name);
+		List<PlayerSalaryVO> volist = new ArrayList<PlayerSalaryVO>();
+		for(PlayerSalary ps: list){
+			PlayerSalaryVO vo = getSalaryVO(ps);
+			if(vo!=null)
+				volist.add(vo);
+		}
+		return volist;
+	}
+	@Override
 	public List<HotPlayerInfoVO> getSeasonHotPlayer(String season,
 			FieldType field) throws RemoteException {
 		List<HotPlayerInfoVO> volist = new ArrayList<HotPlayerInfoVO>();
-		List<HotPlayerInfo> list = pdao.getSeasonHotPlayer(season, field);
+		List<HotPlayerInfo> list = pdao.getHotPlayerBySeason(season, field);
 		for(HotPlayerInfo info : list){
 			HotPlayerInfoVO vo = getHotPlayerToVO(info);
 			if(vo!=null)
 				volist.add(vo);
 		}
 		return volist;
+	}
+
+	@Override
+	public List<String> getTeamByPlayerNameSeason(String name, String season)
+			throws RemoteException {
+		return pdao.getTeamByPlayerNameSeason(name, season);
 	}
 	
 	private PlayerSalaryVO getSalaryVO(PlayerSalary ps) {
@@ -420,23 +444,6 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		return vo;
 	}
 
-	@Override
-	public List<String> getNameByNameInitial(String initial)
-			throws RemoteException {
-		return pdao.getNameByNameInitial(initial);
-	}
 
-	@Override
-	public List<PlayerSalaryVO> getPlayerSalaryBySeason(String season)
-			throws RemoteException {
-		List<PlayerSalary> list = pdao.getPlayerSalaryBySeason(season);
-		List<PlayerSalaryVO> volist = new ArrayList<PlayerSalaryVO>();
-		for(PlayerSalary ps: list){
-			PlayerSalaryVO vo = getSalaryVO(ps);
-			if(vo!=null)
-				volist.add(vo);
-		}
-		return volist;
-	}
 
 }

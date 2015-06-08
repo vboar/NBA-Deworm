@@ -17,6 +17,11 @@ import vo.MatchPlayerBasicVO;
 public interface MatchService extends Remote{
 	
 	/**
+	 * 根据game_id获得某场比赛信息
+	 */
+	public MatchInfoVO getMatchInfoByGameId(String gameid) throws RemoteException;
+	
+	/**
 	 * 多项条件筛选比赛信息
 	 * @param filter
 	 * @return

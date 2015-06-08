@@ -70,13 +70,6 @@ public class PlayerDaoTest extends TestCase {
 		}
 	}
 
-	public void testGetPlayerSalaryByName() {
-		List<PlayerSalary> list = pdao.getPlayerSalaryByName("Kobe Bryant");
-		for(PlayerSalary ps: list){
-			assertEquals("Kobe Bryant", ps.getName());
-		}
-	}
-
 	public void testGetPlayerTotalBySeason() {
 		List<PlayerStatsTotal> list = pdao.getPlayerTotalBySeason("13-14");
 		for(PlayerStatsTotal pst: list){
@@ -107,6 +100,7 @@ public class PlayerDaoTest extends TestCase {
 
 	public void testGetPlayerTotalBySeasonName() {
 		List<PlayerStatsTotal> pst= pdao.getPlayerTotalBySeasonName("13-14","Kevin Durant",1);
+		System.out.println(pst.size());
 		assertEquals("Kevin Durant", pst.get(0).getName());
 		assertEquals("13-14", pst.get(0).getSeason());
 	}
@@ -171,11 +165,44 @@ public class PlayerDaoTest extends TestCase {
 	}
 
 	public void testGetSeasonHotPlayer() {
-		List<HotPlayerInfo> list = pdao.getSeasonHotPlayer("13-14", FieldType.AST);
+		List<HotPlayerInfo> list = pdao.getHotPlayerBySeason("13-14", FieldType.AST);
 		for(HotPlayerInfo info : list){
 			assertEquals("13-14", info.getSeason());
 			assertEquals(FieldType.AST, info.getField());
 		}
 	}
+	
+	public void testGetPlayerSalaryByName() {
+		List<PlayerSalary> list = pdao.getPlayerSalaryByName("Kobe Bryant");
+		for(PlayerSalary ps: list){
+			assertEquals("Kobe Bryant", ps.getName());
+		}
+	}
+	
+	public void testGetPlayerSalaryBySeason(){
+		List<PlayerSalary> list = pdao.getPlayerSalaryBySeason("13-14", "Kobe Bryant");
+		System.out.println(list.size());
+		for(PlayerSalary ps: list){
+			assertEquals("Kobe Bryant", ps.getName());
+			assertEquals("13-14", ps.getSeason());
+		}
+	}
 
+	public void testGetPlayerSalaryByTeam(){
+		List<PlayerSalary> list = pdao.getPlayerSalaryByTeam("13-14", "ATL");
+		System.out.println(list.size());
+		for(PlayerSalary ps: list){
+			assertEquals("ATL", ps.getTeam());
+			assertEquals("13-14", ps.getSeason());
+		}
+	}
+	
+	public void testGetTeamByPlayerName(){
+		List<String> list = pdao.getTeamByPlayerNameSeason("Aaron Brooks", "13-14");
+		System.out.println(list.size());
+		for(String s: list){
+			System.out.println(s);
+		}
+	}
+	
 }

@@ -16,6 +16,11 @@ import entity.MatchPlayerBasic;
 public interface MatchDao {
 	
 	/**
+	 * 根据game_id获得某场比赛信息
+	 */
+	public MatchInfo getMatchInfoByGameId(String gameid);
+	
+	/**
 	 * 获得某赛季的常规赛比赛基本信息
 	 * @param season
 	 * @return

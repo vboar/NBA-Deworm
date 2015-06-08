@@ -22,6 +22,15 @@ public class MatchDaoImpl implements MatchDao {
 	private SqlManager sqlManager = SqlManager.getSqlManager();	
 	
 	@Override
+	public MatchInfo getMatchInfoByGameId(String gameid) {
+		sqlManager.getConnection();
+		String sql = "SELECT * FROM match_info WHERE game_id="+gameid;
+		Map<String, Object> map = sqlManager.querySimple(sql, null);
+		sqlManager.releaseAll();
+		return getMatchInfo(map);
+	}
+	
+	@Override
 	public List<MatchInfo> getMatchInfoByFilter(MatchFilter filter) {
 		sqlManager.getConnection();
 		List<MatchInfo> list = new ArrayList<MatchInfo>();
@@ -445,5 +454,5 @@ public class MatchDaoImpl implements MatchDao {
 		mpb.setPlus_minus(Utility.objectToDouble(map.get("plus_minus")));
 		return mpb;
 	}
-	
+
 }

@@ -33,6 +33,12 @@ public class MatchServiceImpl extends UnicastRemoteObject implements MatchServic
 	}
 
 	@Override
+	public MatchInfoVO getMatchInfoByGameId(String gameid)
+			throws RemoteException {
+		return getInfoVO(mdao.getMatchInfoByGameId(gameid));
+	}
+
+	@Override
 	public List<MatchInfoVO> getRegularMatchInfoBySeason(String season) throws RemoteException {
 		List<MatchInfoVO> volist = new ArrayList<MatchInfoVO>();
 		List<MatchInfo> list = mdao.getRegularMatchInfoBySeason(season);

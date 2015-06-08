@@ -515,6 +515,36 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	@Override
+	public List<PlayerSalary> getPlayerSalaryBySeason(String season, String name) {
+		List<PlayerSalary> list = new ArrayList<PlayerSalary>();
+		sqlManager.getConnection();
+		String sql = "SELECT * FROM player_salary WHERE season="+season;
+		if(name != null)
+			sql += " AND name=" + name;
+		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, null);
+		for(Map<String,Object> map: maplist){
+			list.add(getPlayerSalary(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+
+	@Override
+	public List<PlayerSalary> getPlayerSalaryByTeam(String season, String team) {
+		List<PlayerSalary> list = new ArrayList<PlayerSalary>();
+		sqlManager.getConnection();
+		String sql = "SELECT * FROM player_salary WHERE season="+season;
+		if(team != null)
+			sql += " AND name=" + team;
+		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, null);
+		for(Map<String,Object> map: maplist){
+			list.add(getPlayerSalary(map));
+		}
+		sqlManager.releaseAll();
+		return null;
+	}
+
+	@Override
 	public List<PlayerInfo> getTeamPlayerBySeason(String season, String abbr) {
 		List<PlayerInfo> list = new ArrayList<PlayerInfo>();
 		sqlManager.getConnection();
@@ -552,7 +582,7 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	@Override
-	public List<HotPlayerInfo> getSeasonHotPlayer(String season, FieldType field) {
+	public List<HotPlayerInfo> getHotPlayerBySeason(String season, FieldType field) {
 		List<HotPlayerInfo> list = new ArrayList<HotPlayerInfo>();
 		if (!isFieldValid(field))
 			return list;
@@ -572,6 +602,25 @@ public class PlayerDaoImpl implements PlayerDao {
 		return list;
 	}
 
+	@Override
+	public List<String> getTeamByPlayerNameSeason(String name, String season) {
+		sqlManager.getConnection();
+		String sql = "SELECT DISTINCT a.team_abbr FROM match_player_basic as a, match_info as b "
+				+ "WHERE player_name = ? "
+				+ "AND a.game_id = b.game_id"
+				+ "AND b.season = ? " + "ORDER BY b.date DESC";
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, new Object[] {
+				name, season });
+		List<String> teams = new ArrayList<String>();
+		for(Map<String, Object> map: maplist){
+			if (map.get("team_abbr") == null) {
+				continue;
+			}
+			teams.add(map.get("team_abbr").toString());
+		}
+		sqlManager.releaseAll();
+		return teams;
+	}
 	@Override
 	public void insertPlayerInfo(List<PlayerInfo> list) {
 		System.out.println("Insert Player Info : " + list.size());
@@ -973,38 +1022,6 @@ public class PlayerDaoImpl implements PlayerDao {
 		default:
 			return true;
 		}
-	}
-
-	@Override
-	public String getTeamByPlayerName(String name) {
-		sqlManager.getConnection();
-		List<String> slist = DaoFactoryImpl.getDaoFactory().getSeasonDao()
-				.getAllSeason();
-		String season = slist.size() > 0 ? slist.get(0) : null;
-		String sql = "SELECT a.team_abbr FROM match_player_basic as a, match_info as b "
-				+ "WHERE player_name = ? "
-				+ "AND a.game_id = b.game_id"
-				+ "AND b.season = ? " + "ORDER BY b.date DESC LIMIT 1";
-		Map<String, Object> map = sqlManager.querySimple(sql, new Object[] {
-				name, season });
-		sqlManager.releaseAll();
-		if (map.get("team_abbr") == null) {
-			return null;
-		}
-		return map.get("team_abbr").toString();
-	}
-
-	@Override
-	public List<PlayerSalary> getPlayerSalaryBySeason(String season) {
-		List<PlayerSalary> list = new ArrayList<PlayerSalary>();
-		sqlManager.getConnection();
-		String sql = "SELECT * FROM player_salary WHERE season=" + season;
-		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{season});
-		for(Map<String,Object> map: maplist){
-			list.add(getPlayerSalary(map));
-		}
-		sqlManager.releaseAll();
-		return list;
 	}
 
 }

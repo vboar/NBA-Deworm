@@ -53,4 +53,10 @@ public class MatchServiceImpl extends UnicastRemoteObject implements MatchServic
 		return null;
 	}
 
+	@Override
+	public MatchInfoVO getMatchInfoByGameId(String gameid)
+			throws RemoteException {
+		return null;
+	}
+
 }
