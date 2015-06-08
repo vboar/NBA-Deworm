@@ -51,9 +51,7 @@ public class TeamAPI {
             List<TeamInfoVO> list = ts.getAllTeamInfo();
             JSONArray teams = new JSONArray();
             for (TeamInfoVO vo: list) {
-                JSONObject jo = new JSONObject();
-                jo.put(vo.abbr, getSimpleTeamInfoJO(vo));
-                teams.put(jo);
+                teams.put(getSimpleTeamInfoJO(vo));
             }
             return teams.toString();
         } catch (RemoteException e) {
@@ -68,11 +66,10 @@ public class TeamAPI {
             String abbr = str.substring(6);
             try {
                 JSONObject jo = new JSONObject();
-                JSONObject jo1 = new JSONObject();
+                jo.put("abbr", abbr);
                 TeamInfoVO vo = ts.getTeamInfoByAbbr(abbr);
                 if (vo == null) return APIServer.NOTFOUND;
-                jo1.put("info", getTeamInfoJO(vo));
-                jo.put(vo.abbr, jo1);
+                jo.put("info", getTeamInfoJO(vo));
                 return jo.toString();
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -130,18 +127,18 @@ public class TeamAPI {
 
         if (season == null) {
             JSONObject jo = new JSONObject();
-            JSONObject jo1 = new JSONObject();
+            jo.put("abbr", abbr);
             try {
                 TeamInfoVO vo = ts.getTeamInfoByAbbr(abbr);
                 if (vo == null) return APIServer.NOTFOUND;
-                jo1.put("info", getTeamInfoJO(vo));
+                jo.put("info", getTeamInfoJO(vo));
                 if (total) {
                     List<TeamTotalVO> list1 = ts.getTeamTotalByAbbr(abbr);
                     JSONObject jo2 = new JSONObject();
                     for (TeamTotalVO temp: list1) {
                         jo2.put(temp.season, getTeamTotalJO(temp));
                     }
-                    jo1.put("total", jo2);
+                    jo.put("total", jo2);
                 }
                 if (pergame) {
                     List<TeamPerGameVO> list1 = ts.getTeamPerGameByAbbr(abbr);
@@ -149,7 +146,7 @@ public class TeamAPI {
                     for (TeamPerGameVO temp: list1) {
                         jo2.put(temp.season, getTeamPerGameJO(temp));
                     }
-                    jo1.put("pergame", jo2);
+                    jo.put("pergame", jo2);
                 }
                 if (advanced) {
                     List<TeamAdvancedVO> list = ts.getTeamAdvancedByAbbr(abbr);
@@ -157,7 +154,7 @@ public class TeamAPI {
                     for (TeamAdvancedVO temp: list) {
                         jo2.put(temp.season, getTeamAdvancedJO(temp));
                     }
-                    jo1.put("advanced", jo2);
+                    jo.put("advanced", jo2);
                 }
                 if (opptotal) {
                     List<TeamOppTotalVO> list = ts.getTeamOppTotalByAbbr(abbr);
@@ -165,7 +162,7 @@ public class TeamAPI {
                     for (TeamOppTotalVO temp: list) {
                         jo2.put(temp.season, getTeamOppTotalJO(temp));
                     }
-                    jo1.put("opptotal", jo2);
+                    jo.put("opptotal", jo2);
                 }
                 if (opppergame) {
                     List<TeamOppPerGameVO> list = ts.getTeamOppPerGameByAbbr(abbr);
@@ -173,9 +170,8 @@ public class TeamAPI {
                     for (TeamOppPerGameVO temp: list) {
                         jo2.put(temp.season, getTeamOppPergameJO(temp));
                     }
-                    jo1.put("opppergame", jo2);
+                    jo.put("opppergame", jo2);
                 }
-                jo.put(vo.abbr, jo1);
                 return jo.toString();
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -185,48 +181,45 @@ public class TeamAPI {
 
         try {
             JSONObject jo = new JSONObject();
-            JSONObject jo1 = new JSONObject();
+            jo.put("abbr", abbr);
             TeamInfoVO vo = ts.getTeamInfoByAbbr(abbr);
             if (vo == null) return APIServer.NOTFOUND;
-            jo1.put("info", getTeamInfoJO(vo));
 
             if (total) {
                 JSONObject jo2 = new JSONObject();
                 TeamTotalVO ttvo = ts.getTeamTotalBySeasonAbbr(season, abbr);
                 if (ttvo == null) return APIServer.NOTFOUND;
                 jo2.put(season, getTeamTotalJO(ttvo));
-                jo1.put("total", jo2);
+                jo.put("total", jo2);
             }
             if (pergame) {
                 JSONObject jo2 = new JSONObject();
                 TeamPerGameVO tpvo = ts.getTeamPerGameBySeasonAbbr(season, abbr);
                 if (tpvo == null) return APIServer.NOTFOUND;
                 jo2.put(season, getTeamPerGameJO(tpvo));
-                jo1.put("pergame", jo2);
+                jo.put("pergame", jo2);
             }
             if (advanced) {
                 JSONObject jo2 = new JSONObject();
                 TeamAdvancedVO tavo = ts.getTeamAdvancedBySeasonAbbr(season, abbr);
                 if (tavo == null) return APIServer.NOTFOUND;
                 jo2.put(season, getTeamAdvancedJO(tavo));
-                jo1.put("advanced", jo2);
+                jo.put("advanced", jo2);
             }
             if (opptotal) {
                 JSONObject jo2 = new JSONObject();
                 TeamOppTotalVO topvo = ts.getTeamOppTotalBySeasonAbbr(season, abbr);
                 if (topvo == null) return APIServer.NOTFOUND;
                 jo2.put(season, getTeamOppTotalJO(topvo));
-                jo1.put("opptotal", jo2);
+                jo.put("opptotal", jo2);
             }
             if (opppergame) {
                 JSONObject jo2 = new JSONObject();
                 TeamOppPerGameVO topgvo = ts.getTeamOppPerGameBySeasonAbbr(season, abbr);
                 if (topgvo == null) return APIServer.NOTFOUND;
                 jo2.put(season, getTeamOppPergameJO(topgvo));
-                jo1.put("opppergame", jo2);
+                jo.put("opppergame", jo2);
             }
-
-            jo.put(abbr, jo1);
             return jo.toString();
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -238,6 +231,7 @@ public class TeamAPI {
     private JSONObject getSimpleTeamInfoJO(TeamInfoVO vo) {
         JSONObject jo = new JSONObject();
         jo.put("name", vo.name);
+        jo.put("abbr", vo.abbr);
         jo.put("buildup_time", vo.buildup_time);
         jo.put("location", vo.location);
         jo.put("division", vo.division);

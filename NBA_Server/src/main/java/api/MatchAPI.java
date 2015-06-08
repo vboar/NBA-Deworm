@@ -4,11 +4,14 @@ import dao.InitDao;
 import entity.Match;
 import entity.MatchInfo;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import service.MatchService;
 import service.impl.ServiceFactoryImpl;
 import vo.MatchFilter;
 import vo.MatchInfoVO;
+import vo.MatchPlayerAdvancedVO;
+import vo.MatchPlayerBasicVO;
 
 import java.rmi.RemoteException;
 import java.util.List;
@@ -73,8 +76,69 @@ public class MatchAPI {
             }
         }
 
-        // TODO 缺少接口
+        try {
+            MatchInfoVO vo = ms.getMatchInfoByGameId(id);
+            if (vo == null) return APIServer.NOTFOUND;
+            JSONObject jo = new JSONObject();
+            JSONObject jo1 = new JSONObject();
+            jo.put("info", getMatchInfoJO(vo));
+            jo.put("game_id", vo.game_id);
 
+            List<List<Integer>> list = ms.getSectionScoreByGameId(vo.game_id);
+            JSONObject jo2 = new JSONObject();
+            JSONArray array = new JSONArray();
+            JSONArray array1 = new JSONArray();
+            for (List<Integer> l: list) {
+                array.put(l.get(0));
+                array1.put(l.get(1));
+            }
+            jo2.put(vo.home_team, array);
+            array = new JSONArray();
+            jo2.put(vo.guest_team, array1);
+            jo.put("scores", jo2);
+
+            if (basic) {
+                List<MatchPlayerBasicVO> bList = ms.
+                        getMatchPlayerBasicByGameIdTeam(vo.game_id, vo.home_team);
+                array = new JSONArray();
+                jo2 = new JSONObject();
+                for (MatchPlayerBasicVO bvo: bList) {
+                    array.put(getBasicJO(bvo));
+                }
+                jo2.put(vo.home_team, array);
+                array = new JSONArray();
+                bList = ms.
+                        getMatchPlayerBasicByGameIdTeam(vo.game_id, vo.guest_team);
+                for (MatchPlayerBasicVO bvo: bList) {
+                    array.put(getBasicJO(bvo));
+                }
+                jo2.put(vo.guest_team, array);
+                jo.put("basic", jo2);
+            }
+
+            if (advanced) {
+                List<MatchPlayerAdvancedVO> aList = ms.
+                        getMatchPlayerAdvancedByGameIdTeam(vo.game_id, vo.home_team);
+                array = new JSONArray();
+                jo2 = new JSONObject();
+                for (MatchPlayerAdvancedVO avo: aList) {
+                    array.put(getAdvancedJO(avo));
+                }
+                jo2.put(vo.home_team, array);
+                array = new JSONArray();
+                aList = ms.
+                        getMatchPlayerAdvancedByGameIdTeam(vo.game_id, vo.guest_team);
+                for (MatchPlayerAdvancedVO avo: aList) {
+                    array.put(getAdvancedJO(avo));
+                }
+                jo2.put(vo.guest_team, array);
+                jo.put("advanced", jo2);
+            }
+
+            return jo.toString();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
         return APIServer.NOTSUPPORT;
     }
@@ -202,6 +266,69 @@ public class MatchAPI {
         return APIServer.NOTSUPPORT;
     }
 
+    private JSONObject getMatchInfoJO(MatchInfoVO vo) {
+        JSONObject jo = new JSONObject();
+        jo.put("season", vo.season);
+        jo.put("is_normal", vo.is_normal);
+        jo.put("date", vo.date);
+        jo.put("location", vo.location);
+        jo.put("home_team", vo.home_team);
+        jo.put("guest_team", vo.guest_team);
+        jo.put("home_point", vo.home_point);
+        jo.put("guest_point", vo.guest_point);
+        jo.put("time", vo.time);
+        return jo;
+    }
+
+    private JSONObject getBasicJO(MatchPlayerBasicVO vo) {
+        JSONObject jo = new JSONObject();
+        jo.put("player_name", vo.player_name);
+        jo.put("starter", vo.starter);
+        jo.put("minute", vo.minute);
+        jo.put("fg", vo.fg);
+        jo.put("fga", vo.fga);
+        jo.put("fga_pct", vo.fga_pct);
+        jo.put("fg3", vo.fg3);
+        jo.put("fg3a", vo.fg3a);
+        jo.put("fg3_pct", vo.fg3_pct);
+        jo.put("ft", vo.ft);
+        jo.put("fta", vo.fta);
+        jo.put("ft_pct", vo.ft_pct);
+        jo.put("orb", vo.orb);
+        jo.put("drb", vo.drb);
+        jo.put("trb", vo.trb);
+        jo.put("ast", vo.ast);
+        jo.put("stl", vo.stl);
+        jo.put("blk", vo.blk);
+        jo.put("tov", vo.tov);
+        jo.put("pf", vo.pf);
+        jo.put("pts", vo.pts);
+        jo.put("plus_minus", vo.plus_minus);
+        return jo;
+    }
+
+    private JSONObject getAdvancedJO(MatchPlayerAdvancedVO vo) {
+        JSONObject jo = new JSONObject();
+        jo.put("player_name", vo.player_name);
+        jo.put("starter", vo.starter);
+        jo.put("minute", vo.minute);
+        jo.put("ts_pct", vo.ts_pct);
+        jo.put("efg_pct", vo.efg_pct);
+        jo.put("fa3a_per_fga_pct", vo.fa3a_per_fga_pct);
+        jo.put("fta_per_fga_pct", vo.fta_per_fga_pct);
+        jo.put("orb_pct", vo.orb_pct);
+        jo.put("drb_pct", vo.drb_pct);
+        jo.put("trb_pct", vo.trb_pct);
+        jo.put("ast_pct", vo.ast_pct);
+        jo.put("stl_pct", vo.stl_pct);
+        jo.put("tov_pct", vo.tov_pct);
+        jo.put("blk_pct", vo.blk_pct);
+        jo.put("usg_pct", vo.usg_pct);
+        jo.put("off_rtg", vo.off_rtg);
+        jo.put("def_rtg", vo.def_rtg);
+
+        return jo;
+    }
 
 
 }
