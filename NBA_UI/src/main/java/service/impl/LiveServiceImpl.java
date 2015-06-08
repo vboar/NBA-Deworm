@@ -142,7 +142,7 @@ public class LiveServiceImpl implements LiveService {
     public LiveMatchVO getMatchVO(String matchId) {
         List<String> strs = read("live/" + matchId + "_info.txt");
         LiveMatchVO vo = new LiveMatchVO();
-        String[] temp = strs.get(0).split(";");
+        String[] temp = strs.get(0).split(";", -1);
         vo.id = matchId;
         vo.time = temp[0];
         vo.gym = temp[1];

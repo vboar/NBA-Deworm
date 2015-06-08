@@ -143,8 +143,12 @@ def save_match_info(mid):
 def save_history():
     f = open('live/history.txt', 'w')
     f.write('150119;06月05日;星期五;09：00;季后赛 勇士-骑士;比赛结束\n')
+    f.write('150120;06月08日;星期一;08：00;季后赛 勇士-骑士;比赛结束\n')
     save_history_match('150119', '勇士', '骑士')
+    save_history_match('150120', '勇士', '骑士')
     save_match_info(150119)
+    save_match_info(150120)
+    f.close()
 
 
 def save_history_match(mid, home, guest):
