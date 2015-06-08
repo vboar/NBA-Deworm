@@ -1,4 +1,4 @@
-package ui.player;
+package ui.player.stat;
 
 import java.awt.Color;
 

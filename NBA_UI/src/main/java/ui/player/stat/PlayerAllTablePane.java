@@ -1,4 +1,4 @@
-package ui.player;
+package ui.player.stat;
 
 import java.awt.Dimension;
 
@@ -28,7 +28,16 @@ public class PlayerAllTablePane extends TablePanel {
 	protected void initTable() {
 		 this.columnNames = cfg.getColumnName();
 	        this.initData(list);
-	        this.dtm = new MyTableModel(data, columnNames);	       
+	        this.dtm = new MyTableModel(data, columnNames){
+	        	  
+	            @Override
+	            public Class<?> getColumnClass(int columnIndex) { 
+	            	if(columnIndex >= 2)
+	                return Double.class;
+	            	else return Object.class;
+	            }
+	        	
+	        };       
 	        this.table = new MyTable(this.dtm, this.getWidth());
 	        
 	        //this.table.addMouseListener(showDataInfo());
@@ -60,6 +69,13 @@ public class PlayerAllTablePane extends TablePanel {
 	 private void createRow(Object[] row, Object[] vo) {
 	    	row[0] = vo[0];
 	    	row[1] = vo[1];
+	    	row[2] = vo[2];
+	    	row[3] = vo[3];
+	    	row[4] = vo[4];
+	    	row[5] = vo[5];
+	    	row[6] = vo[6];
+	    	row[7] = vo[7];
+	    	
 
 	    }
 }

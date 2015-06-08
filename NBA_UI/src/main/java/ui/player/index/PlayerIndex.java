@@ -1,4 +1,4 @@
-package ui.player;
+package ui.player.index;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -459,9 +459,9 @@ public class PlayerIndex extends JPanel {
 		List<String> volist = ServiceFactoryImpl.getInstance()
 				.getPlayerService()
 				.getNameByNameInitial(ini.toUpperCase());
-		for (int i = 0; i < volist.size(); i++) {
-			System.out.println("i:"+i+" "+volist.get(i));
-		}
+//		for (int i = 0; i < volist.size(); i++) {
+//			System.out.println("i:"+i+" "+volist.get(i));
+//		}
 
 		for (int i = 0; i < volist.size(); i += 4) {
 			MyLabel left;

@@ -111,7 +111,7 @@ public class PlayerNav extends JPanel{
 				playerpast.setIcon(new ImageIcon(pcfg.getLabels().element("playerpast").attributeValue("path")));
 				
 				//更改playerpanel内容
-				frame.motherPanel.playerPanel.indexpanel.setVisible(false);
+				hintAll();
 				frame.motherPanel.playerPanel.playerstat.setVisible(true);
 			}
 
@@ -155,7 +155,7 @@ public class PlayerNav extends JPanel{
 				playerpast.setIcon(new ImageIcon(pcfg.getLabels().element("playerpast").attributeValue("path")));
 			
 				//更改playerpanel内容
-				frame.motherPanel.playerPanel.indexpanel.setVisible(false);
+				hintAll();
 			}
 
 			@Override
@@ -198,7 +198,7 @@ public class PlayerNav extends JPanel{
 				playerstat.setIcon(new ImageIcon(pcfg.getLabels().element("playerstat").attributeValue("path")));
 			
 				//更改playerpanel内容
-				frame.motherPanel.playerPanel.indexpanel.setVisible(false);
+				hintAll();
 			}
 
 			@Override
@@ -231,5 +231,12 @@ public class PlayerNav extends JPanel{
 		add(playerstat);
 		add(hotplayer);
 		add(playerpast);
+	}
+	
+	
+	private void hintAll(){
+		frame.motherPanel.playerPanel.indexpanel.setVisible(false);
+		frame.motherPanel.playerPanel.playerstat.setVisible(false);
+		
 	}
 }

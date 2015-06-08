@@ -18,12 +18,13 @@ public class LiveThread implements Runnable {
 	@Override
 	public void run() {
 
-		//LiveServiceImpl.getInstance().startLiveService();
+		LiveServiceImpl.getInstance().startLiveService();
 		while (true) {
 			while (livePanel.islive) {
 				String id = livePanel.matchId;
 				msgList = LiveServiceImpl.getInstance().getMsg(id);
 				livePanel.autoRefresh(msgList);
+				System.out.println("thread027: "+msgList.size());
 				livePanel.repaint();
 				livePanel.revalidate();
 				System.out.println("-----------------refresh done-----------");

@@ -1,4 +1,7 @@
-package ui.player;
+/**
+ * 选择的界面
+ */
+package ui.player.stat;
 
 import java.awt.Graphics;
 import java.awt.Image;

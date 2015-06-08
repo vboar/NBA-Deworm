@@ -39,7 +39,7 @@ public class LiveChoosePane extends JPanel {
 
 	private void initComponent(){
 		List<LiveMatchInfoVO>  list=LiveServiceImpl.getInstance().getAllLiveList();
-		System.out.println("hhhhhhhhhh"+list.size());
+		//System.out.println("hhhhhhhhhh"+list.size());
 		for(int i=0;i<list.size();i++){
 			
 			String text = list.get(i).date+ " "+list.get(i).time+" "+list.get(i).matchType+" "+list.get(i).homeTeam+" "+list.get(i).guestTeam;
@@ -58,9 +58,9 @@ public class LiveChoosePane extends JPanel {
 				LiveMatchInfoVO info = LiveServiceImpl.getInstance().checkMatchStart();
 				//System.out.println(info==null);
 				LiveMatchInfoVO vo = new LiveMatchInfoVO();
-				vo.id="150119";
-				vo.date="06月05日";
-				vo.time = "9:00";
+				vo.id="150120";
+				vo.date="06月08日";
+				vo.time = "8:00";
 				vo.homeTeam = "勇士";
 				vo.guestTeam = "骑士";
 				vo.matchType = "季后赛";

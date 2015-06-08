@@ -65,7 +65,7 @@ public class HomeUI extends JFrame {
 		this.setVisible(true);
 
 
-		LiveServiceImpl.getInstance().startLiveService();
+		//LiveServiceImpl.getInstance().startLiveService();
 	}
 
 	public static void main(String[] args) {

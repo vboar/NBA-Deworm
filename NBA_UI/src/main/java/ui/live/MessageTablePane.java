@@ -69,14 +69,16 @@ public class MessageTablePane extends TablePanel{
 		   int size;
 	        if(list == null) size = 0;
 	        else size = list.length;
+//	        this.dtm.setRowCount(size+2);
 //	        while(dtm.getRowCount()>size){
 //	        	//System.out.println(x++);
 //	        	this.dtm.removeRow(size-1);
 //	        }
 	       
-	        while(this.dtm.getRowCount()<size){
+	        while(this.dtm.getRowCount()<size+1){
 	        	Object[] rowData = {0,0,0,0};
 	        	this.dtm.addRow(rowData);
+	        	
 	        }
 	        for(int i=size-1; i>=0; --i){
 	        	Object[] vo = list[i];

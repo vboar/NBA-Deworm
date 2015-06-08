@@ -12,6 +12,10 @@ import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
+import ui.player.index.PlayerIndex;
+import ui.player.stat.PlayerAllTablePane;
+import ui.player.stat.PlayerFilter;
+import ui.player.stat.PlayerStat;
 import ui.util.MyButton;
 import ui.util.MyLabel;
 import ui.util.MyTab;
@@ -21,7 +25,7 @@ public class PlayerPanel extends JPanel {
 	private PanelConfig pcfg ;
 	private HomeUI frame;
 	
-	private PlayerAllTablePane table;
+	
 	public PlayerIndex indexpanel;
 	public PlayerFilter playerfilter;
 	public PlayerStat playerstat;
@@ -50,7 +54,7 @@ public class PlayerPanel extends JPanel {
 	private void initComponent(){
 		initPanel();
 		initCover();
-		//initTable();
+		
 		initButtons();
 		initLabels();
 	}
@@ -62,6 +66,7 @@ public class PlayerPanel extends JPanel {
 		add(playerfilter);	
 		
 		indexpanel = new PlayerIndex(frame);
+		//indexpanel.setVisible(false);
 		add(indexpanel);
 		
 		playerstat = new PlayerStat(frame);
@@ -77,16 +82,7 @@ public class PlayerPanel extends JPanel {
 	}
 	
 	//table的内容
-	private void initTable(){
-		Object[][] data2 = new Object[5][5];
-		for(int i=0;i<4;i++){
-			for(int j= 0 ;j<4;j++){
-				data2[i][j] =1;
-			}
-		}
-			table = new PlayerAllTablePane(new TableConfig(pcfg.getTablepane()), data2);
-			add(table);
-	}
+	
 	
 	private void initLabels(){
 		settingbg = new MyLabel(pcfg.getLabels().element("settingbg"));
