@@ -124,7 +124,7 @@ def save_match_info(mid):
         f.write(s_time + ';' + gym + ';' + attendance + ';' + r_time + ';\n')
         result = re.search(r'<table class="itinerary_table">([\s\S]*?)</div>', text)
         if result is None:
-            f.write(';;;;\n;;;;\n')
+            f.write(';;;;;\n;;;;;\n')
         else:
             result = result.groups()[0].replace('\n', '').replace(' ', '')
             result = re.findall(r'<tr>(.*?)</tr>', result)
