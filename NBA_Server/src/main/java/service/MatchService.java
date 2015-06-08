@@ -25,9 +25,9 @@ public interface MatchService extends Remote{
 	 * 获取单场比赛小分
 	 * @param gameid
 	 * @param home 主队/客队得分 = true/false
-	 * @return List<Integer> ,最后一个是总分
+	 * @return List<List<Integer>> 内嵌每一个List<Integer>，第一个为home，第二个为guest
 	 */
-	public List<Integer> getSectionScoreByGameId(String gameid, boolean home) throws RemoteException;
+	public List<List<Integer>> getSectionScoreByGameId(String gameid) throws RemoteException;
 	
 	/**
 	 * 多项条件筛选比赛信息

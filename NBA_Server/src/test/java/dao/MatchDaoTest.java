@@ -25,11 +25,11 @@ public class MatchDaoTest extends TestCase {
 	}
 	
 	public void testGetSectionScoreByGameid(){
-		List<Integer> list = mdao.getSectionScoreByGameId("200010310ATL-CHH", true);
-		assertEquals(13, list.get(0).intValue());
-		list = mdao.getSectionScoreByGameId("200010310ATL-CHH", false);
-		for(Integer i: list){
-			System.out.println(i);
+		List<List<Integer>> list = mdao.getSectionScoreByGameId("200010310ATL-CHH");
+		assertEquals(13, list.get(0).get(0).intValue());
+		list = mdao.getSectionScoreByGameId("200010310ATL-CHH");
+		for(List<Integer> pts: list){
+			System.out.println(pts.get(0)+" " + pts.get(1));
 		}
 	}
 	

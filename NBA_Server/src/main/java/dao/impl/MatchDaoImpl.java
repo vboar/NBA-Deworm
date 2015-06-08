@@ -31,20 +31,17 @@ public class MatchDaoImpl implements MatchDao {
 	}
 
 	@Override
-	public List<Integer> getSectionScoreByGameId(String gameid, boolean home) {
-		List<Integer> list = new ArrayList<Integer>();
+	public List<List<Integer>> getSectionScoreByGameId(String gameid) {
+		List<List<Integer>> list = new ArrayList<List<Integer>>();
 		sqlManager.getConnection();
-		String sql = "";
-		String point = home? "home_point" : "guest_point";
-		if(home){
-			sql = "SELECT home_point ";
-		}else{
-			sql = "SELECT guest_point ";
-		}
-		sql += "FROM match_score WHERE game_id=?";
+		String sql = "SELECT home_point, guest_point FROM match_score WHERE game_id=?"
+				+ " ORDER BY section ASC";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, new Object[]{gameid});
 		for(Map<String, Object> map : maplist){
-			list.add(Utility.objectToInt(map.get(point)));
+			List<Integer> pts = new ArrayList<Integer>();
+			pts.add(Utility.objectToInt(map.get("home_point")));
+			pts.add(Utility.objectToInt(map.get("guest_point")));
+			list.add(pts);
 		}
 		sqlManager.releaseAll();
 		return list;

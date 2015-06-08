@@ -60,9 +60,10 @@ public class MatchServiceImpl extends UnicastRemoteObject implements MatchServic
 	}
 
 	@Override
-	public List<Integer> getSectionScoreByGameId(String gameid, boolean home)
+	public List<List<Integer>> getSectionScoreByGameId(String gameid)
 			throws RemoteException {
 		return null;
 	}
+
 
 }
