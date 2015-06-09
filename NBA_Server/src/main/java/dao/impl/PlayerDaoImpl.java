@@ -140,7 +140,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		String sql = "SELECT * FROM player_total WHERE season=? ";
 		if(regular == 0 || regular == 1)
 			sql += " AND is_normal=" + regular;
-		sql += "ORDER BY player_name";
+		sql += " ORDER BY player_name";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { season });
 		for (Map<String, Object> map : maplist) {
@@ -260,7 +260,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		String sql = "SELECT * FROM player_per_game WHERE player_name=? ";
 		if(regular == 0 || regular == 1)
 			sql += " AND is_normal=" + regular;
-		sql += "ORDER BY season DESC";
+		sql += " ORDER BY season DESC";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { name });
 		for (Map<String, Object> map : maplist) {
@@ -278,7 +278,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		String sql = "SELECT * FROM player_per_game WHERE season=? ";
 		if(regular == 0 || regular == 1)
 			sql += " AND is_normal=" + regular;
-		sql += "ORDER BY player_name";
+		sql += " ORDER BY player_name";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { season });
 		for (Map<String, Object> map : maplist) {
@@ -403,7 +403,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		String sql = "SELECT * FROM player_advanced WHERE player_name=? ";
 		if(regular == 0 || regular == 1)
 			sql += " AND is_normal=" + regular;
-		sql += "ORDER BY season DESC";
+		sql += " ORDER BY season DESC";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { name });
 		for (Map<String, Object> map : maplist) {
@@ -421,7 +421,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		String sql = "SELECT * FROM player_advanced WHERE season=? ";
 		if(regular == 0 || regular == 1)
 			sql += " AND is_normal=" + regular;
-		sql += "ORDER BY player_name";
+		sql += " ORDER BY player_name";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { season });
 		for (Map<String, Object> map : maplist) {
