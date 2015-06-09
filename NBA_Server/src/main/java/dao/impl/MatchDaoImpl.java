@@ -370,11 +370,14 @@ public class MatchDaoImpl implements MatchDao {
             sqlScore = sqlManager.fillSQL(sqlScore);
             sqlBasic = sqlManager.fillSQL(sqlBasic);
             sqlAdvanced = sqlManager.fillSQL(sqlAdvanced);
-
-            sqlManager.executeUpdateByList(sqlInfo, infoObjects);
-            sqlManager.executeUpdateByList(sqlScore, scoreObjects);
-            sqlManager.executeUpdateByList(sqlBasic, basicObjects); 
-            sqlManager.executeUpdateByList(sqlAdvanced, advancedObjects);
+            if(infoObjects.size()>0)
+                sqlManager.executeUpdateByList(sqlInfo, infoObjects);
+            if(scoreObjects.size()>0)
+                sqlManager.executeUpdateByList(sqlScore, scoreObjects);
+            if(basicObjects.size()>0)
+                sqlManager.executeUpdateByList(sqlBasic, basicObjects);
+            if(advancedObjects.size()>0)
+            	sqlManager.executeUpdateByList(sqlAdvanced, advancedObjects);
 		}
 		
 		sqlManager.releaseConnection();
