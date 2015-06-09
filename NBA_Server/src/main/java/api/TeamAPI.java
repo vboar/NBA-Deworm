@@ -185,6 +185,7 @@ public class TeamAPI {
             TeamInfoVO vo = ts.getTeamInfoByAbbr(abbr);
             if (vo == null) return APIServer.NOTFOUND;
 
+            jo.put("info", getTeamInfoJO(vo));
             if (total) {
                 JSONObject jo2 = new JSONObject();
                 TeamTotalVO ttvo = ts.getTeamTotalBySeasonAbbr(season, abbr);
