@@ -58,8 +58,8 @@ public class PlayerStat extends JPanel{
 	
 	private void initTable(){
 		try {
-			volist=ServiceFactoryImpl.getInstance().getPlayerService().getPlayerTotalBySeason("14-15");
-			volistavg=ServiceFactoryImpl.getInstance().getPlayerService().getPlayerPerGameBySeason("14-15");
+			volist=ServiceFactoryImpl.getInstance().getPlayerService().getPlayerTotalBySeason("14-15",1);
+			volistavg=ServiceFactoryImpl.getInstance().getPlayerService().getPlayerPerGameBySeason("14-15",1);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
