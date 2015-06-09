@@ -50,42 +50,43 @@ public class PlayerDaoTest extends TestCase {
 	}
 
 	public void testGetPlayerTotalByName() {
-		List<PlayerStatsTotal> list = pdao.getPlayerTotalByName("Kevin Durant");
+		List<PlayerStatsTotal> list = pdao.getPlayerTotalByName("Kevin Durant",1);
 		for(PlayerStatsTotal pst: list){
 			assertEquals("Kevin Durant", pst.getName());
 		}
 	}
 
 	public void testGetPlayerPerGameByName() {
-		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameByName("Kevin Durant");
+		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameByName("Kevin Durant",1);
 		for(PlayerStatsPerGame psp: list){
 			assertEquals("Kevin Durant", psp.getName());
 		}
 	}
 
 	public void testGetPlayerAdvancedByName() {
-		List<PlayerStatsAdvanced> list = pdao.getPlayerAdvancedByName("Kevin Durant");
+		List<PlayerStatsAdvanced> list = pdao.getPlayerAdvancedByName("Kevin Durant",1);
 		for(PlayerStatsAdvanced psp: list){
 			assertEquals("Kevin Durant", psp.getName());
 		}
 	}
 
 	public void testGetPlayerTotalBySeason() {
-		List<PlayerStatsTotal> list = pdao.getPlayerTotalBySeason("13-14");
+		List<PlayerStatsTotal> list = pdao.getPlayerTotalBySeason("13-14",1);
 		for(PlayerStatsTotal pst: list){
 			assertEquals("13-14", pst.getSeason());
 		}
 	}
 
 	public void testGetPlayerPerGameBySeason() {
-		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameBySeason("13-14");
+		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameBySeason("13-14",1);
 		for(PlayerStatsPerGame pst: list){
+			assertEquals(1,pst.getIs_normal().intValue());
 			assertEquals("13-14", pst.getSeason());
 		}
 	}
 
 	public void testGetPlayerAdvancedBySeason() {
-		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameBySeason("13-14");
+		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameBySeason("13-14",1);
 		for(PlayerStatsPerGame pst: list){
 			assertEquals("13-14", pst.getSeason());
 		}

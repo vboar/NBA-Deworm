@@ -115,11 +115,14 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	@Override
-	public List<PlayerStatsTotal> getPlayerTotalByName(String name) {
+	public List<PlayerStatsTotal> getPlayerTotalByName(String name, int regular) {
 		sqlManager.getConnection();
 
 		List<PlayerStatsTotal> list = new ArrayList<PlayerStatsTotal>();
-		String sql = "SELECT * FROM player_total WHERE player_name=? ORDER BY season DESC";
+		String sql = "SELECT * FROM player_total WHERE player_name=? ";
+		if(regular == 0 || regular == 1)
+			sql += " AND is_normal=" + regular;
+		sql += " ORDER BY season DESC";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { name });
 		for (Map<String, Object> map : maplist) {
@@ -130,11 +133,14 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	@Override
-	public List<PlayerStatsTotal> getPlayerTotalBySeason(String season) {
+	public List<PlayerStatsTotal> getPlayerTotalBySeason(String season, int regular) {
 		sqlManager.getConnection();
 
 		List<PlayerStatsTotal> list = new ArrayList<PlayerStatsTotal>();
-		String sql = "SELECT * FROM player_total WHERE season=? ORDER BY player_name";
+		String sql = "SELECT * FROM player_total WHERE season=? ";
+		if(regular == 0 || regular == 1)
+			sql += " AND is_normal=" + regular;
+		sql += "ORDER BY player_name";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { season });
 		for (Map<String, Object> map : maplist) {
@@ -247,11 +253,14 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	@Override
-	public List<PlayerStatsPerGame> getPlayerPerGameByName(String name) {
+	public List<PlayerStatsPerGame> getPlayerPerGameByName(String name, int regular) {
 		sqlManager.getConnection();
 
 		List<PlayerStatsPerGame> list = new ArrayList<PlayerStatsPerGame>();
-		String sql = "SELECT * FROM player_per_game WHERE player_name=? ORDER BY season DESC";
+		String sql = "SELECT * FROM player_per_game WHERE player_name=? ";
+		if(regular == 0 || regular == 1)
+			sql += " AND is_normal=" + regular;
+		sql += "ORDER BY season DESC";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { name });
 		for (Map<String, Object> map : maplist) {
@@ -262,11 +271,14 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	@Override
-	public List<PlayerStatsPerGame> getPlayerPerGameBySeason(String season) {
+	public List<PlayerStatsPerGame> getPlayerPerGameBySeason(String season, int regular) {
 		sqlManager.getConnection();
 
 		List<PlayerStatsPerGame> list = new ArrayList<PlayerStatsPerGame>();
-		String sql = "SELECT * FROM player_per_game WHERE season=? ORDER BY player_name";
+		String sql = "SELECT * FROM player_per_game WHERE season=? ";
+		if(regular == 0 || regular == 1)
+			sql += " AND is_normal=" + regular;
+		sql += "ORDER BY player_name";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { season });
 		for (Map<String, Object> map : maplist) {
@@ -384,11 +396,14 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	@Override
-	public List<PlayerStatsAdvanced> getPlayerAdvancedByName(String name) {
+	public List<PlayerStatsAdvanced> getPlayerAdvancedByName(String name, int regular) {
 		sqlManager.getConnection();
 
 		List<PlayerStatsAdvanced> list = new ArrayList<PlayerStatsAdvanced>();
-		String sql = "SELECT * FROM player_advanced WHERE player_name=? ORDER BY season DESC";
+		String sql = "SELECT * FROM player_advanced WHERE player_name=? ";
+		if(regular == 0 || regular == 1)
+			sql += " AND is_normal=" + regular;
+		sql += "ORDER BY season DESC";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { name });
 		for (Map<String, Object> map : maplist) {
@@ -399,11 +414,14 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	@Override
-	public List<PlayerStatsAdvanced> getPlayerAdvancedBySeason(String season) {
+	public List<PlayerStatsAdvanced> getPlayerAdvancedBySeason(String season, int regular) {
 		sqlManager.getConnection();
 
 		List<PlayerStatsAdvanced> list = new ArrayList<PlayerStatsAdvanced>();
-		String sql = "SELECT * FROM player_advanced WHERE season=? ORDER BY player_name";
+		String sql = "SELECT * FROM player_advanced WHERE season=? ";
+		if(regular == 0 || regular == 1)
+			sql += " AND is_normal=" + regular;
+		sql += "ORDER BY player_name";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { season });
 		for (Map<String, Object> map : maplist) {

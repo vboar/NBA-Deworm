@@ -102,7 +102,7 @@ public class PlayerServiceTest extends TestCase {
 
 	public void testGetPlayerTotalByName() {
 		try {
-			List<PlayerTotalVO> list = ps.getPlayerTotalByName("Kevin Durant");
+			List<PlayerTotalVO> list = ps.getPlayerTotalByName("Kevin Durant",1);
             System.out.println(list.size());
 			for(PlayerTotalVO pst: list){
 				assertEquals("Kevin Durant", pst.name);
@@ -114,7 +114,7 @@ public class PlayerServiceTest extends TestCase {
 
 	public void testGetPlayerPerGameByName() {
 		try {
-			List<PlayerPerGameVO> list = ps.getPlayerPerGameByName("Kevin Durant");
+			List<PlayerPerGameVO> list = ps.getPlayerPerGameByName("Kevin Durant",1);
 			for(PlayerPerGameVO pst: list){
 				assertEquals("Kevin Durant", pst.name);
 			}
@@ -125,7 +125,7 @@ public class PlayerServiceTest extends TestCase {
 
 	public void testGetPlayerAdvancedByName() {
 		try {
-			List<PlayerAdvancedVO> list = ps.getPlayerAdvancedByName("Kevin Durant");
+			List<PlayerAdvancedVO> list = ps.getPlayerAdvancedByName("Kevin Durant",1);
 			for(PlayerAdvancedVO pst: list){
 				assertEquals("Kevin Durant", pst.name);
 			}
@@ -145,7 +145,7 @@ public class PlayerServiceTest extends TestCase {
 
 	public void testGetPlayerTotalBySeason() {
 		try {
-			List<PlayerTotalVO> list = ps.getPlayerTotalBySeason("14-15");
+			List<PlayerTotalVO> list = ps.getPlayerTotalBySeason("14-15",1);
 			for(PlayerTotalVO pst: list){
 				System.out.println(pst.efg_pct);
 				assertEquals("14-15", pst.season);
@@ -157,7 +157,7 @@ public class PlayerServiceTest extends TestCase {
 
 	public void testGetPlayerPerGameBySeason() {
 		try {
-			List<PlayerPerGameVO> list = ps.getPlayerPerGameBySeason("13-14");
+			List<PlayerPerGameVO> list = ps.getPlayerPerGameBySeason("13-14",1);
 			for(PlayerPerGameVO pst: list){
 				assertEquals("13-14", pst.season);
 			}
@@ -168,7 +168,7 @@ public class PlayerServiceTest extends TestCase {
 
 	public void testGetPlayerAdvancedBySeason() {
 		try {
-			List<PlayerAdvancedVO> list = ps.getPlayerAdvancedBySeason("13-14");
+			List<PlayerAdvancedVO> list = ps.getPlayerAdvancedBySeason("13-14",1);
 			for(PlayerAdvancedVO pst: list){
 				assertEquals("13-14", pst.season);
 			}

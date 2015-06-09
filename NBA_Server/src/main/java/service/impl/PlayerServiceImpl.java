@@ -81,10 +81,10 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 	}
 
 	@Override
-	public List<PlayerTotalVO> getPlayerTotalByName(String name)
+	public List<PlayerTotalVO> getPlayerTotalByName(String name, int regular)
 			throws RemoteException {
 		List<PlayerTotalVO> volist = new ArrayList<PlayerTotalVO>();
-		List<PlayerStatsTotal> list = pdao.getPlayerTotalByName(name);
+		List<PlayerStatsTotal> list = pdao.getPlayerTotalByName(name, regular);
 		for(PlayerStatsTotal pst: list){
 			PlayerTotalVO vo = getTotalVO(pst);
 			if(vo!=null)
@@ -94,10 +94,10 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 	}
 
 	@Override
-	public List<PlayerPerGameVO> getPlayerPerGameByName(String name)
+	public List<PlayerPerGameVO> getPlayerPerGameByName(String name, int regular)
 			throws RemoteException {
 		List<PlayerPerGameVO> volist = new ArrayList<PlayerPerGameVO>();
-		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameByName(name);
+		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameByName(name,regular);
 		for(PlayerStatsPerGame psp:list){
 			PlayerPerGameVO vo = getPerGameVO(psp);
 			if(vo!=null)
@@ -107,10 +107,10 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 	}
 
 	@Override
-	public List<PlayerAdvancedVO> getPlayerAdvancedByName(String name)
+	public List<PlayerAdvancedVO> getPlayerAdvancedByName(String name, int regular)
 			throws RemoteException {
 		List<PlayerAdvancedVO> volist = new ArrayList<PlayerAdvancedVO>();
-		List<PlayerStatsAdvanced> list = pdao.getPlayerAdvancedByName(name);
+		List<PlayerStatsAdvanced> list = pdao.getPlayerAdvancedByName(name, regular);
 		for(PlayerStatsAdvanced psa: list){
 			PlayerAdvancedVO vo = getAdvancedVO(psa);
 			if(vo!=null)
@@ -133,10 +133,10 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 	}
 
 	@Override
-	public List<PlayerTotalVO> getPlayerTotalBySeason(String season)
+	public List<PlayerTotalVO> getPlayerTotalBySeason(String season, int regular)
 			throws RemoteException {
 		List<PlayerTotalVO> volist = new ArrayList<PlayerTotalVO>();
-		List<PlayerStatsTotal> list = pdao.getPlayerTotalBySeason(season);
+		List<PlayerStatsTotal> list = pdao.getPlayerTotalBySeason(season,regular);
 		for(PlayerStatsTotal pst: list){
 			PlayerTotalVO vo = getTotalVO(pst);
 			if(vo!=null)
@@ -146,10 +146,10 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 	}
 
 	@Override
-	public List<PlayerPerGameVO> getPlayerPerGameBySeason(String season)
+	public List<PlayerPerGameVO> getPlayerPerGameBySeason(String season, int regular)
 			throws RemoteException {
 		List<PlayerPerGameVO> volist = new ArrayList<PlayerPerGameVO>();
-		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameBySeason(season);
+		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameBySeason(season, regular);
 		for(PlayerStatsPerGame psp:list){
 			PlayerPerGameVO vo = getPerGameVO(psp);
 			if(vo!=null)
@@ -159,10 +159,10 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 	}
 
 	@Override
-	public List<PlayerAdvancedVO> getPlayerAdvancedBySeason(String season)
+	public List<PlayerAdvancedVO> getPlayerAdvancedBySeason(String season, int regular)
 			throws RemoteException {
 		List<PlayerAdvancedVO> volist = new ArrayList<PlayerAdvancedVO>();
-		List<PlayerStatsAdvanced> list = pdao.getPlayerAdvancedBySeason(season);
+		List<PlayerStatsAdvanced> list = pdao.getPlayerAdvancedBySeason(season,regular);
 		for(PlayerStatsAdvanced psa: list){
 			PlayerAdvancedVO vo = getAdvancedVO(psa);
 			if(vo!=null)

@@ -65,14 +65,14 @@ public interface PlayerDao {
 	 * @param name 球员姓名
 	 * @return
 	 */
-	public List<PlayerStatsTotal> getPlayerTotalByName(String name);
+	public List<PlayerStatsTotal> getPlayerTotalByName(String name, int regular);
 	
 	/**
 	 * 获取单赛季的所有球员总数据
 	 * @param season 赛季
 	 * @return
 	 */
-	public List<PlayerStatsTotal> getPlayerTotalBySeason(String season);
+	public List<PlayerStatsTotal> getPlayerTotalBySeason(String season, int regular);
 	
 	/**
 	 * 根据姓名查找球员某赛季总数据
@@ -94,14 +94,14 @@ public interface PlayerDao {
 	 * @param name 球员姓名
 	 * @return
 	 */
-	public List<PlayerStatsPerGame> getPlayerPerGameByName(String name);
+	public List<PlayerStatsPerGame> getPlayerPerGameByName(String name, int regular);
 	
 	/**
 	 * 获取单个赛季的所有球员场均数据
 	 * @param season 赛季
 	 * @return
 	 */
-	public List<PlayerStatsPerGame> getPlayerPerGameBySeason(String season);
+	public List<PlayerStatsPerGame> getPlayerPerGameBySeason(String season, int regular);
 	
 	/**
 	 * 根据姓名查找球员某赛季场均数据
@@ -125,14 +125,14 @@ public interface PlayerDao {
 	 * @param name 球员姓名
 	 * @return
 	 */
-	public List<PlayerStatsAdvanced> getPlayerAdvancedByName(String name);
+	public List<PlayerStatsAdvanced> getPlayerAdvancedByName(String name, int regular);
 	
 	/**
 	 * 获取单个赛季所有球员的高阶数据
 	 * @param season 赛季
 	 * @return
 	 */
-	public List<PlayerStatsAdvanced> getPlayerAdvancedBySeason(String season);
+	public List<PlayerStatsAdvanced> getPlayerAdvancedBySeason(String season, int regular);
 	
 	/**
 	 * 根据姓名查找球员某赛季高阶数据

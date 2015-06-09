@@ -66,16 +66,18 @@ public interface PlayerService extends Remote{
 	/**
 	 * 获取单个球员所有赛季的总数据
 	 * @param name 球员姓名
+	 * @param regular 1=常规赛， 0=季后赛
 	 * @return
 	 */
-	public List<PlayerTotalVO> getPlayerTotalByName(String name) throws RemoteException;
+	public List<PlayerTotalVO> getPlayerTotalByName(String name, int regular) throws RemoteException;
 	
 	/**
 	 * 获取单赛季的所有球员总数据
 	 * @param season 赛季
+	 * @param regular 1=常规赛， 0=季后赛
 	 * @return
 	 */
-	public List<PlayerTotalVO> getPlayerTotalBySeason(String season) throws RemoteException;
+	public List<PlayerTotalVO> getPlayerTotalBySeason(String season, int regular) throws RemoteException;
 	
 	/**
 	 * 根据姓名查找球员某赛季总数据
@@ -95,16 +97,18 @@ public interface PlayerService extends Remote{
 	/**
 	 * 获取单个球员所有赛季的场均数据
 	 * @param name 球员姓名
+	 * @param regular 1=常规赛， 0=季后赛
 	 * @return
 	 */
-	public List<PlayerPerGameVO> getPlayerPerGameByName(String name) throws RemoteException;
+	public List<PlayerPerGameVO> getPlayerPerGameByName(String name, int regular) throws RemoteException;
 	
 	/**
 	 * 获取单个赛季的所有球员场均数据
 	 * @param season 赛季
+	 * @param regular 1=常规赛， 0=季后赛
 	 * @return
 	 */
-	public List<PlayerPerGameVO> getPlayerPerGameBySeason(String season) throws RemoteException;
+	public List<PlayerPerGameVO> getPlayerPerGameBySeason(String season, int regular) throws RemoteException;
 	
 	/**
 	 * 根据姓名查找球员某赛季场均数据
@@ -128,14 +132,15 @@ public interface PlayerService extends Remote{
 	 * @param name 球员姓名
 	 * @return
 	 */
-	public List<PlayerAdvancedVO> getPlayerAdvancedByName(String name) throws RemoteException;
+	public List<PlayerAdvancedVO> getPlayerAdvancedByName(String name, int regular) throws RemoteException;
 	
 	/**
 	 * 获取单个赛季所有球员的高阶数据
 	 * @param season 赛季
+	 * @param regular 1=常规赛， 0=季后赛
 	 * @return
 	 */
-	public List<PlayerAdvancedVO> getPlayerAdvancedBySeason(String season) throws RemoteException;
+	public List<PlayerAdvancedVO> getPlayerAdvancedBySeason(String season, int regular) throws RemoteException;
 	
 	/**
 	 * 根据姓名查找球员某赛季高阶数据
