@@ -85,7 +85,7 @@ public class PlayerAllTablePane extends TablePanel {
 	        else size = list.length;
 	        while(dtm.getRowCount()>size){
 	        	//System.out.println(x++);
-	        	this.dtm.removeRow(size-1);
+	        	this.dtm.removeRow(size);
 	        }
 	       
 	        while(this.dtm.getRowCount()<size){

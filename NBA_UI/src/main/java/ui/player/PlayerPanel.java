@@ -2,7 +2,9 @@ package ui.player;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.rmi.RemoteException;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -19,6 +21,8 @@ import ui.player.stat.PlayerStat;
 import ui.util.MyButton;
 import ui.util.MyLabel;
 import ui.util.MyTab;
+import util.ChineseToOther;
+import vo.PlayerAdvancedVO;
 
 public class PlayerPanel extends JPanel {
 
@@ -79,6 +83,7 @@ public class PlayerPanel extends JPanel {
 		coverFrame.setBounds(458,218,690, 260);
 		coverFrame.setUndecorated(true);
 		coverFrame.add(playerfilter);
+		coverFrame.setAlwaysOnTop(true);	
 	}
 	
 	//table的内容
@@ -92,6 +97,39 @@ public class PlayerPanel extends JPanel {
 	
 	private void initButtons(){
 		menu = new MyButton(pcfg.getButtons().element("menu"),true);
+		menu.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				playerfilter.changeBox(true);
+				playerstat.state = 2;
+				playerfilter.setAdvTable();				
+			}
+		});
 		add(menu);
 		
 		setting = new MyButton(pcfg.getButtons().element("setting"));

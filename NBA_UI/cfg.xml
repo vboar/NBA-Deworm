@@ -294,6 +294,7 @@
 				</season>
 				
 				<position w="110" h="25" x="150" y="20">
+					<string str="(All)"/>
 					<string str="C" />
 					<string str="PF" />
 					<string str="SF" />
@@ -302,6 +303,7 @@
 				</position>
 				
 				<division w="110" h="25" x="290" y="20">
+					<string str="(All)"/>
 					<string str="Atlantic" />
 					<string str="Central" />
 					<string str="Nothwest" />
@@ -311,8 +313,9 @@
 				</division>
 				
 				<regular w="110" h="25" x="430" y="20">
-					<string str="常规赛" />
 					<string str="季后赛" />
+					<string str="常规赛" />
+					<string str="全部"/>
 				</regular>
 				
 
@@ -423,6 +426,83 @@
 					<string str="进攻篮板数" />
 					<string str="防守篮板数" />			
 				</common6>
+				
+				<advanced1 w="110" h="25" x="10" y="100">
+					<string str="进攻篮板率" />
+					<string str="防守篮板率" />
+					<string str="总篮板率" />
+					<string str="助攻率" />
+					<string str="抢断率" />
+					<string str="盖帽率" />
+					<string str="失误率" />
+					<string str="使用率" />
+				</advanced1>
+
+				<advanced2 w="110" h="25" x="150" y="100">
+					<string str="进攻篮板率" />
+					<string str="防守篮板率" />
+					<string str="总篮板率" />
+					<string str="助攻率" />
+					<string str="抢断率" />
+					<string str="盖帽率" />
+					<string str="失误率" />
+					<string str="使用率" />			
+				</advanced2>
+
+				<advanced3 w="110" h="25" x="290" y="100">
+					<string str="进攻篮板率" />
+					<string str="防守篮板率" />
+					<string str="总篮板率" />
+					<string str="助攻率" />
+					<string str="抢断率" />
+					<string str="盖帽率" />
+					<string str="失误率" />
+					<string str="使用率" />
+				</advanced3>
+
+				<advanced4 w="110" h="25" x="10" y="150">
+					<string str="true shooting percentage" />
+					<string str="player efficiency rating" />
+					<string str="3-point attempt rate" />
+					<string str="offensive win shares" />
+					<string str="defensive win shares" />
+					<string str="win shares" />
+					<string str="win shares per 48 mins" />
+					<string str="offensive box plus/minus" />
+					<string str="defensive box plus/minus" />
+					<string str="box plus/minus" />
+					<string str="value over replacement player" />
+				</advanced4>
+				
+				<advanced5 w="110" h="25" x="150" y="150">
+					<string str="true shooting percentage" />
+					<string str="player efficiency rating" />
+					<string str="3-point attempt rate" />
+					<string str="offensive win shares" />
+					<string str="defensive win shares" />
+					<string str="win shares" />
+					<string str="win shares per 48 mins" />
+					<string str="offensive box plus/minus" />
+					<string str="defensive box plus/minus" />
+					<string str="box plus/minus" />
+					<string str="value over replacement player" />		
+				</advanced5>
+				
+				<advanced6 w="110" h="25" x="290" y="150">
+					<string str="true shooting percentage" />
+					<string str="player efficiency rating" />
+					<string str="3-point attempt rate" />
+					<string str="offensive win shares" />
+					<string str="defensive win shares" />
+					<string str="win shares" />
+					<string str="win shares per 48 mins" />
+					<string str="offensive box plus/minus" />
+					<string str="defensive box plus/minus" />
+					<string str="box plus/minus" />
+					<string str="value over replacement player" />
+				</advanced6>
+				
+				
 			</comboboxes>
 			</panel>
 			
@@ -465,20 +545,7 @@
 			</tablepane>
 			</panel>
 			
-			<tablepane className="ui.live.MessageTablePane" width="940"
-				height="380" x="0" y="196">
-				<columnnames>
-					<columnname name="时间" />
-					<columnname name="球队" />
-					<columnname name="事件" />
-					<columnname name="比分" />
-				</columnnames>
-			</tablepane>
-			
-			
-			
-			</panel>
-			
+						
 			<panel className="ui.player.stat.CoverPanel" width="940" height="511"
 			x="0" y="0" bg="img/home/background.jpg">
 			</panel>
