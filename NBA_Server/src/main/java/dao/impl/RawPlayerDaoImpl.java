@@ -53,7 +53,7 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 				// Draft、debut、exp、number
 				if (i == 0) {
 					String[] data = lines.get(i).split(";", -1);
-					info.setPosition(data[1]);
+					info.setPosition(getPostionAbbr(data[1]));
 					info.setShoots(data[2]);
 					info.setBorn(data[3]);
 					info.setHometown(data[4]);
@@ -121,6 +121,39 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 				}
 			}// end of lines circle
 		}// end of players circle
+	}
+
+	private String getPostionAbbr(String pos) {
+		String abb = "";
+		if(pos.contains("Center")){
+			abb += "C-";
+		}
+		if(pos.contains("Forward")){
+			if(pos.equals("Forward")){
+				abb += "F-";
+			}else{				
+				if(pos.contains("Power Forward")){
+					abb += "PF-";
+				}
+				if(pos.contains("Small Forward")){
+					abb += "SF-";
+				}
+			}
+		if(pos.contains("Guard")){
+			if(pos.equals("Guard"))
+				abb += "G-";
+			}else{
+				if(pos.contains("Shooting Guard")){
+					abb += "SG-";
+				}
+				if(pos.contains("Point Guard")){
+					abb += "PG-";
+				}
+			}
+		}
+		if(abb.length()>0)
+			abb = abb.substring(0,abb.length()-1);
+		return abb;
 	}
 
 	/**

@@ -1,12 +1,19 @@
 package vo;
 
+import java.io.Serializable;
+
 /**
  * 比赛数据查看筛选器
  * 
  * created by JaneLDQ on 2015年6月2日 下午10:42:30
  */
-public class MatchFilter {
+public class MatchFilter implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * 赛季
 	 */

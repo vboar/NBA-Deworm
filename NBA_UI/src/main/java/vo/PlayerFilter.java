@@ -1,12 +1,19 @@
 package vo;
 
+import java.io.Serializable;
+
 /**
  * 球员数据查看筛选器
  * 
  * created by JaneLDQ on 2015年6月2日 下午7:18:33
  */
-public class PlayerFilter {
+public class PlayerFilter implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * 赛季
 	 */

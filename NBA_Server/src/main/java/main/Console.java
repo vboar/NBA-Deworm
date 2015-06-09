@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.rmi.Naming;
 import java.rmi.NoSuchObjectException;
 import java.rmi.Remote;
@@ -36,7 +37,7 @@ public class Console {
     /**
      * 端口
      */
-    public static String port;
+    public static int port;
     
     /**
      * IP地址
@@ -50,8 +51,8 @@ public class Console {
     	try{
     		InputStream in = new BufferedInputStream(new FileInputStream("nba.properties"));
     		prop.load(in);
-    		address = prop.getProperty("rmi_address");
-    		port = prop.getProperty("rmi_port");
+    		address = InetAddress.getLocalHost().getHostAddress();
+    		port = 8888;
             System.setProperty("java.rmi.server.hostname", address);
     	}catch(Exception e){
     		System.out.println(e);
@@ -106,7 +107,7 @@ public class Console {
         } else {
             rmiServerOn = true;
             try {
-				reg = LocateRegistry.createRegistry(Integer.parseInt(port));
+				reg = LocateRegistry.createRegistry(port);
 				ServiceFactory serviceFactory = ServiceFactoryImpl.getInstance();
 				Naming.rebind("rmi://" + address + ":" + port + "/ServiceFactory", serviceFactory);
 				System.out.println("Rmi server is on now!");
