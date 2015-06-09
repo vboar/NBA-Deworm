@@ -277,6 +277,158 @@
 			<buttons>
 			<search w="177" h="27" x="485" y="215" path="img/common/filter/search.png"/>
 			</buttons>
+			
+			
+			<comboboxes>
+				<season w="110" h="25" x="10" y="20">
+					<string str="14-15" />
+					<string str="13-14" />
+					<string str="12-13" />
+					<string str="11-12" />
+					<string str="10-11" />
+					<string str="09-10" />
+					<string str="08-09" />
+					<string str="07-08" />
+					<string str="06-07" />
+					<string str="05-06" />
+					<string str="04-05" />
+					<string str="03-04" />
+					<string str="02-03" />
+					<string str="01-02" />
+					<string str="00-01" />
+				</season>
+				
+				<position w="110" h="25" x="150" y="20">
+					<string str="C" />
+					<string str="PF" />
+					<string str="SF" />
+					<string str="PG" />
+					<string str="SG" />
+				</position>
+				
+				<division w="110" h="25" x="290" y="20">
+					<string str="Atlantic" />
+					<string str="Central" />
+					<string str="Nothwest" />
+					<string str="Pacific" />
+					<string str="Southeast" />
+					<string str="Southwest" />
+				</division>
+				
+				<regular w="110" h="25" x="430" y="20">
+					<string str="常规赛" />
+					<string str="季后赛" />
+				</regular>
+				
+
+				<common1 w="110" h="25" x="10" y="100">
+					<string str="参赛场数" />
+					<string str="先发场数" />
+					<string str="篮板数" />
+					<string str="助攻数" />
+					<string str="在场时间" />
+					<string str="投篮命中率" />
+					<string str="三分命中率" />
+					<string str="罚球命中率" />
+					<string str="抢断数" />
+					<string str="盖帽数" />
+					<string str="失误数" />
+					<string str="犯规数" />
+					<string str="得分" />
+					<string str="进攻篮板数" />
+					<string str="防守篮板数" />					
+				</common1>
+
+				<common2 w="110" h="25" x="150" y="100">
+					<string str="参赛场数" />
+					<string str="先发场数" />
+					<string str="篮板数" />
+					<string str="助攻数" />
+					<string str="在场时间" />
+					<string str="投篮命中率" />
+					<string str="三分命中率" />
+					<string str="罚球命中率" />
+					<string str="抢断数" />
+					<string str="盖帽数" />
+					<string str="失误数" />
+					<string str="犯规数" />
+					<string str="得分" />
+					<string str="进攻篮板数" />
+					<string str="防守篮板数" />			
+				</common2>
+
+				<common3 w="110" h="25" x="290" y="100">
+					<string str="参赛场数" />
+					<string str="先发场数" />
+					<string str="篮板数" />
+					<string str="助攻数" />
+					<string str="在场时间" />
+					<string str="投篮命中率" />
+					<string str="三分命中率" />
+					<string str="罚球命中率" />
+					<string str="抢断数" />
+					<string str="盖帽数" />
+					<string str="失误数" />
+					<string str="犯规数" />
+					<string str="得分" />
+					<string str="进攻篮板数" />
+					<string str="防守篮板数" />			
+				</common3>
+
+				<common4 w="110" h="25" x="10" y="150">
+					<string str="参赛场数" />
+					<string str="先发场数" />
+					<string str="篮板数" />
+					<string str="助攻数" />
+					<string str="在场时间" />
+					<string str="投篮命中率" />
+					<string str="三分命中率" />
+					<string str="罚球命中率" />
+					<string str="抢断数" />
+					<string str="盖帽数" />
+					<string str="失误数" />
+					<string str="犯规数" />
+					<string str="得分" />
+					<string str="进攻篮板数" />
+					<string str="防守篮板数" />	
+				</common4>
+				
+				<common5 w="110" h="25" x="150" y="150">
+					<string str="参赛场数" />
+					<string str="先发场数" />
+					<string str="篮板数" />
+					<string str="助攻数" />
+					<string str="在场时间" />
+					<string str="投篮命中率" />
+					<string str="三分命中率" />
+					<string str="罚球命中率" />
+					<string str="抢断数" />
+					<string str="盖帽数" />
+					<string str="失误数" />
+					<string str="犯规数" />
+					<string str="得分" />
+					<string str="进攻篮板数" />
+					<string str="防守篮板数" />			
+				</common5>
+				
+				<common6 w="110" h="25" x="290" y="150">
+					<string str="参赛场数" />
+					<string str="先发场数" />
+					<string str="篮板数" />
+					<string str="助攻数" />
+					<string str="在场时间" />
+					<string str="投篮命中率" />
+					<string str="三分命中率" />
+					<string str="罚球命中率" />
+					<string str="抢断数" />
+					<string str="盖帽数" />
+					<string str="失误数" />
+					<string str="犯规数" />
+					<string str="得分" />
+					<string str="进攻篮板数" />
+					<string str="防守篮板数" />			
+				</common6>
+			</comboboxes>
 			</panel>
 			
 			<panel className="ui.team.TeamFilter" width="690" height="260"

@@ -29,6 +29,9 @@ public class PlayerStat extends JPanel{
 	public List<PlayerPerGameVO> volistavg = null;
 	
 	public String season="14-15";
+	public boolean isAdvanced = false;
+	public int isRegular = 1;
+	
 
 
 	
