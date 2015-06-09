@@ -1,8 +1,11 @@
 package ui.player.stat;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import service.impl.ServiceFactoryImpl;
@@ -11,7 +14,8 @@ import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
 import ui.util.MyTab;
-import vo.PlayerInfoVO;
+import util.ChineseToOther;
+import vo.PlayerPerGameVO;
 import vo.PlayerTotalVO;
 
 public class PlayerStat extends JPanel{
@@ -20,6 +24,13 @@ public class PlayerStat extends JPanel{
 	private MyTab stat;
 	
 	public PlayerAllTablePane table;
+	
+	public List<PlayerTotalVO> volist = null;
+	public List<PlayerPerGameVO> volistavg = null;
+	
+	public String season="14-15";
+
+
 	
 	public PlayerStat(HomeUI frame){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
@@ -41,13 +52,14 @@ public class PlayerStat extends JPanel{
 	
 	private void initTabs(){
 		stat = new MyTab(pcfg.getTab().element("stat"));
+		setTab();
 		add(stat);
 	}
 	
 	private void initTable(){
-		List<PlayerTotalVO> volist = null;
 		try {
 			volist=ServiceFactoryImpl.getInstance().getPlayerService().getPlayerTotalBySeason("14-15");
+			volistavg=ServiceFactoryImpl.getInstance().getPlayerService().getPlayerPerGameBySeason("14-15");
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,5 +78,52 @@ public class PlayerStat extends JPanel{
 		}
 			table = new PlayerAllTablePane(new TableConfig(pcfg.getTablepane()), data2);
 			add(table);
+	}
+	
+	private void setTab(){
+		
+		stat.tab2.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				String[] head = frame.motherPanel.playerPanel.playerstat.table.getColumnNames();
+				Object[][] data = new Object[volist.size()][8];
+				for(int i=0;i<volist.size();i++){			
+					data[i][0] = volist.get(i).name;
+					 data[i][1] = volist.get(i).team;
+					 data[i][2] = ChineseToOther.ChineseToString(head[2], volist.get(i));
+					 data[i][3] = ChineseToOther.ChineseToString(head[3], volist.get(i));
+					 data[i][4] = ChineseToOther.ChineseToString(head[4], volist.get(i));
+					 data[i][5] = ChineseToOther.ChineseToString(head[5], volist.get(i));
+					 data[i][6] = ChineseToOther.ChineseToString(head[6], volist.get(i));
+					 data[i][7] = ChineseToOther.ChineseToString(head[7], volist.get(i));
+				
+				}
+				//System.out.println("hhhhhhhh");
+				table.setData(data);
+			}
+			
+		});
+		
+		stat.tab1.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				String[] head = frame.motherPanel.playerPanel.playerstat.table.getColumnNames();
+				Object[][] data = new Object[volistavg.size()][8];
+				for(int i=0;i<volistavg.size();i++){			
+					data[i][0] = volistavg.get(i).name;
+					 data[i][1] = volistavg.get(i).team;
+					 data[i][2] = ChineseToOther.ChineseToString(head[2], volistavg.get(i));
+					 data[i][3] = ChineseToOther.ChineseToString(head[3], volistavg.get(i));
+					 data[i][4] = ChineseToOther.ChineseToString(head[4], volistavg.get(i));
+					 data[i][5] = ChineseToOther.ChineseToString(head[5], volistavg.get(i));
+					 data[i][6] = ChineseToOther.ChineseToString(head[6], volistavg.get(i));
+					 data[i][7] = ChineseToOther.ChineseToString(head[7], volistavg.get(i));
+				
+				}
+				table.setData(data);
+			}	
+		});
 	}
 }

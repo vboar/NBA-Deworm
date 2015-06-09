@@ -15,8 +15,8 @@ import org.dom4j.Element;
 public class MyTab extends JPanel{
 
 	public Element ele;
-	JLabel tab1;
-	JLabel tab2;
+	public JLabel tab1;
+	public JLabel tab2;
 	String path1;
 	String path2;
 	String fix;

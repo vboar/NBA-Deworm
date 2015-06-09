@@ -78,4 +78,42 @@ public class PlayerAllTablePane extends TablePanel {
 	    	
 
 	    }
+	 
+	  public void setData(Object[][] list){
+		   int size;
+	        if(list == null) size = 0;
+	        else size = list.length;
+	        while(dtm.getRowCount()>size){
+	        	//System.out.println(x++);
+	        	this.dtm.removeRow(size-1);
+	        }
+	       
+	        while(this.dtm.getRowCount()<size){
+	        	Object[] rowData = {0,0,0,0};
+	        	this.dtm.addRow(rowData);
+	        	
+	        }
+	        for(int i=size-1; i>=0; --i){
+	        	Object[] vo = list[i];
+	        	
+	            this.setRow( i, vo);
+	        }
+	       
+	        this.repaint();
+	        this.revalidate();
+	   }
+	   
+	   private void setRow(int i, Object[] vo) {
+	    	this.getTable().setValueAt(vo[0], i, 0); 
+	    	this.getTable().setValueAt(vo[1], i, 1); 
+	    	this.getTable().setValueAt(vo[2], i, 2); 
+	    	this.getTable().setValueAt(vo[3], i, 3); 
+	    	this.getTable().setValueAt(vo[4], i, 4); 	 
+	    	this.getTable().setValueAt(vo[5], i, 5); 	 
+	    	this.getTable().setValueAt(vo[6], i, 6); 	 
+	    	this.getTable().setValueAt(vo[7], i, 7); 	 
+	    }
+	
+
+
 }
