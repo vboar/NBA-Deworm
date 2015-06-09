@@ -29,6 +29,7 @@ public class LiveChoosePane extends JPanel {
 		this.frame = frame;
 		// 设置布局管理器为自由布局
 		this.setLayout(null);
+		this.setOpaque(false);
 		this.setSize(pcfg.getW(), pcfg.getH());
 		this.setLocation(pcfg.getX(), pcfg.getY());
 		this.bg = pcfg.getBg();

@@ -216,12 +216,7 @@
 			
 			<panel className="ui.match.MatchPanel" width="940" height="511"
 			x="37" y="148">
-			<labels>
-			<livebg w="940" h="46" x="0" y="0" path="img/match/live/livebg.png"/>
-			<live w="150" h="46" x="0" y="0" path="img/match/live/live.png" />
-			<stat w="150" h="46" x="150" y="0" path="img/match/live/stat.png" />
-			<rank w="150" h="46" x="300" y="0" path="img/match/live/rank.png" />
-			</labels>
+			
 			</panel>
 			
 			<panel className="ui.player.PlayerNav" width="770" 
@@ -445,18 +440,30 @@
 			
 			<!-- 直播panel -->
 			<panel className="ui.live.LivePanel" width="940" height="511"
-			x="0" y="20" >
+			x="0" y="0" bg="img/match/live/vs.png">
 			<labels>
-			<score1  text="hh" w="103" h="60" x="0" y="0" />
-			<score2 text="hh" w="103" h="60" x="30" y="0" />
-			<team1  text="hh" w="103" h="60" x="60" y="0" />
-			<team2  text="hh" w="103" h="60" x="90" y="0" />
-			<img1   w="150" h="150" x="40" y="0" />
-			<img2   w="150" h="150" x="700" y="0" />
-			
-			
-			
+			<score1  text="hh" w="103" h="60" x="260" y="80" />
+			<score2 text="hh" w="103" h="60" x="680" y="80" />
+			<team1  text="hh" w="103" h="60" x="250" y="100" />
+			<team2  text="hh" w="103" h="60" x="670" y="100" />
+			<img1   w="150" h="150" x="70" y="50" />
+			<img2   w="150" h="150" x="720" y="50" />
+			<livebg w="940" h="46" x="0" y="0" path="img/match/live/livebg.png"/>
+			<live w="150" h="46" x="0" y="0" path="img/match/live/live.png" />
+			<stat w="150" h="46" x="150" y="0" path="img/match/live/stat.png" />
+			<rank w="150" h="46" x="300" y="0" path="img/match/live/rank.png" />			
 			</labels>
+			
+			<tablepane className="ui.live.MessageTablePane" width="940"
+				height="380" x="0" y="180">
+				<columnnames>
+					<columnname name="时间" />
+					<columnname name="球队" />
+					<columnname name="事件" />
+					<columnname name="比分" />
+				</columnnames>
+			</tablepane>
+			</panel>
 			
 			<tablepane className="ui.live.MessageTablePane" width="940"
 				height="380" x="0" y="196">

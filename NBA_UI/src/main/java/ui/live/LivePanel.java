@@ -1,11 +1,14 @@
 package ui.live;
 
+import java.awt.Font;
 import java.awt.Image;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import service.impl.LiveServiceImpl;
+import java.awt.Graphics;
+
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.config.TableConfig;
@@ -21,6 +24,14 @@ public class LivePanel extends JPanel {
 	private HomeUI frame;
 	private Image bg;
 
+	private MyLabel livebg;
+	//直播
+	private MyLabel live;
+	//比赛两队的数据
+	private MyLabel stat;
+	//球队排行
+	private MyLabel rank;
+	
 	private MyLabel score1;
 	private MyLabel score2;
 	private MyLabel team1;
@@ -49,6 +60,7 @@ public class LivePanel extends JPanel {
 
 		// 设置布局管理器为自由布局
 		this.setLayout(null);
+		this.setOpaque(false);
 		this.setSize(pcfg.getW(), pcfg.getH());
 		this.setLocation(pcfg.getX(), pcfg.getY());
 		this.bg = pcfg.getBg();
@@ -60,6 +72,10 @@ public class LivePanel extends JPanel {
 		th2.start();
 	}
 
+	public void paintComponent(Graphics g){
+		g.drawImage(bg, 0, 0, pcfg.getW(), pcfg.getH(), null);
+	}
+	
 	private void initComponent() {
 		initLabels();
 		initTable();
@@ -71,14 +87,18 @@ public class LivePanel extends JPanel {
 		path1 = "img/team/final/" + ChiToEng(team1Str) + ".png";
 		path2 = "img/team/final/" + ChiToEng(team2Str) + ".png";
 		score1 = new MyLabel("0", pcfg.getLabels().element("score1"));
+		score1.setFont(new Font("华文细黑", 1, 18));
 		add(score1);
 
 		score2 = new MyLabel("0", pcfg.getLabels().element("score2"));
+		score2.setFont(new Font("华文细黑", 1, 18));
 		add(score2);
 
 		team1 = new MyLabel(team1Str, pcfg.getLabels().element("team1"));
+		team1.setFont(new Font("华文细黑", 0, 16));
 		add(team1);
 		team2 = new MyLabel(team2Str, pcfg.getLabels().element("team2"));
+		team2.setFont(new Font("华文细黑", 0, 16));
 		add(team2);
 
 		img1 = new MyLabel(pcfg.getLabels().element("img1"), path1, 0);
@@ -86,6 +106,15 @@ public class LivePanel extends JPanel {
 		img2 = new MyLabel(pcfg.getLabels().element("img2"), path2, 0);
 		add(img2);
 
+		live = new MyLabel(pcfg.getLabels().element("live"));
+		live.setIcon(new ImageIcon("img/match/live/live_click.png"));
+		add(live);
+		stat = new MyLabel(pcfg.getLabels().element("stat"));
+		add(stat);
+		rank = new MyLabel(pcfg.getLabels().element("rank"));
+		add(rank);
+		livebg = new MyLabel(pcfg.getLabels().element("livebg"));
+		add(livebg);
 	}
 
 	private void initTable() {
