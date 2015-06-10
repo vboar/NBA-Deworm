@@ -568,7 +568,66 @@
 			</panel>
 			
 			<panel className="ui.player.info.PlayerInfoPane" width="940" height="511"
-			x="37" y="148">
-			</panel>
+			x="0" y="0">
+			<labels>
+			<img  w="195" h="150" x="20" y="20" />	
+			
+			<namehint text="姓名" w="1030" h="60" x="220" y="20" />	
+			<positionhint text="位置:" w="1030" h="60" x="220" y="40" />	
+			<bornhint text="生日:" w="1030" h="60" x="220" y="60" />	
+			<hometownhint text="出生地:" w="1030" h="60" x="220" y="80" />	
+			<heighthint text="身高:" w="1030" h="60" x="220" y="100" />	
+			<weighthint text="体重:" w="1030" h="60" x="220" y="120" />	
+			<highschoolhint text="高中:" w="1030" h="60" x="220" y="140" />	
+			<collegehint text="大学:" w="1030" h="60" x="220" y="160" />	
+			<debuthint text="首秀:" w="1030" h="60" x="220" y="180" />	
+			<exphint text="球龄:" w="1030" h="60" x="220" y="200" />	
+			<numhint text="球衣号码:" w="1030" h="60" x="220" y="20" />	
+			<teamhint text="所属球队:" w="1030" h="60" x="220" y="240" />	
+			
+			<num text="hh" w="1030" h="60" x="300" y="20" />
+			<position text="hh" w="1030" h="60" x="300" y="40" />	
+			<born text="hh" w="1030" h="60" x="300" y="60" />	
+			<hometown text="hh" w="1030" h="60" x="300" y="80" />	
+			<height text="hh" w="1030" h="60" x="300" y="100" />	
+			<weight text="hh" w="1030" h="60" x="300" y="120" />	
+			<highschool text="hh" w="1030" h="60" x="300" y="140" />	
+			<college text="hh" w="1030" h="60" x="300" y="160" />	
+			<debut text="hh" w="1030" h="60" x="300" y="180" />	
+			<exp text="hh" w="1030" h="60" x="300" y="200" />	
+						
+			<name text="Lerborn James" w="1030" h="60" x="25" y="160" font="微软雅黑"
+					fontsize="20"  />
+			<team text="Knight" w="1030" h="60" x="25" y="190" font="微软雅黑"
+					fontsize="20"  />
+			
+			<chart1 text="hh" w="400" h="300" x="250" y="0" />	
+			<chart2 text="hh" w="400" h="300" x="550" y="0" />	
+			</labels>
+			
+			<tablepane className="ui.player.info.FiveMatchTablePane"
+				width="940" height="200" x="0" y="305">
+				<columnnames>
+					<columnname name="比赛编号" />
+					<columnname name="赛季" />
+					<columnname name="日期" />
+					<columnname name="是常规赛" />
+					<columnname name="地点" />
+					<columnname name="主队" />
+					<columnname name="主队得分" />
+					<columnname name="客队" />
+					<columnname name="客队得分" />
+					<columnname name="比赛时长" />
+					<columnname name="犯规" />
+
+				</columnnames>
+			</tablepane>
+			
+			<tab>
+			<stat w1="67" h1="30" w2="67" h2="30" x="20" y="265" 
+			      path1="img/common/tab/avg.jpg" 
+			      path2="img/common/tab/all.jpg"/>
+			</tab>
+		</panel>
 	</homeframe>
 </nba>

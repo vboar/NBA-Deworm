@@ -3,8 +3,6 @@ package ui.player;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.rmi.RemoteException;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -12,17 +10,13 @@ import javax.swing.JPanel;
 
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
-import ui.config.TableConfig;
 import ui.home.HomeUI;
 import ui.player.index.PlayerIndex;
-import ui.player.stat.PlayerAllTablePane;
+import ui.player.info.PlayerInfoPane;
 import ui.player.stat.PlayerFilter;
 import ui.player.stat.PlayerStat;
 import ui.util.MyButton;
 import ui.util.MyLabel;
-import ui.util.MyTab;
-import util.ChineseToOther;
-import vo.PlayerAdvancedVO;
 
 public class PlayerPanel extends JPanel {
 
@@ -33,6 +27,7 @@ public class PlayerPanel extends JPanel {
 	public PlayerIndex indexpanel;
 	public PlayerFilter playerfilter;
 	public PlayerStat playerstat;
+	public PlayerInfoPane playerInfoPane;
 	private JFrame coverFrame;
 	
 	private MyLabel settingbg;
@@ -76,6 +71,10 @@ public class PlayerPanel extends JPanel {
 		playerstat = new PlayerStat(frame);
 		playerstat.setVisible(false);
 		add(playerstat);
+		
+		playerInfoPane =new PlayerInfoPane(frame);
+		playerInfoPane.setVisible(false);
+		add(playerInfoPane);
 	}
 	
 	private void initCover(){
@@ -184,4 +183,5 @@ public class PlayerPanel extends JPanel {
 		playerfilter.setVisible(false);
 		coverFrame.setVisible(false);
 	}
+	
 }

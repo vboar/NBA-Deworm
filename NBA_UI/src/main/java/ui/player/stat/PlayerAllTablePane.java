@@ -1,13 +1,11 @@
 package ui.player.stat;
 
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JPanel;
-
 import ui.config.TableConfig;
+import ui.home.HomeUI;
 import ui.util.FrameUtil;
 import ui.util.MyTable;
 import ui.util.MyTableModel;
@@ -18,10 +16,13 @@ public class PlayerAllTablePane extends TablePanel {
 	private static int COLUMN_NUM = 8;
 
 	private Object[][] list;
+	private HomeUI frame;
 
-	public PlayerAllTablePane(TableConfig cfg, Object[][] list) {
+	public PlayerAllTablePane(TableConfig cfg, Object[][] list,HomeUI frame) {
 
+		
 		super(cfg);
+		this.frame = frame;
 		this.list = list;
 		this.initTable();
 		this.initComponent();
@@ -79,7 +80,8 @@ public class PlayerAllTablePane extends TablePanel {
 					int column = table.columnAtPoint(e.getPoint());
 					int row = table.rowAtPoint(e.getPoint());
 					if (column == 0) {
-						System.out.println("jjjjjj");
+						frame.motherPanel.playerPanel.playerstat.setVisible(false);
+						frame.motherPanel.playerPanel.playerInfoPane.setVisible(true);
 					}
 				}
 			}

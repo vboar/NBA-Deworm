@@ -83,7 +83,7 @@ public class PlayerStat extends JPanel{
 				data2[i][6] = volistavg.get(i).stl;
 				data2[i][7] = volistavg.get(i).game_started;
 		}
-			table = new PlayerAllTablePane(new TableConfig(pcfg.getTablepane()), data2);
+			table = new PlayerAllTablePane(new TableConfig(pcfg.getTablepane()), data2,frame);
 			add(table);
 	}
 	
