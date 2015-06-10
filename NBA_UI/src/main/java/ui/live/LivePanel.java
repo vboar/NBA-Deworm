@@ -143,11 +143,16 @@ public class LivePanel extends JPanel {
 				System.out.print(data.length);
 				System.out.println(data[0][3]);
 
-				String scores = data[0][3].toString();
+				
+				int i=0;
+				while(i<data.length){
+					String scores = data[i][3].toString();
 				if (scores.contains("-")) {
 					score1.setText(scores.split("-")[0]);
 					score2.setText(scores.split("-")[1]);
-
+					break;
+				}
+				i++;
 				}
 			}
 		}

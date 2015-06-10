@@ -57,19 +57,20 @@ public class LiveChoosePane extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				LiveMatchInfoVO info = LiveServiceImpl.getInstance().checkMatchStart();
-				//System.out.println(info==null);
+				System.out.println(info==null);
 				LiveMatchInfoVO vo = new LiveMatchInfoVO();
-				vo.id="150120";
+				vo.id="150121";
 				vo.date="06月08日";
-				vo.time = "8:00";
-				vo.homeTeam = "勇士";
-				vo.guestTeam = "骑士";
+				vo.time = "9:00";
+				vo.homeTeam = "骑士";
+				vo.guestTeam = "勇士";
 				vo.matchType = "季后赛";
 				if(info!=null){
 					LivePanel livePanel = new LivePanel(frame, info);
 				
-					add(livePanel);
-				}else{
+					frame.motherPanel.matchPanel.liveChoosePane.setVisible(false);
+					frame.motherPanel.matchPanel.add(livePanel);
+					}else{
 					LivePanel livePanel = new LivePanel(frame, vo);
 					//frame.getContentPane().add(livePanel);
 					frame.motherPanel.matchPanel.liveChoosePane.setVisible(false);

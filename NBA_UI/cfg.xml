@@ -535,7 +535,7 @@
 			</labels>
 			
 			<tablepane className="ui.live.MessageTablePane" width="940"
-				height="380" x="0" y="180">
+				height="330" x="0" y="180">
 				<columnnames>
 					<columnname name="时间" />
 					<columnname name="球队" />

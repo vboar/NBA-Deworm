@@ -75,12 +75,12 @@ public class MessageTablePane extends TablePanel{
 //	        	this.dtm.removeRow(size-1);
 //	        }
 	       
-	        while(this.dtm.getRowCount()<size+1){
+	        while(this.dtm.getRowCount()<size){
 	        	Object[] rowData = {0,0,0,0};
 	        	this.dtm.addRow(rowData);
 	        	
 	        }
-	        for(int i=size-1; i>=0; --i){
+	        for(int i=size-1; i>=0; i--){
 	        	Object[] vo = list[i];
 	        	
 	            this.setRow( i, vo);
