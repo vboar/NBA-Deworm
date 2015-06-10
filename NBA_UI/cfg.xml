@@ -566,5 +566,9 @@
 			<basicinfo w="150" h="46" x="0" y="0" path="img/match/live/live.png"/>
 			</labels>
 			</panel>
+			
+			<panel className="ui.player.info.PlayerInfoPane" width="940" height="511"
+			x="37" y="148">
+			</panel>
 	</homeframe>
 </nba>
