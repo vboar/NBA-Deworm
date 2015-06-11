@@ -1,5 +1,6 @@
 package ui.player.index;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +28,7 @@ import vo.PlayerInfoVO;
 public class PlayerIndex extends JPanel {
 	private PanelConfig pcfg;
 
+	private HomeUI frame;
 	// private PlayerService ps;
 	private MyTextField name;
 	private JScrollPane jsp;
@@ -64,6 +66,7 @@ public class PlayerIndex extends JPanel {
 	private String path = null;
 
 	public PlayerIndex(HomeUI frame) {
+		this.frame = frame;
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
 		/*
@@ -455,7 +458,7 @@ public class PlayerIndex extends JPanel {
 		layerPane = new JLayeredPane();
 		layerPane.setPreferredSize(new Dimension(940, 1130));
 		layerPane.setLayout(null);		
-		System.out.println("418: " + ini + "-------------");
+		//System.out.println("418: " + ini + "-------------");
 		List<String> volist = ServiceFactoryImpl.getInstance()
 				.getPlayerService()
 				.getNameByNameInitial(ini.toUpperCase());
@@ -472,23 +475,27 @@ public class PlayerIndex extends JPanel {
 				left = new MyLabel(volist.get(i), pcfg.getLabels()
 						.element("left"));
 				layerPane.add(left);
+				setAction(left);
 				left.setLocation(left.getX(), left.getY() + i / 4 * 35);
 			}
 			if (i < volist.size() - 1) {
 				middle1 = new MyLabel(volist.get(i + 1), pcfg.getLabels()
 						.element("middle1"));
 				layerPane.add(middle1);
+				setAction(middle1);
 				middle1.setLocation(middle1.getX(), middle1.getY() + i / 4 * 35);
 			}
 			if (i < volist.size() - 2) {
 				middle2 = new MyLabel(volist.get(i + 2), pcfg.getLabels()
 						.element("middle2"));
 				layerPane.add(middle2);
+				setAction(middle2);
 				middle2.setLocation(middle2.getX(), middle2.getY() + i / 4 * 35);
 			}
 			if (i < volist.size() - 3) {
 				right = new MyLabel(volist.get(i + 3), pcfg.getLabels()
 						.element("right"));
+				setAction(right);
 				layerPane.add(right);
 				right.setLocation(right.getX(), right.getY() + i / 4 * 35);
 			}
@@ -496,6 +503,45 @@ public class PlayerIndex extends JPanel {
 		layerPane.repaint();
 		jsp.setViewportView(layerPane);
 		jsp.repaint();
+	}
+	
+	private void setAction(MyLabel lb){
+		String name = lb.getText();
+		lb.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lb.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.motherPanel.playerPanel.indexpanel.setVisible(false);
+				frame.motherPanel.playerPanel.playerInfoPane.changeData(name);
+				frame.motherPanel.playerPanel.playerInfoPane.setVisible(true);
+				
+			}
+		});
 	}
 
 }

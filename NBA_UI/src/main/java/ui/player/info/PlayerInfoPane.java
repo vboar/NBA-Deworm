@@ -18,6 +18,9 @@ import ui.config.TableConfig;
 import ui.home.HomeUI;
 import ui.util.MyLabel;
 import ui.util.MyTab;
+import vo.MatchFilter;
+import vo.MatchInfoVO;
+import vo.PlayerInfoVO;
 import vo.PlayerPerGameVO;
 
 public class PlayerInfoPane extends JPanel {
@@ -53,10 +56,12 @@ public class PlayerInfoPane extends JPanel {
 	private MyLabel team;
 	
 	private MyLabel chart1;
-	private MyLabel chart2;
+	
 
 	private FiveMatchTabelPane fiveTablePane;
 	private MyTab myTab;
+	
+	public Object[][] matchData;
 
 	public PlayerInfoPane(HomeUI frame) {
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
@@ -78,7 +83,7 @@ public class PlayerInfoPane extends JPanel {
 		initLabels();
 		initTables();
 		initTabs();
-		initChart();
+		//initChart();
 		
 	}
 
@@ -208,9 +213,7 @@ public class PlayerInfoPane extends JPanel {
 		String data4 = listAll.get(1).pts.toString();
 		String data5 = listAll.get(0).pts.toString();
 		 try {
-			 System.out.println("python "+sys+"/zhexian.py "+data1+" "+data2+" "+data3+" "+data4+" "+data5);
 			Process p = Runtime.getRuntime().exec("python "+sys+"/leida.py "+point+" "+bound+" "+assist+" "+block+" "+steal);
-			Process p2 = Runtime.getRuntime().exec("python "+sys+"/zhexian.py "+data1+" "+data2+" "+data3+" "+data4+" "+data5);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -221,11 +224,7 @@ public class PlayerInfoPane extends JPanel {
 			chart1.setIcon(icon);
 			add(chart1);
 			
-			 ImageIcon icon2 = new ImageIcon("zhexian.png");
-				icon2.setImage(icon2.getImage());
-				chart2 = new MyLabel(pcfg.getLabels().element("chart2"));
-				chart2.setIcon(icon2);
-				add(chart2);
+			
 		
 		
 	}
@@ -237,6 +236,7 @@ public class PlayerInfoPane extends JPanel {
 		myTab.tab2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				fiveTablePane.renewTable(matchData);
 
 			}
 
@@ -245,9 +245,88 @@ public class PlayerInfoPane extends JPanel {
 		myTab.tab1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				 Object[][]matchData2 = new Object[5][10];
+				 for(int i =0;i<5;i++){
+					for(int j = 0;j<10;j++){
+						matchData2[i][j] = matchData[i][j];
+					}
+				 }
+				 fiveTablePane.renewTable(matchData2);
 			}
 		});
 	}
 
+	public void changeData(String name){
+		MatchFilter filter = new MatchFilter();
+		filter.player = name;
+		List<PlayerPerGameVO> listAll = null;
+		PlayerInfoVO info = null; 
+		List<MatchInfoVO> matchlist= null;
+		try {
+			info = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerInfoByName(name);
+			listAll = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerPerGameByName(name, 2);
+			matchlist = ServiceFactoryImpl.getInstance().getMatchService().getMatchInfoByFilter(filter);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		this.name.setText(name);
+		team.setText(info.team);
+		position.setText(info.position);
+		born.setText(info.born);
+		hometown.setText(info.hometown);
+		height.setText(info.height);
+		weight.setText(info.weight.toString());
+		highschool.setText(info.high_school);
+		college.setText(info.college);
+		debut.setText(info.debut);
+		if(info.exp!=null){
+			exp.setText(info.exp.toString());
+		}else{
+			exp.setText("无数据");
+		}
+		num.setText(info.number.toString());
+		
+		
+		ImageIcon icon = null;
+		try {
+			icon = ServiceFactoryImpl.getInstance().getPlayerService()
+					.getPlayerPortraitByName(name);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(icon!=null){
+		icon.setImage(icon.getImage().getScaledInstance(169, 130,
+				Image.SCALE_DEFAULT));
+		img.setIcon(icon);
+		}else{
+			icon = new ImageIcon("img/player/unknown.png");
+			icon.setImage(icon.getImage().getScaledInstance(169, 130,
+					Image.SCALE_DEFAULT));
+			img.setIcon(icon);
+		}
+		
+		 matchData = new Object[matchlist.size()][10];
+		 for(int i =0;i<matchlist.size();i++){
+			 matchData[i][0] = matchlist.get(i).game_id;
+			 matchData[i][1] = matchlist.get(i).season;
+			 matchData[i][2] = matchlist.get(i).date;
+			 matchData[i][3] = matchlist.get(i).is_normal;
+			 matchData[i][4] = matchlist.get(i).location;
+			 matchData[i][5] = matchlist.get(i).home_team;
+			 matchData[i][6] = matchlist.get(i).home_point;
+			 matchData[i][7] = matchlist.get(i).guest_team;
+			 matchData[i][8] = matchlist.get(i).guest_point;
+			 matchData[i][9] = matchlist.get(i).time;			
+		 }
+		 Object[][]matchData2 = new Object[5][10];
+		 for(int i =0;i<5;i++){
+			for(int j = 0;j<10;j++){
+				matchData2[i][j] = matchData[i][j];
+			}
+		 }
+		 fiveTablePane.renewTable(matchData2);
+	}
 }

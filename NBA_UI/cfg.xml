@@ -118,10 +118,10 @@
 			<y w="28" h="45" x="881" y="2" path="img/player/index/y.png" />
 			<z w="28" h="45" x="909" y="2" path="img/player/index/z.png" />
 			
-			<left  text="Bogdanovic Bojan" w="280" h="45" x="0" y="0" />
-			<middle1  text="Bogdanovic Bojan" w="280" h="45" x="280" y="0" />
-			<middle2  text="Bogdanovic Bojan" w="280" h="45" x="560" y="0" />
-			<right  text="Bogdanovic Bojan" w="280" h="45" x="740" y="0" />
+			<left  text="Bogdanovic Bojan" w="200" h="45" x="20" y="0" />
+			<middle1  text="Bogdanovic Bojan" w="200" h="45" x="280" y="0" />
+			<middle2  text="Bogdanovic Bojan" w="200" h="45" x="530" y="0" />
+			<right  text="Bogdanovic Bojan" w="200" h="45" x="740" y="0" />
 			
 			</labels>
 			</panel>
@@ -618,8 +618,7 @@
 					<columnname name="客队" />
 					<columnname name="客队得分" />
 					<columnname name="比赛时长" />
-					<columnname name="犯规" />
-
+					
 				</columnnames>
 			</tablepane>
 			

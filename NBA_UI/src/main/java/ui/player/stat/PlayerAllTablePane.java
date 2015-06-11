@@ -81,6 +81,7 @@ public class PlayerAllTablePane extends TablePanel {
 					int row = table.rowAtPoint(e.getPoint());
 					if (column == 0) {
 						frame.motherPanel.playerPanel.playerstat.setVisible(false);
+						frame.motherPanel.playerPanel.playerInfoPane.changeData(table.getValueAt(row, 0).toString());
 						frame.motherPanel.playerPanel.playerInfoPane.setVisible(true);
 					}
 				}

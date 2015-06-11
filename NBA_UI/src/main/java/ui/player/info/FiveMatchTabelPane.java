@@ -156,7 +156,7 @@ public class FiveMatchTabelPane extends TablePanel {
 	        }
 	       
 	        while(this.dtm.getRowCount()<size){
-	        	Object[] rowData = {0,0,0,0,0,0,0,0,0,0,0};
+	        	Object[] rowData = {0,0,0,0,0,0,0,0,0,0};
 	        	this.dtm.addRow(rowData);
 	        }
 	        for(int i=size-1; i>=0; --i){
@@ -177,6 +177,8 @@ public class FiveMatchTabelPane extends TablePanel {
 	    	this.getTable().setValueAt(vo[5], i, 5); 
 	    	this.getTable().setValueAt(vo[6], i, 6); 
 	    	this.getTable().setValueAt(vo[7], i, 7); 
+	    	this.getTable().setValueAt(vo[8], i, 8); 
+	    	this.getTable().setValueAt(vo[9], i, 9); 
 	    	
 	   
 	    }
