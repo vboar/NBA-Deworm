@@ -68,7 +68,7 @@ public interface StatsService extends Remote {
 	 *            球员B姓名
 	 * @param season
 	 *            赛季 ，生涯为Career
-	 * @param field
+	 * @param fields (pts, ast, blk, stl, trb, orb, drb,tov, pf)
 	 *            带比较的数据
 	 * @param regular
 	 *            常规赛/季后赛
@@ -84,12 +84,26 @@ public interface StatsService extends Remote {
 	 * @param playerA 球员A姓名
 	 * @param playerB
 	 * @param season
-	 * @param fields
+	 * @param fields (fg3_pct, fga_pct, ft_pct, )
 	 * @param regular
 	 * @return
 	 * @throws RemoteException
 	 */
 	public ImageIcon getPlayerAdvancedCompareBarChart(String playerA,
+			String playerB, String season, List<FieldType> fields, int regular)
+			throws RemoteException;
+	
+	/**
+	 * 获得指定两个球队指定xx率的常规赛/季后赛历史对比直方图
+	 * @param playerA
+	 * @param playerB
+	 * @param season
+	 * @param fields
+	 * @param regular
+	 * @return
+	 * @throws RemoteException
+	 */
+	public ImageIcon getPlayerPctCompareBarChart(String playerA,
 			String playerB, String season, List<FieldType> fields, int regular)
 			throws RemoteException;
 
