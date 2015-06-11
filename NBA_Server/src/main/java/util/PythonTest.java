@@ -1,14 +1,35 @@
 package util;
 
+import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class PythonTest {
 	public static void main(String[] args) throws IOException {
+
+
+        JFrame f = new JFrame();
+        f.setVisible(true);
+        f.setBounds(100, 100, 500, 500);
 		
-		Runtime.getRuntime().exec("python C:\\__init__.py");
-		//PythonInterpreter interpreter = new PythonInterpreter();  
+		Process pi = Runtime.getRuntime().exec("python " +
+                "D:\\Vboar\\Documents\\workspace\\my_workspace\\stats\\Demo.py");
+        try {
+            pi.waitFor();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        JPanel p = new JPanel();
+        JLabel j = new JLabel();
+        j.setIcon(new ImageIcon("a.png"));
+        p.add(j);
+
+        f.setContentPane(p);
+        f.revalidate();
+        f.repaint();
+
+        //PythonInterpreter interpreter = new PythonInterpreter();
 		 //InputStream filepy = new FileInputStream("C:\\__init__.py"); 
 		 //interpreter.execfile(filepy); 
 		 //filepy.close();
