@@ -41,8 +41,8 @@ public class StatsServiceImpl extends UnicastRemoteObject implements StatsServic
             ps = list.get(0);
         }
         String path = "stats/PlayerRadar";
-        String s = name + ";" + season + ";" + regular + ";" + ps.getAst() + ";" + ps.getStl() + ";" +
-                ps.getBlk() + ";" + ps.getTov() + ";" + ps.getPf();
+        String s = name + ";" + season + ";" + regular + ";" + ps.getTrb() + ";" + ps.getAst() + ";" +
+                ps.getStl() + ";" + ps.getBlk() + ";" + ps.getOrb() + ";" + ps.getPf();
         write(s, path + ".txt");
         try {
             Process p = Runtime.getRuntime().exec("python stats/player_radar.py");

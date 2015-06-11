@@ -103,3 +103,6 @@ local.properties
 hs_err_pid*
 
 /target
+
+/stats/*.png
+/stats/*.txt

@@ -23,7 +23,7 @@ public class StatsServiceTest extends TestCase {
 
     public static void main(String[] args) throws RemoteException {
         StatsService ss = new StatsServiceImpl();
-        ImageIcon img = ss.getPlayerRadar("Yao Ming", "08-09", 1);
+        ImageIcon img = ss.getPlayerRadar("Aaron Gray", "Career", 1);
         JFrame frame = new JFrame();
         frame.setBounds(100, 100, 500, 500);
         frame.setVisible(true);
