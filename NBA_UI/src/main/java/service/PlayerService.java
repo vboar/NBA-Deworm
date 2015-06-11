@@ -173,7 +173,7 @@ public interface PlayerService extends Remote{
 	 * @param field
 	 * @return
 	 */
-	public List<HotPlayerInfoVO> getSeasonHotPlayer(String season, FieldType field) throws RemoteException;
+	public List<HotPlayerInfoVO> getSeasonHotPlayer(String season, FieldType field, int num) throws RemoteException;
 	
 	/**
 	 * 获得单个球员每赛季的薪水列表

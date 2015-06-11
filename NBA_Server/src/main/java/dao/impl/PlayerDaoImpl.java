@@ -130,7 +130,6 @@ public class PlayerDaoImpl implements PlayerDao {
 		String sql = "SELECT * FROM player_total WHERE player_name=? ";
 		if(regular == 0 || regular == 1)
 			sql += " AND is_normal=" + regular;
-		sql += " ORDER BY season DESC";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { name });
 		for (Map<String, Object> map : maplist) {
@@ -268,7 +267,6 @@ public class PlayerDaoImpl implements PlayerDao {
 		String sql = "SELECT * FROM player_per_game WHERE player_name=? ";
 		if(regular == 0 || regular == 1)
 			sql += " AND is_normal=" + regular;
-		sql += " ORDER BY season DESC";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { name });
 		for (Map<String, Object> map : maplist) {
@@ -411,7 +409,6 @@ public class PlayerDaoImpl implements PlayerDao {
 		String sql = "SELECT * FROM player_advanced WHERE player_name=? ";
 		if(regular == 0 || regular == 1)
 			sql += " AND is_normal=" + regular;
-		sql += " ORDER BY season DESC";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { name });
 		for (Map<String, Object> map : maplist) {
@@ -549,7 +546,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		sqlManager.getConnection();
 
 		List<PlayerSalary> list = new ArrayList<PlayerSalary>();
-		String sql = "SELECT * FROM player_salary WHERE name=? ORDER BY season DESC";
+		String sql = "SELECT * FROM player_salary WHERE name=? ";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { name });
 		for (Map<String, Object> map : maplist) {
@@ -635,7 +632,7 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	@Override
-	public List<HotPlayerInfo> getHotPlayerBySeason(String season, FieldType field) {
+	public List<HotPlayerInfo> getHotPlayerBySeason(String season, FieldType field, int num) {
 		List<HotPlayerInfo> list = new ArrayList<HotPlayerInfo>();
 		if (!isFieldValid(field))
 			return list;
@@ -643,7 +640,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		String sql = "SELECT player_name, team_abbr, season, position,"
 				+ field.toString()
 				+ " FROM player_per_game WHERE season=? AND is_normal=1 "
-				+ " ORDER BY " + field.toString() + " DESC LIMIT 0,5";
+				+ " ORDER BY " + field.toString() + " DESC LIMIT 0,"+num;
 		List<Object> objects = new ArrayList<Object>();
 		objects.add(season);
 		List<Map<String, Object>> maplist = sqlManager.queryMultiByList(sql,

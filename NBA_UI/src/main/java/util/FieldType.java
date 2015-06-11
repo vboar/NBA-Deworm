@@ -6,6 +6,7 @@ package util;
  * created by JaneLDQ on 2015年6月5日 下午8:08:10
  */
 public enum FieldType {
+	
 	// 得分
     PTS,     
     //篮板
@@ -46,16 +47,32 @@ public enum FieldType {
 	USG_PCT,    
 	//篮板率
 	TRB_PCT,
-    // 进攻篮板效率(球员球队高阶)
+    //进攻篮板效率(球员球队高阶)
     ORB_PCT,
     //防守篮板效率(球员球队高阶)
     DRB_PCT,
     //进攻效率(球队高阶)
     OFF_RTG,
     //防守效率(球队高阶)
-    DEF_RTG;
+    DEF_RTG,
+    //进攻-有效命中率
+    OFF_EFG_PCT,
+    //进攻-失误率
+    OFF_TOV_PCT,
+    //防守-有效命中率
+    OPP_EFG_PCT,
+    //防守-失误率
+    OPP_TOV_PCT,
+    //SOS
+    SOS,
+    //SRS
+    SRS,
+    //MOV
+    MOV;
+    
     @Override
     public String toString(){
-    	return this.toString().toLowerCase();
+    	return super.toString().toLowerCase();
     }
 }
+

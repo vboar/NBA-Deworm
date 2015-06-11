@@ -163,7 +163,7 @@ public interface PlayerDao {
 	 * @param field
 	 * @return
 	 */
-	public List<HotPlayerInfo> getHotPlayerBySeason(String season, FieldType field);
+	public List<HotPlayerInfo> getHotPlayerBySeason(String season, FieldType field, int num);
 	
 	/** 
 	 * 拿到一个球员某赛季所属球队（返回按日期倒序，第一个最新所属球队）
