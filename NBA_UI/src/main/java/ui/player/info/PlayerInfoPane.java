@@ -272,7 +272,7 @@ public class PlayerInfoPane extends JPanel {
 		}
 		
 		this.name.setText(name);
-		team.setText(info.team);
+		//team.setText(info.team);
 		position.setText(info.position);
 		born.setText(info.born);
 		hometown.setText(info.hometown);
