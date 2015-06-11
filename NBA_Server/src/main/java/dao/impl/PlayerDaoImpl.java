@@ -1,5 +1,6 @@
 package dao.impl;
 
+import java.awt.MediaTracker;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,10 +37,16 @@ public class PlayerDaoImpl implements PlayerDao {
 		String pic = FileManager.DATA_PATH + "/players/pic/";
 		for (String p : names) {
 			ImageIcon lg = new ImageIcon(now_pic + p + ".png");
-			if (lg.getImage() == null) {
+			if (lg.getImageLoadStatus() == MediaTracker.ERRORED) {
 				lg = new ImageIcon(pic + p + ".png");
+				if(lg.getImageLoadStatus() == MediaTracker.ERRORED){
+					lg = new ImageIcon("a.png");
+					lg.setDescription("None");
+					list.add(lg);
+					continue;
+				}
 			}
-			lg.setDescription(p.split(",")[0]);
+			lg.setDescription(p);
 			list.add(lg);
 		}
 		return list;
@@ -51,9 +58,14 @@ public class PlayerDaoImpl implements PlayerDao {
 				+ ".png";
 		String pic = FileManager.DATA_PATH + "/players/pic/" + name + ".png";
 		ImageIcon icon = new ImageIcon(now_pic);
-		if (icon.getImage() == null)
+		System.out.println(icon.getImage().getWidth(null));
+		if (icon.getImageLoadStatus() == MediaTracker.ERRORED)
 			icon = new ImageIcon(pic);
 		icon.setDescription(name);
+		if(icon.getImageLoadStatus() == MediaTracker.ERRORED){
+			icon = new ImageIcon("a.png");
+			icon.setDescription("None");
+		}
 		return icon;
 	}
 
