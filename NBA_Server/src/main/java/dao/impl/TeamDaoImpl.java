@@ -1,5 +1,6 @@
 package dao.impl;
 
+import java.awt.MediaTracker;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,8 @@ public class TeamDaoImpl implements TeamDao {
 		String[] logos = f.list();
 		for(String team: logos){
 			ImageIcon lg = new ImageIcon(path+team);
+			if(lg.getImageLoadStatus()==MediaTracker.ERRORED)
+				continue;
 			lg.setDescription(team.substring(0,3));
 			list.add(lg);
 		}
@@ -46,6 +49,8 @@ public class TeamDaoImpl implements TeamDao {
 	public ImageIcon getTeamLogoByAbbr(String abbr) {
 		String path = FileManager.DATA_PATH + "/teams/logo/"+abbr+".png";
 		ImageIcon icon = new ImageIcon(path);
+		if(icon.getImageLoadStatus()==MediaTracker.ERRORED)
+			return null;
 		icon.setDescription(abbr);
 		return icon;
 	}

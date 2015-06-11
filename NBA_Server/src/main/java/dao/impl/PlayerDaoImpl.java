@@ -40,9 +40,6 @@ public class PlayerDaoImpl implements PlayerDao {
 			if (lg.getImageLoadStatus() == MediaTracker.ERRORED) {
 				lg = new ImageIcon(pic + p + ".png");
 				if(lg.getImageLoadStatus() == MediaTracker.ERRORED){
-					lg = new ImageIcon("a.png");
-					lg.setDescription("None");
-					list.add(lg);
 					continue;
 				}
 			}
@@ -63,8 +60,7 @@ public class PlayerDaoImpl implements PlayerDao {
 			icon = new ImageIcon(pic);
 		icon.setDescription(name);
 		if(icon.getImageLoadStatus() == MediaTracker.ERRORED){
-			icon = new ImageIcon("a.png");
-			icon.setDescription("None");
+			return null;
 		}
 		return icon;
 	}
