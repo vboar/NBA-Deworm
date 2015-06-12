@@ -56,7 +56,7 @@ public class LiveServiceImpl implements LiveService {
     }
 
     public void stopLiveService() {
-        if (process.isAlive()) {
+        if (process != null && process.isAlive()) {
             process.destroy();
         }
     }

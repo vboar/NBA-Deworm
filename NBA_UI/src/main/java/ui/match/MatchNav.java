@@ -24,8 +24,8 @@ public class MatchNav extends JPanel{
 	private MyLabel live;
 	
 	
-
-	int show =0;
+    // live 为 1
+	public int show =0;
 	
 	public MatchNav(HomeUI frame){
 		this.frame = frame;

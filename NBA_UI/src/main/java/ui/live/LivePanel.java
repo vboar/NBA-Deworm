@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.*;
 
+import javafx.scene.control.OverrunStyle;
 import service.impl.LiveServiceImpl;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
@@ -78,6 +79,10 @@ public class LivePanel extends JPanel {
         if (!info.state.equals("比赛结束")) {
             t = new Thread(new MyThread());
             t.start();
+        }
+
+        if (mList.size() == 0) {
+            new Thread(new TipsThread()).start();
         }
 
 	}
@@ -229,6 +234,19 @@ public class LivePanel extends JPanel {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    private class TipsThread implements Runnable {
+
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            JOptionPane.showMessageDialog(null, "比赛尚未开始！");
         }
     }
 

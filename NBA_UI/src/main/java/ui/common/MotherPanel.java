@@ -1,7 +1,6 @@
 package ui.common;
 
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -43,13 +42,11 @@ public class MotherPanel extends JPanel {
 	public PlayerPanel playerPanel;
 	public TeamPanel teamPanel;
 	public MatchPanel matchPanel;
-	
-	
-	private int show = 0;
-	
-	private int panel;
-	public MotherPanel(HomeUI frame,int panel){
-		this.panel = panel;
+
+	private int panel = 0;
+    public boolean isshow = false;
+
+	public MotherPanel(HomeUI frame) {
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
 		this.frame = frame;
@@ -76,31 +73,12 @@ public class MotherPanel extends JPanel {
 	private void initPanels(){
 		dropdown = new Dropdownmenu(frame);
 		dropdown.setVisible(false);
-		
 		playernav = new PlayerNav(frame);
 		playerPanel = new PlayerPanel(frame);
-		if(panel!=1){
-			playernav.setVisible(false);
-			playerPanel.setVisible(false);
-		}
-		
 		teamnav = new TeamNav(frame);
 		teamPanel = new TeamPanel(frame);
-		if(panel!=2){
-			teamnav.setVisible(false);
-			teamPanel.setVisible(false);
-		}
-		
 		matchnav =new MatchNav(frame);
 		matchPanel = new MatchPanel(frame);
-		if(panel!=3){
-			matchnav.setVisible(false);
-			matchPanel.setVisible(false);
-		}
-	
-		
-		
-		
 		add(dropdown);
 		add(playernav);
 		add(teamnav);
@@ -108,23 +86,33 @@ public class MotherPanel extends JPanel {
 		add(playerPanel);
 		add(teamPanel);
 		add(matchPanel);
-
 	}
 	
 	private void initButtons(){
+
 		back = new MyButton(pcfg.getButtons().element("back"),true);
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (panel == 3) {
+                    if (matchnav.show == 1) {
+                        matchPanel.liveChoosePane.setVisible(true);
+                        matchPanel.liveChoosePane.removeLivePanel();
+                    }
+                }
+            }
+        });
 		add(back);
-		
+
 		menu = new MyButton(pcfg.getButtons().element("menu"));
 		menu.addMouseListener(new MouseAdapter(){
 			String[] temp = pcfg.getButtons().element("menu").attributeValue("path").split("\\.");
 			String path = temp[0];
 			String fix = temp[1];
-			boolean isshow = false;
 			
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if(isshow == false){
+				if(!isshow){
 				isshow = true;
 				dropdown.setVisible(true);
 				}else{
@@ -141,7 +129,7 @@ public class MotherPanel extends JPanel {
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
-				if(isshow == false)
+				if(!isshow)
 					menu.setIcon(new ImageIcon(path+"."+fix));
 				
 			}
@@ -171,7 +159,7 @@ public class MotherPanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.setExtendedState(frame.ICONIFIED);
+				frame.setExtendedState(Frame.ICONIFIED);
 				
 			}
 		});
@@ -180,5 +168,36 @@ public class MotherPanel extends JPanel {
 		max = new MyButton(pcfg.getButtons().element("max"));
 		add(max);
 	}
+
+    public void fillComponents(int panel) {
+        this.panel = panel;
+        playernav.setVisible(true);
+        playerPanel.setVisible(true);
+        teamnav.setVisible(true);
+        teamPanel.setVisible(true);
+        matchnav.setVisible(true);
+        matchPanel.setVisible(true);
+
+        if (panel != 1) {
+            playernav.setVisible(false);
+            playerPanel.setVisible(false);
+        }
+        if (panel != 2) {
+            teamnav.setVisible(false);
+            teamPanel.setVisible(false);
+        }
+        if (panel != 3) {
+            matchnav.setVisible(false);
+            matchPanel.setVisible(false);
+        }
+    }
+
+    public void fillMenu() {
+        isshow = false;
+        String[] temp = pcfg.getButtons().element("menu").attributeValue("path").split("\\.");
+        String path = temp[0];
+        String fix = temp[1];
+        menu.setIcon(new ImageIcon(path+"."+fix));
+    }
 
 }
