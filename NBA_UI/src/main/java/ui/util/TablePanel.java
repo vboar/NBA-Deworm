@@ -42,7 +42,7 @@ public abstract class TablePanel extends JPanel{
 	protected void initComponent() {
 		//创建滚动条面板
 		this.rollpane = new RowTableScrollPane(this.table);
-		this.rollpane.setPreferredSize(new Dimension(cfg.getW(),cfg.getH()-5));
+		this.rollpane.setPreferredSize(new Dimension(this.getWidth(),this.getHeight()-5));
 		this.add(this.rollpane);
 	}
 

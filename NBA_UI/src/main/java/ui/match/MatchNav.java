@@ -99,10 +99,7 @@ public class MatchNav extends JPanel{
 				show =1;
 				matchstat.setIcon(new ImageIcon(pcfg.getLabels().element("matchstat").attributeValue("path")));
 				frame.motherPanel.matchPanel.liveChoosePane.setVisible(true);
-				
-				
-				
-
+                frame.motherPanel.matchPanel.liveChoosePane.removeLivePanel();
 			}
 
 			@Override

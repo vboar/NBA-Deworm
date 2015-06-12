@@ -520,29 +520,45 @@
 			
 			<!-- 直播panel -->
 			<panel className="ui.live.LivePanel" width="940" height="511"
-			x="0" y="0" bg="img/match/live/vs.png">
-			<labels>
-			<score1  text="hh" w="103" h="60" x="260" y="80" />
-			<score2 text="hh" w="103" h="60" x="680" y="80" />
-			<team1  text="hh" w="103" h="60" x="250" y="100" />
-			<team2  text="hh" w="103" h="60" x="670" y="100" />
-			<img1   w="150" h="150" x="70" y="50" />
-			<img2   w="150" h="150" x="720" y="50" />
-			<livebg w="940" h="46" x="0" y="0" path="img/match/live/livebg.png"/>
-			<live w="150" h="46" x="0" y="0" path="img/match/live/live.png" />
-			<stat w="150" h="46" x="150" y="0" path="img/match/live/stat.png" />
-			<rank w="150" h="46" x="300" y="0" path="img/match/live/rank.png" />			
-			</labels>
-			
-			<tablepane className="ui.live.MessageTablePane" width="940"
-				height="330" x="0" y="180">
-				<columnnames>
-					<columnname name="时间" />
-					<columnname name="球队" />
-					<columnname name="事件" />
-					<columnname name="比分" />
-				</columnnames>
-			</tablepane>
+			    x="0" y="0" bg="img/match/live/vs.png">
+                <labels>
+                    <score1  text="" w="103" h="60" x="75" y="134" />
+                    <score2 text="" w="103" h="60" x="75" y="287" />
+                    <team1  text="" w="103" h="60" x="137" y="46" />
+                    <team2  text="" w="103" h="60" x="137" y="374" />
+                    <img1   w="100" h="100" x="25" y="26" />
+                    <img2   w="100" h="100" x="25" y="358" />
+                    <start w="200" h="40" x="231" y="8" />
+                    <totaltime w="200" h="40" x="231" y="38" />
+                    <gym w="200" h="40" x="231" y="68" />
+                    <att w="200" h="40" x="231" y="98" />
+                    <rtime w="200" h="40" x="560" y="98" />
+                </labels>
+
+                <tables>
+                    <scores width="302" height="85" x="500" y="8">
+                        <columnnames>
+                            <columnname name="球队" />
+                            <columnname name="一" />
+                            <columnname name="二" />
+                            <columnname name="三" />
+                            <columnname name="四" />
+                            <columnname name="总分" />
+                        </columnnames>
+                    </scores>
+                    <msg width="680" height="350" x="231" y="140">
+                        <columnnames>
+                            <columnname name="时间" />
+                            <columnname name="球队" />
+                            <columnname name="事件" />
+                            <columnname name="比分" />
+                        </columnnames>
+                    </msg>
+                </tables>
+
+                <buttons>
+                    <data text="详细数据" w="100" h="30" x="810" y="102"/>
+                </buttons>
 			</panel>
 			
 						
@@ -550,14 +566,18 @@
 			x="0" y="0" bg="img/home/background.jpg">
 			</panel>
 			
-			<panel className="ui.live.LiveChoosePane"  width="940" height="491"
-			x="0" y="20" >
-			<labels>
-			<news  text="hh" w="1030" h="60" x="0" y="0" />			
-			</labels>
-			<buttons>
-			<btn text="观看" w="177" h="27" x="485" y="215"/>
-			</buttons>
+			<panel className="ui.live.LiveChoosePane"  width="940" height="511"
+			    x="0" y="0" >
+			    <labels>
+			        <title text="title" w="500" h="60" x="40" y="50" />
+                    <content text="title" w="500" h="60" x="40" y="80" />
+                    <htitle text="title" w="500" h="60" x="510" y="50" />
+                    <hcontent text="title" w="500" h="60" x="510" y="80" />
+			    </labels>
+			    <buttons>
+			        <watch text="立即观看" w="100" h="30" x="325" y="95"/>
+                    <hwatch text="文字直播" w="100" h="30" x="795" y="95"/>
+			    </buttons>
 			</panel>
 
 			<panel className="ui.team.TeamDetail" width="940" height="511"
@@ -570,7 +590,7 @@
 			<panel className="ui.player.info.PlayerInfoPane" width="940" height="511"
 			x="0" y="0">
 			<labels>
-			<img  w="195" h="150" x="20" y="20" />	
+			<img  w="195" h="150" x="20" y="20" />
 			
 			<namehint text="姓名" w="1030" h="60" x="220" y="20" />	
 			<positionhint text="位置:" w="1030" h="60" x="220" y="40" />	
