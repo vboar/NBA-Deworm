@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
+import ui.player.hot.PlayerHotPane;
 import ui.util.MyLabel;
 
 public class PlayerNav extends JPanel{
@@ -156,6 +157,7 @@ public class PlayerNav extends JPanel{
 			
 				//更改playerpanel内容
 				hintAll();
+				frame.motherPanel.playerPanel.playerHotPane.setVisible(true);
 			}
 
 			@Override
@@ -237,6 +239,8 @@ public class PlayerNav extends JPanel{
 	private void hintAll(){
 		frame.motherPanel.playerPanel.indexpanel.setVisible(false);
 		frame.motherPanel.playerPanel.playerstat.setVisible(false);
-		
+		frame.motherPanel.playerPanel.playerHotPane.setVisible(false);
+		frame.motherPanel.playerPanel.setting.setVisible(false);
+		frame.motherPanel.playerPanel.menu.setVisible(false);
 	}
 }

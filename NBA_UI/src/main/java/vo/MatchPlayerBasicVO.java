@@ -17,6 +17,16 @@ public class MatchPlayerBasicVO implements Serializable{
 	public String game_id;
 	
 	/**
+	 * 日期
+	 */
+	public String date;
+	
+	/**
+	 * 赛季
+	 */
+	public String season;
+	
+	/**
 	 * 球员名
 	 */
 	public String player_name;

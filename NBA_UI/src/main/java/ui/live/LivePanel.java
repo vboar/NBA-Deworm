@@ -1,21 +1,24 @@
 package ui.live;
 
-import java.awt.Font;
-import java.awt.Image;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import javax.swing.*;
 
-import java.awt.Graphics;
-
+import javafx.scene.control.OverrunStyle;
+import service.impl.LiveServiceImpl;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
-import ui.thread.LiveThread;
+import ui.util.MyButton;
 import ui.util.MyLabel;
 import vo.LiveMatchInfoVO;
+import vo.LiveMatchVO;
 import vo.LiveMsgVO;
 
 public class LivePanel extends JPanel {
@@ -23,14 +26,6 @@ public class LivePanel extends JPanel {
 	private PanelConfig pcfg;
 	private HomeUI frame;
 	private Image bg;
-
-	private MyLabel livebg;
-	//直播
-	private MyLabel live;
-	//比赛两队的数据
-	private MyLabel stat;
-	//球队排行
-	private MyLabel rank;
 	
 	private MyLabel score1;
 	private MyLabel score2;
@@ -38,8 +33,14 @@ public class LivePanel extends JPanel {
 	private MyLabel team2;
 	private MyLabel img1;
 	private MyLabel img2;
-
-	private MessageTablePane table;
+    private MyLabel start;
+    private MyLabel totaltime;
+    private MyLabel gym;
+    private MyLabel att;
+    private MyLabel rtime;
+    private ScoreTablePane scoreTablePane;
+    private MessageTablePane messageTablePane;
+    private JButton mDataBtn;
 
 	private String team1Str;
 	private String team2Str;
@@ -49,6 +50,10 @@ public class LivePanel extends JPanel {
 	public boolean islive = false;
 	public String matchId;
 	public LiveMatchInfoVO info;
+    public LiveMatchVO vo;
+    private List<LiveMsgVO> mList;
+    private Thread t;
+    private boolean stop = false;
 
 	public LivePanel(HomeUI frame, LiveMatchInfoVO info) {
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
@@ -57,6 +62,8 @@ public class LivePanel extends JPanel {
 		matchId = info.id;
 		this.info = info;
 		islive = true;
+        vo = LiveServiceImpl.getInstance().getMatchVO(matchId);
+        mList = LiveServiceImpl.getInstance().getMsg(matchId);
 
 		// 设置布局管理器为自由布局
 		this.setLayout(null);
@@ -66,10 +73,18 @@ public class LivePanel extends JPanel {
 		this.bg = pcfg.getBg();
 		// 初始化组件
 		this.initComponent();
+        refresh();
 		this.repaint();
-		LiveThread thread = new LiveThread(this);
-		Thread th2 = new Thread(thread);
-		th2.start();
+
+        if (!info.state.equals("比赛结束")) {
+            t = new Thread(new MyThread());
+            t.start();
+        }
+
+        if (mList.size() == 0) {
+            new Thread(new TipsThread()).start();
+        }
+
 	}
 
 	public void paintComponent(Graphics g){
@@ -78,8 +93,29 @@ public class LivePanel extends JPanel {
 	
 	private void initComponent() {
 		initLabels();
-		initTable();
+        initTables();
+        initButtons();
 	}
+    private void initButtons() {
+        if (info.state.equals("比赛结束")) {
+            mDataBtn = new MyButton(pcfg.getButtons().element("data"));
+            mDataBtn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // TODO
+                }
+            });
+            mDataBtn.setFont(new Font("微软雅黑", 0, 12));
+            add(mDataBtn);
+        }
+    }
+
+    private void initTables() {
+        scoreTablePane = new ScoreTablePane(new TableConfig(pcfg.getTables().element("scores")), vo, info);
+        add(scoreTablePane);
+        messageTablePane = new MessageTablePane(new TableConfig(pcfg.getTables().element("msg")), mList, info);
+        add(messageTablePane);
+    }
 
 	private void initLabels() {
 		team1Str = info.homeTeam;
@@ -87,94 +123,73 @@ public class LivePanel extends JPanel {
 		path1 = "img/team/final/" + ChiToEng(team1Str) + ".png";
 		path2 = "img/team/final/" + ChiToEng(team2Str) + ".png";
 		score1 = new MyLabel("0", pcfg.getLabels().element("score1"));
-		score1.setFont(new Font("华文细黑", 1, 18));
+		score1.setFont(new Font("Arial", 0, 38));
 		add(score1);
 
 		score2 = new MyLabel("0", pcfg.getLabels().element("score2"));
-		score2.setFont(new Font("华文细黑", 1, 18));
+		score2.setFont(new Font("Arial", 0, 38));
 		add(score2);
 
 		team1 = new MyLabel(team1Str, pcfg.getLabels().element("team1"));
-		team1.setFont(new Font("华文细黑", 0, 16));
+		team1.setFont(new Font("微软雅黑", 0, 22));
+        team1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        team1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("click");
+            }
+        });
 		add(team1);
 		team2 = new MyLabel(team2Str, pcfg.getLabels().element("team2"));
-		team2.setFont(new Font("华文细黑", 0, 16));
+		team2.setFont(new Font("微软雅黑", 0, 22));
+        team2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        team2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("click");
+            }
+        });
 		add(team2);
 
 		img1 = new MyLabel(pcfg.getLabels().element("img1"), path1, 0);
+        img1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        img1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("click");
+            }
+        });
 		add(img1);
 		img2 = new MyLabel(pcfg.getLabels().element("img2"), path2, 0);
+        img2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        img2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("click");
+            }
+        });
 		add(img2);
 
-		live = new MyLabel(pcfg.getLabels().element("live"));
-		live.setIcon(new ImageIcon("img/match/live/live_click.png"));
-		add(live);
-		stat = new MyLabel(pcfg.getLabels().element("stat"));
-		add(stat);
-		rank = new MyLabel(pcfg.getLabels().element("rank"));
-		add(rank);
-		livebg = new MyLabel(pcfg.getLabels().element("livebg"));
-		add(livebg);
-	}
+        start = new MyLabel("开赛：  " + info.date + " " + info.time, pcfg.getLabels().element("start"));
+        start.setFont(new Font("微软雅黑", 0, 14));
+        add(start);
 
-	private void initTable() {
-		Object[][] data2 = new Object[9][5];
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 4; j++) {
-				data2[i][0] = "12:00";
-				data2[i][1] = "勇士";
-				data2[i][2] = "博古特和霍华德跳球，德雷蒙德-格林得到篮球";
-				data2[i][3] = "0-0";
-			}
-		}
-		table = new MessageTablePane(new TableConfig(pcfg.getTablepane()),
-				data2);
-		add(table);
-	}
+        totaltime = new MyLabel("耗时：  " + vo.time, pcfg.getLabels().element("totaltime"));
+        totaltime.setFont(new Font("微软雅黑", 0, 14));
+        add(totaltime);
 
-	public void autoRefresh(List<LiveMsgVO> list) {
-		if (list.size() > 0) {
-			Object[][] data = chageData(list);
-			// for(int i=0;i<data.length;i++){
-			// System.out.println(data[i][2]);
-			// }
-			table.setData(data);
-			if (data.length > 0) {
-				System.out.print(data.length);
-				System.out.println(data[0][3]);
+        gym = new MyLabel("球馆：  " + vo.gym, pcfg.getLabels().element("gym"));
+        gym.setFont(new Font("微软雅黑", 0, 14));
+        add(gym);
 
-				String scores = data[0][3].toString();
-				if (scores.contains("-")) {
-					score1.setText(scores.split("-")[0]);
-					score2.setText(scores.split("-")[1]);
+        att = new MyLabel("观众：  " + vo.attendance, pcfg.getLabels().element("att"));
+        att.setFont(new Font("微软雅黑", 0, 14));
+        add(att);
 
-				}
-			}
-		}
-
-	}
-
-	public Object[][] chageData(List<LiveMsgVO> list) {
-		Object[][] data = new Object[list.size()][4];
-		for (int i = data.length - 1; i >= 0; i--) {
-			if (list.get(i).type == 0) {
-				data[i][0] = "";
-				data[i][1] = "";
-				data[i][2] = list.get(i).content;
-				data[i][3] = " ";
-			} else {
-				data[i][0] = list.get(i).residualTime;
-				data[i][1] = list.get(i).team;
-				data[i][2] = list.get(i).content;
-				data[i][3] = list.get(i).scores;
-			}
-		}
-		return data;
-
-	}
-
-	public MessageTablePane getTable() {
-		return table;
+        rtime = new MyLabel(vo.residualTime, pcfg.getLabels().element("rtime"));
+        rtime.setFont(new Font("微软雅黑", 1, 14));
+        rtime.setForeground(Color.red);
+        add(rtime);
 	}
 
 	public String ChiToEng(String Chi) {
@@ -189,5 +204,54 @@ public class LivePanel extends JPanel {
 			return null;
 		}
 	}
+
+    public void refresh() {
+        vo = LiveServiceImpl.getInstance().getMatchVO(matchId);
+        if (vo == null) return;
+        mList = LiveServiceImpl.getInstance().getMsg(matchId);
+        if (vo.scoresA.size() == 0) {
+            score1.setText("0");
+            score2.setText("0");
+        } else {
+            score1.setText(vo.scoresA.get(vo.scoresA.size()-1));
+            score2.setText(vo.scoresB.get(vo.scoresB.size()-1));
+        }
+        rtime.setText(vo.residualTime);
+
+        messageTablePane.refresh(mList);
+        scoreTablePane.refresh(vo);
+    }
+
+    private class MyThread implements Runnable {
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    if (stop) break;
+                    refresh();
+                    Thread.sleep(6000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private class TipsThread implements Runnable {
+
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            JOptionPane.showMessageDialog(null, "比赛尚未开始！");
+        }
+    }
+
+    public void stopThread() {
+        stop = true;
+    }
 
 }

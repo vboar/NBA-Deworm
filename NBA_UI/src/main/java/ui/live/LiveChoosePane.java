@@ -1,6 +1,6 @@
 package ui.live;
 
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -22,6 +22,7 @@ public class LiveChoosePane extends JPanel {
 	private PanelConfig pcfg ;
 	private HomeUI frame;
 	private Image bg;
+    public LivePanel livePanel;
 	
 	public LiveChoosePane(HomeUI frame) {
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
@@ -39,48 +40,81 @@ public class LiveChoosePane extends JPanel {
 	}
 
 	private void initComponent(){
-		List<LiveMatchInfoVO>  list=LiveServiceImpl.getInstance().getAllLiveList();
-		//System.out.println("hhhhhhhhhh"+list.size());
-		for(int i=0;i<list.size();i++){
-			
-			String text = list.get(i).date+ " "+list.get(i).time+" "+list.get(i).matchType+" "+list.get(i).homeTeam+" "+list.get(i).guestTeam;
-			MyLabel lb = new MyLabel(text, pcfg.getLabels().element("news"));
-			lb.setLocation(lb.getX(), lb.getY()+100*i);
+		List<LiveMatchInfoVO>  list = LiveServiceImpl.getInstance().getAllLiveList();
+		for(int i = 0; i < list.size(); i++){
+            LiveMatchInfoVO vo = list.get(i);
+			String title = vo.date + "     " + vo.day;
+			MyLabel lb = new MyLabel(title, pcfg.getLabels().element("title"));
+            lb.setFont(new Font("微软雅黑", 1 , 14));
+            lb.setLocation(lb.getX(), lb.getY()+70*i);
+            add(lb);
+            String content = vo.time + " " + vo.matchType + " " + vo.homeTeam + " VS " + vo.guestTeam +
+                    "     " + vo.state;
+            lb = new MyLabel(content, pcfg.getLabels().element("content"));
+            lb.setFont(new Font("微软雅黑", 0 , 14));
+			lb.setLocation(lb.getX(), lb.getY()+70*i);
 			add(lb);
+
+            MyButton btn = new MyButton(pcfg.getButtons().element("watch"));
+            btn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    livePanel = new LivePanel(frame, vo);
+                    frame.motherPanel.matchPanel.liveChoosePane.setVisible(false);
+                    frame.motherPanel.matchPanel.add(livePanel);
+                }
+            });
+            btn.setLocation(btn.getX(), btn.getY()+70*i);
+            btn.setFont(new Font("微软雅黑", 0, 12));
+            add(btn);
 			
 		}
-		
-		MyButton btn = new MyButton(pcfg.getButtons().element("btn"));
-		btn.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				LiveMatchInfoVO info = LiveServiceImpl.getInstance().checkMatchStart();
-				//System.out.println(info==null);
-				LiveMatchInfoVO vo = new LiveMatchInfoVO();
-				vo.id="150120";
-				vo.date="06月08日";
-				vo.time = "8:00";
-				vo.homeTeam = "勇士";
-				vo.guestTeam = "骑士";
-				vo.matchType = "季后赛";
-				if(info!=null){
-					LivePanel livePanel = new LivePanel(frame, info);
-				
-					add(livePanel);
-				}else{
-					LivePanel livePanel = new LivePanel(frame, vo);
-					//frame.getContentPane().add(livePanel);
-					frame.motherPanel.matchPanel.liveChoosePane.setVisible(false);
-					frame.motherPanel.matchPanel.add(livePanel);
-					//add(livePanel);
 
-				}
-				
-			}
-		});
-		add(btn);
+        list = LiveServiceImpl.getInstance().getHistoryList();
+        for(int i = 0; i < list.size(); i++){
+            LiveMatchInfoVO vo = list.get(i);
+            String title = vo.date + "     " + vo.day;
+            MyLabel lb = new MyLabel(title, pcfg.getLabels().element("htitle"));
+            lb.setFont(new Font("微软雅黑", 1 , 14));
+            lb.setLocation(lb.getX(), lb.getY()+70*i);
+            add(lb);
+            String content = vo.time + " " + vo.matchType + " " + vo.homeTeam + " VS " + vo.guestTeam +
+                    "     " + vo.state;
+            lb = new MyLabel(content, pcfg.getLabels().element("hcontent"));
+            lb.setFont(new Font("微软雅黑", 0 , 14));
+            lb.setLocation(lb.getX(), lb.getY()+70*i);
+            add(lb);
+
+            MyButton btn = new MyButton(pcfg.getButtons().element("hwatch"));
+            btn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    setLivePanel(vo);
+                }
+            });
+            btn.setLocation(btn.getX(), btn.getY()+70*i);
+            btn.setFont(new Font("微软雅黑", 0, 12));
+            add(btn);
+
+        }
+
 	}
-	
+
+    public void removeLivePanel() {
+        if (livePanel != null) {
+            livePanel.stopThread();
+            livePanel.setVisible(false);
+            remove(livePanel);
+            repaint();
+        }
+    }
+
+    public void setLivePanel(LiveMatchInfoVO vo) {
+        livePanel = new LivePanel(frame, vo);
+        setVisible(false);
+        frame.motherPanel.matchPanel.add(livePanel);
+        frame.motherPanel.matchPanel.revalidate();
+        frame.motherPanel.matchPanel.repaint();
+    }
+
 }

@@ -72,7 +72,7 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 
 	@Override
 	public List<HotPlayerInfoVO> getSeasonHotPlayer(String season,
-			FieldType field) throws RemoteException {
+			FieldType field, int num) throws RemoteException {
 		return null;
 	}
 

@@ -269,7 +269,7 @@ public class PlayerServiceTest extends TestCase {
 
 	public void testGetSeasonHotPlayer() {
 		try {
-			List<HotPlayerInfoVO> list = ps.getSeasonHotPlayer("13-14", FieldType.AST);
+			List<HotPlayerInfoVO> list = ps.getSeasonHotPlayer("13-14", FieldType.AST,5);
 			for(HotPlayerInfoVO info : list){
 				assertEquals("13-14", info.season);
 				assertEquals(FieldType.AST, info.field);

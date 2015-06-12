@@ -15,6 +15,7 @@ import ui.config.TableConfig;
 import ui.home.HomeUI;
 import ui.util.MyTab;
 import util.ChineseToOther;
+import vo.PlayerAdvancedVO;
 import vo.PlayerPerGameVO;
 import vo.PlayerTotalVO;
 
@@ -27,10 +28,12 @@ public class PlayerStat extends JPanel{
 	
 	public List<PlayerTotalVO> volist = null;
 	public List<PlayerPerGameVO> volistavg = null;
+	public List<PlayerAdvancedVO> volistadv = null;
 	
 	public String season="14-15";
 	public boolean isAdvanced = false;
 	public int isRegular = 1;
+	public int state=0;//0:avg 1:all 2:adv
 	
 
 
@@ -63,23 +66,24 @@ public class PlayerStat extends JPanel{
 		try {
 			volist=ServiceFactoryImpl.getInstance().getPlayerService().getPlayerTotalBySeason("14-15",1);
 			volistavg=ServiceFactoryImpl.getInstance().getPlayerService().getPlayerPerGameBySeason("14-15",1);
+			volistadv = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerAdvancedBySeason("14-15", 1);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		Object[][] data2 = new Object[volist.size()][8];
-		for(int i=0;i<volist.size();i++){			
-				data2[i][0] =volist.get(i).name;
-				data2[i][1] = volist.get(i).team;
-				data2[i][2] = volist.get(i).pts;
-				data2[i][3] = volist.get(i).blk;
-				data2[i][4] = volist.get(i).trb;
-				data2[i][5] = volist.get(i).blk;
-				data2[i][6] = volist.get(i).stl;
-				data2[i][7] = volist.get(i).game_started;
+		Object[][] data2 = new Object[volistavg.size()][8];
+		for(int i=0;i<volistavg.size();i++){			
+				data2[i][0] =volistavg.get(i).name;
+				data2[i][1] = volistavg.get(i).team;
+				data2[i][2] = volistavg.get(i).pts;
+				data2[i][3] = volistavg.get(i).blk;
+				data2[i][4] = volistavg.get(i).trb;
+				data2[i][5] = volistavg.get(i).blk;
+				data2[i][6] = volistavg.get(i).stl;
+				data2[i][7] = volistavg.get(i).game_started;
 		}
-			table = new PlayerAllTablePane(new TableConfig(pcfg.getTablepane()), data2);
+			table = new PlayerAllTablePane(new TableConfig(pcfg.getTablepane()), data2,frame);
 			add(table);
 	}
 	
@@ -104,6 +108,8 @@ public class PlayerStat extends JPanel{
 				}
 				//System.out.println("hhhhhhhh");
 				table.setData(data);
+				state = 1;
+				frame.motherPanel.playerPanel.playerfilter.changeBox(false);
 			}
 			
 		});
@@ -115,7 +121,7 @@ public class PlayerStat extends JPanel{
 				String[] head = frame.motherPanel.playerPanel.playerstat.table.getColumnNames();
 				Object[][] data = new Object[volistavg.size()][8];
 				for(int i=0;i<volistavg.size();i++){			
-					data[i][0] = volistavg.get(i).name;
+					 data[i][0] = volistavg.get(i).name;
 					 data[i][1] = volistavg.get(i).team;
 					 data[i][2] = ChineseToOther.ChineseToString(head[2], volistavg.get(i));
 					 data[i][3] = ChineseToOther.ChineseToString(head[3], volistavg.get(i));
@@ -126,6 +132,9 @@ public class PlayerStat extends JPanel{
 				
 				}
 				table.setData(data);
+				state = 0;
+				frame.motherPanel.playerPanel.playerfilter.changeBox(false);
+
 			}	
 		});
 	}

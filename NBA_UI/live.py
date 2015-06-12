@@ -18,12 +18,12 @@ match_ids = []
 
 
 def save_match_list():
-    f = open('live/menu.txt', 'w')
     try:
         text = urllib2.urlopen(list_url).read()
         text = text.decode('utf8', 'ignore')
         tree = html.fromstring(text)
         match_list = tree.xpath('//div[@class="match-list"]/dl')
+        f = open('live/menu.txt', 'w')
         for match in match_list:
             date_span = match.xpath('./dt/span[@class="date"]')
             _date = date_span[0].text_content() if date_span else ''
@@ -104,7 +104,6 @@ def decode_messages(text):
 
 
 def save_match_info(mid):
-    f = open('live/' + mid.__str__() + '_info.txt', 'w')
     url = pbp_url.format(mid)
     try:
         text = urllib2.urlopen(url).read()
@@ -121,6 +120,7 @@ def save_match_info(mid):
             r_time = ''
         else:
             r_time = result.groups()[0].replace('\n', '').replace(' ', '')
+        f = open('live/' + mid.__str__() + '_info.txt', 'w')
         f.write(s_time + ';' + gym + ';' + attendance + ';' + r_time + ';\n')
         result = re.search(r'<table class="itinerary_table">([\s\S]*?)</div>', text)
         if result is None:
@@ -144,10 +144,16 @@ def save_history():
     f = open('live/history.txt', 'w')
     f.write('150119;06月05日;星期五;09：00;季后赛 勇士-骑士;比赛结束\n')
     f.write('150120;06月08日;星期一;08：00;季后赛 勇士-骑士;比赛结束\n')
+    f.write('150121;06月10日;星期三;09：00;季后赛 骑士-勇士;比赛结束\n')
+    f.write('150122;06月12日;星期五;09：00;季后赛 骑士-勇士;比赛结束\n')
     save_history_match('150119', '勇士', '骑士')
     save_history_match('150120', '勇士', '骑士')
+    save_history_match('150121', '骑士', '勇士')
+    save_history_match('150122', '骑士', '勇士')
     save_match_info(150119)
     save_match_info(150120)
+    save_match_info(150121)
+    save_match_info(150122)
     f.close()
 
 
@@ -175,10 +181,10 @@ def create_folder():
 
 if __name__ == '__main__':
     create_folder()
-    save_history()
+    # save_history()
+    # save_match_list()
     while True:
-        save_match_list()
-        for match_id in match_ids:
-            save_match(match_id)
-            save_match_info(match_id)
+        save_match(match_ids[0])
+        save_match_info(match_ids[0])
         print 'update...'
+        time.sleep(5)

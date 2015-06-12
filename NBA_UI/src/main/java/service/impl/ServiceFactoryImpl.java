@@ -8,7 +8,6 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
 import java.util.Properties;
 
 import javax.swing.ImageIcon;
@@ -50,8 +49,8 @@ public class ServiceFactoryImpl extends UnicastRemoteObject implements ServiceFa
 		try {
 			ServiceFactory sf = ServiceFactoryImpl.getInstance();
 			System.out.println(System.currentTimeMillis());
-			List<ImageIcon> icon = sf.getTeamService().getAllTeamLogo();			
-			JLabel jl = new JLabel(icon.get(0));
+			ImageIcon i = sf.getPlayerService().getPlayerPortraitByName("AAA");
+			JLabel jl = new JLabel(i);
 			JFrame jf = new JFrame();
 			jf.setSize(400, 400);
 			jf.getContentPane().add(jl);

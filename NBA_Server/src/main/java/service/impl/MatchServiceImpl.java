@@ -134,6 +134,8 @@ public class MatchServiceImpl extends UnicastRemoteObject implements MatchServic
 		if(mpa==null)
 			return null;
 		MatchPlayerAdvancedVO vo = new MatchPlayerAdvancedVO();
+		vo.date = mpa.getDate();
+		vo.season = mpa.getSeason();
 		vo.game_id = mpa.getGame_id();
 		vo.player_name = mpa.getPlayer_name();
 		vo.team_abbr = mpa.getTeam_abbr();
@@ -160,6 +162,8 @@ public class MatchServiceImpl extends UnicastRemoteObject implements MatchServic
 		if(mpb==null)
 			return null;
 		MatchPlayerBasicVO vo = new MatchPlayerBasicVO();
+		vo.date = mpb.getDate();
+		vo.season = mpb.getSeason();
 		vo.game_id = mpb.getGame_id();
 		vo.player_name = mpb.getPlayer_name();
 		vo.team_abbr = mpb.getTeam_abbr();

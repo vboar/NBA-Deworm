@@ -24,7 +24,7 @@ public class LiveServiceImpl implements LiveService {
     private LiveServiceImpl() {}
 
     public static void main(String[] args) {
-//        LiveServiceImpl.getInstance().startLiveService();
+        LiveServiceImpl.getInstance().startLiveService();
 //        while (true) {
 //            try {
 //                Thread.sleep(5000);
@@ -36,8 +36,6 @@ public class LiveServiceImpl implements LiveService {
 //                e.printStackTrace();
 //            }
 //        }
-        LiveMatchVO vo = LiveServiceImpl.getInstance().getMatchVO("150120");
-        System.out.println(vo.residualTime);
     }
 
     public static LiveService getInstance() {
@@ -58,7 +56,7 @@ public class LiveServiceImpl implements LiveService {
     }
 
     public void stopLiveService() {
-        if (process.isAlive()) {
+        if (process != null && process.isAlive()) {
             process.destroy();
         }
     }
@@ -142,6 +140,9 @@ public class LiveServiceImpl implements LiveService {
     public LiveMatchVO getMatchVO(String matchId) {
         List<String> strs = read("live/" + matchId + "_info.txt");
         LiveMatchVO vo = new LiveMatchVO();
+        if (strs.size() == 0) {
+            return null;
+        }
         String[] temp = strs.get(0).split(";", -1);
         vo.id = matchId;
         vo.time = temp[0];

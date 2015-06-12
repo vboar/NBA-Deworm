@@ -1,5 +1,6 @@
 package dao.impl;
 
+import java.awt.MediaTracker;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,10 +37,13 @@ public class PlayerDaoImpl implements PlayerDao {
 		String pic = FileManager.DATA_PATH + "/players/pic/";
 		for (String p : names) {
 			ImageIcon lg = new ImageIcon(now_pic + p + ".png");
-			if (lg.getImage() == null) {
+			if (lg.getImageLoadStatus() == MediaTracker.ERRORED) {
 				lg = new ImageIcon(pic + p + ".png");
+				if(lg.getImageLoadStatus() == MediaTracker.ERRORED){
+					continue;
+				}
 			}
-			lg.setDescription(p.split(",")[0]);
+			lg.setDescription(p);
 			list.add(lg);
 		}
 		return list;
@@ -51,9 +55,13 @@ public class PlayerDaoImpl implements PlayerDao {
 				+ ".png";
 		String pic = FileManager.DATA_PATH + "/players/pic/" + name + ".png";
 		ImageIcon icon = new ImageIcon(now_pic);
-		if (icon.getImage() == null)
+		System.out.println(icon.getImage().getWidth(null));
+		if (icon.getImageLoadStatus() == MediaTracker.ERRORED)
 			icon = new ImageIcon(pic);
 		icon.setDescription(name);
+		if(icon.getImageLoadStatus() == MediaTracker.ERRORED){
+			return null;
+		}
 		return icon;
 	}
 
@@ -122,7 +130,6 @@ public class PlayerDaoImpl implements PlayerDao {
 		String sql = "SELECT * FROM player_total WHERE player_name=? ";
 		if(regular == 0 || regular == 1)
 			sql += " AND is_normal=" + regular;
-		sql += " ORDER BY season DESC";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { name });
 		for (Map<String, Object> map : maplist) {
@@ -260,7 +267,6 @@ public class PlayerDaoImpl implements PlayerDao {
 		String sql = "SELECT * FROM player_per_game WHERE player_name=? ";
 		if(regular == 0 || regular == 1)
 			sql += " AND is_normal=" + regular;
-		sql += " ORDER BY season DESC";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { name });
 		for (Map<String, Object> map : maplist) {
@@ -403,7 +409,6 @@ public class PlayerDaoImpl implements PlayerDao {
 		String sql = "SELECT * FROM player_advanced WHERE player_name=? ";
 		if(regular == 0 || regular == 1)
 			sql += " AND is_normal=" + regular;
-		sql += " ORDER BY season DESC";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { name });
 		for (Map<String, Object> map : maplist) {
@@ -541,7 +546,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		sqlManager.getConnection();
 
 		List<PlayerSalary> list = new ArrayList<PlayerSalary>();
-		String sql = "SELECT * FROM player_salary WHERE name=? ORDER BY season DESC";
+		String sql = "SELECT * FROM player_salary WHERE name=? ";
 		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql,
 				new Object[] { name });
 		for (Map<String, Object> map : maplist) {
@@ -627,7 +632,7 @@ public class PlayerDaoImpl implements PlayerDao {
 	}
 
 	@Override
-	public List<HotPlayerInfo> getHotPlayerBySeason(String season, FieldType field) {
+	public List<HotPlayerInfo> getHotPlayerBySeason(String season, FieldType field, int num) {
 		List<HotPlayerInfo> list = new ArrayList<HotPlayerInfo>();
 		if (!isFieldValid(field))
 			return list;
@@ -635,7 +640,7 @@ public class PlayerDaoImpl implements PlayerDao {
 		String sql = "SELECT player_name, team_abbr, season, position,"
 				+ field.toString()
 				+ " FROM player_per_game WHERE season=? AND is_normal=1 "
-				+ " ORDER BY " + field.toString() + " DESC LIMIT 0,5";
+				+ " ORDER BY " + field.toString() + " DESC LIMIT 0,"+num;
 		List<Object> objects = new ArrayList<Object>();
 		objects.add(season);
 		List<Map<String, Object>> maplist = sqlManager.queryMultiByList(sql,

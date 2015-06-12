@@ -1,5 +1,7 @@
 package vo;
 
+import java.io.Serializable;
+
 import util.FieldType;
 
 /**
@@ -7,7 +9,12 @@ import util.FieldType;
  * 
  * created by JaneLDQ on 2015年6月6日 上午9:48:38
  */
-public class HotPlayerInfoVO {
+public class HotPlayerInfoVO implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 球员姓名

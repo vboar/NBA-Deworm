@@ -24,8 +24,8 @@ public class MatchNav extends JPanel{
 	private MyLabel live;
 	
 	
-
-	int show =0;
+    // live 为 1
+	public int show =0;
 	
 	public MatchNav(HomeUI frame){
 		this.frame = frame;
@@ -99,10 +99,7 @@ public class MatchNav extends JPanel{
 				show =1;
 				matchstat.setIcon(new ImageIcon(pcfg.getLabels().element("matchstat").attributeValue("path")));
 				frame.motherPanel.matchPanel.liveChoosePane.setVisible(true);
-				
-				
-				
-
+                frame.motherPanel.matchPanel.liveChoosePane.removeLivePanel();
 			}
 
 			@Override

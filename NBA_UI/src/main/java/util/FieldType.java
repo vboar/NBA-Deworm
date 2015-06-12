@@ -6,67 +6,73 @@ package util;
  * created by JaneLDQ on 2015年6月5日 下午8:08:10
  */
 public enum FieldType {
-	/**
-	 * 得分
-	 */
-    PTS, 
-    
-    /**
-     * 篮板
-     */
+	
+	// 得分
+    PTS,     
+    //篮板
 	TRB, 
-	
-	/**
-	 * 助攻
-	 */
+	//进攻篮板
+	ORB,
+	//防守篮板
+	DRB,
+	//助攻
 	AST,
-	
-	/**
-	 * 盖帽
-	 */
+	//盖帽
 	BLK, 
-	
-	/**
-	 * 抢断
-	 */
+	//抢断
 	STL, 
-	
-	/**
-	 * 三分命中率
-	 */
+	//失误
+	TOV,
+	//犯规
+	PF,
+	//三分命中率
 	FG3_PCT,
-	
-	/**
-	 * 投篮命中率
-	 */
+	//投篮命中率
 	FGA_PCT,
-	
-	/**
-	 * 罚球命中率
-	 */
+	//罚球命中率
 	FT_PCT,
-    
-    /**
-     * 进攻效率
-     */
-    OFF_RTG,
-    
-    /**
-     * 防守效率
-     */
-    DEF_RTG,
-    
-    /**
-     * 进攻篮板效率
-     */
+	//效率（球员高阶）
+	PER,
+	//真实命中率
+	TS_PCT,
+	//抢断率
+	STL_PCT,
+	//盖帽率
+	BLK_PCT,
+	//助攻率
+	AST_PCT,
+	//失误率
+	TOV_PCT,
+	//使用率（球员高阶）
+	USG_PCT,    
+	//篮板率
+	TRB_PCT,
+    //进攻篮板效率(球员球队高阶)
     ORB_PCT,
+    //防守篮板效率(球员球队高阶)
+    DRB_PCT,
+    //进攻效率(球队高阶)
+    OFF_RTG,
+    //防守效率(球队高阶)
+    DEF_RTG,
+    //进攻-有效命中率
+    OFF_EFG_PCT,
+    //进攻-失误率
+    OFF_TOV_PCT,
+    //防守-有效命中率
+    OPP_EFG_PCT,
+    //防守-失误率
+    OPP_TOV_PCT,
+    //SOS
+    SOS,
+    //SRS
+    SRS,
+    //MOV
+    MOV;
     
-    /**
-     * 防守篮板效率
-     */
-    DRB_PCT;
     @Override
     public String toString(){
-    	return this.toString().toLowerCase();
+    	return super.toString().toLowerCase();
     }
 }
+

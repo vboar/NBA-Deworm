@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
+import service.impl.LiveServiceImpl;
 import ui.common.MotherPanel;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
@@ -45,7 +46,8 @@ public class HomePanel extends JPanel {
 		// 初始化组件
 		this.initComponent();
 		this.repaint();
-		
+        new Thread(new NewThread()).start();
+
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -62,8 +64,9 @@ public class HomePanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+                LiveServiceImpl.getInstance().stopLiveService();
 				frame.dispose();
-				
+				System.exit(3);
 			}
 		});
 		add(exit);
@@ -81,72 +84,85 @@ public class HomePanel extends JPanel {
 		add(max);
 		
 		player = new MyButton(pcfg.getButtons().element("player"), true);
-		player.addMouseListener(new MouseAdapter(){
-
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				frame.home.setVisible(false);
-				
-				motherPanel = new MotherPanel(frame,1);
-				frame.motherPanel = motherPanel;
-				frame.getContentPane().add(motherPanel);
-				
-				frame.repaint();
-			}
-
-			});
 		add(player);
 		
 		team = new MyButton(pcfg.getButtons().element("team"), true);
-		team.addMouseListener(new MouseAdapter(){
-
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				frame.home.setVisible(false);
-				
-				motherPanel = new MotherPanel(frame,2);
-				frame.motherPanel = motherPanel;
-				frame.getContentPane().add(motherPanel);
-				
-				frame.repaint();
-			}
-
-			});
 		add(team);
 		
 		match = new MyButton(pcfg.getButtons().element("match"), true);
-		match.addMouseListener(new MouseAdapter(){
-
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				frame.home.setVisible(false);
-				
-				motherPanel = new MotherPanel(frame,3);
-				frame.motherPanel = motherPanel;
-				frame.getContentPane().add(motherPanel);
-				
-				frame.repaint();
-			}
-
-			});
 		add(match);
 		
 		stats = new MyButton(pcfg.getButtons().element("stats"), true);
-		stats.addMouseListener(new MouseAdapter(){
-
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				frame.home.setVisible(false);
-				
-				motherPanel = new MotherPanel(frame,4);
-				frame.motherPanel = motherPanel;
-				frame.getContentPane().add(motherPanel);
-				
-				frame.repaint();
-			}
-
-			});
 		add(stats);
 			
 	}
+
+    public void addListener() {
+
+
+        player.addMouseListener(new MouseAdapter(){
+
+            @Override
+            public void mouseClicked(MouseEvent arg0) {
+                frame.home.setVisible(false);
+                motherPanel.setVisible(true);
+                motherPanel.fillComponents(1);
+                frame.repaint();
+            }
+
+        });
+
+
+        team.addMouseListener(new MouseAdapter(){
+
+            @Override
+            public void mouseClicked(MouseEvent arg0) {
+                frame.home.setVisible(false);
+                motherPanel.setVisible(true);
+                motherPanel.fillComponents(2);
+                frame.repaint();
+            }
+
+        });
+
+        match.addMouseListener(new MouseAdapter(){
+
+            @Override
+            public void mouseClicked(MouseEvent arg0) {
+                frame.home.setVisible(false);
+                motherPanel.setVisible(true);
+                motherPanel.fillComponents(3);
+                frame.repaint();
+            }
+
+        });
+
+        stats.addMouseListener(new MouseAdapter(){
+
+            @Override
+            public void mouseClicked(MouseEvent arg0) {
+                frame.home.setVisible(false);
+                motherPanel.setVisible(true);
+                motherPanel.fillComponents(3); // TODO
+                frame.repaint();
+            }
+
+        });
+    }
+
+    private class NewThread implements Runnable {
+
+        @Override
+        public void run() {
+            motherPanel = new MotherPanel(frame);
+            frame.motherPanel = motherPanel;
+            motherPanel.setVisible(false);
+            frame.getContentPane().add(motherPanel);
+            addListener();
+            motherPanel.checkLive();
+            revalidate();
+            repaint();
+        }
+
+    }
 }

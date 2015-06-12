@@ -276,9 +276,9 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 	}
 	@Override
 	public List<HotPlayerInfoVO> getSeasonHotPlayer(String season,
-			FieldType field) throws RemoteException {
+			FieldType field, int num) throws RemoteException {
 		List<HotPlayerInfoVO> volist = new ArrayList<HotPlayerInfoVO>();
-		List<HotPlayerInfo> list = pdao.getHotPlayerBySeason(season, field);
+		List<HotPlayerInfo> list = pdao.getHotPlayerBySeason(season, field,num);
 		for(HotPlayerInfo info : list){
 			HotPlayerInfoVO vo = getHotPlayerToVO(info);
 			if(vo!=null)

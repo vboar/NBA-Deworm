@@ -166,7 +166,7 @@ public class PlayerDaoTest extends TestCase {
 	}
 
 	public void testGetSeasonHotPlayer() {
-		List<HotPlayerInfo> list = pdao.getHotPlayerBySeason("13-14", FieldType.AST);
+		List<HotPlayerInfo> list = pdao.getHotPlayerBySeason("13-14", FieldType.AST,5);
 		for(HotPlayerInfo info : list){
 			assertEquals("13-14", info.getSeason());
 			assertEquals(FieldType.AST, info.getField());

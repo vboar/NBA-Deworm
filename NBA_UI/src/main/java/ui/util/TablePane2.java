@@ -21,6 +21,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import ui.config.TableConfig;
+
 public class TablePane2 extends JPanel {
 
 	private JTable fileTable;
@@ -28,11 +30,20 @@ public class TablePane2 extends JPanel {
 	private Color color1 = new Color(225,237,233);
 	private Color color2 = new Color(76,124,206);
 	
+	protected TableConfig cfg;
 	
+	String[]head;
+	Object[][]data;
 	
-	public TablePane2(){
-		this.setBounds(0, 0, 1000, 1000);
-		this.setBackground(Color.BLUE);
+	public TablePane2(TableConfig cfg,String[]head,Object[][]data){
+		this.cfg = cfg;
+		
+		this.head = head;
+		this.data = data;
+		this.setSize(cfg.getW(), cfg.getH());
+		this.setLocation(cfg.getX(), cfg.getY());
+		this.setOpaque(false);
+		
 		this.setLayout(null);
 		
 		initTable();
@@ -73,17 +84,17 @@ public class TablePane2 extends JPanel {
 	private void initTable()
 	{
 		//初始化table
-		String[] columnName = new String[]{
-				"文件名","大小","用户","上传时间"
-		};
-		Object[][] columnValues = new Object[][]{
-				{"楚留香传奇","232134 KB","fykhlp","2012-07-28 19:36:21"},
-				{"楚留香传奇","232134 KB","fykhlp","2012-07-28 19:36:21"},
-				{"楚留香传奇","232134 KB","fykhlp","2012-07-28 19:36:21"},
-				{"楚留香传奇","232134 KB","fykhlp","2012-07-28 19:36:21"},
-				{"楚留香传奇","232134 KB","fykhlp","2012-07-28 19:36:21"}
-		};
-		 TableModel model = new DefaultTableModel(columnValues, columnName);  
+//		String[] columnName = new String[]{
+//				"文件名","大小","用户","上传时间"
+//		};
+//		Object[][] columnValues = new Object[][]{
+//				{"楚留香传奇","232134 KB","fykhlp","2012-07-28 19:36:21"},
+//				{"楚留香传奇","232134 KB","fykhlp","2012-07-28 19:36:21"},
+//				{"楚留香传奇","232134 KB","fykhlp","2012-07-28 19:36:21"},
+//				{"楚留香传奇","232134 KB","fykhlp","2012-07-28 19:36:21"},
+//				{"楚留香传奇","232134 KB","fykhlp","2012-07-28 19:36:21"}
+//		};
+		 TableModel model = new DefaultTableModel(data, head);  
 		fileTable = new JTable(model);
 		fileTable.setRowHeight(25); 
 		fileTable.setAutoResizeMode(JTable.AUTO_RESIZE_NEXT_COLUMN); 
@@ -134,11 +145,12 @@ public class TablePane2 extends JPanel {
 	}
 	
 
-	public static void main(String[] args) {
-			JFrame test  = new JFrame();
-			test.setBounds(0, 0, 1000, 1000);
-			test.getContentPane().add(new TablePane2());
-			test.setVisible(true);
-	}
-
+//	public static void main(String[] args) {
+//			JFrame test  = new JFrame();
+//			test.setBounds(0, 0, 1000, 1000);
+//			test.getContentPane().add(new TablePane2());
+//			test.setVisible(true);
+//	}
+//
+//}
 }

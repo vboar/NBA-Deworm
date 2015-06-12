@@ -35,7 +35,7 @@ public class Dropdownmenu extends JPanel{
 		this.setLayout(null);
 		this.setSize(pcfg.getW(), pcfg.getH());
 		this.setLocation(pcfg.getX(),pcfg.getY());
-		
+		this.setVisible(false);
 		initComponent();
 	}
 	
@@ -58,9 +58,10 @@ public class Dropdownmenu extends JPanel{
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				frame.getContentPane().remove(frame.motherPanel);
+                frame.motherPanel.fillMenu();
+                setVisible(false);
+                frame.motherPanel.setVisible(false);
 				frame.home.setVisible(true);;
-				
 				frame.repaint();
 			}
 			

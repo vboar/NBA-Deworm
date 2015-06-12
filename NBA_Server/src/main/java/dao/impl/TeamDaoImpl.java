@@ -1,5 +1,6 @@
 package dao.impl;
 
+import java.awt.MediaTracker;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,8 @@ public class TeamDaoImpl implements TeamDao {
 		String[] logos = f.list();
 		for(String team: logos){
 			ImageIcon lg = new ImageIcon(path+team);
+			if(lg.getImageLoadStatus()==MediaTracker.ERRORED)
+				continue;
 			lg.setDescription(team.substring(0,3));
 			list.add(lg);
 		}
@@ -46,6 +49,8 @@ public class TeamDaoImpl implements TeamDao {
 	public ImageIcon getTeamLogoByAbbr(String abbr) {
 		String path = FileManager.DATA_PATH + "/teams/logo/"+abbr+".png";
 		ImageIcon icon = new ImageIcon(path);
+		if(icon.getImageLoadStatus()==MediaTracker.ERRORED)
+			return null;
 		icon.setDescription(abbr);
 		return icon;
 	}
@@ -143,7 +148,7 @@ public class TeamDaoImpl implements TeamDao {
 		sqlManager.getConnection();
 		
 		List<TeamStatsTotal> list = new ArrayList<TeamStatsTotal>();
-		String sql = "SELECT * FROM team_total WHERE abbr=? ORDER BY season DESC";
+		String sql = "SELECT * FROM team_total WHERE abbr=? ";
 		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{abbr});
 		for(Map<String,Object> map: maplist){
 			list.add(getTeamTotal(map));
@@ -158,7 +163,7 @@ public class TeamDaoImpl implements TeamDao {
 		sqlManager.getConnection();
 		
 		List<TeamStatsPerGame> list = new ArrayList<TeamStatsPerGame>();
-		String sql = "SELECT * FROM team_per_game WHERE abbr=? ORDER BY season DESC";
+		String sql = "SELECT * FROM team_per_game WHERE abbr=? ";
 		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{abbr});
 		for(Map<String,Object> map: maplist){
 			list.add(getTeamPerGame(map));
@@ -173,7 +178,7 @@ public class TeamDaoImpl implements TeamDao {
 		sqlManager.getConnection();
 		
 		List<OpponentStatsTotal> list = new ArrayList<OpponentStatsTotal>();
-		String sql = "SELECT * FROM team_opp_total WHERE abbr=? ORDER BY season DESC";
+		String sql = "SELECT * FROM team_opp_total WHERE abbr=? ";
 		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{abbr});
 		for(Map<String,Object> map: maplist){
 			list.add(getOppTotal(map));
@@ -188,7 +193,7 @@ public class TeamDaoImpl implements TeamDao {
 		sqlManager.getConnection();
 		
 		List<OpponentStatsPerGame> list = new ArrayList<OpponentStatsPerGame>();
-		String sql = "SELECT * FROM team_opp_per_game WHERE abbr=? ORDER BY season DESC";
+		String sql = "SELECT * FROM team_opp_per_game WHERE abbr=? ";
 		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{abbr});
 		for(Map<String,Object> map: maplist){
 			list.add(getOppPerGame(map));
@@ -434,6 +439,30 @@ public class TeamDaoImpl implements TeamDao {
 		List<Map<String, Object>> maplist = sqlManager.queryMultiByList(sql, objects);
 		for(Map<String, Object> map: maplist){
 			list.add(getTeamAdvanced(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+	
+	@Override
+	public List<HotTeamInfo> getSeasonHotTeam(String season, FieldType field, int number) {
+		List<HotTeamInfo> list = new ArrayList<HotTeamInfo>();
+		sqlManager.getConnection();
+		String sql ="";
+		if(!isFieldAdvanced(field)){
+			sql += "SELECT a.name, b.abbr, league, season, "
+				+ field.toString()
+				+ " FROM team_info as a, team_per_game as b "
+				+ " WHERE a.abbr = b.abbr AND b.season = ?";
+		}else{
+			sql += "SELECT a.name, b.abbr, league, season, ? "
+					+ "FROM team_info as a, team_advanced as b "
+					+ "WHERE a.abbr = b.abbr AND b.season = ?";
+		}
+		sql += "ORDER BY " + field.toString() + " DESC LIMIT 0," + number;
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, new Object[]{season});
+		for(Map<String, Object> map: maplist){
+			list.add(getHotTeamInfo(map, field));
 		}
 		sqlManager.releaseAll();
 		return list;
@@ -761,29 +790,7 @@ public class TeamDaoImpl implements TeamDao {
 		sqlManager.releaseConnection();
 	}
 
-	@Override
-	public List<HotTeamInfo> getSeasonHotTeam(String season, FieldType field, int number) {
-		List<HotTeamInfo> list = new ArrayList<HotTeamInfo>();
-		sqlManager.getConnection();
-		String sql ="";
-		if(!isFieldAdvanced(field)){
-			sql += "SELECT a.name, b.abbr, league, season, "
-				+ field.toString()
-				+ " FROM team_info as a, team_per_game as b "
-				+ " WHERE a.abbr = b.abbr AND b.season = ?";
-		}else{
-			sql += "SELECT a.name, b.abbr, league, season, ? "
-					+ "FROM team_info as a, team_advanced as b "
-					+ "WHERE a.abbr = b.abbr AND b.season = ?";
-		}
-		sql += "ORDER BY " + field.toString() + " DESC LIMIT 0," + number;
-		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, new Object[]{season});
-		for(Map<String, Object> map: maplist){
-			list.add(getHotTeamInfo(map, field));
-		}
-		sqlManager.releaseAll();
-		return list;
-	}
+	
 	
 	private TeamInfo getTeamInfo(Map<String, Object> map) {
 		TeamInfo info = new TeamInfo();

@@ -12,9 +12,6 @@ public class MatchPanel extends JPanel{
 
 	private PanelConfig pcfg;
 	private HomeUI frame;
-	
-	
-	
 	public  LiveChoosePane liveChoosePane;
 	
 	public MatchPanel(HomeUI frame){

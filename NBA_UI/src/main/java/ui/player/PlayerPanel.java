@@ -2,7 +2,7 @@ package ui.player;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.rmi.RemoteException;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -10,15 +10,14 @@ import javax.swing.JPanel;
 
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
-import ui.config.TableConfig;
 import ui.home.HomeUI;
+import ui.player.hot.PlayerHotPane;
 import ui.player.index.PlayerIndex;
-import ui.player.stat.PlayerAllTablePane;
+import ui.player.info.PlayerInfoPane;
 import ui.player.stat.PlayerFilter;
 import ui.player.stat.PlayerStat;
 import ui.util.MyButton;
 import ui.util.MyLabel;
-import ui.util.MyTab;
 
 public class PlayerPanel extends JPanel {
 
@@ -29,12 +28,14 @@ public class PlayerPanel extends JPanel {
 	public PlayerIndex indexpanel;
 	public PlayerFilter playerfilter;
 	public PlayerStat playerstat;
+	public PlayerInfoPane playerInfoPane;
+	public PlayerHotPane playerHotPane;
 	private JFrame coverFrame;
 	
 	private MyLabel settingbg;
 	
-	private MyButton setting;
-	private MyButton menu;
+	public MyButton setting;
+	public MyButton menu;
 	
 	public PlayerPanel(HomeUI frame){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
@@ -72,6 +73,14 @@ public class PlayerPanel extends JPanel {
 		playerstat = new PlayerStat(frame);
 		playerstat.setVisible(false);
 		add(playerstat);
+		
+		playerInfoPane =new PlayerInfoPane(frame);
+		playerInfoPane.setVisible(false);
+		add(playerInfoPane);
+		
+		playerHotPane = new PlayerHotPane(frame);
+		playerHotPane.setVisible(false);
+		add(playerHotPane);
 	}
 	
 	private void initCover(){
@@ -79,6 +88,7 @@ public class PlayerPanel extends JPanel {
 		coverFrame.setBounds(458,218,690, 260);
 		coverFrame.setUndecorated(true);
 		coverFrame.add(playerfilter);
+		coverFrame.setAlwaysOnTop(true);	
 	}
 	
 	//table的内容
@@ -92,6 +102,39 @@ public class PlayerPanel extends JPanel {
 	
 	private void initButtons(){
 		menu = new MyButton(pcfg.getButtons().element("menu"),true);
+		menu.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				playerfilter.changeBox(true);
+				playerstat.state = 2;
+				playerfilter.setAdvTable();				
+			}
+		});
 		add(menu);
 		
 		setting = new MyButton(pcfg.getButtons().element("setting"));
@@ -145,5 +188,7 @@ public class PlayerPanel extends JPanel {
 		setting.setIcon(new ImageIcon(pcfg.getButtons().element("setting").attributeValue("path")));
 		playerfilter.setVisible(false);
 		coverFrame.setVisible(false);
+		
 	}
+	
 }
