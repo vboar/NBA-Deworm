@@ -49,7 +49,7 @@ public class TeamPanel extends JPanel{
 		teamstat.setVisible(false);
 		add(teamstat);
 		
-		teamhot = new TeamHot();
+		teamhot = new TeamHot(frame);
 		teamhot.setVisible(false);
 		add(teamhot);
 	}

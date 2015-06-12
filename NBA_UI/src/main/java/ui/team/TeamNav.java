@@ -59,9 +59,10 @@ public class TeamNav extends JPanel{
 				teamstat.setIcon(new ImageIcon(pcfg.getLabels().element("teamstat").attributeValue("path")));
 				hotteam.setIcon(new ImageIcon(pcfg.getLabels().element("hotteam").attributeValue("path")));
 				
-				frame.motherPanel.teamPanel.teamindex.setVisible(true);
-				frame.motherPanel.teamPanel.teamstat.setVisible(false);
-				frame.motherPanel.teamPanel.teamhot.setVisible(false);
+				frame.motherPanel.teamPanel.removeAll();
+				frame.motherPanel.teamPanel.teamindex = new TeamIndex(frame);
+				frame.motherPanel.teamPanel.add(frame.motherPanel.teamPanel.teamindex);
+				frame.motherPanel.teamPanel.repaint();
 			}
 
 			@Override
@@ -103,9 +104,10 @@ public class TeamNav extends JPanel{
 				hotteam.setIcon(new ImageIcon(pcfg.getLabels().element("hotteam").attributeValue("path")));
 			
 				//更改teampanel内容
-				frame.motherPanel.teamPanel.teamindex.setVisible(false);
-				frame.motherPanel.teamPanel.teamstat.setVisible(true);
-				frame.motherPanel.teamPanel.teamhot.setVisible(false);
+				frame.motherPanel.teamPanel.removeAll();
+				frame.motherPanel.teamPanel.teamstat = new TeamStat(frame);
+				frame.motherPanel.teamPanel.add(frame.motherPanel.teamPanel.teamstat);
+				frame.motherPanel.teamPanel.repaint();
 			}
 
 			@Override
@@ -146,9 +148,10 @@ public class TeamNav extends JPanel{
 				index.setIcon(new ImageIcon(pcfg.getLabels().element("index").attributeValue("path")));
 				teamstat.setIcon(new ImageIcon(pcfg.getLabels().element("teamstat").attributeValue("path")));
 			
-				frame.motherPanel.teamPanel.teamindex.setVisible(false);
-				frame.motherPanel.teamPanel.teamstat.setVisible(false);
-				frame.motherPanel.teamPanel.teamhot.setVisible(true);
+				frame.motherPanel.teamPanel.removeAll();
+				frame.motherPanel.teamPanel.teamhot = new TeamHot(frame);
+				frame.motherPanel.teamPanel.add(frame.motherPanel.teamPanel.teamhot);
+				frame.motherPanel.teamPanel.repaint();
 			}
 
 			@Override

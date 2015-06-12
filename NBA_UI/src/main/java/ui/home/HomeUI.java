@@ -9,11 +9,11 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import service.impl.LiveServiceImpl;
 import ui.common.MotherPanel;
 import ui.config.FrameConfig;
 import ui.config.SystemConfig;
 import ui.live.LivePanel;
+import ui.team.advance.TeamMore;
 import ui.util.FrameUtil;
 
 public class HomeUI extends JFrame {
@@ -61,7 +61,7 @@ public class HomeUI extends JFrame {
 		home = new HomePanel(this);
 		this.getContentPane().add(home);
 		//this.getContentPane().add(new MotherPanel(this));
-		//this.getContentPane().add(new LivePanel(this));
+		//this.getContentPane().add(new TeamMore(this,"HOU"));
 		this.setVisible(true);
 
 

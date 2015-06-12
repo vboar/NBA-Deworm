@@ -35,15 +35,11 @@ public class MyTable extends JTable {
 		this.getTableHeader().setReorderingAllowed(false);
 		this.getTableHeader().setForeground(Color.WHITE);
 		this.getTableHeader().setBackground(new Color(0xB0,0xC4,0xDE));
-		//this.getTableHeader().setBorder(BorderFactory.createLineBorder(new Color(164,174,185)));
 		
 		this.getTableHeader().setLayout(null);
 
-		//this.setShowGrid(false);
 		this.sorter = new TableRowSorter<TableModel>(dtm);
 			
-			
-		
 		((DefaultTableCellRenderer)getTableHeader().getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
 		
 		this.setRowSorter(sorter);
@@ -55,7 +51,7 @@ public class MyTable extends JTable {
 		FrameUtil.setTableColumnWidth(this, containerW, padding);
 		
 		  
-		//表头增加监听  www.2cto.com
+		//表头增加监听
 	     header.addMouseListener (new MouseAdapter() {  
 	             public void mouseReleased (MouseEvent e) {  
 	                 if (! e.isShiftDown())  
@@ -97,7 +93,7 @@ public class MyTable extends JTable {
 	             width = Math.max(width, preferedWidth);
 	         }
 	         header.setResizingColumn(column); 
-	         column.setWidth(width+myTable.getIntercellSpacing().width+25);
+	         column.setWidth(width+myTable.getIntercellSpacing().width+4);
 	     }
 	}
 	

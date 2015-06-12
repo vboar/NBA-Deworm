@@ -195,6 +195,200 @@
 			</buttons>
 			</panel>
 			
+			<panel className="ui.team.TeamDetail" width="940" height="511"
+			x="0" y="0" >
+			
+			<labels>
+			<info w="150" h="46" x="0" y="0" path="img/team/label/info.png"/>
+			<player w="150" h="46" x="150" y="0" path="img/team/label/player.png"/>
+			<labelbg w="940" h="50" x="0" y="0" path="img/player/setting/bg.png" />
+			
+			<team w="250" h="30" x="50" y="50" />
+			<img w="100" h="100" x="50" y="80"/>
+			<buildtime w="100" h="20" x="150" y="80"/>
+			<location w="250" h="20" x="150" y="100"/>
+			<league w="100" h="20" x="150" y="120"/>
+			<division w="100" h="20" x="150" y="140"/>
+			<championship w="100" h="20" x="150" y="160"/>
+			
+			<current w="200" h="30" x="400" y="50" />
+			
+			<more w="200" h="30" x="800" y="450"/>
+			</labels>
+			
+			<tablepane className="ui.live.TeamGeneralTablePane" width="300"
+				height="160" x="10" y="200">
+				<columnnames>
+					<columnname name="技术统计" />
+					<columnname name="场均" />
+					<columnname name="总数" />
+				</columnnames>
+			</tablepane>
+			
+			<comboboxes>
+				<cdt w="110" h="25" x="480" y="52">
+					<string str="得分" />
+					<string str="出手数" />
+					<string str="命中率" />
+					<string str="3分得分" />
+					<string str="3分出手" />
+					<string str="3分命中率" />
+					<string str="罚球得分" />
+					<string str="罚球次数" />
+					<string str="罚球命中率" />
+					<string str="进攻篮板" />
+					<string str="防守篮板" />
+					<string str="总篮板" />
+					<string str="助攻" />
+					<string str="抢断" />
+					<string str="盖帽" />
+					<string str="失误"/>
+					<string str="犯规"/>
+				</cdt>
+				</comboboxes>
+			</panel>
+			
+			<panel className="ui.team.advance.TeamMore" width="940" height="511"
+			x="0" y="0">
+			
+			<tablepane>
+			<table1 className="ui.team.advance.TBYTablePane" width="901"
+				height="420" x="20" y="50">
+				<columnnames>
+				    <columnname name="Team" />
+					<columnname name="Season" />
+					<columnname name="W" />
+					<columnname name="L" />
+					<columnname name="Fin" />
+					<columnname name="Age" />
+					<columnname name="Ht." />
+					<columnname name="Wt." />
+					<columnname name="G" />
+					<columnname name="MP" />
+					<columnname name="FG" />
+					<columnname name="FGA" />
+					<columnname name="FG%" />
+					<columnname name="3P" />
+					<columnname name="3PA" />
+					<columnname name="3P%" />
+					<columnname name="2P" />
+					<columnname name="2PA" />
+					<columnname name="2P%" />
+					<columnname name="FT" />
+					<columnname name="FTA" />
+					<columnname name="FT%" />
+					<columnname name="ORB" />
+					<columnname name="DRB" />
+					<columnname name="TRB" />
+					<columnname name="AST" />
+					<columnname name="STL" />
+					<columnname name="BLK" />
+					<columnname name="TOV" />
+					<columnname name="PF" />
+					<columnname name="PTS" />
+				</columnnames>
+			</table1>
+			
+			<table2 className="ui.team.advance.PGBYTablePane" width="906"
+				height="420" x="17" y="50">
+				<columnnames>
+					<columnname name="Team" />
+					<columnname name="Season" />
+					<columnname name="MP" />
+					<columnname name="FG" />
+					<columnname name="FGA" />
+					<columnname name="FG%" />
+					<columnname name="3P" />
+					<columnname name="3PA" />
+					<columnname name="3P%" />
+					<columnname name="2P" />
+					<columnname name="2PA" />
+					<columnname name="2P%" />
+					<columnname name="FT" />
+					<columnname name="FTA" />
+					<columnname name="FT%" />
+					<columnname name="ORB" />
+					<columnname name="DRB" />
+					<columnname name="TRB" />
+					<columnname name="AST" />
+					<columnname name="STL" />
+					<columnname name="BLK" />
+					<columnname name="TOV" />
+					<columnname name="PF" />
+					<columnname name="PTS" />
+				</columnnames>
+			</table2>
+			
+			<table3 className="ui.team.advance.OppTotalTablePane" width="901"
+				height="420" x="20" y="50">
+				<columnnames>
+				    <columnname name="Team" />
+					<columnname name="Season" />
+					<columnname name="MP" />
+					<columnname name="FG" />
+					<columnname name="FGA" />
+					<columnname name="FG%" />
+					<columnname name="3P" />
+					<columnname name="3PA" />
+					<columnname name="3P%" />
+					<columnname name="2P" />
+					<columnname name="2PA" />
+					<columnname name="2P%" />
+					<columnname name="FT" />
+					<columnname name="FTA" />
+					<columnname name="FT%" />
+					<columnname name="ORB" />
+					<columnname name="DRB" />
+					<columnname name="TRB" />
+					<columnname name="AST" />
+					<columnname name="STL" />
+					<columnname name="BLK" />
+					<columnname name="TOV" />
+					<columnname name="PF" />
+					<columnname name="PTS" />
+				</columnnames>
+			</table3>
+			
+			<table4 className="ui.team.advance.PGBYTablePane" width="906"
+				height="420" x="17" y="50">
+				<columnnames>
+					<columnname name="Team" />
+					<columnname name="Season" />
+					<columnname name="MP" />
+					<columnname name="FG" />
+					<columnname name="FGA" />
+					<columnname name="FG%" />
+					<columnname name="3P" />
+					<columnname name="3PA" />
+					<columnname name="3P%" />
+					<columnname name="2P" />
+					<columnname name="2PA" />
+					<columnname name="2P%" />
+					<columnname name="FT" />
+					<columnname name="FTA" />
+					<columnname name="FT%" />
+					<columnname name="ORB" />
+					<columnname name="DRB" />
+					<columnname name="TRB" />
+					<columnname name="AST" />
+					<columnname name="STL" />
+					<columnname name="BLK" />
+					<columnname name="TOV" />
+					<columnname name="PF" />
+					<columnname name="PTS" />
+				</columnnames>
+			</table4>
+			</tablepane>
+			
+			<labels>
+			<hint w="110" h="30" x="70" y="10"/>
+			<total w="110" h="30" x="195" y="10"/>
+			<pergame w="130" h="30" x="290" y="10"/>
+			<opptotal w="180" h="30" x="430" y="10"/>
+			<opppergame w="200" h="30" x="610" y="10"/>
+			</labels>
+			</panel>
+			
 			<panel className="ui.team.TeamStat" width="940" height="511"
 			x="0" y="0">
 			<buttons>
@@ -211,6 +405,7 @@
 			      path1="img/common/tab/avg.jpg" 
 			      path2="img/common/tab/all.jpg"/>
 			</tab>
+			
 			
 			</panel>
 			
@@ -446,8 +641,8 @@
 			<score2 text="hh" w="103" h="60" x="680" y="80" />
 			<team1  text="hh" w="103" h="60" x="250" y="100" />
 			<team2  text="hh" w="103" h="60" x="670" y="100" />
-			<img1   w="150" h="150" x="70" y="50" />
-			<img2   w="150" h="150" x="720" y="50" />
+			<img1   w="120" h="120" x="70" y="50" />
+			<img2   w="120" h="120" x="720" y="50" />
 			<livebg w="940" h="46" x="0" y="0" path="img/match/live/livebg.png"/>
 			<live w="150" h="46" x="0" y="0" path="img/match/live/live.png" />
 			<stat w="150" h="46" x="150" y="0" path="img/match/live/stat.png" />
@@ -465,20 +660,6 @@
 			</tablepane>
 			</panel>
 			
-			<tablepane className="ui.live.MessageTablePane" width="940"
-				height="380" x="0" y="196">
-				<columnnames>
-					<columnname name="时间" />
-					<columnname name="球队" />
-					<columnname name="事件" />
-					<columnname name="比分" />
-				</columnnames>
-			</tablepane>
-			
-			
-			
-			</panel>
-			
 			<panel className="ui.player.stat.CoverPanel" width="940" height="511"
 			x="0" y="0" bg="img/home/background.jpg">
 			</panel>
@@ -493,11 +674,6 @@
 			</buttons>
 			</panel>
 
-			<panel className="ui.team.TeamDetail" width="940" height="511"
-			x="37" y="148" >
-			<labels>
-			<basicinfo w="150" h="46" x="0" y="0" path="img/match/live/live.png"/>
-			</labels>
-			</panel>
+		
 	</homeframe>
 </nba>
