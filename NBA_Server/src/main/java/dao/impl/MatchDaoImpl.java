@@ -182,6 +182,109 @@ public class MatchDaoImpl implements MatchDao {
 	}
 
 	@Override
+	public List<MatchPlayerBasic> getMatchPlayerBasicByPlayerName(String name,
+			String season, String abbr, int regular) {
+		sqlManager.getConnection();
+		List<MatchPlayerBasic> list = new ArrayList<MatchPlayerBasic>();
+		String sql = "SELECT "
+				+ "a.game_id, "
+				+ "b.season, "
+				+ "b.date, "
+				+ "player_name, "
+				+ "team_abbr, "
+				+ "starter, "
+				+ "minute, "
+				+ "fg, "
+				+ "fga,"
+				+ "fga_pct, "
+				+ "fg3, "
+				+ "fg3a, "
+				+ "fg3_pct, "
+				+ "ft, "
+				+ "fta, "
+				+ "ft_pct, "
+				+ "orb, "
+				+ "drb, "
+				+ "trb, "
+				+ "ast, "
+				+ "stl, "
+				+ "blk, "
+				+ "tov, "
+				+ "pf, "
+				+ "pts, "
+				+ "plus_minus "
+				+ " FROM match_player_basic as a, match_info as b "
+				+ "WHERE a.game_id = b.game_id "
+				+ "AND a.player_name=? "
+				+ "AND b.is_normal="+regular;
+		List<Object> objects = new ArrayList<Object>();
+		objects.add(name);
+		if(season!=null){
+				sql += " AND b.season=? ";
+				objects.add(season);
+		}
+		if(abbr!=null){
+			sql += " AND a.team_abbr=?";
+			objects.add(abbr);
+		}
+		List<Map<String,Object>> maplist = sqlManager.queryMultiByList(sql, objects);
+		for(Map<String,Object> map: maplist){
+			list.add(getMatchPlayerBasic(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+
+	@Override
+	public List<MatchPlayerAdvanced> getMatchPlayerAdvancedByPlayerName(
+			String name, String season, String abbr, int regular) {
+		sqlManager.getConnection();
+		List<MatchPlayerAdvanced> list = new ArrayList<MatchPlayerAdvanced>();
+		String sql = "SELECT "
+				+ "a.game_id, "
+				+ "b.season, "
+				+ "b.date, "
+				+ "player_name, "
+				+ "team_abbr, "
+				+ "starter, "
+				+ "minute, "
+				+ "ts_pct, "
+				+ "efg_pct,"
+				+ "fa3a_per_fga_pct, "
+				+ "fta_per_fga_pct, "
+				+ "orb_pct, "
+				+ "drb_pct, "
+				+ "trb_pct, "
+				+ "ast_pct, "
+				+ "stl_pct, "
+				+ "tov_pct, "
+				+ "blk_pct, "
+				+ "usg_pct, "
+				+ "off_rtg, "
+				+ "def_rtg "
+				+ " FROM match_player_advanced as a, match_info as b "
+				+ "WHERE a.game_id=b.game_id "
+				+ "AND a.player_name = ? "
+				+ "AND b.is_normal="+regular;
+		List<Object> objects = new ArrayList<Object>();
+		objects.add(name);
+		if(season!=null){
+				sql += "AND b.season=? ";
+				objects.add(season);
+		}
+		if(abbr!=null){
+			sql += " AND a.team_abbr=?";
+			objects.add(abbr);
+		}
+		List<Map<String,Object>> maplist = sqlManager.queryMultiByList(sql, objects);
+		for(Map<String,Object> map: maplist){
+			list.add(getMatchPlayerAdvanced(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+
+	@Override
 	public void insertMatch(List<Match> list) {
 		System.out.println("Insert Match: " + list.size());
 		
@@ -408,6 +511,10 @@ public class MatchDaoImpl implements MatchDao {
 			return null;
 		}
 		mpa.setGame_id(map.get("game_id").toString());
+		if(map.get("season")!=null)
+			mpa.setSeason(map.get("season").toString());
+		if(map.get("date")!=null)
+			mpa.setDate(map.get("date").toString());
 		mpa.setPlayer_name(map.get("player_name").toString());
 		mpa.setTeam_abbr(map.get("team_abbr").toString());
 		mpa.setStarter(map.get("starter").toString());
@@ -435,6 +542,10 @@ public class MatchDaoImpl implements MatchDao {
 			return null;
 		}
 		mpb.setGame_id(map.get("game_id").toString());
+		if(map.get("season")!=null)
+			mpb.setSeason(map.get("season").toString());
+		if(map.get("date")!=null)
+			mpb.setDate(map.get("date").toString());
 		mpb.setPlayer_name(map.get("player_name").toString());
 		mpb.setTeam_abbr(map.get("team_abbr").toString());
 		mpb.setStarter(map.get("starter").toString());
@@ -459,5 +570,6 @@ public class MatchDaoImpl implements MatchDao {
 		mpb.setPlus_minus(Utility.objectToDouble(map.get("plus_minus")));
 		return mpb;
 	}
+
 	
 }

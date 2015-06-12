@@ -13,6 +13,16 @@ public class MatchPlayerBasic {
 	private String game_id;
 	
 	/**
+	 * 赛季
+	 */
+	private String season;
+	
+	/**
+	 * 日期
+	 */
+	private String date;
+	
+	/**
 	 * 球员名
 	 */
 	private String player_name;
@@ -322,6 +332,22 @@ public class MatchPlayerBasic {
 
 	public void setPlus_minus(Double plus_minus) {
 		this.plus_minus = plus_minus;
+	}
+
+	public String getSeason() {
+		return season;
+	}
+
+	public void setSeason(String season) {
+		this.season = season;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 	
 }

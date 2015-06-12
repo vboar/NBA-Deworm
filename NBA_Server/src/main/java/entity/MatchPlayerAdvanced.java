@@ -11,6 +11,16 @@ public class MatchPlayerAdvanced {
 	 * 比赛编号
 	 */
 	private String game_id;
+
+	/**
+	 * 赛季
+	 */
+	private String season;
+
+	/**
+	 * 日期
+	 */
+	private String date;
 	
 	/**
 	 * 球员名
@@ -257,6 +267,22 @@ public class MatchPlayerAdvanced {
 
 	public void setBlk_pct(Double blk_pct) {
 		this.blk_pct = blk_pct;
+	}
+
+	public String getSeason() {
+		return season;
+	}
+
+	public void setSeason(String season) {
+		this.season = season;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 	
 }

@@ -168,4 +168,26 @@ public interface StatsService extends Remote {
 	 */
 	public ImageIcon getTeamPctCompareBarChart(String teamA, String teamB, String season, List<FieldType> field) throws RemoteException;
 	
+	/**
+	 * 获得某赛季某球员各比赛属性折线图
+	 * @param name 球员姓名
+	 * @param season 赛季
+	 * @param list 数据属性
+	 * @param regular 常规赛/季后赛
+	 * @return
+	 * @throws RemoteException
+	 */
+	public ImageIcon getMatchPlayerLineChart(String name, String season, FieldType field, int regular) throws RemoteException;
+	
+	/**
+	 * 获得某赛季球队各属性折线图
+	 * @param abbr
+	 * @param season
+	 * @param list
+	 * @param regular
+	 * @return
+	 * @throws RemoteException
+	 */
+	public ImageIcon getMatchTeamLineChart(String abbr, String season, FieldType field, int regular) throws RemoteException;
+	
 }
