@@ -216,7 +216,7 @@
 			<more w="200" h="30" x="800" y="450"/>
 			</labels>
 			
-			<tablepane className="ui.live.TeamGeneralTablePane" width="300"
+			<tablepane className="ui.team.TeamGeneralTablePane" width="300"
 				height="160" x="10" y="200">
 				<columnnames>
 					<columnname name="技术统计" />
@@ -771,13 +771,6 @@
 			        <watch text="立即观看" w="100" h="30" x="325" y="95"/>
                     <hwatch text="文字直播" w="100" h="30" x="795" y="95"/>
 			    </buttons>
-			</panel>
-			
-			<panel className="ui.team.TeamDetail" width="940" height="511"
-			x="37" y="148" >
-			<labels>
-			<basicinfo w="150" h="46" x="0" y="0" path="img/match/live/live.png"/>
-			</labels>
 			</panel>
 			
 			<panel className="ui.player.info.PlayerInfoPane" width="940" height="511"
