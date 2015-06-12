@@ -22,7 +22,7 @@ public class LiveChoosePane extends JPanel {
 	private PanelConfig pcfg ;
 	private HomeUI frame;
 	private Image bg;
-    private LivePanel livePanel;
+    public LivePanel livePanel;
 	
 	public LiveChoosePane(HomeUI frame) {
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
@@ -89,9 +89,7 @@ public class LiveChoosePane extends JPanel {
             btn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    livePanel = new LivePanel(frame, vo);
-                    frame.motherPanel.matchPanel.liveChoosePane.setVisible(false);
-                    frame.motherPanel.matchPanel.add(livePanel);
+                    setLivePanel(vo);
                 }
             });
             btn.setLocation(btn.getX(), btn.getY()+70*i);
@@ -109,6 +107,14 @@ public class LiveChoosePane extends JPanel {
             remove(livePanel);
             repaint();
         }
+    }
+
+    public void setLivePanel(LiveMatchInfoVO vo) {
+        livePanel = new LivePanel(frame, vo);
+        setVisible(false);
+        frame.motherPanel.matchPanel.add(livePanel);
+        frame.motherPanel.matchPanel.revalidate();
+        frame.motherPanel.matchPanel.repaint();
     }
 
 }
