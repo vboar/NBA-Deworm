@@ -41,6 +41,9 @@ public class RawPlayerDaoImpl implements RawPlayerDao {
 		File folder = new File(PLAYER_PATH);
 		String[] players = folder.list();
 		for (String player : players) {
+			if(!player.contains(" ")){
+				continue;
+			}
 			PlayerInfo info = new PlayerInfo();
 			info.setName(player);
 			List<String> lines = FileManager.read(PLAYER_PATH + player);

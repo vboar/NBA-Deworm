@@ -648,5 +648,113 @@
 			      path2="img/common/tab/all.jpg"/>
 			</tab>
 		</panel>
+		<panel className="ui.player.compare.CompareChoosePanel" width="940" height="511"
+			x="0" y="0">
+		</panel>
+		
+		<panel className="ui.player.compare.ComparePanel" width="940" height="511"
+			x="0" y="0">
+		</panel>
+		
+		<panel className="ui.player.hot.PlayerHotPane" width="940" height="511"
+			x="0" y="0">
+			<labels>
+			<name0 text="姓名1" w="1030" h="60" x="250" y="60" />
+			<position0 text="位置1" w="1030" h="60" x="250" y="60" />
+			<team0 text="球队1" w="1030" h="60" x="250" y="100" />
+			<data0 text="数据1" w="1030" h="60" x="250" y="140" />
+			<playerImg0 text="球员照片1" w="200" h="153" x="10" y="20" />
+			<teamImg0 text="球队照片1" w="100" h="100" x="350" y="20" />
+			
+			<name1 text="姓名2" w="1030" h="60" x="695" y="60" />
+			<position1 text="位置2" w="1030" h="60" x="695" y="60" />
+			<team1 text="球队2" w="1030" h="60" x="695" y="100" />
+			<data1 text="数据2" w="1030" h="60" x="695" y="140" />
+			<playerImg1 text="球员图2" w="200" h="153" x="455" y="20" />
+			<teamImg1 text="球队图2" w="100" h="100" x="795" y="20" />
+			
+			<name2 text="姓名" w="1030" h="60" x="180" y="210" />
+			<position2 text="姓名" w="1030" h="60" x="320" y="210" />
+			<team2 text="姓名" w="1030" h="60" x="420" y="210" />
+			<data2 text="姓名" w="1030" h="60" x="520" y="210" />
+			<playerImg2 text="姓名" w="120" h="92" x="0" y="210" />
+			<teamImg2 text="姓名" w="92" h="92" x="720" y="210" />
+			
+			<name3 text="姓名" w="1030" h="60" x="180" y="310" />
+			<position3 text="姓名" w="1030" h="60" x="320" y="310" />
+			<team3 text="姓名" w="1030" h="60" x="420" y="310" />
+			<data3 text="姓名" w="1030" h="60" x="520" y="310" />
+			<playerImg3 text="姓名" w="120" h="92" x="0" y="310" />
+			<teamImg3 text="姓名" w="92" h="92" x="720" y="310" />
+			
+			<name4 text="姓名" w="1030" h="60" x="180" y="410" />
+			<position4 text="姓名" w="1030" h="60" x="320" y="410" />
+			<team4 text="姓名" w="1030" h="60" x="420" y="410" />
+			<data4 text="姓名" w="1030" h="60" x="520" y="410" />
+			<playerImg4 text="姓名" w="120" h="92" x="0" y="410" />
+			<teamImg4 text="姓名" w="92" h="92" x="720" y="410" />
+			
+			
+			</labels>
+			
+			<comboboxes>
+			<season w="110" h="25" x="10" y="20">
+					<string str="14-15" />
+					<string str="13-14" />
+					<string str="12-13" />
+					<string str="11-12" />
+					<string str="10-11" />
+					<string str="09-10" />
+					<string str="08-09" />
+					<string str="07-08" />
+					<string str="06-07" />
+					<string str="05-06" />
+					<string str="04-05" />
+					<string str="03-04" />
+					<string str="02-03" />
+					<string str="01-02" />
+					<string str="00-01" />
+				</season>
+				
+				<type w="110" h="25" x="200" y="20">
+				
+				<string str="PTS"/>
+				<string str="TRB"/>
+				<string str="ORB"/>
+				<string str="DRB"/>
+				<string str="AST"/>
+				<string str="BLK"/>
+				<string str="STL"/>
+				<string str="TOV"/>
+				<string str="PF"/>
+				<string str="FG3_PCT"/>
+				<string str="FGA_PCT"/>
+				<string str="PER"/>
+				<string str="TS_PCT"/>
+				<string str="STL_PCT"/>
+				<string str="BLK_PCT"/>
+				<string str="AST_PCT"/>
+				<string str="TOV_PCT"/>
+				<string str="USG_PCT"/>
+				<string str="TRB_PCT"/>
+				<string str="ORB_PCT"/>
+				<string str="DRB_PCT"/>
+				<string str="OFF_RTG"/>
+				<string str="DEF_RTG"/>
+				<string str="OFF_EFG_PCT"/>
+				<string str="OFF_TOV_PCT"/>
+				<string str="SOS"/>
+				<string str="SRS"/>
+				<string str="MOV"/>
+				</type>
+			
+			</comboboxes>
+			<buttons>
+			<search w="110" h="25" x="300" y="20"/>
+			
+			</buttons>
+		</panel>
+		
+		
 	</homeframe>
 </nba>

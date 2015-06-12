@@ -3,6 +3,7 @@ package ui.player.hot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -31,12 +32,12 @@ public class PlayerHotPane extends JPanel {
 //	private MyLabel teamImg1;
 //	
 	
-	private MyLabel[] names;
-	private MyLabel[] positions;
-	private MyLabel[] teams;
-	private MyLabel[] datas;
-	private MyLabel[] playerImgs;
-	private MyLabel[] teamImgs;
+	private MyLabel[] names = new MyLabel[10];
+	private MyLabel[] positions= new MyLabel[10];
+	private MyLabel[] teams= new MyLabel[10];
+	private MyLabel[] datas= new MyLabel[10];
+	private MyLabel[] playerImgs= new MyLabel[10];
+	
 	
 	private MyComboBox type;
 	private MyComboBox season;
@@ -45,8 +46,7 @@ public class PlayerHotPane extends JPanel {
 	List<HotPlayerInfoVO> volist =null;
 	List<String> teamlist = null;
 	List<ImageIcon> playerimglist = null;
-	List<ImageIcon> teamimglist = null;
-	
+		
 	
 	
 	public PlayerHotPane(HomeUI frame){
@@ -88,8 +88,7 @@ public class PlayerHotPane extends JPanel {
 			playerImgs[i] = new MyLabel(pcfg.getLabels().element("playerImg"+i));
 			add(playerImgs[i]);
 			
-			teamImgs[i] = new MyLabel(pcfg.getLabels().element("teamImg"+i));
-			add(teamImgs[i]);
+			
 		}
 	}
 	
@@ -104,7 +103,8 @@ public class PlayerHotPane extends JPanel {
 	}
 	
 	private void initButtons(){
-		button = new MyButton(pcfg.getButtons().element("button"));
+		button = new MyButton(pcfg.getButtons().element("search"));
+		addButtonAction(button);
 		add(button);
 		
 	}
@@ -119,15 +119,21 @@ public class PlayerHotPane extends JPanel {
 				String seasonStr = season.getSelectedItem().toString();
 			
 				try {
+					
+					teamlist = new ArrayList<String>(5);
+					playerimglist = new ArrayList<ImageIcon>(5);
 					volist = ServiceFactoryImpl.getInstance().getPlayerService().getSeasonHotPlayer(seasonStr, FieldType.values()[item],5);
 					for(int i= 0;i<5;i++){
 					ImageIcon icon = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerPortraitByName(volist.get(i).name);					
 					String teamStr = ServiceFactoryImpl.getInstance().getPlayerService().getTeamByPlayerNameSeason(volist.get(i).name, seasonStr).get(0);
 					teamStr = teamStr.split(";")[0];
-					ImageIcon teamIcon  = ServiceFactoryImpl.getInstance().getTeamService().getTeamLogoByAbbr(teamStr);
-					teamimglist.set(i,teamIcon);
-					teamlist.set(i, teamStr);
-					playerimglist.set(i, icon);
+					
+					ImageIcon teamIcon  = ServiceFactoryImpl.getInstance().getTeamService().getTeamLogoByAbbr(teamStr.equals("NOP")? "NOH":teamStr);
+					
+					
+					teamlist.add(teamStr);
+					
+					playerimglist.add(icon);
 					}
 					
 				} catch (RemoteException e1) {
@@ -154,7 +160,7 @@ public class PlayerHotPane extends JPanel {
 			
 			playerImgs[i].setImage(playerimglist.get(i));
 			
-			teamImgs[i].setImage(teamimglist.get(i));
+			
 		}
 		repaint();
 		

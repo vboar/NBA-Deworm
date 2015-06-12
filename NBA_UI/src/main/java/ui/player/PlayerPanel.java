@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
+import ui.player.hot.PlayerHotPane;
 import ui.player.index.PlayerIndex;
 import ui.player.info.PlayerInfoPane;
 import ui.player.stat.PlayerFilter;
@@ -28,12 +29,13 @@ public class PlayerPanel extends JPanel {
 	public PlayerFilter playerfilter;
 	public PlayerStat playerstat;
 	public PlayerInfoPane playerInfoPane;
+	public PlayerHotPane playerHotPane;
 	private JFrame coverFrame;
 	
 	private MyLabel settingbg;
 	
-	private MyButton setting;
-	private MyButton menu;
+	public MyButton setting;
+	public MyButton menu;
 	
 	public PlayerPanel(HomeUI frame){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
@@ -75,6 +77,10 @@ public class PlayerPanel extends JPanel {
 		playerInfoPane =new PlayerInfoPane(frame);
 		playerInfoPane.setVisible(false);
 		add(playerInfoPane);
+		
+		playerHotPane = new PlayerHotPane(frame);
+		playerHotPane.setVisible(false);
+		add(playerHotPane);
 	}
 	
 	private void initCover(){
@@ -182,6 +188,7 @@ public class PlayerPanel extends JPanel {
 		setting.setIcon(new ImageIcon(pcfg.getButtons().element("setting").attributeValue("path")));
 		playerfilter.setVisible(false);
 		coverFrame.setVisible(false);
+		
 	}
 	
 }
