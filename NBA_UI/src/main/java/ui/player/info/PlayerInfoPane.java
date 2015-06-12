@@ -89,15 +89,15 @@ public class PlayerInfoPane extends JPanel {
 
 	private void initLabels() {
 		ImageIcon icon = null;
-		try {
-			icon = ServiceFactoryImpl.getInstance().getPlayerService()
-					.getPlayerPortraitByName("LeBron James");
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		icon.setImage(icon.getImage().getScaledInstance(169, 130,
-				Image.SCALE_DEFAULT));
+//		try {
+//			icon = ServiceFactoryImpl.getInstance().getPlayerService()
+//					.getPlayerPortraitByName("LeBron James");
+//		} catch (RemoteException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		icon.setImage(icon.getImage().getScaledInstance(169, 130,
+//				Image.SCALE_DEFAULT));
 		img = new MyLabel(pcfg.getLabels().element("img"));
 		img.setIcon(icon);
 		add(img);
@@ -262,17 +262,20 @@ public class PlayerInfoPane extends JPanel {
 		List<PlayerPerGameVO> listAll = null;
 		PlayerInfoVO info = null; 
 		List<MatchInfoVO> matchlist= null;
+		String teamStr = null;
 		try {
 			info = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerInfoByName(name);
 			listAll = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerPerGameByName(name, 2);
 			matchlist = ServiceFactoryImpl.getInstance().getMatchService().getMatchInfoByFilter(filter);
+		 teamStr = ServiceFactoryImpl.getInstance().getPlayerService().getTeamByPlayerNameSeason(name, "14-15").get(0);
+		teamStr = teamStr.split(";")[0];
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		this.name.setText(name);
-		//team.setText(info.team);
+		team.setText(teamStr);
 		position.setText(info.position);
 		born.setText(info.born);
 		hometown.setText(info.hometown);
