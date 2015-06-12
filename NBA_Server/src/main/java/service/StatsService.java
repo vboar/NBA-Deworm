@@ -155,7 +155,7 @@ public interface StatsService extends Remote {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public ImageIcon getTeamAdvancedCompareBarChar(String teamA, String teamB, String season, List<FieldType> field) throws RemoteException;
+	public ImageIcon getTeamAdvancedCompareBarChart(String teamA, String teamB, String season, List<FieldType> field) throws RemoteException;
 
 	/**
 	 * 获得两只球队xx率属性对比直方图
