@@ -64,6 +64,7 @@ public class TeamPanel extends JPanel{
 
     public void createTeamDetail(String team) {
         removeTeamDetail();
+        teamindex.setVisible(false);
         teamDetail = new TeamDetail(frame, team);
         add(teamDetail);
     }

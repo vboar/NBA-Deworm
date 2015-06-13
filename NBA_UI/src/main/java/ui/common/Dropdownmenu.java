@@ -2,9 +2,7 @@ package ui.common;
 
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 
 import javax.swing.JPanel;
 
@@ -71,5 +69,41 @@ public class Dropdownmenu extends JPanel{
 		add(match);
 		add(stats);
 		add(home);
+
+        player.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.motherPanel.fillComponents(1);
+                frame.motherPanel.fillMenu();
+                setVisible(false);
+            }
+        });
+
+        team.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.motherPanel.fillComponents(2);
+                frame.motherPanel.fillMenu();
+                setVisible(false);
+            }
+        });
+
+        match.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.motherPanel.fillComponents(3);
+                frame.motherPanel.fillMenu();
+                setVisible(false);
+            }
+        });
+
+        stats.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.motherPanel.fillComponents(4);
+                frame.motherPanel.fillMenu();
+                setVisible(false);
+            }
+        });
 	}
 }

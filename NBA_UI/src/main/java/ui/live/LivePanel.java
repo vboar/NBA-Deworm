@@ -138,7 +138,7 @@ public class LivePanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 frame.motherPanel.fillComponents(2);
-                frame.motherPanel.teamPanel.createTeamDetail(team1Str);
+                frame.motherPanel.teamPanel.createTeamDetail(ChiToEng(team1Str));
             }
         });
 		add(team1);
@@ -148,7 +148,8 @@ public class LivePanel extends JPanel {
         team2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("click");
+                frame.motherPanel.fillComponents(2);
+                frame.motherPanel.teamPanel.createTeamDetail(ChiToEng(team2Str));
             }
         });
 		add(team2);
@@ -158,7 +159,8 @@ public class LivePanel extends JPanel {
         img1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("click");
+                frame.motherPanel.fillComponents(2);
+                frame.motherPanel.teamPanel.createTeamDetail(ChiToEng(team1Str));
             }
         });
 		add(img1);
@@ -167,7 +169,8 @@ public class LivePanel extends JPanel {
         img2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("click");
+                frame.motherPanel.fillComponents(2);
+                frame.motherPanel.teamPanel.createTeamDetail(ChiToEng(team2Str));
             }
         });
 		add(img2);
