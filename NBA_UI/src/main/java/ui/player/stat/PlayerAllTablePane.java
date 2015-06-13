@@ -51,19 +51,28 @@ public class PlayerAllTablePane extends TablePanel {
         table.setFont(new Font("华文细黑",0,12));
 		this.table.addMouseListener(showDataInfo());
 		table.setShowGrid(false);
+        table.getTableHeader().setResizingAllowed(false);
 		this.updateWidth();
 	}
 
 	public void updateWidth() {
 		FrameUtil.setTableColumnWidth(table, this.getWidth(), 10);
 		for(int i = 1;i<this.table.getColumnModel().getColumnCount();i++){
-			this.table.getColumnModel().getColumn(i).setPreferredWidth(41);
+			this.table.getColumnModel().getColumn(i).setPreferredWidth(39);
 		}
-		 this.table.getColumnModel().getColumn(0).setPreferredWidth(100);
+		this.table.getColumnModel().getColumn(0).setPreferredWidth(100);
+        this.table.getColumnModel().getColumn(1).setPreferredWidth(53);
+        this.table.getColumnModel().getColumn(2).setPreferredWidth(28);
+        this.table.getColumnModel().getColumn(3).setPreferredWidth(28);
+        this.table.getColumnModel().getColumn(6).setPreferredWidth(44);
+        this.table.getColumnModel().getColumn(8).setPreferredWidth(44);
+        this.table.getColumnModel().getColumn(10).setPreferredWidth(44);
+        this.table.getColumnModel().getColumn(11).setPreferredWidth(44);
+        this.table.getColumnModel().getColumn(12).setPreferredWidth(28);
 		// this.table.getColumnModel().getColumn(1).setPreferredWidth(170);
 		// this.table.getColumnModel().getColumn(2).setPreferredWidth(420);
 		// this.table.getTableHeader().setPreferredSize(new Dimension(0, 50));
-		// this.table.setRowHeight(50);
+//		 this.table.setRowHeight(18);
 		this.updateUI();
 	}
 

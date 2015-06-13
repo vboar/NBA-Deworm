@@ -128,8 +128,8 @@
 			
 			<panel className="ui.player.stat.PlayerStat" width="940" height="511"
 			x="0" y="0" >
-			<tablepane className="ui.player.stat.PlayerAllTablePane" width="940"
-				height="410" x="0" y="96">
+			<tablepane className="ui.player.stat.PlayerAllTablePane" width="900"
+				height="420" x="20" y="75">
 				<columnnames>
 					<columnname name="NAME" />
 					<columnname name="TEAM" />
