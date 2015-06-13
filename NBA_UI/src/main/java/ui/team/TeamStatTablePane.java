@@ -1,4 +1,4 @@
-package ui.team.advance;
+package ui.team;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -8,18 +8,12 @@ import ui.util.MyTable;
 import ui.util.MyTableModel;
 import ui.util.TablePanel;
 
-/**
- * totalByYear 一支球队各年的数据表格
- * 
- * @author wang
- *
- */
-public class TBYTablePane extends TablePanel{
-
+public class TeamStatTablePane extends TablePanel{
+	
 	private int COLUMN_NUM = 24;
 	private Object[][] list;
 	
-	public TBYTablePane(TableConfig cfg,Object[][] list){
+	public TeamStatTablePane(TableConfig cfg,Object[][] list){
 		super(cfg);
 		this.list = list;
 		this.initTable();
@@ -65,4 +59,5 @@ public class TBYTablePane extends TablePanel{
 			row[i] = vo[i];
 		}	
 	}
+	
 }

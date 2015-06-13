@@ -10,7 +10,7 @@ import ui.util.TablePanel;
 
 public class OppPGTablePane extends TablePanel{
 	
-	private int COLUMN_NUM = 24;
+	private int COLUMN_NUM = 23;
 	private Object[][] list;
 	
 	public OppPGTablePane(TableConfig cfg,Object[][] list){

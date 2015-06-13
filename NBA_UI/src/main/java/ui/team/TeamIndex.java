@@ -131,7 +131,7 @@ public class TeamIndex extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				frame.motherPanel.teamPanel.teamindex.setVisible(false);
-				frame.motherPanel.teamPanel.add(new TeamDetail(frame,"NOP"));
+				frame.motherPanel.teamPanel.add(new TeamDetail(frame,"NOH"));
 			}
 			
 		});
@@ -167,7 +167,7 @@ public class TeamIndex extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				frame.motherPanel.teamPanel.teamindex.setVisible(false);
-				frame.motherPanel.teamPanel.add(new TeamDetail(frame,"PHX"));
+				frame.motherPanel.teamPanel.add(new TeamDetail(frame,"PHO"));
 			}
 			
 		});
@@ -287,7 +287,7 @@ public class TeamIndex extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				frame.motherPanel.teamPanel.teamindex.setVisible(false);
-				frame.motherPanel.teamPanel.add(new TeamDetail(frame,"BKN"));
+				frame.motherPanel.teamPanel.add(new TeamDetail(frame,"NJN"));
 			}
 			
 		});

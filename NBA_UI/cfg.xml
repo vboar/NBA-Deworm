@@ -204,14 +204,14 @@
 			<labelbg w="940" h="50" x="0" y="0" path="img/player/setting/bg.png" />
 			
 			<team w="250" h="30" x="50" y="50" />
-			<img w="100" h="100" x="50" y="80"/>
-			<buildtime w="100" h="20" x="150" y="80"/>
-			<location w="250" h="20" x="150" y="100"/>
-			<league w="100" h="20" x="150" y="120"/>
-			<division w="100" h="20" x="150" y="140"/>
-			<championship w="100" h="20" x="150" y="160"/>
+			<logo w="100" h="100" x="40" y="90"/>
+			<buildtime w="100" h="30" x="160" y="90"/>
+			<location w="260" h="30" x="160" y="110"/>
+			<league w="100" h="30" x="160" y="130"/>
+			<division w="100" h="30" x="160" y="150"/>
+			<championship w="100" h="30" x="160" y="170"/>
 			
-			<current w="200" h="30" x="400" y="50" />
+			<current w="200" h="30" x="450" y="50" />
 			
 			<more w="200" h="30" x="800" y="450"/>
 			</labels>
@@ -226,7 +226,7 @@
 			</tablepane>
 			
 			<comboboxes>
-				<cdt w="110" h="25" x="480" y="52">
+				<cdt w="110" h="25" x="540" y="52">
 					<string str="得分" />
 					<string str="出手数" />
 					<string str="命中率" />
@@ -252,17 +252,10 @@
 			x="0" y="0">
 			
 			<tablepane>
-			<table1 className="ui.team.advance.TBYTablePane" width="901"
-				height="420" x="20" y="50">
+			<table1 className="ui.team.advance.TBYTablePane" width="903"
+				height="420" x="20" y="75">
 				<columnnames>
-				    <columnname name="Team" />
 					<columnname name="Season" />
-					<columnname name="W" />
-					<columnname name="L" />
-					<columnname name="Fin" />
-					<columnname name="Age" />
-					<columnname name="Ht." />
-					<columnname name="Wt." />
 					<columnname name="G" />
 					<columnname name="MP" />
 					<columnname name="FG" />
@@ -289,10 +282,9 @@
 				</columnnames>
 			</table1>
 			
-			<table2 className="ui.team.advance.PGBYTablePane" width="906"
-				height="420" x="17" y="50">
+			<table2 className="ui.team.advance.PGBYTablePane" width="881"
+				height="420" x="20" y="75">
 				<columnnames>
-					<columnname name="Team" />
 					<columnname name="Season" />
 					<columnname name="MP" />
 					<columnname name="FG" />
@@ -319,10 +311,9 @@
 				</columnnames>
 			</table2>
 			
-			<table3 className="ui.team.advance.OppTotalTablePane" width="901"
-				height="420" x="20" y="50">
+			<table3 className="ui.team.advance.OppTotalTablePane" width="877"
+				height="420" x="20" y="75">
 				<columnnames>
-				    <columnname name="Team" />
 					<columnname name="Season" />
 					<columnname name="MP" />
 					<columnname name="FG" />
@@ -349,10 +340,9 @@
 				</columnnames>
 			</table3>
 			
-			<table4 className="ui.team.advance.PGBYTablePane" width="906"
-				height="420" x="17" y="50">
+			<table4 className="ui.team.advance.PGBYTablePane" width="881"
+				height="420" x="20" y="75">
 				<columnnames>
-					<columnname name="Team" />
 					<columnname name="Season" />
 					<columnname name="MP" />
 					<columnname name="FG" />
@@ -381,11 +371,12 @@
 			</tablepane>
 			
 			<labels>
-			<hint w="110" h="30" x="70" y="10"/>
-			<total w="110" h="30" x="195" y="10"/>
-			<pergame w="130" h="30" x="290" y="10"/>
-			<opptotal w="180" h="30" x="430" y="10"/>
-			<opppergame w="200" h="30" x="610" y="10"/>
+			<logo w="60" h="60" x="20" y="10"/>
+			<team w="50" h="30" x="105" y="28"/>
+			<total w="110" h="30" x="180" y="28"/>
+			<pergame w="130" h="30" x="275" y="28"/>
+			<opptotal w="180" h="30" x="415" y="28"/>
+			<opppergame w="200" h="30" x="595" y="28"/>
 			</labels>
 			</panel>
 			
@@ -406,7 +397,37 @@
 			      path2="img/common/tab/all.jpg"/>
 			</tab>
 			
-			
+			<tablepane>
+			<table className="ui.team.advance.TeamStatTablePane" width="903"
+				height="420" x="20" y="75">
+				<columnnames>
+					<columnname name="Team" />
+					<columnname name="Season" />
+					<columnname name="G" />
+					<columnname name="W" />
+					<columnname name="L" />
+					<columnname name="MP" />
+					<columnname name="FG" />
+					<columnname name="FGA" />
+					<columnname name="FG%" />
+					<columnname name="3P" />
+					<columnname name="3PA" />
+					<columnname name="3P%" />
+					<columnname name="FT" />
+					<columnname name="FTA" />
+					<columnname name="FT%" />
+					<columnname name="ORB" />
+					<columnname name="DRB" />
+					<columnname name="TRB" />
+					<columnname name="AST" />
+					<columnname name="STL" />
+					<columnname name="BLK" />
+					<columnname name="TOV" />
+					<columnname name="PF" />
+					<columnname name="PTS" />
+				</columnnames>
+			</table>
+			</tablepane>
 			</panel>
 			
 			<panel className="ui.match.MatchPanel" width="940" height="511"

@@ -11,7 +11,7 @@ import ui.util.TablePanel;
 public class OppTotalTablePane extends TablePanel{
 
 	
-	private int COLUMN_NUM = 24;
+	private int COLUMN_NUM = 23;
 	private Object[][] list;
 	
 	public OppTotalTablePane(TableConfig cfg,Object[][] list){

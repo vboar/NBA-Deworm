@@ -14,7 +14,7 @@ import ui.util.TablePanel;
  *
  */
 public class PGBYTablePane extends TablePanel{
-	private int COLUMN_NUM = 24;
+	private int COLUMN_NUM = 23;
 	private Object[][] list;
 	
 	public PGBYTablePane(TableConfig cfg,Object[][] list){

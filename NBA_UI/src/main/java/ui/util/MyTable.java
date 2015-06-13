@@ -93,7 +93,7 @@ public class MyTable extends JTable {
 	             width = Math.max(width, preferedWidth);
 	         }
 	         header.setResizingColumn(column); 
-	         column.setWidth(width+myTable.getIntercellSpacing().width+4);
+	         column.setWidth(width+myTable.getIntercellSpacing().width+5);
 	     }
 	}
 	

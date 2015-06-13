@@ -31,6 +31,7 @@ public class TeamDetail extends JPanel{
 	//球队阵容
 	private MyLabel player;
 	
+	private MyLabel logo;
 	private MyLabel team;
 	private MyLabel buildtime;
 	private MyLabel location;
@@ -83,6 +84,14 @@ public class TeamDetail extends JPanel{
 	}
 	
 	private void initLabels(){
+		logo = new MyLabel(pcfg.getLabels().element("logo"));
+		try {
+			logo.setImage(ServiceFactoryImpl.getInstance().getTeamService().getTeamLogoByAbbr(abbr));
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		add(logo);
 		info = new MyLabel(pcfg.getLabels().element("info"));
 		add(info);
 		player = new MyLabel(pcfg.getLabels().element("player"));
@@ -97,26 +106,32 @@ public class TeamDetail extends JPanel{
 		
 		buildtime = new MyLabel(pcfg.getLabels().element("buildtime"));
 		buildtime.setText("建立时间："+vo.buildup_time);
+		buildtime.setFont(new Font("宋体",0,12));
 		add(buildtime);
 		
 		location = new MyLabel(pcfg.getLabels().element("location"));
 		location.setText("地理位置："+vo.location);
+		location.setFont(new Font("宋体",0,12));
 		add(location);
 		
 		league = new MyLabel(pcfg.getLabels().element("league"));
 		league.setText("联盟："+vo.league);
+		league.setFont(new Font("宋体",0,12));
 		add(league);
 		
 		division = new MyLabel(pcfg.getLabels().element("division"));
 		division.setText("分区："+vo.division);
+		division.setFont(new Font("宋体",0,12));
 		add(division);
 		
 		championship = new MyLabel(pcfg.getLabels().element("championship"));
 		championship.setText("夺冠次数："+vo.championships);
+		championship.setFont(new Font("宋体",0,12));
 		add(championship);
 		
 		current = new MyLabel(pcfg.getLabels().element("current"));
 		current.setText("本赛季表现：");
+		current.setFont(new Font("宋体",0,12));
 		add(current);
 		
 		more = new MyLabel(pcfg.getLabels().element("more"));

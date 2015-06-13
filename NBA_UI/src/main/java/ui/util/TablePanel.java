@@ -23,7 +23,7 @@ public abstract class TablePanel extends JPanel{
 	
 	protected MyTable table;
 	
-	protected RowTableScrollPane rollpane;
+	protected JScrollPane rollpane;
 	
 	protected TableConfig cfg;
 	
@@ -41,7 +41,7 @@ public abstract class TablePanel extends JPanel{
 	
 	protected void initComponent() {
 		//创建滚动条面板
-		this.rollpane = new RowTableScrollPane(this.table);
+		this.rollpane = new JScrollPane(this.table);
 		this.rollpane.setPreferredSize(new Dimension(this.getWidth(),this.getHeight()-5));
 		this.add(this.rollpane);
 	}
@@ -61,9 +61,9 @@ public abstract class TablePanel extends JPanel{
 		return dtm;
 	}
 
-	public void setRowHeaderWidth(int width){
-		this.rollpane.setRowHeaderWidth(width);
-	}
+	//public void setRowHeaderWidth(int width){
+		//this.rollpane.setRowHeaderWidth(width);
+	//}
 	
 	public void deleteRow(){
 		if(this.isSelected()){
@@ -85,9 +85,9 @@ public abstract class TablePanel extends JPanel{
 		return columnNames;
 	}
 
-	public RowTableScrollPane getRollpane() {
-		return rollpane;
-	}
+	//public RowTableScrollPane getRollpane() {
+		//return rollpane;
+	//}
 	
 	
 }

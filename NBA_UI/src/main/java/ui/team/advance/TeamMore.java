@@ -14,6 +14,7 @@ import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
 import ui.util.MyLabel;
+import vo.TeamInfoVO;
 import vo.TeamOppPerGameVO;
 import vo.TeamOppTotalVO;
 import vo.TeamPerGameVO;
@@ -38,11 +39,13 @@ public class TeamMore extends JPanel{
 	private Object[][] data3;
 	private Object[][] data4;
 	
+	private TeamInfoVO vo;
 	private List<TeamTotalVO> vo1;
 	private List<TeamPerGameVO> vo2;
 	private List<TeamOppTotalVO> vo3;
 	private List<TeamOppPerGameVO> vo4;
 	
+	private MyLabel logo;
 	private MyLabel hint;
 	private MyLabel total;
 	private MyLabel pergame;
@@ -64,14 +67,23 @@ public class TeamMore extends JPanel{
 	}
 	
 	private void initComponent(){
-		initLabels();
 		initData();
+		initLabels();
 		initTables();
 	}
 	
 	private void initLabels(){
-		hint = new MyLabel(pcfg.getLabels().element("hint"));
-		hint.setText("Year by year:");
+		logo = new MyLabel(pcfg.getLabels().element("logo"));
+		try {
+			logo.setImage(ServiceFactoryImpl.getInstance().getTeamService().getTeamLogoByAbbr(abbr));
+		} catch (RemoteException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		add(logo);
+		
+		hint = new MyLabel(pcfg.getLabels().element("team"));
+		hint.setText(vo.abbr+" :");
 		hint.setFont(new Font("华文细黑",0,15));
 		add(hint);
 
@@ -227,129 +239,120 @@ public class TeamMore extends JPanel{
 	
 	private void initData(){
 		try {
+			vo = ServiceFactoryImpl.getInstance().getTeamService().getTeamInfoByAbbr(abbr);
 			vo1 = ServiceFactoryImpl.getInstance().getTeamService().getTeamTotalByAbbr(abbr);
 			vo2 = ServiceFactoryImpl.getInstance().getTeamService().getTeamPerGameByAbbr(abbr);
 			vo3 = ServiceFactoryImpl.getInstance().getTeamService().getTeamOppTotalByAbbr(abbr);
 			vo4 = ServiceFactoryImpl.getInstance().getTeamService().getTeamOppPerGameByAbbr(abbr);
 			
-			data1 = new Object[vo1.size()][31];
+			data1 = new Object[vo1.size()][30];
 			for(int i=0;i<vo1.size();i++){
-				data1[i][0] = vo1.get(i).abbr;
-				data1[i][1] = vo1.get(i).season;
-				data1[i][2] = vo1.get(i).wins;
-				data1[i][3] = vo1.get(i).losses;
-				data1[i][4] = vo1.get(i).finish;
-				data1[i][5] = vo1.get(i).age;
-				data1[i][6] = vo1.get(i).height;
-				data1[i][7] = vo1.get(i).weight;
-				data1[i][8] = vo1.get(i).num_of_game;
-				data1[i][9] = vo1.get(i).minute;
-				data1[i][10] = vo1.get(i).fg;
-				data1[i][11] = vo1.get(i).fga;
-				data1[i][12] = vo1.get(i).fga_pct;
-				data1[i][13] = vo1.get(i).fg3;
-				data1[i][14] = vo1.get(i).fg3a;
-				data1[i][15] = vo1.get(i).fg3_pct;
-				data1[i][16] = vo1.get(i).fg2;
-				data1[i][17] = vo1.get(i).fg2a;
-				data1[i][18] = vo1.get(i).fg2_pct;
-				data1[i][19] = vo1.get(i).ft;
-				data1[i][20] = vo1.get(i).fta;
-				data1[i][21] = vo1.get(i).ft_pct;
-				data1[i][22] = vo1.get(i).orb;
-				data1[i][23] = vo1.get(i).drb;
-				data1[i][24] = vo1.get(i).trb;
-				data1[i][25] = vo1.get(i).ast;
-				data1[i][26] = vo1.get(i).stl;
-				data1[i][27] = vo1.get(i).blk;
-				data1[i][28] = vo1.get(i).tov;
-				data1[i][29] = vo1.get(i).pf;
-				data1[i][30] = vo1.get(i).pts;
+				data1[i][0] = vo1.get(i).season;
+				data1[i][1] = vo1.get(i).num_of_game;
+				data1[i][2] = vo1.get(i).minute;
+				data1[i][3] = vo1.get(i).fg;
+				data1[i][4] = vo1.get(i).fga;
+				data1[i][5] = vo1.get(i).fga_pct;
+				data1[i][6] = vo1.get(i).fg3;
+				data1[i][7] = vo1.get(i).fg3a;
+				data1[i][8] = vo1.get(i).fg3_pct;
+				data1[i][9] = vo1.get(i).fg2;
+				data1[i][10] = vo1.get(i).fg2a;
+				data1[i][11] = vo1.get(i).fg2_pct;
+				data1[i][12] = vo1.get(i).ft;
+				data1[i][13] = vo1.get(i).fta;
+				data1[i][14] = vo1.get(i).ft_pct;
+				data1[i][15] = vo1.get(i).orb;
+				data1[i][16] = vo1.get(i).drb;
+				data1[i][17] = vo1.get(i).trb;
+				data1[i][18] = vo1.get(i).ast;
+				data1[i][19] = vo1.get(i).stl;
+				data1[i][20] = vo1.get(i).blk;
+				data1[i][21] = vo1.get(i).tov;
+				data1[i][22] = vo1.get(i).pf;
+				data1[i][23] = vo1.get(i).pts;
 
 			}
 			
-			data2 = new Object[vo2.size()][24];
+			data2 = new Object[vo2.size()][23];
 			for(int i=0;i<vo2.size();i++){
-				data2[i][0] = vo2.get(i).abbr;
-				data2[i][1] = vo2.get(i).season;
-				data2[i][2] = vo2.get(i).minute;
-				data2[i][3] = vo2.get(i).fg;
-				data2[i][4] = vo2.get(i).fga;
-				data2[i][5] = vo2.get(i).fga_pct;
-				data2[i][6] = vo2.get(i).fg3;
-				data2[i][7] = vo2.get(i).fg3a;
-				data2[i][8] = vo2.get(i).fga_pct;
-				data2[i][9] = vo2.get(i).fg2;
-				data2[i][10] = vo2.get(i).fg2a;
-				data2[i][11] = vo2.get(i).fg2_pct;
-				data2[i][12] = vo2.get(i).ft;
-				data2[i][13] = vo2.get(i).fta;
-				data2[i][14] = vo2.get(i).ft_pct;
-				data2[i][15] = vo2.get(i).orb;
-				data2[i][16] = vo2.get(i).drb;
-				data2[i][17] = vo2.get(i).trb;
-				data2[i][18] = vo2.get(i).ast;
-				data2[i][19] = vo2.get(i).stl;
-				data2[i][20] = vo2.get(i).blk;
-				data2[i][21] = vo2.get(i).tov;
-				data2[i][22] = vo2.get(i).pf;
-				data2[i][23] = vo2.get(i).pts;
+				data2[i][0] = vo2.get(i).season;
+				data2[i][1] = vo2.get(i).minute;
+				data2[i][2] = vo2.get(i).fg;
+				data2[i][3] = vo2.get(i).fga;
+				data2[i][4] = vo2.get(i).fga_pct;
+				data2[i][5] = vo2.get(i).fg3;
+				data2[i][6] = vo2.get(i).fg3a;
+				data2[i][7] = vo2.get(i).fga_pct;
+				data2[i][8] = vo2.get(i).fg2;
+				data2[i][9] = vo2.get(i).fg2a;
+				data2[i][10] = vo2.get(i).fg2_pct;
+				data2[i][11] = vo2.get(i).ft;
+				data2[i][12] = vo2.get(i).fta;
+				data2[i][13] = vo2.get(i).ft_pct;
+				data2[i][14] = vo2.get(i).orb;
+				data2[i][15] = vo2.get(i).drb;
+				data2[i][16] = vo2.get(i).trb;
+				data2[i][17] = vo2.get(i).ast;
+				data2[i][18] = vo2.get(i).stl;
+				data2[i][19] = vo2.get(i).blk;
+				data2[i][20] = vo2.get(i).tov;
+				data2[i][21] = vo2.get(i).pf;
+				data2[i][22] = vo2.get(i).pts;
 			}
 			
-			data3 = new Object[vo3.size()][24];
+			data3 = new Object[vo3.size()][23];
 			for(int i=0;i<vo3.size();i++){
-				data3[i][0] = vo3.get(i).abbr;
-				data3[i][1] = vo3.get(i).season;
-				data3[i][2] = vo3.get(i).minute;
-				data3[i][3] = vo3.get(i).fg;
-				data3[i][4] = vo3.get(i).fga;
-				data3[i][5] = vo3.get(i).fga_pct;
-				data3[i][6] = vo3.get(i).fg3;
-				data3[i][7] = vo3.get(i).fg3a;
-				data3[i][8] = vo3.get(i).fga_pct;
-				data3[i][9] = vo3.get(i).fg2;
-				data3[i][10] = vo3.get(i).fg2a;
-				data3[i][11] = vo3.get(i).fg2_pct;
-				data3[i][12] = vo3.get(i).ft;
-				data3[i][13] = vo3.get(i).fta;
-				data3[i][14] = vo3.get(i).ft_pct;
-				data3[i][15] = vo3.get(i).orb;
-				data3[i][16] = vo3.get(i).drb;
-				data3[i][17] = vo3.get(i).trb;
-				data3[i][18] = vo3.get(i).ast;
-				data3[i][19] = vo3.get(i).stl;
-				data3[i][20] = vo3.get(i).blk;
-				data3[i][21] = vo3.get(i).tov;
-				data3[i][22] = vo3.get(i).pf;
-				data3[i][23] = vo3.get(i).pts;
+				data3[i][0] = vo3.get(i).season;
+				data3[i][1] = vo3.get(i).minute;
+				data3[i][2] = vo3.get(i).fg;
+				data3[i][3] = vo3.get(i).fga;
+				data3[i][4] = vo3.get(i).fga_pct;
+				data3[i][5] = vo3.get(i).fg3;
+				data3[i][6] = vo3.get(i).fg3a;
+				data3[i][7] = vo3.get(i).fga_pct;
+				data3[i][8] = vo3.get(i).fg2;
+				data3[i][9] = vo3.get(i).fg2a;
+				data3[i][10] = vo3.get(i).fg2_pct;
+				data3[i][11] = vo3.get(i).ft;
+				data3[i][12] = vo3.get(i).fta;
+				data3[i][13] = vo3.get(i).ft_pct;
+				data3[i][14] = vo3.get(i).orb;
+				data3[i][15] = vo3.get(i).drb;
+				data3[i][16] = vo3.get(i).trb;
+				data3[i][17] = vo3.get(i).ast;
+				data3[i][18] = vo3.get(i).stl;
+				data3[i][19] = vo3.get(i).blk;
+				data3[i][20] = vo3.get(i).tov;
+				data3[i][21] = vo3.get(i).pf;
+				data3[i][22] = vo3.get(i).pts;
 			}
 			
-			data4 = new Object[vo4.size()][24];
+			data4 = new Object[vo4.size()][23];
 			for(int i=0;i<vo4.size();i++){
-				data4[i][0] = vo4.get(i).abbr;
-				data4[i][1] = vo4.get(i).season;
-				data4[i][2] = vo4.get(i).minute;
-				data4[i][3] = vo4.get(i).fg;
-				data4[i][4] = vo4.get(i).fga;
-				data4[i][5] = vo4.get(i).fga_pct;
-				data4[i][6] = vo4.get(i).fg3;
-				data4[i][7] = vo4.get(i).fg3a;
-				data4[i][8] = vo4.get(i).fga_pct;
-				data4[i][9] = vo4.get(i).fg2;
-				data4[i][10] = vo4.get(i).fg2a;
-				data4[i][11] = vo4.get(i).fg2_pct;
-				data4[i][12] = vo4.get(i).ft;
-				data4[i][13] = vo4.get(i).fta;
-				data4[i][14] = vo4.get(i).ft_pct;
-				data4[i][15] = vo4.get(i).orb;
-				data4[i][16] = vo4.get(i).drb;
-				data4[i][17] = vo4.get(i).trb;
-				data4[i][18] = vo4.get(i).ast;
-				data4[i][19] = vo4.get(i).stl;
-				data4[i][20] = vo4.get(i).blk;
-				data4[i][21] = vo4.get(i).tov;
-				data4[i][22] = vo4.get(i).pf;
-				data4[i][23] = vo4.get(i).pts;
+				data4[i][0] = vo4.get(i).season;
+				data4[i][1] = vo4.get(i).minute;
+				data4[i][2] = vo4.get(i).fg;
+				data4[i][3] = vo4.get(i).fga;
+				data4[i][4] = vo4.get(i).fga_pct;
+				data4[i][5] = vo4.get(i).fg3;
+				data4[i][6] = vo4.get(i).fg3a;
+				data4[i][7] = vo4.get(i).fga_pct;
+				data4[i][8] = vo4.get(i).fg2;
+				data4[i][9] = vo4.get(i).fg2a;
+				data4[i][10] = vo4.get(i).fg2_pct;
+				data4[i][11] = vo4.get(i).ft;
+				data4[i][12] = vo4.get(i).fta;
+				data4[i][13] = vo4.get(i).ft_pct;
+				data4[i][14] = vo4.get(i).orb;
+				data4[i][15] = vo4.get(i).drb;
+				data4[i][16] = vo4.get(i).trb;
+				data4[i][17] = vo4.get(i).ast;
+				data4[i][18] = vo4.get(i).stl;
+				data4[i][19] = vo4.get(i).blk;
+				data4[i][20] = vo4.get(i).tov;
+				data4[i][21] = vo4.get(i).pf;
+				data4[i][22] = vo4.get(i).pts;
 			}
 			
 		} catch (RemoteException e) {
