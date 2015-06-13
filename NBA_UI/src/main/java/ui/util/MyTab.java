@@ -26,9 +26,6 @@ public class MyTab extends JPanel{
 		tab1 = new JLabel();
 		tab2 = new JLabel();
 		
-		//tab1.setText(ele.attributeValue("text1"));
-		//tab2.setText(ele.attributeValue("text2"));
-		
 		tab1.setSize(Integer.parseInt(ele.attributeValue("w1")), Integer.parseInt(ele.attributeValue("h1")));
 		tab2.setSize(Integer.parseInt(ele.attributeValue("w2")), Integer.parseInt(ele.attributeValue("h2")));
 

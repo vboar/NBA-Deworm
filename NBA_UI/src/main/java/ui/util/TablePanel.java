@@ -5,12 +5,14 @@
  */
 package ui.util;
 
-import javax.swing.*;
+import java.awt.Dimension;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import ui.config.TableConfig;
-
-import java.awt.*;
 
 @SuppressWarnings("serial")
 public abstract class TablePanel extends JPanel{
@@ -43,6 +45,9 @@ public abstract class TablePanel extends JPanel{
 		//创建滚动条面板
 		this.rollpane = new JScrollPane(this.table);
 		this.rollpane.setPreferredSize(new Dimension(this.getWidth(),this.getHeight()-5));
+		this.rollpane.setOpaque(false);
+		//this.rollpane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		this.setFocusable(false);
 		this.add(this.rollpane);
 	}
 

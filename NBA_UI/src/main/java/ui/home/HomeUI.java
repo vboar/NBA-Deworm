@@ -13,7 +13,7 @@ import ui.common.MotherPanel;
 import ui.config.FrameConfig;
 import ui.config.SystemConfig;
 import ui.live.LivePanel;
-import ui.team.advance.TeamMore;
+import ui.team.TeamStat;
 import ui.util.FrameUtil;
 
 public class HomeUI extends JFrame {
@@ -61,7 +61,7 @@ public class HomeUI extends JFrame {
 		home = new HomePanel(this);
 		this.getContentPane().add(home);
 		//this.getContentPane().add(new MotherPanel(this));
-		//this.getContentPane().add(new TeamMore(this,"HOU"));
+		//this.getContentPane().add(new TeamStat(this));
 		this.setVisible(true);
 
 

@@ -107,7 +107,7 @@ public class TeamNav extends JPanel{
 				frame.motherPanel.teamPanel.removeAll();
 				frame.motherPanel.teamPanel.teamstat = new TeamStat(frame);
 				frame.motherPanel.teamPanel.add(frame.motherPanel.teamPanel.teamstat);
-				frame.motherPanel.teamPanel.repaint();
+				frame.motherPanel.teamPanel.updateUI();
 			}
 
 			@Override
