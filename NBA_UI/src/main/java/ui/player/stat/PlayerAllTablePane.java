@@ -49,6 +49,7 @@ public class PlayerAllTablePane extends TablePanel {
 		table.getTableHeader().setFont(new Font("华文细黑",0,12));
         table.getTableHeader().setForeground(Color.BLACK);
 		this.table.addMouseListener(showDataInfo());
+		table.setShowGrid(false);
 		this.updateWidth();
 	}
 

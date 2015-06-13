@@ -81,6 +81,8 @@ public class PlayerPanel extends JPanel {
 		playerHotPane = new PlayerHotPane(frame);
 		playerHotPane.setVisible(false);
 		add(playerHotPane);
+		
+		
 	}
 	
 	private void initCover(){
@@ -130,11 +132,10 @@ public class PlayerPanel extends JPanel {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				playerfilter.changeBox(true);
-//				playerstat.state = 2;
-//				playerfilter.setAdvTable();				
+				playerfilter.resetPanel();			
 			}
 		});
+		menu.setVisible(false);
 		add(menu);
 		
 		setting = new MyButton(pcfg.getButtons().element("setting"));
@@ -181,6 +182,7 @@ public class PlayerPanel extends JPanel {
 			}
 
 		});
+		setting.setVisible(false);
 		add(setting);
 	}
 

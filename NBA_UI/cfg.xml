@@ -544,6 +544,7 @@
 			
 			<comboboxes>
 				<season w="150" h="25" x="10" y="20">
+				
 					<string str="14-15" />
 					<string str="13-14" />
 					<string str="12-13" />
@@ -559,20 +560,20 @@
 					<string str="02-03" />
 					<string str="01-02" />
 					<string str="00-01" />
+					<string str="Career"/>
 				</season>
 				
 				
 				<type w="150" h="25" x="190" y="20">
 					
-					<string str="场均数据"/>
-					<string str="赛季总数据"/>
-					<string str="高阶数据"/>
+					<string str="Average Data"/>
+					<string str="Total Data"/>
+					<string str="Advanced Data"/>
 				</type>
 				
 				<regular w="150" h="25" x="370" y="20">
-					<string str="季后赛" />
-					<string str="常规赛" />
-					<string str="全部"/>
+					<string str="Post Season" />
+					<string str="Regular Season" />
 				</regular>
 				
 				<position w="150" h="25" x="10" y="60">
@@ -595,7 +596,7 @@
 				</division>
 				
 				<league w="150" h="25" x="370" y="60">
-					<string str="All League"/>
+					<string str="All Leagues"/>
 					<string str="W"/>
 					<string str="E"/>
 				</league>

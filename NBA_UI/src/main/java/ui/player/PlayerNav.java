@@ -240,7 +240,7 @@ public class PlayerNav extends JPanel{
 	}
 	
 	
-	private void hintAll(){
+	public void hintAll(){
 		frame.motherPanel.playerPanel.playerInfoPane.setVisible(false);
 		frame.motherPanel.playerPanel.indexpanel.setVisible(false);
 		frame.motherPanel.playerPanel.playerstat.setVisible(false);

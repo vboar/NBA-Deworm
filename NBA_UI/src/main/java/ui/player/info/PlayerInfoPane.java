@@ -257,19 +257,34 @@ public class PlayerInfoPane extends JPanel {
 		}
 		
 		this.name.setText(name);
-		position.setText(info.position);
+		
+		if(info.position.toString().length()<1){
+			position.setText("No Data");
+		}else{
+			position.setText(info.position);
+		}
 		born.setText(info.born);
 		hometown.setText(info.hometown);
 		height.setText(info.height);
 		weight.setText(info.weight.toString());
-		highschool.setText(info.high_school);
-		college.setText(info.college);
+		if(info.high_school.toString().length()<2){
+			highschool.setText("No Data");
+		}else{
+			highschool.setText(info.high_school);
+		}
+		
+		if(info.college.toString().length()<2){
+			college.setText("No Data");
+		}else{
+			college.setText(info.college);
+		}
 		debut.setText(info.debut);
 		if(info.exp!=null){
-			if(info.exp ==-1){
+			if(info.exp.toString().contains("-1")){
 				exp.setText("Retired");
-			}
+			}else{
 			exp.setText(info.exp.toString());
+			}
 		}else{
 			exp.setText("无数据");
 		}
