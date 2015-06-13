@@ -185,8 +185,8 @@ public class StatsServiceTest extends TestCase {
 //        ImageIcon img = ss.getTeamCareerLineChar("BOS", FieldType.DRB_PCT);
 //        ImageIcon img = ss.getTeamBasicCompareBarChar("CLE", "GSW", "14-15", list);
 //        ImageIcon img = ss.getPlayerBasicCompareBarChart("Kobe Bryant", "Yao Ming", "Career", list, 1);
-        ImageIcon img = ss.getMatchTeamLineChart("HOU", "14-15", FieldType.typeToInt(FieldType.DRB_PCT));
-        img = ss.getPlayerContribution("ATL", "13-14");
+        ImageIcon img = ss.getMatchTeamLineChart("HOU", "14-15", FieldType.typeToInt(FieldType.PTS));
+//        img = ss.getPlayerContribution("ATL", "13-14");
 //        ImageIcon img = ss.getMatchPlayerLineChart("Kobe Bryant", "11-12", FieldType.TRB);
         JFrame frame = new JFrame();
         frame.setBounds(0, 0, 1366, 700);
