@@ -33,22 +33,31 @@ for item in seasons:
 
 fig = plt.figure()
 
+x_labels = []
+temp = 1
+if 30 < len(seasons) < 50:
+    temp = 2
+elif len(seasons) > 50:
+    temp = 3
+for i in range(0, len(seasons)):
+    if i % temp == 0:
+        x_labels.append(seasons[i])
+    else:
+        x_labels.append("")
 
-# 设置横坐�?
+
+# 设置横坐标
 a = []
 count = 0
 for item in seasons:
     a.append(count)
     count += 1
-plt.xticks(a, seasons)
+plt.xticks(a, x_labels)
 plt.axis([0, len(a), 0, max(datas)+1])
 axis = plt.gca().xaxis
 for label in axis.get_ticklabels():
     label.set_rotation(80)
-    if len(seasons) < 30:
-        label.set_fontsize(11)
-    else:
-        label.set_fontsize(8)
+    label.set_fontsize(11)
 
 
 avg_line, = plt.plot(a, avgs, 'r--', color='b', linewidth=1)

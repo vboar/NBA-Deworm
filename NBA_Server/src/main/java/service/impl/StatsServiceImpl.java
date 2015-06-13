@@ -1238,7 +1238,7 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 
 	private List<String> getPlayerAdvancedMatch(String season, String name,String abbr,FieldType field) {
 		List<MatchPlayerAdvanced> list = mdao
-				.getMatchPlayerAdvancedByPlayerName(name, season, null, -1);
+				.getMatchPlayerAdvancedByPlayerName(name, season, abbr, -1);
 		String s = "";
 		String value = "";
 		if(list.size()==0)
@@ -1315,7 +1315,7 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 	private List<String> getPlayerBasicMatch(String season, String name, 
 			String abbr, FieldType field) {
 		List<MatchPlayerBasic> list = mdao.getMatchPlayerBasicByPlayerName(
-				name, season, null, -1);
+				name, season, abbr, -1);
 		if(list.size()==0)
 			return null;
 		String s = "";
