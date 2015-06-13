@@ -428,8 +428,7 @@ public class PlayerIndex extends JPanel {
 				}
 				label.setIcon(new ImageIcon(path + word + "_click.png"));
 
-				if (show != label.getName()) {
-					System.out.println("382: " + label.getName());
+				if (!show.equals(label.getName())) {
 					try {
 						setIndex(label.getName());
 					} catch (RemoteException e) {
@@ -461,17 +460,15 @@ public class PlayerIndex extends JPanel {
 	}
 
 	private void setIndex(String ini) throws RemoteException {
+        volist = ServiceFactoryImpl.getInstance()
+                .getPlayerService()
+                .getNameByNameInitial(ini.toUpperCase());
+
 		jsp.remove(layerPane);
 		layerPane = new JLayeredPane();
-		layerPane.setPreferredSize(new Dimension(940, 1130));
-		layerPane.setLayout(null);		
-		//System.out.println("418: " + ini + "-------------");
-		 volist = ServiceFactoryImpl.getInstance()
-				.getPlayerService()
-				.getNameByNameInitial(ini.toUpperCase());
-//		for (int i = 0; i < volist.size(); i++) {
-//			System.out.println("i:"+i+" "+volist.get(i));
-//		}
+        int h = (volist.size() / 4 + 1) * 36;
+        layerPane.setPreferredSize(new Dimension(940, h));
+		layerPane.setLayout(null);
 
 		for (int i = 0; i < volist.size(); i += 4) {
 			MyLabel left;
