@@ -411,8 +411,8 @@
 			</tab>
 			
 			<tablepane>
-			<table className="ui.team.advance.TeamStatTablePane" width="903"
-				height="420" x="20" y="75">
+			<table1 className="ui.team.advance.TeamStatTablePane" width="897"
+				height="410" x="20" y="90">
 				<columnnames>
 					<columnname name="Team" />
 					<columnname name="Season" />
@@ -439,7 +439,37 @@
 					<columnname name="PF" />
 					<columnname name="PTS" />
 				</columnnames>
-			</table>
+			</table1>
+			
+			<table2 className="ui.team.advance.TeamStatTablePane" width="891"
+				height="410" x="25" y="90">
+				<columnnames>
+					<columnname name="Team" />
+					<columnname name="Season" />
+					<columnname name="G" />
+					<columnname name="W" />
+					<columnname name="L" />
+					<columnname name="MP" />
+					<columnname name="FG" />
+					<columnname name="FGA" />
+					<columnname name="FG%" />
+					<columnname name="3P" />
+					<columnname name="3PA" />
+					<columnname name="3P%" />
+					<columnname name="FT" />
+					<columnname name="FTA" />
+					<columnname name="FT%" />
+					<columnname name="ORB" />
+					<columnname name="DRB" />
+					<columnname name="TRB" />
+					<columnname name="AST" />
+					<columnname name="STL" />
+					<columnname name="BLK" />
+					<columnname name="TOV" />
+					<columnname name="PF" />
+					<columnname name="PTS" />
+				</columnnames>
+			</table2>
 			</tablepane>
 			</panel>
 			

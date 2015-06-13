@@ -69,8 +69,8 @@ public class TeamDetail extends JPanel{
 	private void initData(){
 		try {
 			vo = ServiceFactoryImpl.getInstance().getTeamService().getTeamInfoByAbbr(abbr);
-			pergamevo = ServiceFactoryImpl.getInstance().getTeamService().getTeamPerGameBySeasonAbbr("13-14", abbr);
-			totalvo = ServiceFactoryImpl.getInstance().getTeamService().getTeamTotalBySeasonAbbr("13-14", abbr);
+			pergamevo = ServiceFactoryImpl.getInstance().getTeamService().getTeamPerGameBySeasonAbbr("14-15", abbr);
+			totalvo = ServiceFactoryImpl.getInstance().getTeamService().getTeamTotalBySeasonAbbr("14-15", abbr);
 		} catch (RemoteException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
