@@ -3,8 +3,7 @@
  */
 package ui.player.stat;
 
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -406,7 +405,7 @@ public class PlayerFilter extends JPanel {
 					frame.motherPanel.playerPanel.playerstat.table
 							.setcolumnName(header1);
 					frame.motherPanel.playerPanel.playerstat.table
-							.updateWidth();
+							.updateWidthWithAdvanced();
 					break;
 				}
 				}
@@ -465,18 +464,24 @@ public class PlayerFilter extends JPanel {
 	private void initComboBox() {
 		// int nowState = frame.motherPanel.playerPanel.playerstat.state;
 		season = new MyComboBox(pcfg.getComboboxes().element("season"));
+        season.setFont(new Font("华文细黑",0,12));
 		add(season);
 		position = new MyComboBox(pcfg.getComboboxes().element("position"));
+        position.setFont(new Font("华文细黑",0,12));
 		add(position);
 		division = new MyComboBox(pcfg.getComboboxes().element("division"));
+        division.setFont(new Font("华文细黑",0,12));
 		add(division);
 		regular = new MyComboBox(pcfg.getComboboxes().element("regular"));
+        regular.setFont(new Font("华文细黑",0,12));
 		add(regular);
 
 		league = new MyComboBox(pcfg.getComboboxes().element("league"));
+        league.setFont(new Font("华文细黑",0,12));
 		add(league);
 
 		type = new MyComboBox(pcfg.getComboboxes().element("type"));
+        type.setFont(new Font("华文细黑",0,12));
 		add(type);
 
 		// box1 = new MyComboBox(pcfg.getComboboxes().element("common1"));

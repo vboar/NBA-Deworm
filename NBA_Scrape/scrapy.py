@@ -4,10 +4,12 @@ import urllib2
 import re
 import time
 import os
+import random
 
 main_url = 'http://www.basketball-reference.com/'
 match_url = main_url + 'boxscores/'
 
+replayer = []
 
 def begin():
     print u'NBA数据采集程序 V1.0'
@@ -36,7 +38,7 @@ def begin():
     get_pic = raw_input('> ')
     check_player()
     if get_team == 'Y':
-        scrape_team()
+        get_team_list()
     if get_team_data == 'Y':
         scrape_team_by_local()
     if get_tlogo == 'Y':
@@ -224,12 +226,14 @@ def scrape_player():
 
 
 def scrape_each_player(name, url):
-    print name
     url = main_url + url[1:]
     response = urllib2.urlopen(url)
     html = response.read()
+    if os.path.isfile('data/players/text/' + name):
+        name = name + '-' + random.randint(1, 9).__str__()
+        replayer.append(name)
     f = open('data/players/text/' + name, 'w')
-
+    print name
     position = re.search(r'Position:</span> (.*?)&nbsp', html).groups()[0]
     result = re.search(r'Shoots:</span> (.*?)<br>', html)
     if result is None:
@@ -342,6 +346,7 @@ def scrape_each_player(name, url):
         salary = re.search(r'<td align="right".*?>(.*?)</td>', result).groups()[0]
         f.write(season + ';;' + salary + ';\n')
     f.close()
+    print 'replayer is: ', replayer
 
 
 def scrape_team():

@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 
 import service.StatsService;
 import util.FieldType;
+import vo.PlayerFilter;
 import dao.MatchDao;
 import dao.PlayerDao;
 import dao.TeamDao;
@@ -39,45 +40,6 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		pdao = DaoFactoryImpl.getDaoFactory().getPlayerDao();
 		tdao = DaoFactoryImpl.getDaoFactory().getTeamDao();
 		mdao = DaoFactoryImpl.getDaoFactory().getMatchDao();
-	}
-
-	public static void main(String[] args) {
-
-		try {
-			StatsService ss = new StatsServiceImpl();
-			ss.getPlayerCareerLineChart("Aaron Brooks", FieldType.AST_PCT, 1);
-//			ss.getPlayerRadar("Kobe Bryant", "11-12", 1);
-//			ss.getPlayerCompareRadar("Kobe Bryant", "Yao Ming", "04-05", 1);
-//			ss.getTeamRadar("ATL", "13-14");
-//			ss.getTeamCareerLineChar("ATL", FieldType.ORB);
-//			ss.getTeamCompareRadar("ATL", "BOS", "13-14");
-			List<FieldType> la = new ArrayList<FieldType>();
-			la.add(FieldType.AST);
-			la.add(FieldType.STL);
-			la.add(FieldType.TRB);
-			la.add(FieldType.BLK);
-//			ss.getTeamBasicCompareBarChar("ATL", "BOS", "13-14", la);
-			ss.getPlayerBasicCompareBarChart("Kobe Bryant", "Yao Ming", "12-13", la, 1);
-//			la = new ArrayList<FieldType>();
-//			la.add(FieldType.FG3_PCT);
-//			la.add(FieldType.FGA_PCT);
-//			la.add(FieldType.FT_PCT);
-//			ss.getTeamPctCompareBarChart("ATL", "BOS", "78-79", la);
-//			ss.getPlayerPctCompareBarChart("Kobe Bryant", "Yao Ming", "13-14", la, 1);
-//			la = new ArrayList<FieldType>();
-//			la.add(FieldType.DRB_PCT);
-//			la.add(FieldType.ORB_PCT);
-//			la.add(FieldType.OFF_RTG);
-//			la.add(FieldType.DEF_RTG);
-//			ss.getTeamAdvancedCompareBarChart("ATL", "BOS", "13-14", la);
-//			ss.getPlayerAdvancedCompareBarChart("Kobe Bryant", "Yao Ming", "13-14", la, 1);
-//			ss.getMatchTeamLineChart("ATL", "13-14", FieldType.AST, 1);
-//			ss.getMatchPlayerLineChart("Kobe Bryant", "13-14", FieldType.AST, 1);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-			System.exit(1);
-		}
-
 	}
 
 	@Override
@@ -143,9 +105,9 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public ImageIcon getPlayerCareerLineChart(String player, FieldType field,
+	public ImageIcon getPlayerCareerLineChart(String player, int fieldNum,
 			int regular) throws RemoteException {
-
+		FieldType field = FieldType.intToType(fieldNum);
 		List<String> strs = new ArrayList<String>();
 		if (!isFieldAdvanced(field))
 			strs = getPlayerBasicCareer(player, regular, field);
@@ -172,8 +134,9 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 
 	@Override
 	public ImageIcon getPlayerBasicCompareBarChart(String playerA,
-			String playerB, String season, List<FieldType> fields, int regular)
+			String playerB, String season, List<Integer> fieldNums, int regular)
 			throws RemoteException {
+		List<FieldType> fields = getTypeList(fieldNums);
 		PlayerStatsPerGame pa = getPlayerPerGameFromList(pdao
 				.getPlayerPerGameBySeasonName(season, playerA, regular));
 		PlayerStatsPerGame pb = getPlayerPerGameFromList(pdao
@@ -235,12 +198,14 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			default:
 			}
 		}
+		if(types.length()>0){
 		types = types.substring(0,types.length()-1);
 		sa = sa.substring(0,sa.length()-1);
 		sb = sb.substring(0,sb.length()-1);
 		strs.add(types);
 		strs.add(sa);
 		strs.add(sb);
+		}
 
 		// 将数据写入文件
 		String path = "stats/BarChart";
@@ -261,8 +226,9 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 
 	@Override
 	public ImageIcon getPlayerAdvancedCompareBarChart(String playerA,
-			String playerB, String season, List<FieldType> fields, int regular)
+			String playerB, String season, List<Integer> fieldNums, int regular)
 			throws RemoteException {
+		List<FieldType> fields = getTypeList(fieldNums);
 		PlayerStatsAdvanced pa = getPlayerAdvancedFromList(pdao
 				.getPlayerAdvancedBySeasonName(season, playerA, regular));
 		PlayerStatsAdvanced pb = getPlayerAdvancedFromList(pdao
@@ -324,12 +290,14 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			default:
 			}
 		}
+		if(types.length()>0){
 		types = types.substring(0,types.length()-1);
 		sa = sa.substring(0,sa.length()-1);
 		sb = sb.substring(0,sb.length()-1);
 		strs.add(types);
 		strs.add(sa);
 		strs.add(sb);
+		}
 
 		// 将数据写入文件
 		String path = "stats/BarChart";
@@ -349,8 +317,9 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 
 	@Override
 	public ImageIcon getPlayerPctCompareBarChart(String playerA,
-			String playerB, String season, List<FieldType> fields, int regular)
+			String playerB, String season, List<Integer> fieldNums, int regular)
 			throws RemoteException {
+		List<FieldType> fields = getTypeList(fieldNums);
 		PlayerStatsAdvanced paA = getPlayerAdvancedFromList(pdao
 				.getPlayerAdvancedBySeasonName(season, playerA, regular));
 		PlayerStatsAdvanced paB = getPlayerAdvancedFromList(pdao
@@ -391,13 +360,14 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			default:
 			}
 		}
+		if(types.length()>0){
 		types = types.substring(0,types.length()-1);
 		sa = sa.substring(0,sa.length()-1);
 		sb = sb.substring(0,sb.length()-1);
 		strs.add(types);
 		strs.add(sa);
 		strs.add(sb);
-
+		}
 		// 将数据写入文件
 		String path = "stats/BarChart";
 		writeMulti(strs, path + ".txt");
@@ -473,8 +443,9 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public ImageIcon getTeamCareerLineChar(String team, FieldType field)
+	public ImageIcon getTeamCareerLineChart(String team, int fieldNum)
 			throws RemoteException {
+		FieldType field = FieldType.intToType(fieldNum);
 		List<String> strs = new ArrayList<String>();
 		if (!isFieldAdvanced(field))
 			strs = getTeamBasicCareer(team, field);
@@ -500,8 +471,9 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 	}
 
 	@Override
-	public ImageIcon getTeamBasicCompareBarChar(String teamA, String teamB,
-			String season, List<FieldType> field) throws RemoteException {
+	public ImageIcon getTeamBasicCompareBarChart(String teamA, String teamB,
+			String season, List<Integer> fieldNums) throws RemoteException {
+		List<FieldType> field = getTypeList(fieldNums);
 		TeamStatsPerGame ta = tdao.getTeamPerGameBySeasonAbbr(season, teamA);
 		TeamStatsPerGame tb = tdao.getTeamPerGameBySeasonAbbr(season, teamB);
 		if(ta==null||tb==null)
@@ -586,7 +558,8 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 
 	@Override
 	public ImageIcon getTeamAdvancedCompareBarChart(String teamA, String teamB,
-			String season, List<FieldType> field) throws RemoteException {
+			String season, List<Integer> fieldNum) throws RemoteException {
+		List<FieldType> field = getTypeList(fieldNum);
 		TeamStatsAdvanced ta = tdao.getTeamAdvancedBySeasonAbbr(season, teamA);
 		TeamStatsAdvanced tb = tdao.getTeamAdvancedBySeasonAbbr(season, teamB);
 		if(ta==null||tb==null)
@@ -621,13 +594,14 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			default:
 			}
 		}
+		if(types.length()>0){
 		types = types.substring(0,types.length()-1);
 		sa = sa.substring(0,sa.length()-1);
 		sb = sb.substring(0,sb.length()-1);
 		strs.add(types);
 		strs.add(sa);
 		strs.add(sb);
-
+		}
 		// 将数据写入文件
 		String path = "stats/BarChart";
 		writeMulti(strs, path + ".txt");
@@ -646,7 +620,8 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 
 	@Override
 	public ImageIcon getTeamPctCompareBarChart(String teamA, String teamB,
-			String season, List<FieldType> field) throws RemoteException {
+			String season, List<Integer> fieldNum) throws RemoteException {
+		List<FieldType> field = getTypeList(fieldNum);
 		TeamStatsPerGame ta = tdao.getTeamPerGameBySeasonAbbr(season, teamA);
 		TeamStatsPerGame tb = tdao.getTeamPerGameBySeasonAbbr(season, teamB);
 		if(ta==null||tb==null)
@@ -701,7 +676,8 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 
 	@Override
 	public ImageIcon getMatchPlayerLineChart(String name, String season,
-			FieldType field) throws RemoteException {
+			int fieldNum) throws RemoteException {
+		FieldType field = FieldType.intToType(fieldNum);
 		List<String> strs = new ArrayList<String>();
 		if (!isFieldAdvanced(field))
 			strs = getPlayerBasicMatch(season, name, null, field);
@@ -728,7 +704,8 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 	
 	@Override
 	public ImageIcon getMatchTeamLineChart(String abbr, String season,
-			FieldType field) throws RemoteException {
+			int fieldNum) throws RemoteException {
+		FieldType field = FieldType.intToType(fieldNum);
 		List<String> strs = new ArrayList<String>();
 		if (!isFieldAdvanced(field))
 			strs = getPlayerBasicMatch(season, "Team Totals", abbr, field);
@@ -753,6 +730,37 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		return img;
 	}
 	
+	@Override
+	public ImageIcon getPlayerContribution(String abbr, String season)
+			throws RemoteException {
+		PlayerFilter pf = new PlayerFilter();
+		pf.team = abbr;
+		pf.season = season;
+		List<PlayerStatsAdvanced> list = pdao.getPlayerAdvancedByFilter(pf);
+		String pl="";
+		String per="";
+		for(PlayerStatsAdvanced psa:list){
+			pl += psa.getName() + ";";
+			per += psa.getPer() + ";";
+		}
+		List<String> strs = new ArrayList<String>();
+		strs.add(abbr+";"+season);
+		strs.add(pl);
+		strs.add(per);
+		String path = "stats/Per";
+		writeMulti(strs, path+".txt");
+		try {
+			Process p = Runtime.getRuntime().exec(
+					"python stats/per.py");
+			p.waitFor();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		ImageIcon img = new ImageIcon(path + ".png");
+		if (img.getImageLoadStatus() == MediaTracker.ERRORED)
+			return null;
+		return img;
+	}
 
 	/**
 	 * 写入多行数据到文本文件（覆盖）
@@ -880,7 +888,8 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			return null;
 		String s = "";
 		String value = "";
-		for (TeamStatsPerGame tsp : list) {
+		for (int i=list.size()-1 ; i>=0; --i) {
+			TeamStatsPerGame tsp = list.get(i);
 			switch (field) {
 			case PTS:
 				if (tsp.getPts() != null) {
@@ -1428,4 +1437,13 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			return true;
 		}
 	}
+
+	private List<FieldType> getTypeList(List<Integer> list){
+		List<FieldType> fields = new ArrayList<FieldType>();
+		for(Integer i: list){
+			fields.add(FieldType.intToType(i));
+		}
+		return fields;
+	}
+
 }

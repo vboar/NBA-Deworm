@@ -7,7 +7,6 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import service.TeamService;
-import util.FieldType;
 import vo.HotTeamInfoVO;
 import vo.TeamAdvancedVO;
 import vo.TeamFilter;
@@ -126,7 +125,7 @@ public class TeamServiceImpl extends UnicastRemoteObject implements TeamService 
 	}
 
 	@Override
-	public List<HotTeamInfoVO> getSeasonHotTeam(String season, FieldType field, int number)
+	public List<HotTeamInfoVO> getSeasonHotTeam(String season, int field, int number)
 			throws RemoteException {
 		return null;
 	}

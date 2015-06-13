@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import util.FieldType;
 import vo.HotTeamInfoVO;
 import vo.TeamAdvancedVO;
 import vo.TeamFilter;
@@ -150,7 +149,7 @@ public interface TeamService extends Remote{
 	 * @param field
 	 * @return
 	 */
-	public List<HotTeamInfoVO> getSeasonHotTeam(String season, FieldType field, int number) throws RemoteException;
+	public List<HotTeamInfoVO> getSeasonHotTeam(String season, int field, int number) throws RemoteException;
 	
 	/**
 	 * 多项条件筛选球队高阶数据
