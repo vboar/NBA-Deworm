@@ -88,7 +88,8 @@ public class PlayerPanel extends JPanel {
 		coverFrame.setBounds(458,218,690, 260);
 		coverFrame.setUndecorated(true);
 		coverFrame.add(playerfilter);
-		coverFrame.setAlwaysOnTop(true);	
+		
+		frame.add(coverFrame);
 	}
 	
 	//table的内容
