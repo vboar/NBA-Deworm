@@ -1081,6 +1081,92 @@
 				</columnnames>
 			</tablepane>
         </panel>
-		
+        
+        <panel className="ui.match.stat.CoverPanel" width="940" height="511"
+			x="0" y="0" bg="img/home/background.jpg">
+			</panel>
+			
+		<panel className="ui.match.stat.MatchStat" width="940" height="511"
+			x="0" y="0" >
+			<tablepane className="ui.match.MatchAllTablePane" width="900"
+				height="420" x="20" y="75">
+				<columnnames>
+				<columnname name="ID" />
+					<columnname name="DATE" />
+					<columnname name="LOATION" />
+					<columnname name="HOME_TEAM" />
+					<columnname name="HOME_POINT" />
+					<columnname name="GUEST_TEAM" />
+					<columnname name="GUEST_POINT" />					
+					<columnname name="TIME" />
+
+				</columnnames>
+			</tablepane>
+			<buttons>
+			<setting w="53" h="46" x="888" y="0" path="img/common/btn/setting.png"/>
+			<menu w="52" h="46" x="0" y="0" path="img/common/btn/dropdownmenu2.png"/>
+			</buttons>
+			</panel>
+		<panel className="ui.match.stat.MatchFilter" width="690" height="260"
+			x="0" y="0" bg="img/common/filter/filterbg.jpg">
+			
+			
+			<buttons>
+			<search w="177" h="27" x="485" y="215" path="img/common/filter/search.png"/>
+			</buttons>
+			
+			
+			<comboboxes>
+				<season w="150" h="25" x="10" y="20">
+				
+					<string str="14-15" />
+					<string str="13-14" />
+					<string str="12-13" />
+					<string str="11-12" />
+					<string str="10-11" />
+					<string str="09-10" />
+					<string str="08-09" />
+					<string str="07-08" />
+					<string str="06-07" />
+					<string str="05-06" />
+					<string str="04-05" />
+					<string str="03-04" />
+					<string str="02-03" />
+					<string str="01-02" />
+					<string str="00-01" />
+					<string str="Career"/>
+				</season>
+				
+				
+				<team w="150" h="25" x="190" y="20">
+					<string str="ALL TEAMS"/>
+					<string str="HOU"/>
+					<string str="DAL"/>
+				</team>
+				
+				<home w="150" h="25" x="370" y="20">
+					<string str="NO CARE HOME" />
+					<string str="YES" />
+					<string str="NO"/>
+				</home>
+				
+				<begin w="150" h="25" x="10" y="60">
+					<string str="All"/>
+					
+				</begin>
+				
+				<end w="150" h="25" x="190" y="60">
+					<string str="ALL"/>
+				</end>
+				
+				<regular w="150" h="25" x="370" y="60">
+					<string str="Post Season" />
+					<string str="Regular Season" />
+				</regular>
+				
+				
+			</comboboxes>
+			</panel>
+			
 	</homeframe>
 </nba>
