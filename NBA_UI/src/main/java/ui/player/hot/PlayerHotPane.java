@@ -60,6 +60,7 @@ public class PlayerHotPane extends JPanel {
 		this.setLocation(pcfg.getX(), pcfg.getY());
 		// 初始化组件
 		this.initComponent();
+		makeChangePrep();
 		this.repaint();
 		
 	}
@@ -115,36 +116,38 @@ public class PlayerHotPane extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int item = type.getSelectedIndex();
-				String seasonStr = season.getSelectedItem().toString();
-			
-				try {
-					
-					teamlist = new ArrayList<String>(5);
-					playerimglist = new ArrayList<ImageIcon>(5);
-					volist = ServiceFactoryImpl.getInstance().getPlayerService().getSeasonHotPlayer(seasonStr, FieldType.values()[item],5);
-					for(int i= 0;i<5;i++){
-					ImageIcon icon = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerPortraitByName(volist.get(i).name);					
-					String teamStr = ServiceFactoryImpl.getInstance().getPlayerService().getTeamByPlayerNameSeason(volist.get(i).name, seasonStr).get(0);
-					teamStr = teamStr.split(";")[0];
-					
-					ImageIcon teamIcon  = ServiceFactoryImpl.getInstance().getTeamService().getTeamLogoByAbbr(teamStr.equals("NOP")? "NOH":teamStr);
-					
-					
-					teamlist.add(teamStr);
-					
-					playerimglist.add(icon);
-					}
-					
-				} catch (RemoteException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				changeData();
+				makeChangePrep();
 			}
 		});
 		
+	}
+	
+	
+	
+	private void makeChangePrep(){
+		int item = type.getSelectedIndex();
+		String seasonStr = season.getSelectedItem().toString();
+	
+		try {
+			
+			teamlist = new ArrayList<String>(5);
+			playerimglist = new ArrayList<ImageIcon>(5);
+			volist = ServiceFactoryImpl.getInstance().getPlayerService().getSeasonHotPlayer(seasonStr, FieldType.values()[item],5);
+			for(int i= 0;i<5;i++){
+			ImageIcon icon = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerPortraitByName(volist.get(i).name);					
+			String teamStr = ServiceFactoryImpl.getInstance().getPlayerService().getTeamByPlayerNameSeason(volist.get(i).name, seasonStr).get(0);
+			teamStr = teamStr.split(";")[0];
+			teamlist.add(teamStr);
+			
+			playerimglist.add(icon);
+			}
+			
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		changeData();
 	}
 	
 	private void changeData(){
@@ -157,9 +160,11 @@ public class PlayerHotPane extends JPanel {
 			teams[i].setText(teamlist.get(i));
 			
 			datas[i].setText(volist.get(i).value);
-			
+			if(playerimglist.get(i) != null){
 			playerImgs[i].setImage(playerimglist.get(i));
-			
+			}else{
+				playerImgs[i].setIconPath("img/player/unknown.png");
+			}
 			
 		}
 		repaint();

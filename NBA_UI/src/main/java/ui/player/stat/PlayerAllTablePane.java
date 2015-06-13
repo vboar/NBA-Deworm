@@ -1,6 +1,8 @@
 package ui.player.stat;
 
+import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,7 +15,7 @@ import ui.util.TablePanel;
 
 public class PlayerAllTablePane extends TablePanel {
 
-	private static int COLUMN_NUM = 8;
+	private static int COLUMN_NUM = 21;
 
 	private Object[][] list;
 	private HomeUI frame;
@@ -44,14 +46,18 @@ public class PlayerAllTablePane extends TablePanel {
 
 		};
 		this.table = new MyTable(this.dtm, this.getWidth());
-
+		table.getTableHeader().setFont(new Font("华文细黑",0,12));
+        table.getTableHeader().setForeground(Color.BLACK);
 		this.table.addMouseListener(showDataInfo());
 		this.updateWidth();
 	}
 
 	private void updateWidth() {
 		FrameUtil.setTableColumnWidth(table, this.getWidth(), 10);
-		// this.table.getColumnModel().getColumn(0).setPreferredWidth(160);
+		for(int i = 1;i<this.table.getColumnModel().getColumnCount();i++){
+			this.table.getColumnModel().getColumn(i).setPreferredWidth(39);
+		}
+		 this.table.getColumnModel().getColumn(0).setPreferredWidth(100);
 		// this.table.getColumnModel().getColumn(1).setPreferredWidth(170);
 		// this.table.getColumnModel().getColumn(2).setPreferredWidth(420);
 		// this.table.getTableHeader().setPreferredSize(new Dimension(0, 50));
@@ -107,7 +113,28 @@ public class PlayerAllTablePane extends TablePanel {
 		row[4] = vo[4];
 		row[5] = vo[5];
 		row[6] = vo[6];
-		row[7] = vo[7];
+		row[7] = vo[7];		
+		row[8] = vo[8];
+		row[9] = vo[9];
+		row[10] = vo[10];
+		row[11] = vo[11];
+		row[12] = vo[12];
+		row[13] = vo[13];
+		row[14] = vo[14];
+		row[15] = vo[15];
+		row[16] = vo[16];
+		row[17] = vo[17];		
+		row[18] = vo[18];
+		row[19] = vo[19];
+		row[20] = vo[20];
+//		row[21] = vo[21];
+//		row[22] = vo[22];
+//		row[23] = vo[23];
+//		row[24] = vo[24];
+//		row[25] = vo[25];
+//		row[26] = vo[26];
+	
+
 
 	}
 
@@ -146,6 +173,28 @@ public class PlayerAllTablePane extends TablePanel {
 		this.getTable().setValueAt(vo[5], i, 5);
 		this.getTable().setValueAt(vo[6], i, 6);
 		this.getTable().setValueAt(vo[7], i, 7);
+		this.getTable().setValueAt(vo[8], i, 8);
+		this.getTable().setValueAt(vo[9], i, 9);
+		this.getTable().setValueAt(vo[10], i, 10);
+		
+		
+		this.getTable().setValueAt(vo[11], i, 11);
+		this.getTable().setValueAt(vo[12], i, 12);
+		this.getTable().setValueAt(vo[13], i, 13);
+		this.getTable().setValueAt(vo[14], i, 14);
+		this.getTable().setValueAt(vo[15], i, 15);
+		this.getTable().setValueAt(vo[16], i, 16);
+		this.getTable().setValueAt(vo[17], i, 17);
+		this.getTable().setValueAt(vo[18], i, 18);
+		this.getTable().setValueAt(vo[19], i, 19);
+		this.getTable().setValueAt(vo[20], i, 20);
+		
+//		this.getTable().setValueAt(vo[21], i, 21);
+//		this.getTable().setValueAt(vo[22], i, 22);
+//		this.getTable().setValueAt(vo[23], i, 23);
+//		this.getTable().setValueAt(vo[24], i, 24);
+//		this.getTable().setValueAt(vo[25], i, 25);
+//		this.getTable().setValueAt(vo[26], i, 26);
 	}
 
 }

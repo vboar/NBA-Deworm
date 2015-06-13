@@ -131,14 +131,27 @@
 			<tablepane className="ui.player.stat.PlayerAllTablePane" width="940"
 				height="410" x="0" y="96">
 				<columnnames>
-					<columnname name="球员名称" />
-					<columnname name="所属球队" />
-					<columnname name="得分" />
-					<columnname name="盖帽数" />
-					<columnname name="篮板数" />
-					<columnname name="助攻数" />
-					<columnname name="抢断数" />
-					<columnname name="先发场数" />
+					<columnname name="NAME" />
+					<columnname name="TEAM" />
+					<columnname name="G" />
+					<columnname name="GS" />
+					<columnname name="MIN" />
+					<columnname name="FG" />					
+					<columnname name="FGA%" />
+					<columnname name="FG3" />					
+					<columnname name="FG3%" />
+					<columnname name="FG2" />					
+					<columnname name="FG2%" />
+					<columnname name="EFG%" />
+					<columnname name="FT" />
+					<columnname name="FT%" />
+					<columnname name="TRB" />
+					<columnname name="AST" />
+					<columnname name="STL" />
+					<columnname name="BLK" />
+					<columnname name="TOV" />
+					<columnname name="PF" />
+					<columnname name="PTS" />
 				</columnnames>
 			</tablepane>
 			<tab>
@@ -514,6 +527,22 @@
 				</regular>
 				
 
+
+				<league w="110" h="25" x="10" y="60">
+					<string str="(All)"/>
+					<string str="W"/>
+					<string str="E"/>
+				</league>
+				
+				
+				<type w="110" h="25" x="150" y="60">
+					
+					<string str="场均数据"/>
+					<string str="赛季总数据"/>
+					<string str="高阶数据"/>
+				</type>
+				
+				
 				<common1 w="110" h="25" x="10" y="100">
 					<string str="参赛场数" />
 					<string str="先发场数" />
@@ -845,40 +874,40 @@
 		<panel className="ui.player.hot.PlayerHotPane" width="940" height="511"
 			x="0" y="0">
 			<labels>
-			<name0 text="姓名1" w="1030" h="60" x="250" y="60" />
+			<name0 text="姓名1" w="1030" h="60" x="250" y="20" />
 			<position0 text="位置1" w="1030" h="60" x="250" y="60" />
 			<team0 text="球队1" w="1030" h="60" x="250" y="100" />
 			<data0 text="数据1" w="1030" h="60" x="250" y="140" />
 			<playerImg0 text="球员照片1" w="200" h="153" x="10" y="20" />
 			<teamImg0 text="球队照片1" w="100" h="100" x="350" y="20" />
 			
-			<name1 text="姓名2" w="1030" h="60" x="695" y="60" />
+			<name1 text="姓名2" w="1030" h="60" x="695" y="20" />
 			<position1 text="位置2" w="1030" h="60" x="695" y="60" />
 			<team1 text="球队2" w="1030" h="60" x="695" y="100" />
 			<data1 text="数据2" w="1030" h="60" x="695" y="140" />
 			<playerImg1 text="球员图2" w="200" h="153" x="455" y="20" />
 			<teamImg1 text="球队图2" w="100" h="100" x="795" y="20" />
 			
-			<name2 text="姓名" w="1030" h="60" x="180" y="210" />
-			<position2 text="姓名" w="1030" h="60" x="320" y="210" />
-			<team2 text="姓名" w="1030" h="60" x="420" y="210" />
-			<data2 text="姓名" w="1030" h="60" x="520" y="210" />
-			<playerImg2 text="姓名" w="120" h="92" x="0" y="210" />
-			<teamImg2 text="姓名" w="92" h="92" x="720" y="210" />
+			<name2 text="姓名" w="1030" h="60" x="180" y="330" />
+			<position2 text="姓名" w="1030" h="60" x="320" y="330" />
+			<team2 text="姓名" w="1030" h="60" x="420" y="330" />
+			<data2 text="姓名" w="1030" h="60" x="520" y="330" />
+			<playerImg2 text="姓名" w="60" h="46" x="0" y="330" />
+			<teamImg2 text="姓名" w="92" h="92" x="720" y="330" />
 			
-			<name3 text="姓名" w="1030" h="60" x="180" y="310" />
-			<position3 text="姓名" w="1030" h="60" x="320" y="310" />
-			<team3 text="姓名" w="1030" h="60" x="420" y="310" />
-			<data3 text="姓名" w="1030" h="60" x="520" y="310" />
-			<playerImg3 text="姓名" w="120" h="92" x="0" y="310" />
-			<teamImg3 text="姓名" w="92" h="92" x="720" y="310" />
+			<name3 text="姓名" w="1030" h="60" x="180" y="390" />
+			<position3 text="姓名" w="1030" h="60" x="320" y="390" />
+			<team3 text="姓名" w="1030" h="60" x="420" y="390" />
+			<data3 text="姓名" w="1030" h="60" x="520" y="390" />
+			<playerImg3 text="姓名" w="60" h="46" x="0" y="390" />
+			<teamImg3 text="姓名" w="92" h="92" x="720" y="390" />
 			
-			<name4 text="姓名" w="1030" h="60" x="180" y="410" />
-			<position4 text="姓名" w="1030" h="60" x="320" y="410" />
-			<team4 text="姓名" w="1030" h="60" x="420" y="410" />
-			<data4 text="姓名" w="1030" h="60" x="520" y="410" />
-			<playerImg4 text="姓名" w="120" h="92" x="0" y="410" />
-			<teamImg4 text="姓名" w="92" h="92" x="720" y="410" />
+			<name4 text="姓名" w="1030" h="60" x="180" y="450" />
+			<position4 text="姓名" w="1030" h="60" x="320" y="450" />
+			<team4 text="姓名" w="1030" h="60" x="420" y="450" />
+			<data4 text="姓名" w="1030" h="60" x="520" y="450" />
+			<playerImg4 text="姓名" w="60" h="46" x="0" y="450" />
+			<teamImg4 text="姓名" w="92" h="92" x="720" y="450" />
 			
 			
 			</labels>

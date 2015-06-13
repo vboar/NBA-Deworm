@@ -141,4 +141,14 @@ public class MyLabel extends JLabel {
 		this.setIcon(icon);
 	
 	}
+	
+	public void setIconPath(String path){
+		icon = new ImageIcon(path);
+
+		icon.setImage(icon.getImage().getScaledInstance(
+				Integer.parseInt(ele.attributeValue("w")),
+				Integer.parseInt(ele.attributeValue("h")), Image.SCALE_DEFAULT));
+		
+		this.setIcon(icon);
+	}
 }

@@ -130,9 +130,9 @@ public class PlayerPanel extends JPanel {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				playerfilter.changeBox(true);
-				playerstat.state = 2;
-				playerfilter.setAdvTable();				
+//				playerfilter.changeBox(true);
+//				playerstat.state = 2;
+//				playerfilter.setAdvTable();				
 			}
 		});
 		add(menu);
