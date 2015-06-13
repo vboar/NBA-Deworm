@@ -221,8 +221,8 @@ public class PlayerFilter extends JPanel{
 				frame.motherPanel.playerPanel.filter();
 				
 				
-				String [] header0 = {"NAME","TEAM","G","GS","MIN","FG","FGA%","FG3","FG2","EFG%","FT","FT%","TRB","AST","STL","BLK","TOV","PF","PTS"};
-				String [] header1 = {"NAME","TEAM","PER","TS%","FA3AR","FTAR","TRB%","AST%","STL%","BLK%","TOV%","USG%","OWS","DWS","WS","WS48","OBPM","DBPM","BPM","VORP"};
+				String [] header0 = {"NAME","TEAM","G","GS","MIN","FG","FGA%","FG3","FG3%","FG2","FG2%","EFG%","FT","FT%","TRB","AST","STL","BLK","TOV","PF","PTS"};
+				String [] header1 = {"NAME","TEAM","PER","TS%","F3AR","FTAR","ORB%","TRB%","AST%","STL%","BLK%","TOV%","USG%","OWS","DWS","WS","WS48","OBPM","DBPM","BPM","VORP"};
 				String seasonStr = season.getSelectedItem().toString();
 				String positionStr = position.getSelectedItem().toString();
 				String divisionStr = division.getSelectedItem().toString();
@@ -231,10 +231,11 @@ public class PlayerFilter extends JPanel{
 				int typeInt = type.getSelectedIndex();
 				
 				vo.PlayerFilter filter = new vo.PlayerFilter();
-				filter.division =divisionStr.equals("All")?null:divisionStr;
-				filter.position = positionStr.equals("All")?null:positionStr;
+				filter.division =divisionStr.equals("(All)")?null:divisionStr;
+				filter.position = positionStr.equals("(All)")?null:positionStr;
 				filter.season = seasonStr;
-				filter.regular = regularInt;
+				filter.league = leagueStr;
+				filter.regular = regularInt>1?null:regularInt;
 				
 				
 				switch(typeInt){
@@ -278,6 +279,7 @@ public class PlayerFilter extends JPanel{
 						}
 					frame.motherPanel.playerPanel.playerstat.table.setData(data);
 					frame.motherPanel.playerPanel.playerstat.table.setcolumnName(header0);
+					frame.motherPanel.playerPanel.playerstat.table.updateWidth();
 				break;
 				}
 				case 1:{
@@ -317,8 +319,9 @@ public class PlayerFilter extends JPanel{
 						data[i][20] = list.get(i).pts;
 						
 						}
-					frame.motherPanel.playerPanel.playerstat.table.setData(data);
+					frame.motherPanel.playerPanel.playerstat.table.setData(data);			
 					frame.motherPanel.playerPanel.playerstat.table.setcolumnName(header0);
+					frame.motherPanel.playerPanel.playerstat.table.updateWidth();
 				break;
 				}
 				case 2:{
@@ -333,33 +336,33 @@ public class PlayerFilter extends JPanel{
 						ee.printStackTrace();
 					}
 					
-					Object[][] data = new Object[list.size()][20];
+					Object[][] data = new Object[list.size()][21];
 					for(int i=0;i<list.size();i++){
 						data[i][0] =list.get(i).name;
 						data[i][1] = list.get(i).team;
 						data[i][2] = list.get(i).per;
 						data[i][3] = list.get(i).ts_pct;
 						data[i][4] = list.get(i).fa3a_per_fga_pct;
-						data[i][5] = list.get(i).fta_per_fga_pct;				
-						data[i][6] = list.get(i).trb_pct;
-						data[i][7] =list.get(i).ast_pct;
-						data[i][8] = list.get(i).stl_pct;
-						data[i][9] = list.get(i).blk_pct;
-						data[i][10] = list.get(i).tov_pct;
-						data[i][11] = list.get(i).usg_pct;
-						data[i][12] = list.get(i).ows;
-						data[i][13] = list.get(i).dws;
-						data[i][14] = list.get(i).ws;
-						data[i][15] = list.get(i).ws_48;
-						data[i][16] = list.get(i).obpm;
-						data[i][17] = list.get(i).dbpm;
-						data[i][18] = list.get(i).bpm;
-						data[i][19] = list.get(i).vorp;
-						
-						
+						data[i][5] = list.get(i).fta_per_fga_pct;	
+						data[i][6] = list.get(i).orb_pct;
+						data[i][7] = list.get(i).trb_pct;
+						data[i][8] =list.get(i).ast_pct;
+						data[i][9] = list.get(i).stl_pct;
+						data[i][10] = list.get(i).blk_pct;
+						data[i][11] = list.get(i).tov_pct;
+						data[i][12] = list.get(i).usg_pct;
+						data[i][13] = list.get(i).ows;
+						data[i][14] = list.get(i).dws;
+						data[i][15] = list.get(i).ws;
+						data[i][16] = list.get(i).ws_48;
+						data[i][17] = list.get(i).obpm;
+						data[i][18] = list.get(i).dbpm;
+						data[i][19] = list.get(i).bpm;
+						data[i][20] = list.get(i).vorp;						
 						}
 					frame.motherPanel.playerPanel.playerstat.table.setData(data);
 					frame.motherPanel.playerPanel.playerstat.table.setcolumnName(header1);
+					frame.motherPanel.playerPanel.playerstat.table.updateWidth();
 				break;
 				}
 				}

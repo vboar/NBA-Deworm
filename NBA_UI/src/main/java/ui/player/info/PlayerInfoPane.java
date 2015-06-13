@@ -265,9 +265,14 @@ public class PlayerInfoPane extends JPanel {
 		try {
 			info = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerInfoByName(name);
 			listAll = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerPerGameByName(name, 2);
-			matchlist = ServiceFactoryImpl.getInstance().getMatchService().getMatchInfoByFilter(filter);
-		 teamStr = ServiceFactoryImpl.getInstance().getPlayerService().getTeamByPlayerNameSeason(name, "14-15").get(0);
-		teamStr = teamStr.split(";")[0];
+			matchlist = ServiceFactoryImpl.getInstance().getMatchService().getMatchInfoByFilter(filter);		 
+			
+			List<String> teamList = ServiceFactoryImpl.getInstance().getPlayerService().getTeamByPlayerNameSeason(name, "14-15");
+		if(teamList.size()>0){
+			teamStr = teamList.get(0).split(";")[0];
+		}else{
+			teamStr = "";
+		}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
