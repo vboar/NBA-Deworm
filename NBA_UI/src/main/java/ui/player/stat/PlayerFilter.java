@@ -231,10 +231,10 @@ public class PlayerFilter extends JPanel{
 				int typeInt = type.getSelectedIndex();
 				
 				vo.PlayerFilter filter = new vo.PlayerFilter();
-				filter.division =divisionStr.equals("(All)")?null:divisionStr;
-				filter.position = positionStr.equals("(All)")?null:positionStr;
+				filter.division =divisionStr.equals("All Division")?null:divisionStr;
+				filter.position = positionStr.equals("All Position")?null:positionStr;
 				filter.season = seasonStr;
-				filter.league = leagueStr;
+				filter.league = leagueStr.equals("All League")?null:leagueStr;
 				filter.regular = regularInt>1?null:regularInt;
 				
 				

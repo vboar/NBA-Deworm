@@ -42,7 +42,7 @@ public class FiveMatchTabelPane extends TablePanel {
         	
         };
         this.table = new MyTable(this.dtm, this.getWidth());
-        
+        table.setShowGrid(false);
         this.table.addMouseListener(showDataInfo());
         this.updateWidth();
 

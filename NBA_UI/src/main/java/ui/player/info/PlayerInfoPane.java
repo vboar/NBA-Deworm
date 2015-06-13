@@ -266,6 +266,9 @@ public class PlayerInfoPane extends JPanel {
 		college.setText(info.college);
 		debut.setText(info.debut);
 		if(info.exp!=null){
+			if(info.exp ==-1){
+				exp.setText("Retired");
+			}
 			exp.setText(info.exp.toString());
 		}else{
 			exp.setText("无数据");

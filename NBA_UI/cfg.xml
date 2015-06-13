@@ -543,7 +543,7 @@
 			
 			
 			<comboboxes>
-				<season w="110" h="25" x="10" y="20">
+				<season w="150" h="25" x="10" y="20">
 					<string str="14-15" />
 					<string str="13-14" />
 					<string str="12-13" />
@@ -561,8 +561,22 @@
 					<string str="00-01" />
 				</season>
 				
-				<position w="110" h="25" x="150" y="20">
-					<string str="(All)"/>
+				
+				<type w="150" h="25" x="190" y="20">
+					
+					<string str="场均数据"/>
+					<string str="赛季总数据"/>
+					<string str="高阶数据"/>
+				</type>
+				
+				<regular w="150" h="25" x="370" y="20">
+					<string str="季后赛" />
+					<string str="常规赛" />
+					<string str="全部"/>
+				</regular>
+				
+				<position w="150" h="25" x="10" y="60">
+					<string str="All Position"/>
 					<string str="C" />
 					<string str="PF" />
 					<string str="SF" />
@@ -570,8 +584,8 @@
 					<string str="SG" />
 				</position>
 				
-				<division w="110" h="25" x="290" y="20">
-					<string str="(All)"/>
+				<division w="150" h="25" x="190" y="60">
+					<string str="All Division"/>
 					<string str="Atlantic" />
 					<string str="Central" />
 					<string str="Nothwest" />
@@ -580,27 +594,14 @@
 					<string str="Southwest" />
 				</division>
 				
-				<regular w="110" h="25" x="430" y="20">
-					<string str="季后赛" />
-					<string str="常规赛" />
-					<string str="全部"/>
-				</regular>
-				
-
-
-				<league w="110" h="25" x="10" y="60">
-					<string str="(All)"/>
+				<league w="150" h="25" x="370" y="60">
+					<string str="All League"/>
 					<string str="W"/>
 					<string str="E"/>
 				</league>
 				
 				
-				<type w="110" h="25" x="150" y="60">
-					
-					<string str="场均数据"/>
-					<string str="赛季总数据"/>
-					<string str="高阶数据"/>
-				</type>
+				
 				
 				
 				<common1 w="110" h="25" x="10" y="100">
@@ -872,23 +873,23 @@
 			<numhint text="球衣号码:" w="1030" h="60" x="220" y="20" />
 			<positionhint text="位置:" w="1030" h="60" x="220" y="50" />	
 			<bornhint text="生日:" w="1030" h="60" x="220" y="80" />	
-			<hometownhint text="出生地:" w="1030" h="60" x="220" y="110" />	
+			<debuthint text="首秀:" w="1030" h="60" x="220" y="110" />
 			<heighthint text="身高:" w="1030" h="60" x="220" y="140" />	
 			<weighthint text="体重:" w="1030" h="60" x="500" y="20" />	
-			<highschoolhint text="高中:" w="1030" h="60" x="500" y="50" />	
-			<collegehint text="大学:" w="1030" h="60" x="500" y="80" />	
-			<debuthint text="首秀:" w="1030" h="60" x="500" y="110" />	
+			<hometownhint text="出生地:" w="1030" h="60" x="500" y="50" />
+			<highschoolhint text="高中:" w="1030" h="60" x="500" y="80" />	
+			<collegehint text="大学:" w="1030" h="60" x="500" y="110" />					
 			<exphint text="球龄:" w="1030" h="60" x="500" y="140" />					
 			
 			<num text="hh" w="1030" h="60" x="300" y="20" />
 			<position text="hh" w="1030" h="60" x="300" y="50" />	
 			<born text="hh" w="1030" h="60" x="300" y="80" />	
-			<hometown text="hh" w="1030" h="60" x="300" y="110" />	
+			<debut text="hh" w="1030" h="60" x="300" y="110" />				
 			<height text="hh" w="1030" h="60" x="300" y="140" />	
 			<weight text="hh" w="1030" h="60" x="580" y="20" />	
-			<highschool text="hh" w="1030" h="60" x="580" y="50" />	
-			<college text="hh" w="1030" h="60" x="580" y="80" />	
-			<debut text="hh" w="1030" h="60" x="580" y="110" />	
+			<hometown text="hh" w="1030" h="60" x="580" y="50" />	
+			<highschool text="hh" w="1030" h="60" x="580" y="80" />	
+			<college text="hh" w="1030" h="60" x="580" y="110" />	
 			<exp text="hh" w="1030" h="60" x="580" y="140" />	
 						
 			<name text="Lerborn James" w="1030" h="60" x="25" y="160" font="微软雅黑"
