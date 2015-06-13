@@ -224,7 +224,6 @@ public class PlayerInfoPane extends JPanel {
 			chart1.setIcon(icon);
 			add(chart1);
 			
-			
 		
 		
 	}

@@ -67,8 +67,9 @@ public class PlayerNav extends JPanel{
 				playerpast.setIcon(new ImageIcon(pcfg.getLabels().element("playerpast").attributeValue("path")));
 			
 				//更改playerpanel内容
+				hintAll();
 				frame.motherPanel.playerPanel.indexpanel.setVisible(true);
-				frame.motherPanel.playerPanel.playerstat.setVisible(false);
+				
 			}
 
 			@Override
@@ -114,6 +115,9 @@ public class PlayerNav extends JPanel{
 				//更改playerpanel内容
 				hintAll();
 				frame.motherPanel.playerPanel.playerstat.setVisible(true);
+				frame.motherPanel.playerPanel.setting.setVisible(true);
+				frame.motherPanel.playerPanel.menu.setVisible(true);
+				
 			}
 
 			@Override

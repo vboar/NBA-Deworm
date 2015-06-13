@@ -45,6 +45,7 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 
 		try {
 			StatsService ss = new StatsServiceImpl();
+			ss.getPlayerCareerLineChart("Aaron Brooks", FieldType.AST_PCT, 1);
 //			ss.getPlayerRadar("Kobe Bryant", "11-12", 1);
 //			ss.getPlayerCompareRadar("Kobe Bryant", "Yao Ming", "04-05", 1);
 //			ss.getTeamRadar("ATL", "13-14");
@@ -91,11 +92,11 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 				+ ";" + ps.getTov() + ";" + ps.getPf();
 
 		// 将数据写入文件
-		String path = "stats/PlayerRadar";
+		String path = "stats/Radar";
 		write(s, path + ".txt");
 		try {
 			Process p = Runtime.getRuntime().exec(
-					"python stats/player_radar.py");
+					"python stats/radar.py");
 			p.waitFor();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -126,11 +127,11 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		slist.add(sb);
 
 		// 将数据写入文件
-		String path = "stats/PlayerComparisionRadar";
+		String path = "stats/RadarCompare";
 		writeMulti(slist, path + ".txt");
 		try {
 			Process p = Runtime.getRuntime().exec(
-					"python stats/player_radar_compare.py");
+					"python stats/radar_compare.py");
 			p.waitFor();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -154,11 +155,11 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		if(strs==null)
 			return null;
 		// 将数据写入文件
-		String path = "stats/PlayerLineChart";
+		String path = "stats/LineChart";
 		writeMulti(strs, path + ".txt");
 		try {
 			Process p = Runtime.getRuntime().exec(
-					"python stats/player_linechart.py");
+					"python stats/linechart.py");
 			p.waitFor();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -250,6 +251,7 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			p.waitFor();
 		} catch (Exception e) {
 			e.printStackTrace();
+			
 		}
 		ImageIcon img = new ImageIcon(path + ".png");
 		if (img.getImageLoadStatus() == MediaTracker.ERRORED)
@@ -418,15 +420,15 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		TeamStatsPerGame tsp = tdao.getTeamPerGameBySeasonAbbr(season, team);
 		if(tsp==null)
 			return null;
-		String s = team + ";" + season + ";" + tsp.getTrb() + ";"
+		String s = team + ";" + season + ";"  + "0" + ";" + tsp.getTrb() + ";"
 				+ tsp.getAst() + ";" + tsp.getStl() + ";" + tsp.getBlk() + ";"
 				+ tsp.getTov() + ";" + tsp.getPf();
 
 		// 将数据写入文件
-		String path = "stats/PlayerRadar";
+		String path = "stats/Radar";
 		write(s, path + ".txt");
 		try {
-			Process p = Runtime.getRuntime().exec("python stats/player_radar.py");
+			Process p = Runtime.getRuntime().exec("python stats/radar.py");
 			p.waitFor();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -444,10 +446,10 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		TeamStatsPerGame tb = tdao.getTeamPerGameBySeasonAbbr(season, teamB);
 		if(ta==null||tb==null)
 			return null;
-		String sa = teamA + ";" + season + ";" + ta.getTrb() + ";"
+		String sa = teamA + ";" + season + ";" + "0" + ";" + ta.getTrb() + ";"
 				+ ta.getAst() + ";" + ta.getStl() + ";" + ta.getBlk() + ";"
 				+ ta.getTov() + ";" + ta.getPf();
-		String sb = teamB + ";" + season + ";" + tb.getTrb() + ";"
+		String sb = teamB + ";" + season + ";" + "0" + ";" + tb.getTrb() + ";"
 				+ tb.getAst() + ";" + tb.getStl() + ";" + tb.getBlk() + ";"
 				+ tb.getTov() + ";" + tb.getPf();
 		List<String> slist = new ArrayList<String>();
@@ -455,11 +457,11 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		slist.add(sb);
 
 		// 将数据写入文件
-		String path = "stats/PlayerComparisionRadar";
+		String path = "stats/RadarCompare";
 		writeMulti(slist, path + ".txt");
 		try {
 			Process p = Runtime.getRuntime().exec(
-					"python stats/player_radar_compare.py");
+					"python stats/radar_compare.py");
 			p.waitFor();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -482,11 +484,11 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		if(strs==null)
 			return null;
 		// 将数据写入文件
-		String path = "stats/PlayerLineChart";
+		String path = "stats/LineChart";
 		writeMulti(strs, path + ".txt");
 		try {
 			Process p = Runtime.getRuntime().exec(
-					"python stats/player_linechart.py");
+					"python stats/linechart.py");
 			p.waitFor();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -699,21 +701,21 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 
 	@Override
 	public ImageIcon getMatchPlayerLineChart(String name, String season,
-			FieldType field, int regular) throws RemoteException {
+			FieldType field) throws RemoteException {
 		List<String> strs = new ArrayList<String>();
 		if (!isFieldAdvanced(field))
-			strs = getPlayerBasicMatch(name, regular, null, field);
+			strs = getPlayerBasicMatch(season, name, null, field);
 		else
-			strs = getPlayerAdvancedMatch(name, regular, null,field);
+			strs = getPlayerAdvancedMatch(season, name, null, field);
 
 		if(strs==null)
 			return null;
 		// 将数据写入文件
-		String path = "stats/PlayerLineChart";
+		String path = "stats/LineChart";
 		writeMulti(strs, path + ".txt");
 		try {
 			Process p = Runtime.getRuntime().exec(
-					"python stats/player_linechart.py");
+					"python stats/linechart.py");
 			p.waitFor();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -726,21 +728,21 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 	
 	@Override
 	public ImageIcon getMatchTeamLineChart(String abbr, String season,
-			FieldType field, int regular) throws RemoteException {
+			FieldType field) throws RemoteException {
 		List<String> strs = new ArrayList<String>();
 		if (!isFieldAdvanced(field))
-			strs = getPlayerBasicMatch("Team Totals", regular, abbr, field);
+			strs = getPlayerBasicMatch(season, "Team Totals", abbr, field);
 		else
-			strs = getPlayerAdvancedMatch("Team Totals", regular, abbr,  field);
+			strs = getPlayerAdvancedMatch(season, "Team Totals", abbr, field);
 
 		if(strs == null)
 			return null;
 		// 将数据写入文件
-		String path = "stats/PlayerLineChart";
+		String path = "stats/LineChart";
 		writeMulti(strs, path + ".txt");
 		try {
 			Process p = Runtime.getRuntime().exec(
-					"python stats/player_linechart.py");
+					"python stats/linechart.py");
 			p.waitFor();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1145,17 +1147,15 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		if(list.size()==0)
 			return list;
 		String season = list.get(0).getSeason();
-		String team = list.get(0).getTeam();
 		for (int i = 1; i < list.size(); ++i) {
 			PlayerStatsPerGame p = list.get(i);
 			if (p.getSeason().equals(season)) {
-				if (!team.equals("TOT")) {
-					list.remove(i - 1);
+				if (!p.getTeam().equals("TOT")) {
+					list.remove(i);
 					i = i - 1;
 				}
 			}
 			season = p.getSeason();
-			team = p.getTeam();
 		}
 		return list;
 	}
@@ -1171,17 +1171,19 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		if(list.size()==0)
 			return list;
 		String season = list.get(0).getSeason();
-		String team = list.get(0).getTeam();
 		for (int i = 1; i < list.size(); ++i) {
 			PlayerStatsAdvanced p = list.get(i);
 			if (p.getSeason().equals(season)) {
-				if (!team.equals("TOT")) {
-					list.remove(i - 1);
+				if (!p.getTeam().equals("TOT")) {
+					list.remove(i);
 					i = i - 1;
 				}
 			}
 			season = p.getSeason();
-			team = p.getTeam();
+		}
+		System.out.println("---------------------");
+		for(PlayerStatsAdvanced p:list){
+			System.out.println(p.getSeason()+" "+p.getTeam());
 		}
 		return list;
 	}
@@ -1234,10 +1236,9 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		return pa;
 	}
 
-	private List<String> getPlayerAdvancedMatch(String name, int regular,
-			String abbr,FieldType field) {
+	private List<String> getPlayerAdvancedMatch(String season, String name,String abbr,FieldType field) {
 		List<MatchPlayerAdvanced> list = mdao
-				.getMatchPlayerAdvancedByPlayerName(name, null, abbr,regular);
+				.getMatchPlayerAdvancedByPlayerName(name, season, abbr, -1);
 		String s = "";
 		String value = "";
 		if(list.size()==0)
@@ -1305,16 +1306,16 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		s = s.substring(0, s.length() - 1);
 		value = value.substring(0, value.length() - 1);
 		List<String> strs = new ArrayList<String>();
-		strs.add(name + ";" + regular + ";" + field.toString());
+		strs.add(name + ";" + -1 + ";" + field.toString());
 		strs.add(s);
 		strs.add(value);
 		return strs;
 	}
 
-	private List<String> getPlayerBasicMatch(String name, int regular,String abbr,
-			FieldType field) {
+	private List<String> getPlayerBasicMatch(String season, String name, 
+			String abbr, FieldType field) {
 		List<MatchPlayerBasic> list = mdao.getMatchPlayerBasicByPlayerName(
-				name, null, abbr, regular);
+				name, season, abbr, -1);
 		if(list.size()==0)
 			return null;
 		String s = "";
@@ -1399,7 +1400,7 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		s = s.substring(0, s.length() - 1);
 		value = value.substring(0, value.length() - 1);
 		List<String> strs = new ArrayList<String>();
-		strs.add(name + ";" + regular + ";" +field.toString());
+		strs.add(name + ";" + -1 + ";" +field.toString());
 		strs.add(s);
 		strs.add(value);
 		return strs;

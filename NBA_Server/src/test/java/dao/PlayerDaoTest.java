@@ -134,17 +134,18 @@ public class PlayerDaoTest extends TestCase {
 
 	public void testGetPlayerPerGameByFilter() {
 		PlayerFilter pf = new PlayerFilter();
-		pf.position = "PF";
-		pf.league = "E";
+//		pf.position = "PF";
+//		pf.league = "E";
 		pf.season = "13-14";
-		pf.team = "ATL";
-		pf.regular = 1;
-		pf.height = ">6-5";
-		pf.weight = ">270";
+//		pf.team = "ATL";
+//		pf.regular = 1;
+//		pf.height = ">6-5";
+//		pf.weight = ">270";
 		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameByFilter(pf);
-		System.out.println(list.size());
+		System.out.println("Filter...."+list.size());
 		for(PlayerStatsPerGame pst: list){
-			assertEquals("PF", pst.getPosition());
+			System.out.println(pst.getName());
+			//assertEquals("PF", pst.getPosition());
 			assertEquals("13-14", pst.getSeason());
 		}
 	}
@@ -152,14 +153,16 @@ public class PlayerDaoTest extends TestCase {
 	public void testGetPlayerAdvancedByFilter() {
 		PlayerFilter pf = new PlayerFilter();
 		pf.position = "PF";
-		pf.league = "E";
+//		pf.league = "E";
 		pf.season = "13-14";
-		pf.team = "ATL";
-		pf.regular = 1;
-		pf.height = ">6-5";
-		pf.weight = ">270";
+//		pf.team = "ATL";
+//		pf.regular = 1;
+//		pf.height = ">6-5";
+//		pf.weight = ">270";
 		List<PlayerStatsAdvanced> list = pdao.getPlayerAdvancedByFilter(pf);
+		System.out.println("Filter...."+list.size());
 		for(PlayerStatsAdvanced pst: list){
+			System.out.println(pst.getName());
 			assertEquals("PF", pst.getPosition());
 			assertEquals("13-14", pst.getSeason());
 		}

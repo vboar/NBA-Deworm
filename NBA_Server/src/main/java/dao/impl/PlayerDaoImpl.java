@@ -55,7 +55,6 @@ public class PlayerDaoImpl implements PlayerDao {
 				+ ".png";
 		String pic = FileManager.DATA_PATH + "/players/pic/" + name + ".png";
 		ImageIcon icon = new ImageIcon(now_pic);
-		System.out.println(icon.getImage().getWidth(null));
 		if (icon.getImageLoadStatus() == MediaTracker.ERRORED)
 			icon = new ImageIcon(pic);
 		icon.setDescription(name);
@@ -322,7 +321,7 @@ public class PlayerDaoImpl implements PlayerDao {
 	public List<PlayerStatsPerGame> getPlayerPerGameByFilter(PlayerFilter filter) {
 		List<PlayerStatsPerGame> list = new ArrayList<PlayerStatsPerGame>();
 		sqlManager.getConnection();
-		String sql = "SELECT DISTINCT pg.player_name, "
+		String sql = "SELECT  pg.player_name, "
 				+ "season, "
 				+ "is_normal, "
 				+ "team_abbr, "

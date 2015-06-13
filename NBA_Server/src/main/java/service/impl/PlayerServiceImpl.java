@@ -3,7 +3,11 @@ package service.impl;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.ImageIcon;
 
@@ -85,6 +89,7 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 			throws RemoteException {
 		List<PlayerTotalVO> volist = new ArrayList<PlayerTotalVO>();
 		List<PlayerStatsTotal> list = pdao.getPlayerTotalByName(name, regular);
+		list = getSumTotalList(list);
 		for(PlayerStatsTotal pst: list){
 			PlayerTotalVO vo = getTotalVO(pst);
 			if(vo!=null)
@@ -98,6 +103,7 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 			throws RemoteException {
 		List<PlayerPerGameVO> volist = new ArrayList<PlayerPerGameVO>();
 		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameByName(name,regular);
+		list = getSumPerGameList(list);
 		for(PlayerStatsPerGame psp:list){
 			PlayerPerGameVO vo = getPerGameVO(psp);
 			if(vo!=null)
@@ -111,6 +117,7 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 			throws RemoteException {
 		List<PlayerAdvancedVO> volist = new ArrayList<PlayerAdvancedVO>();
 		List<PlayerStatsAdvanced> list = pdao.getPlayerAdvancedByName(name, regular);
+		list = getSumAdvancedList(list);
 		for(PlayerStatsAdvanced psa: list){
 			PlayerAdvancedVO vo = getAdvancedVO(psa);
 			if(vo!=null)
@@ -331,7 +338,10 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		vo.name = psp.getName();
 		vo.season = psp.getSeason();
 		vo.is_normal = psp.getIs_normal()==0?false:true;
-		vo.team = psp.getTeam();
+		if(psp.getTeam().endsWith("/"))
+			vo.team = psp.getTeam().substring(0,psp.getTeam().length()-1);
+		else
+			vo.team = psp.getTeam();
 		vo.position = psp.getPosition();
 		vo.game = psp.getNum_Of_Game();
 		vo.game_started = psp.getGame_started();
@@ -367,7 +377,10 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		vo.name = psa.getName();
 		vo.season = psa.getSeason();
 		vo.is_normal = psa.getIs_normal()==0?false:true;
-		vo.team = psa.getTeam();
+		if(psa.getTeam().endsWith("/"))
+			vo.team = psa.getTeam().substring(0,psa.getTeam().length()-1);
+		else
+			vo.team = psa.getTeam();
 		vo.position = psa.getPosition();
 		vo.game = psa.getNum_Of_Game();
 		vo.minute = psa.getMinute();
@@ -401,7 +414,10 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		vo.name = pst.getName();
 		vo.season = pst.getSeason();
 		vo.is_normal = pst.getIs_normal()==0? false : true;
-		vo.team = pst.getTeam();
+		if(pst.getTeam().endsWith("/"))
+			vo.team = pst.getTeam().substring(0,pst.getTeam().length()-1);
+		else
+			vo.team = pst.getTeam();
 		vo.position = pst.getPosition();
 		vo.game = pst.getNum_Of_Game();
 		vo.game_started = pst.getGame_started();
@@ -444,6 +460,103 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		return vo;
 	}
 
-
-
+	private List<PlayerStatsTotal> getSumTotalList(List<PlayerStatsTotal> list){
+		if(list.size()==0)
+			return list;
+		String season = list.get(0).getSeason();
+		String temp_t = "";
+		Map<String ,String> map = new HashMap<String,String>();
+		for (int i = 1; i < list.size(); ++i) {
+			PlayerStatsTotal p = list.get(i);
+			if (p.getSeason().equals(season)) {
+				if (!p.getTeam().equals("TOT")) {
+					temp_t += p.getTeam() + "/";
+					map.put(p.getSeason(), temp_t);
+					list.remove(i);
+					i = i-1;
+				}
+			}else{
+				temp_t = "";
+			}	
+			season = p.getSeason();
+		}
+		Iterator<Entry<String, String>> iter = map.entrySet().iterator();
+		while(iter.hasNext()){
+			Entry<String, String> entry = (Entry<String, String>)iter.next();
+			String key = entry.getKey();
+			for(PlayerStatsTotal p: list){	
+				if(p.getSeason().equals(key)){
+					p.setTeam(map.get(key));
+				}
+			}
+		}
+		return list;
+	}
+	
+	private List<PlayerStatsPerGame> getSumPerGameList(List<PlayerStatsPerGame> list){
+		if(list.size()==0)
+			return list;
+		String season = list.get(0).getSeason();
+		String temp_t = "";
+		Map<String ,String> map = new HashMap<String,String>();
+		for (int i = 1; i < list.size(); ++i) {
+			PlayerStatsPerGame p = list.get(i);
+			if (p.getSeason().equals(season)) {
+				if (!p.getTeam().equals("TOT")) {
+					temp_t += p.getTeam() + "/";
+					map.put(p.getSeason(), temp_t);
+					list.remove(i);
+					i = i-1;
+				}
+			}else{
+				temp_t = "";
+			}	
+			season = p.getSeason();
+		}
+		Iterator<Entry<String, String>> iter = map.entrySet().iterator();
+		while(iter.hasNext()){
+			Entry<String, String> entry = (Entry<String, String>)iter.next();
+			String key = entry.getKey();
+			for(PlayerStatsPerGame p: list){	
+				if(p.getSeason().equals(key)){
+					p.setTeam(map.get(key));
+				}
+			}
+		}
+		return list;
+	}
+	
+	private List<PlayerStatsAdvanced> getSumAdvancedList(List<PlayerStatsAdvanced> list){
+		if(list.size()==0)
+			return list;
+		String season = list.get(0).getSeason();
+		String temp_t = "";
+		Map<String ,String> map = new HashMap<String,String>();
+		for (int i = 1; i < list.size(); ++i) {
+			PlayerStatsAdvanced p = list.get(i);
+			if (p.getSeason().equals(season)) {
+				if (!p.getTeam().equals("TOT")) {
+					temp_t += p.getTeam() + "/";
+					map.put(p.getSeason(), temp_t);
+					list.remove(i);
+					i = i-1;
+				}
+			}else{
+				temp_t = "";
+			}	
+			season = p.getSeason();
+		}
+		Iterator<Entry<String, String>> iter = map.entrySet().iterator();
+		while(iter.hasNext()){
+			Entry<String, String> entry = (Entry<String, String>)iter.next();
+			String key = entry.getKey();
+			for(PlayerStatsAdvanced p: list){	
+				if(p.getSeason().equals(key)){
+					p.setTeam(map.get(key));
+				}
+			}
+		}
+		return list;
+	}
+	
 }

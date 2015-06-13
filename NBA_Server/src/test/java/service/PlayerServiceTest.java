@@ -102,10 +102,11 @@ public class PlayerServiceTest extends TestCase {
 
 	public void testGetPlayerTotalByName() {
 		try {
-			List<PlayerTotalVO> list = ps.getPlayerTotalByName("Kevin Durant",1);
+			List<PlayerTotalVO> list = ps.getPlayerTotalByName("Aaron Brooks",1);
             System.out.println(list.size());
 			for(PlayerTotalVO pst: list){
-				assertEquals("Kevin Durant", pst.name);
+				assertEquals("Aaron Brooks", pst.name);
+				System.out.println(pst.season + " " + pst.team);
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -211,13 +212,14 @@ public class PlayerServiceTest extends TestCase {
 		try {
 			PlayerFilter pf = new PlayerFilter();
 			pf.position = "PF";
-			pf.league = "Atlantic";
+//			pf.league = "Atlantic";
 			pf.season = "13-14";
-			pf.height = ">6-7";
-			pf.weight = "<270";
-			pf.regular = 1;
-			pf.team = "BOS";
+//			pf.height = ">6-7";
+//			pf.weight = "<270";
+//			pf.regular = 1;
+//			pf.team = "BOS";
 			List<PlayerPerGameVO> list = ps.getPlayerPerGameByFilter(pf);
+			System.out.println("filter per ---> " + list.size());
 			for(PlayerPerGameVO pst: list){
 				assertEquals("PF", pst.position);
 			}

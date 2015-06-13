@@ -18,6 +18,7 @@ import service.CommonService;
 import service.MatchService;
 import service.PlayerService;
 import service.ServiceFactory;
+import service.StatsService;
 import service.TeamService;
 
 /**
@@ -110,6 +111,11 @@ public class ServiceFactoryImpl extends UnicastRemoteObject implements ServiceFa
 
 	public CommonService getCommonService() throws RemoteException {
 		return new CommonServiceImpl();
+	}
+
+	@Override
+	public StatsService getStatsService() throws RemoteException {
+		return null;
 	}
 
 
