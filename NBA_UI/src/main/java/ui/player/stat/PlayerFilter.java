@@ -405,7 +405,7 @@ public class PlayerFilter extends JPanel {
 					frame.motherPanel.playerPanel.playerstat.table
 							.setcolumnName(header1);
 					frame.motherPanel.playerPanel.playerstat.table
-							.updateWidth();
+							.updateWidthWithAdvanced();
 					break;
 				}
 				}

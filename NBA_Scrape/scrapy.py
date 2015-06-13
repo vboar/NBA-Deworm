@@ -38,7 +38,7 @@ def begin():
     get_pic = raw_input('> ')
     check_player()
     if get_team == 'Y':
-        scrape_team()
+        get_team_list()
     if get_team_data == 'Y':
         scrape_team_by_local()
     if get_tlogo == 'Y':
