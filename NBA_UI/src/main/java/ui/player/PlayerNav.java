@@ -241,6 +241,7 @@ public class PlayerNav extends JPanel{
 	
 	
 	public void hintAll(){
+		frame.motherPanel.playerPanel.fourTablePane.setVisible(false);
 		frame.motherPanel.playerPanel.playerInfoPane.setVisible(false);
 		frame.motherPanel.playerPanel.indexpanel.setVisible(false);
 		frame.motherPanel.playerPanel.playerstat.setVisible(false);

@@ -1,6 +1,7 @@
 package ui.util;
 
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -13,12 +14,21 @@ public class MyPressedLabel extends JLabel {
 	
 	
 public MyPressedLabel(Element ele) {
-		
+		this.setName(ele.attributeValue("text"));
 		this.setText(ele.attributeValue("text"));
 		this.setSize(Integer.parseInt(ele.attributeValue("w")),
 				Integer.parseInt(ele.attributeValue("h")));
 		this.setLocation(Integer.parseInt(ele.attributeValue("x")),
 				Integer.parseInt(ele.attributeValue("y")));
+		
+		if (ele.attributeValue("path") != null) {
+			this.setIcon(new ImageIcon(ele.attributeValue("path")));
+		}
+		if (ele.attributeValue("font") != null) {
+			this.setFont(new Font(ele.attributeValue("font"), Font.PLAIN,
+					Integer.parseInt(ele.attributeValue("fontsize"))));
+		}
+
 		this.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
 //		ImageIcon icon = new ImageIcon(path);

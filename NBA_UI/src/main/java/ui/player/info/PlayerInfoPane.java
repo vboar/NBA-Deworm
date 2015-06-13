@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -17,6 +18,7 @@ import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
 import ui.util.MyLabel;
+import ui.util.MyPressedLabel;
 import ui.util.MyTab;
 import vo.MatchFilter;
 import vo.MatchInfoVO;
@@ -54,6 +56,8 @@ public class PlayerInfoPane extends JPanel {
 	private MyLabel exp;
 	private MyLabel num;
 	//private MyLabel team;
+	
+	private MyPressedLabel findMore;
 	
 	private MyLabel chart1;
 	
@@ -167,6 +171,45 @@ public class PlayerInfoPane extends JPanel {
 
 		num = new MyLabel(pcfg.getLabels().element("num"));
 		add(num);
+		
+		
+		findMore = new MyPressedLabel(pcfg.getLabels().element("findmore"));
+		add(findMore);
+		findMore.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.motherPanel.playerPanel.playerInfoPane.setVisible(false);
+				frame.motherPanel.playerPanel.fourTablePane.changeName(name.getText());
+				frame.motherPanel.playerPanel.fourTablePane.setVisible(true);
+				
+			}
+		});
+		add(findMore);
 
 	}
 

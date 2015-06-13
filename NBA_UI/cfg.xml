@@ -898,6 +898,8 @@
 			
 			<chart1 text="hh" w="400" h="300" x="250" y="0" />	
 			<chart2 text="hh" w="400" h="300" x="550" y="0" />	
+			
+			<findmore text="查看更多信息" w="1030" h="60" x="500" y="300" />
 			</labels>
 			
 			<tablepane className="ui.player.info.FiveMatchTablePane"
@@ -1033,6 +1035,51 @@
         <panel className="ui.stats.StatsPanel" width="940" height="511"
                x="0" y="0">
 
+        </panel>
+        
+        <panel className="ui.player.info.FourTablePane" width="940" height="511"
+               x="0" y="0">
+               <labels>
+              <name text="姓名" w="130" h="60" x="50" y="110"  font="微软雅黑"
+					fontsize="15"  />
+              <img text="照片" w="130" h="100" x="50" y="20" />
+              <total text="Total Data" w="200" h="80" x="250" y="20" font="微软雅黑"
+					fontsize="25"  />
+              <pergame text="Average Data" w="200" h="80" x="480" y="20" font="微软雅黑"
+					fontsize="25"  />
+              <advanced text="Advanced Data" w="200" h="80" x="710" y="20" font="微软雅黑"
+					fontsize="25"  />
+              <salary text="Salary Data" w="150" h="60" x="780" y="20" />
+               
+               
+               </labels>
+               <tablepane className="ui.player.info.PlayerDetailPane" width="940"
+				height="340" x="0" y="166">
+				<columnnames>
+					<columnname name="SEASON" />
+					<columnname name="TEAM" />
+					<columnname name="G" />
+					<columnname name="GS" />
+					<columnname name="MIN" />
+					<columnname name="FG" />					
+					<columnname name="FGA%" />
+					<columnname name="FG3" />					
+					<columnname name="FG3%" />
+					<columnname name="FG2" />					
+					<columnname name="FG2%" />
+					<columnname name="EFG%" />
+					<columnname name="FT" />
+					<columnname name="FT%" />
+					<columnname name="TRB" />
+					<columnname name="AST" />
+					<columnname name="STL" />
+					<columnname name="BLK" />
+					<columnname name="TOV" />
+					<columnname name="PF" />
+					<columnname name="PTS" />
+					<columnname name="$"/>
+				</columnnames>
+			</tablepane>
         </panel>
 		
 	</homeframe>

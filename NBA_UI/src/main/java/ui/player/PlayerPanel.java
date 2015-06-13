@@ -13,6 +13,7 @@ import ui.config.SystemConfig;
 import ui.home.HomeUI;
 import ui.player.hot.PlayerHotPane;
 import ui.player.index.PlayerIndex;
+import ui.player.info.FourTablePane;
 import ui.player.info.PlayerInfoPane;
 import ui.player.stat.PlayerFilter;
 import ui.player.stat.PlayerStat;
@@ -30,6 +31,7 @@ public class PlayerPanel extends JPanel {
 	public PlayerStat playerstat;
 	public PlayerInfoPane playerInfoPane;
 	public PlayerHotPane playerHotPane;
+	public FourTablePane fourTablePane;
 	private JFrame coverFrame;
 	
 	private MyLabel settingbg;
@@ -81,6 +83,10 @@ public class PlayerPanel extends JPanel {
 		playerHotPane = new PlayerHotPane(frame);
 		playerHotPane.setVisible(false);
 		add(playerHotPane);
+		
+		fourTablePane = new FourTablePane(frame);
+		fourTablePane.setVisible(false);
+		add(fourTablePane);
 		
 		
 	}
