@@ -177,7 +177,7 @@ public interface StatsService extends Remote {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public ImageIcon getMatchPlayerLineChart(String name, String season, FieldType field, int regular) throws RemoteException;
+	public ImageIcon getMatchPlayerLineChart(String name, String season, FieldType field) throws RemoteException;
 	
 	/**
 	 * 获得某赛季球队各属性折线图
@@ -188,6 +188,6 @@ public interface StatsService extends Remote {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public ImageIcon getMatchTeamLineChart(String abbr, String season, FieldType field, int regular) throws RemoteException;
+	public ImageIcon getMatchTeamLineChart(String abbr, String season, FieldType field) throws RemoteException;
 	
 }

@@ -77,5 +77,13 @@ public class MatchDaoTest extends TestCase {
 		assertEquals("ATL", list.get(0).getTeam_abbr());
 		assertEquals("200010310ATL-CHH", list.get(0).getGame_id());
 	}
+	
+	public void testGetMatchPlayerBasicByPlayer(){
+		List<MatchPlayerBasic> list = mdao.getMatchPlayerBasicByPlayerName("Aaron Brooks", "13-14", null, 1);
+		System.out.println(list.size());
+		for(MatchPlayerBasic m: list){
+			System.out.println(m.getDate()+" " + m.getSeason());
+		}
+	}
 
 }

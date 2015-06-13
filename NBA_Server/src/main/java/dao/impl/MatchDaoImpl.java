@@ -187,6 +187,7 @@ public class MatchDaoImpl implements MatchDao {
 		sqlManager.getConnection();
 		List<MatchPlayerBasic> list = new ArrayList<MatchPlayerBasic>();
 		String sql = "SELECT "
+				+ "DISTINCT "
 				+ "a.game_id, "
 				+ "b.season, "
 				+ "b.date, "
@@ -215,8 +216,7 @@ public class MatchDaoImpl implements MatchDao {
 				+ "plus_minus "
 				+ " FROM match_player_basic as a, match_info as b "
 				+ "WHERE a.game_id = b.game_id "
-				+ "AND a.player_name=? "
-				+ "AND b.is_normal="+regular;
+				+ "AND a.player_name=? ";
 		List<Object> objects = new ArrayList<Object>();
 		objects.add(name);
 		if(season!=null){
@@ -226,6 +226,9 @@ public class MatchDaoImpl implements MatchDao {
 		if(abbr!=null){
 			sql += " AND a.team_abbr=?";
 			objects.add(abbr);
+		}
+		if(regular==0||regular ==1){
+			sql += " AND b.is_normal="+regular;
 		}
 		List<Map<String,Object>> maplist = sqlManager.queryMultiByList(sql, objects);
 		for(Map<String,Object> map: maplist){
@@ -241,6 +244,7 @@ public class MatchDaoImpl implements MatchDao {
 		sqlManager.getConnection();
 		List<MatchPlayerAdvanced> list = new ArrayList<MatchPlayerAdvanced>();
 		String sql = "SELECT "
+				+ "DISTINCT "
 				+ "a.game_id, "
 				+ "b.season, "
 				+ "b.date, "
@@ -264,8 +268,7 @@ public class MatchDaoImpl implements MatchDao {
 				+ "def_rtg "
 				+ " FROM match_player_advanced as a, match_info as b "
 				+ "WHERE a.game_id=b.game_id "
-				+ "AND a.player_name = ? "
-				+ "AND b.is_normal="+regular;
+				+ "AND a.player_name = ? ";
 		List<Object> objects = new ArrayList<Object>();
 		objects.add(name);
 		if(season!=null){
@@ -275,6 +278,9 @@ public class MatchDaoImpl implements MatchDao {
 		if(abbr!=null){
 			sql += " AND a.team_abbr=?";
 			objects.add(abbr);
+		}
+		if(regular==0||regular ==1){
+			sql += " AND b.is_normal="+regular;
 		}
 		List<Map<String,Object>> maplist = sqlManager.queryMultiByList(sql, objects);
 		for(Map<String,Object> map: maplist){
