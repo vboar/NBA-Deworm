@@ -38,8 +38,8 @@ public class ScoreTablePane extends TablePanel {
         this.table.getTableHeader().setForeground(Color.BLACK);
         this.table.getTableHeader().setFont(new Font("微软雅黑", 0, 12));
         this.table.setFont(new Font("微软雅黑", 0, 12));
-
-        this.getRollpane().setRowHeaderWidth(0);
+        this.table.setRowSorter(null);
+        this.table.setShowGrid(false);
     }
 
     public void refresh(LiveMatchVO vo) {
@@ -91,6 +91,7 @@ public class ScoreTablePane extends TablePanel {
         }
 
         this.setSize(getWidth() + (columnNames.length - 6) * 50, getHeight());
+        this.setLocation(getX() - (columnNames.length - 6) * 50, getY());
 
         this.dtm = new MyTableModel(data, columnNames);
         this.table = new MyTable(this.dtm, this.getWidth());

@@ -29,8 +29,8 @@ public class MessageTablePane extends TablePanel {
         this.table.getTableHeader().setForeground(Color.BLACK);
         this.table.getTableHeader().setFont(new Font("微软雅黑", 0, 12));
         this.table.setFont(new Font("微软雅黑", 0, 12));
-
-        this.getRollpane().setRowHeaderWidth(0);
+        this.table.setRowSorter(null);
+        this.table.setShowGrid(false);
     }
 
     @Override

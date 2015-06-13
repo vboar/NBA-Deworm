@@ -21,6 +21,7 @@ public class TeamPanel extends JPanel{
 	public TeamIndex teamindex;
 	public TeamStat teamstat; 
 	public TeamHot teamhot;
+    public TeamDetail teamDetail;
 	
 	public TeamPanel(HomeUI frame){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
@@ -53,5 +54,18 @@ public class TeamPanel extends JPanel{
 		teamhot.setVisible(false);
 		add(teamhot);
 	}
+
+    public void removeTeamDetail() {
+        if (teamDetail != null) {
+            teamDetail.setVisible(false);
+            remove(teamDetail);
+        }
+    }
+
+    public void createTeamDetail(String team) {
+        removeTeamDetail();
+        teamDetail = new TeamDetail(frame, team);
+        add(teamDetail);
+    }
 
 }
