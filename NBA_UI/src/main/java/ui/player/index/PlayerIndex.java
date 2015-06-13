@@ -302,7 +302,7 @@ public class PlayerIndex extends JPanel {
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				// System.out.println(label.getName());
-				if (label.getName() == show) {
+				if (label.getName().equals(show)) {
 					label.setIcon(new ImageIcon(path + word + "_point.png"));
 				} else {
 					label.setIcon(new ImageIcon(path + word + ".png"));
