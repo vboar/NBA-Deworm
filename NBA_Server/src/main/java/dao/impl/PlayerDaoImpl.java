@@ -66,6 +66,7 @@ public class PlayerDaoImpl implements PlayerDao {
 
 	@Override
 	public List<String> getNameList(String str) {
+		//str = str.toLowerCase();
 		List<String> names = new ArrayList<String>();
 		sqlManager.getConnection();
 		String sql = "SELECT player_name FROM player_info "
@@ -217,6 +218,7 @@ public class PlayerDaoImpl implements PlayerDao {
 				+ "WHERE pt.player_name = pi.player_name "
 				+ "AND pt.team_abbr = ti.abbr ";
 		List<Object> objects = new ArrayList<Object>();
+		//TODO career
 		if (filter.season != null) {
 			sql += " AND pt.season=? ";
 			objects.add(filter.season);
@@ -350,11 +352,16 @@ public class PlayerDaoImpl implements PlayerDao {
 				+ "blk, "
 				+ "tov, "
 				+ "pf, "
-				+ "pts "
-				+ "FROM player_per_game as pg, player_info as pi, team_info as ti "
-				+ "WHERE pg.player_name = pi.player_name "
-				+ "AND pg.team_abbr = ti.abbr ";
+				+ "pts ";
 		List<Object> objects = new ArrayList<Object>();
+		if(filter.season.equals("Career")){
+			sql += "FROM player_per_game as pg WHERE season=? ";
+			objects.add(filter.season);
+		}else{
+			sql += "FROM player_per_game as pg, player_info as pi, team_info as ti "
+			+ "WHERE pg.player_name = pi.player_name "
+			+ "AND pg.team_abbr = ti.abbr ";
+		}
 		if (filter.season != null) {
 			sql += " AND pg.season=? ";
 			objects.add(filter.season);
@@ -392,6 +399,8 @@ public class PlayerDaoImpl implements PlayerDao {
 		sql += " ORDER BY pg.player_name";
 		List<Map<String, Object>> mapList = sqlManager.queryMultiByList(sql,
 				objects);
+		System.out.println(sql);
+		System.out.println("Maplsit: "  + mapList.size());
 		for (Map<String, Object> map : mapList) {
 			list.add(getPlayerPerGame(map));
 		}
@@ -495,6 +504,7 @@ public class PlayerDaoImpl implements PlayerDao {
 				+ "WHERE pa.player_name = pi.player_name "
 				+ "AND pa.team_abbr = ti.abbr ";
 		List<Object> objects = new ArrayList<Object>();
+		//TODO career
 		if (filter.season != null) {
 			sql += " AND pa.season=? ";
 			objects.add(filter.season);
@@ -675,6 +685,25 @@ public class PlayerDaoImpl implements PlayerDao {
 		sqlManager.releaseAll();
 		return teams;
 	}
+	
+	@Override
+	public List<String> getSeasonByPlayerName(String name) {
+		List<String> list = new ArrayList<String>();
+		String sql = "Select season from player_total WHERE player_name=?";
+		sqlManager.getConnection();
+		List<Map<String, Object>> maplist = sqlManager.queryMulti(sql, new Object[] {
+				name });
+		for(Map<String, Object> map: maplist){
+			if (map.get("season") == null) {
+				continue;
+			}
+			list.add(map.get("season").toString());
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+
+	
 	@Override
 	public void insertPlayerInfo(List<PlayerInfo> list) {
 		System.out.println("Insert Player Info : " + list.size());

@@ -7,7 +7,6 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import service.PlayerService;
-import util.FieldType;
 import vo.HotPlayerInfoVO;
 import vo.PlayerAdvancedVO;
 import vo.PlayerFilter;
@@ -72,7 +71,7 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 
 	@Override
 	public List<HotPlayerInfoVO> getSeasonHotPlayer(String season,
-			FieldType field, int num) throws RemoteException {
+			int field, int num) throws RemoteException {
 		return null;
 	}
 
@@ -160,6 +159,12 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 
 	@Override
 	public List<PlayerSalaryVO> getPlayerSalaryByName(String name)
+			throws RemoteException {
+		return null;
+	}
+
+	@Override
+	public List<String> getSessonsByPlayerName(String name)
 			throws RemoteException {
 		return null;
 	}

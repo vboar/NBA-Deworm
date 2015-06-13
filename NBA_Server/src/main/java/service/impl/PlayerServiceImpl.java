@@ -144,6 +144,7 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 			throws RemoteException {
 		List<PlayerTotalVO> volist = new ArrayList<PlayerTotalVO>();
 		List<PlayerStatsTotal> list = pdao.getPlayerTotalBySeason(season,regular);
+		list = getSumTotalList(list);
 		for(PlayerStatsTotal pst: list){
 			PlayerTotalVO vo = getTotalVO(pst);
 			if(vo!=null)
@@ -157,6 +158,7 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 			throws RemoteException {
 		List<PlayerPerGameVO> volist = new ArrayList<PlayerPerGameVO>();
 		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameBySeason(season, regular);
+		list = getSumPerGameList(list);
 		for(PlayerStatsPerGame psp:list){
 			PlayerPerGameVO vo = getPerGameVO(psp);
 			if(vo!=null)
@@ -170,6 +172,7 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 			throws RemoteException {
 		List<PlayerAdvancedVO> volist = new ArrayList<PlayerAdvancedVO>();
 		List<PlayerStatsAdvanced> list = pdao.getPlayerAdvancedBySeason(season,regular);
+		list = getSumAdvancedList(list);
 		for(PlayerStatsAdvanced psa: list){
 			PlayerAdvancedVO vo = getAdvancedVO(psa);
 			if(vo!=null)
@@ -222,6 +225,7 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 			throws RemoteException {
 		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameByFilter(filter);
 		List<PlayerPerGameVO> volist = new ArrayList<PlayerPerGameVO>();
+//		list = getSumPerGameList(list);
 		for(PlayerStatsPerGame psp: list){
 			PlayerPerGameVO vo = getPerGameVO(psp);
 			if(vo!=null)
@@ -248,6 +252,7 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 			throws RemoteException {
 		List<PlayerStatsAdvanced> list = pdao.getPlayerAdvancedByFilter(filter);
 		List<PlayerAdvancedVO> volist = new ArrayList<PlayerAdvancedVO>();
+//		list = getSumAdvancedList(list);
 		for(PlayerStatsAdvanced psp: list){
 			PlayerAdvancedVO vo = getAdvancedVO(psp);
 			if(vo!=null)
@@ -283,7 +288,8 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 	}
 	@Override
 	public List<HotPlayerInfoVO> getSeasonHotPlayer(String season,
-			FieldType field, int num) throws RemoteException {
+			int fieldNum, int num) throws RemoteException {
+		FieldType field = FieldType.intToType(fieldNum);
 		List<HotPlayerInfoVO> volist = new ArrayList<HotPlayerInfoVO>();
 		List<HotPlayerInfo> list = pdao.getHotPlayerBySeason(season, field,num);
 		for(HotPlayerInfo info : list){
@@ -464,14 +470,15 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		if(list.size()==0)
 			return list;
 		String season = list.get(0).getSeason();
+		String name = list.get(0).getName();
 		String temp_t = "";
 		Map<String ,String> map = new HashMap<String,String>();
 		for (int i = 1; i < list.size(); ++i) {
 			PlayerStatsTotal p = list.get(i);
-			if (p.getSeason().equals(season)) {
+			if (p.getSeason().equals(season)&&p.getName().equals(name)) {
 				if (!p.getTeam().equals("TOT")) {
 					temp_t += p.getTeam() + "/";
-					map.put(p.getSeason(), temp_t);
+					map.put(p.getSeason()+p.getName(), temp_t);
 					list.remove(i);
 					i = i-1;
 				}
@@ -479,13 +486,14 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 				temp_t = "";
 			}	
 			season = p.getSeason();
+			name = p.getName();
 		}
 		Iterator<Entry<String, String>> iter = map.entrySet().iterator();
 		while(iter.hasNext()){
 			Entry<String, String> entry = (Entry<String, String>)iter.next();
 			String key = entry.getKey();
 			for(PlayerStatsTotal p: list){	
-				if(p.getSeason().equals(key)){
+				if((p.getSeason()+p.getName()).equals(key)){
 					p.setTeam(map.get(key));
 				}
 			}
@@ -497,14 +505,15 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		if(list.size()==0)
 			return list;
 		String season = list.get(0).getSeason();
+		String name = list.get(0).getName();
 		String temp_t = "";
 		Map<String ,String> map = new HashMap<String,String>();
 		for (int i = 1; i < list.size(); ++i) {
 			PlayerStatsPerGame p = list.get(i);
-			if (p.getSeason().equals(season)) {
+			if (p.getSeason().equals(season)&&p.getName().equals(name)) {
 				if (!p.getTeam().equals("TOT")) {
 					temp_t += p.getTeam() + "/";
-					map.put(p.getSeason(), temp_t);
+					map.put(p.getSeason()+p.getName(), temp_t);
 					list.remove(i);
 					i = i-1;
 				}
@@ -512,13 +521,14 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 				temp_t = "";
 			}	
 			season = p.getSeason();
+			name = p.getName();
 		}
 		Iterator<Entry<String, String>> iter = map.entrySet().iterator();
 		while(iter.hasNext()){
 			Entry<String, String> entry = (Entry<String, String>)iter.next();
 			String key = entry.getKey();
 			for(PlayerStatsPerGame p: list){	
-				if(p.getSeason().equals(key)){
+				if((p.getSeason()+p.getName()).equals(key)){
 					p.setTeam(map.get(key));
 				}
 			}
@@ -530,14 +540,15 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 		if(list.size()==0)
 			return list;
 		String season = list.get(0).getSeason();
+		String name = list.get(0).getName();
 		String temp_t = "";
 		Map<String ,String> map = new HashMap<String,String>();
 		for (int i = 1; i < list.size(); ++i) {
 			PlayerStatsAdvanced p = list.get(i);
-			if (p.getSeason().equals(season)) {
+			if (p.getSeason().equals(season)&&p.getName().equals(name)) {
 				if (!p.getTeam().equals("TOT")) {
 					temp_t += p.getTeam() + "/";
-					map.put(p.getSeason(), temp_t);
+					map.put(p.getSeason()+p.getName(), temp_t);
 					list.remove(i);
 					i = i-1;
 				}
@@ -545,18 +556,25 @@ public class PlayerServiceImpl extends UnicastRemoteObject implements PlayerServ
 				temp_t = "";
 			}	
 			season = p.getSeason();
+			name = p.getName();
 		}
 		Iterator<Entry<String, String>> iter = map.entrySet().iterator();
 		while(iter.hasNext()){
 			Entry<String, String> entry = (Entry<String, String>)iter.next();
 			String key = entry.getKey();
 			for(PlayerStatsAdvanced p: list){	
-				if(p.getSeason().equals(key)){
+				if((p.getSeason()+p.getName()).equals(key)){
 					p.setTeam(map.get(key));
 				}
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public List<String> getSessonsByPlayerName(String name)
+			throws RemoteException {
+		return pdao.getSeasonByPlayerName(name);
 	}
 	
 }
