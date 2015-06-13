@@ -67,7 +67,7 @@ public class PlayerIndex extends JPanel {
 	private String path = null;
 	
 	private List<String> volist= null;
-
+	private List<String> allList = null;
 	public PlayerIndex(HomeUI frame) {
 		this.frame = frame;
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
@@ -249,7 +249,13 @@ public class PlayerIndex extends JPanel {
 			@Override
 			public ArrayList<String> getFuzzyResult(String keyword) {
 				ArrayList<String> list2 = new ArrayList<String>();
-				for (String s : volist) {
+				for (String s : allList) {
+					if(s.equals(keyword)){
+						frame.motherPanel.playerPanel.indexpanel.setVisible(false);
+						frame.motherPanel.playerPanel.playerInfoPane.changeData(s);
+						frame.motherPanel.playerPanel.playerInfoPane.setVisible(true);
+						break;
+					}
 					if (s.contains(keyword))
 						list2.add(s);
 				}
@@ -445,6 +451,7 @@ public class PlayerIndex extends JPanel {
 	}
 
 	private void initScrollPane() throws RemoteException {
+		allList = ServiceFactoryImpl.getInstance().getPlayerService().getNameList("");
 		jsp = new JScrollPane();
 		jsp.setSize(940, 461);
 		jsp.setLocation(0, 50);

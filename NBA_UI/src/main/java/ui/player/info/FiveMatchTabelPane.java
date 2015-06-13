@@ -73,12 +73,12 @@ public class FiveMatchTabelPane extends TablePanel {
 	
 	  private void updateWidth() {
 			FrameUtil.setTableColumnWidth(table, this.getWidth(), 8);
-			this.table.getColumnModel().getColumn(0).setPreferredWidth(170);
-//			this.table.getColumnModel().getColumn(1).setPreferredWidth(50);
+			this.table.getColumnModel().getColumn(0).setPreferredWidth(135);
+			this.table.getColumnModel().getColumn(1).setPreferredWidth(50);
 			
 //			this.table.getColumnModel().getColumn(1).setPreferredWidth(170);
-//			this.table.getColumnModel().getColumn(2).setPreferredWidth(420);
-			
+			this.table.getColumnModel().getColumn(2).setPreferredWidth(85);
+			this.table.getColumnModel().getColumn(3).setPreferredWidth(95);
 //			int columncount = this.table.getColumnCount();
 //	        for (int i = 1; i < columncount; i++) {
 //	            this.table.getColumnModel().getColumn(i).setPreferredWidth(4);

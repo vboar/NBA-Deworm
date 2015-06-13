@@ -53,7 +53,7 @@ public class PlayerInfoPane extends JPanel {
 	private MyLabel debut;
 	private MyLabel exp;
 	private MyLabel num;
-	private MyLabel team;
+	//private MyLabel team;
 	
 	private MyLabel chart1;
 	
@@ -82,7 +82,7 @@ public class PlayerInfoPane extends JPanel {
 	private void initComponent() {
 		initLabels();
 		initTables();
-		initTabs();
+		//initTabs();
 		//initChart();
 		
 	}
@@ -137,9 +137,7 @@ public class PlayerInfoPane extends JPanel {
 		name = new MyLabel(pcfg.getLabels().element("name"));
 		add(name);
 
-		team = new MyLabel(pcfg.getLabels().element("team"));
-		add(team);
-
+		
 		position = new MyLabel(pcfg.getLabels().element("position"));
 		add(position);
 
@@ -189,42 +187,22 @@ public class PlayerInfoPane extends JPanel {
 		fiveTablePane = new FiveMatchTabelPane(new TableConfig(
 				pcfg.getTablepane()), data, frame);
 		add(fiveTablePane);
+		fiveTablePane.setVisible(false);
 	}
 	
-	private void initChart(){
-		List<PlayerPerGameVO> listAll = null;
+	private void initChart(){		
 		try {
+			//System.out.println(name.getText());
+			ImageIcon icon = ServiceFactoryImpl.getInstance().getStatsService().getPlayerRadar(name.getText(), "14-15", 1);
 			
-			listAll = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerPerGameByName("LeBron James", 2);
+			chart1 = new MyLabel(pcfg.getLabels().element("chart1"));
+			chart1.setImage(icon);
+			add(chart1);
+
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String point = listAll.get(0).pts.toString();
-		String bound = listAll.get(0).trb.toString();
-		String assist = listAll.get(0).ast.toString();
-		String block = listAll.get(0).blk.toString();
-		String steal = listAll.get(0).stl.toString();
-		String sys = System.getProperty("user.dir"); 
-		
-		String data1 = listAll.get(4).pts.toString();
-		String data2 = listAll.get(3).pts.toString();
-		String data3 = listAll.get(2).pts.toString();
-		String data4 = listAll.get(1).pts.toString();
-		String data5 = listAll.get(0).pts.toString();
-		 try {
-			Process p = Runtime.getRuntime().exec("python "+sys+"/leida.py "+point+" "+bound+" "+assist+" "+block+" "+steal);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  
-		 ImageIcon icon = new ImageIcon("radar.png");
-			icon.setImage(icon.getImage());
-			chart1 = new MyLabel(pcfg.getLabels().element("chart1"));
-			chart1.setIcon(icon);
-			add(chart1);
-			
-		
 		
 	}
 	
@@ -279,7 +257,6 @@ public class PlayerInfoPane extends JPanel {
 		}
 		
 		this.name.setText(name);
-		team.setText(teamStr);
 		position.setText(info.position);
 		born.setText(info.born);
 		hometown.setText(info.hometown);
@@ -320,7 +297,7 @@ public class PlayerInfoPane extends JPanel {
 			 matchData[i][0] = matchlist.get(i).game_id;
 			 matchData[i][1] = matchlist.get(i).season;
 			 matchData[i][2] = matchlist.get(i).date;
-			 matchData[i][3] = matchlist.get(i).is_normal;
+			 matchData[i][3] = matchlist.get(i).is_normal == true?"regular season":"post season";
 			 matchData[i][4] = matchlist.get(i).location;
 			 matchData[i][5] = matchlist.get(i).home_team;
 			 matchData[i][6] = matchlist.get(i).home_point;
