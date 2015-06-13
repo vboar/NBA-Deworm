@@ -48,6 +48,7 @@ public class MatchPanel extends JPanel{
             liveChoosePane.removeLivePanel();
         } else if (show == 1) {
             liveChoosePane.setVisible(true);
+            liveChoosePane.removeLivePanel();
         }
     }
 }

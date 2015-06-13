@@ -41,7 +41,7 @@ public class LivePanel extends JPanel {
     private MyLabel rtime;
     private ScoreTablePane scoreTablePane;
     private MessageTablePane messageTablePane;
-    private JButton mDataBtn;
+    private MyLabel data;
 
 	private String team1Str;
 	private String team2Str;
@@ -99,15 +99,29 @@ public class LivePanel extends JPanel {
 	}
     private void initButtons() {
         if (info.state.equals("比赛结束")) {
-            mDataBtn = new MyButton(pcfg.getButtons().element("data"));
-            mDataBtn.addActionListener(new ActionListener() {
+            data = new MyLabel(pcfg.getLabels().element("data"));
+            data.addMouseListener(new MouseAdapter(){
+
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void mouseClicked(MouseEvent arg0) {
                     // TODO
                 }
+
+                @Override
+                public void mouseEntered(MouseEvent arg0) {
+                    data.setText("<html><u>点击查看详细数据</u></html>");
+
+                }
+
+                @Override
+                public void mouseExited(MouseEvent arg0) {
+                    data.setText("点击查看详细数据");
+                }
+
             });
-            mDataBtn.setFont(new Font("微软雅黑", 0, 12));
-            add(mDataBtn);
+            data.setFont(new Font("微软雅黑", 0, 13));
+            data.setForeground(Color.BLUE);
+            add(data);
         }
     }
 
