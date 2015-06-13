@@ -118,9 +118,9 @@
 			<y w="28" h="45" x="881" y="2" path="img/player/index/y.png" />
 			<z w="28" h="45" x="909" y="2" path="img/player/index/z.png" />
 			
-			<left  text="Bogdanovic Bojan" w="200" h="45" x="20" y="0" />
+			<left  text="Bogdanovic Bojan" w="200" h="45" x="40" y="0" />
 			<middle1  text="Bogdanovic Bojan" w="200" h="45" x="280" y="0" />
-			<middle2  text="Bogdanovic Bojan" w="200" h="45" x="530" y="0" />
+			<middle2  text="Bogdanovic Bojan" w="200" h="45" x="520" y="0" />
 			<right  text="Bogdanovic Bojan" w="200" h="45" x="740" y="0" />
 			
 			</labels>
@@ -818,6 +818,7 @@
                     <gym w="200" h="40" x="231" y="68" />
                     <att w="200" h="40" x="231" y="98" />
                     <rtime w="200" h="40" x="560" y="98" />
+                    <data text="点击查看详细数据" w="150" h="30" x="805" y="102"/>
                 </labels>
 
                 <tables>
@@ -841,9 +842,6 @@
                     </msg>
                 </tables>
 
-                <buttons>
-                    <data text="详细数据" w="100" h="30" x="810" y="102"/>
-                </buttons>
 			</panel>
 			
 			<panel className="ui.player.stat.CoverPanel" width="940" height="511"
@@ -851,17 +849,17 @@
 			</panel>
 			
 			<panel className="ui.live.LiveChoosePane"  width="940" height="511"
-			    x="0" y="0" >
+			    x="0" y="0"  bg="img/match/live/choose.png">
 			    <labels>
-			        <title text="title" w="500" h="60" x="40" y="50" />
-                    <content text="title" w="500" h="60" x="40" y="80" />
-                    <htitle text="title" w="500" h="60" x="510" y="50" />
-                    <hcontent text="title" w="500" h="60" x="510" y="80" />
+			        <title text="title" w="500" h="60" x="40" y="32" />
+                    <content text="title" w="500" h="60" x="40" y="70" />
+                    <watch text="立即观看" w="100" h="60" x="395" y="70"/>
+                    <htitle text="title" w="500" h="60" x="535" y="70" />
+                    <hcontent text="title" w="500" h="60" x="535" y="103" />
+                    <hwatch text="直播回顾" w="90" h="60" x="815" y="103"/>
+                    <red text="" w="450" h="80" x="28" y="48" />
+                    <green text="" w="380" h="56" x="520" y="86" />
 			    </labels>
-			    <buttons>
-			        <watch text="立即观看" w="100" h="30" x="325" y="95"/>
-                    <hwatch text="文字直播" w="100" h="30" x="795" y="95"/>
-			    </buttons>
 			</panel>
 			
 			<panel className="ui.player.info.PlayerInfoPane" width="940" height="511"

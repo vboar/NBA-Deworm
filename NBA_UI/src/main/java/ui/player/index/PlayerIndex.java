@@ -1,7 +1,6 @@
 package ui.player.index;
 
-import java.awt.Cursor;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -72,11 +71,6 @@ public class PlayerIndex extends JPanel {
 		this.frame = frame;
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
-		/*
-		 * try { ps = ServiceFactoryImpl.getInstance().getPlayerService(); }
-		 * catch (RemoteException e) { // TODO 自动生成的 catch 块
-		 * e.printStackTrace(); }
-		 */
 		this.setOpaque(false);
 		this.setLayout(null);
 		this.setSize(pcfg.getW(), pcfg.getH());
@@ -308,7 +302,7 @@ public class PlayerIndex extends JPanel {
 			@Override
 			public void mouseExited(MouseEvent arg0) {
 				// System.out.println(label.getName());
-				if (label.getName() == show) {
+				if (label.getName().equals(show)) {
 					label.setIcon(new ImageIcon(path + word + "_point.png"));
 				} else {
 					label.setIcon(new ImageIcon(path + word + ".png"));
@@ -434,8 +428,7 @@ public class PlayerIndex extends JPanel {
 				}
 				label.setIcon(new ImageIcon(path + word + "_click.png"));
 
-				if (show != label.getName()) {
-					System.out.println("382: " + label.getName());
+				if (!show.equals(label.getName())) {
 					try {
 						setIndex(label.getName());
 					} catch (RemoteException e) {
@@ -466,30 +459,16 @@ public class PlayerIndex extends JPanel {
 		add(jsp);
 	}
 
-	public static void main(String[] args) throws RemoteException {
-		// List<PlayerInfoVO> volist
-		// =ServiceFactoryImpl.getInstance().getPlayerService().getAllPlayerInfo();
-		// for(int i = 0;i<volist.size();i++){
-		// System.out.println(volist.get(i).name);
-		// }
-		// for(int i = 0;i<26;i++){
-		// System.out.println("");
-		// }
-		//
-	}
-
 	private void setIndex(String ini) throws RemoteException {
+        volist = ServiceFactoryImpl.getInstance()
+                .getPlayerService()
+                .getNameByNameInitial(ini.toUpperCase());
+
 		jsp.remove(layerPane);
 		layerPane = new JLayeredPane();
-		layerPane.setPreferredSize(new Dimension(940, 1130));
-		layerPane.setLayout(null);		
-		//System.out.println("418: " + ini + "-------------");
-		 volist = ServiceFactoryImpl.getInstance()
-				.getPlayerService()
-				.getNameByNameInitial(ini.toUpperCase());
-//		for (int i = 0; i < volist.size(); i++) {
-//			System.out.println("i:"+i+" "+volist.get(i));
-//		}
+        int h = (volist.size() / 4 + 1) * 36;
+        layerPane.setPreferredSize(new Dimension(940, h));
+		layerPane.setLayout(null);
 
 		for (int i = 0; i < volist.size(); i += 4) {
 			MyLabel left;
@@ -502,6 +481,7 @@ public class PlayerIndex extends JPanel {
 				layerPane.add(left);
 				setAction(left);
 				left.setLocation(left.getX(), left.getY() + i / 4 * 35);
+                left.setFont(new Font("华文细黑", 0, 14));
 			}
 			if (i < volist.size() - 1) {
 				middle1 = new MyLabel(volist.get(i + 1), pcfg.getLabels()
@@ -509,6 +489,7 @@ public class PlayerIndex extends JPanel {
 				layerPane.add(middle1);
 				setAction(middle1);
 				middle1.setLocation(middle1.getX(), middle1.getY() + i / 4 * 35);
+                middle1.setFont(new Font("华文细黑", 0, 14));
 			}
 			if (i < volist.size() - 2) {
 				middle2 = new MyLabel(volist.get(i + 2), pcfg.getLabels()
@@ -516,6 +497,7 @@ public class PlayerIndex extends JPanel {
 				layerPane.add(middle2);
 				setAction(middle2);
 				middle2.setLocation(middle2.getX(), middle2.getY() + i / 4 * 35);
+                middle2.setFont(new Font("华文细黑", 0, 14));
 			}
 			if (i < volist.size() - 3) {
 				right = new MyLabel(volist.get(i + 3), pcfg.getLabels()
@@ -523,6 +505,7 @@ public class PlayerIndex extends JPanel {
 				setAction(right);
 				layerPane.add(right);
 				right.setLocation(right.getX(), right.getY() + i / 4 * 35);
+                right.setFont(new Font("华文细黑", 0, 14));
 			}
 		}
 		layerPane.repaint();
