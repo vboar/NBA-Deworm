@@ -161,6 +161,6 @@ public class MatchInfoPanel extends JPanel {
 		time.setText(vo.time);
 		
 		score.refresh(scores, vo.home_team, vo.guest_team);
-		
+		//System.out.println(scores.get(0).size());
 	}
 }

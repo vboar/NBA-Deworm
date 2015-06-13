@@ -67,6 +67,7 @@ public class MatchFilter extends JPanel {
 				int regularInt  = regular.getSelectedIndex();
 
 				vo.MatchFilter filter = new vo.MatchFilter();
+				filter.season = seasonStr;
 				filter.regular = regularInt;
 				if(team.getSelectedIndex() ==0){
 					filter.team = null;
