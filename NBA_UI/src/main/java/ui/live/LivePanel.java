@@ -15,6 +15,7 @@ import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
+import ui.team.TeamDetail;
 import ui.util.MyButton;
 import ui.util.MyLabel;
 import vo.LiveMatchInfoVO;
@@ -136,7 +137,8 @@ public class LivePanel extends JPanel {
         team1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("click");
+                frame.motherPanel.fillComponents(2);
+                frame.motherPanel.teamPanel.createTeamDetail(ChiToEng(team1Str));
             }
         });
 		add(team1);
@@ -146,7 +148,8 @@ public class LivePanel extends JPanel {
         team2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("click");
+                frame.motherPanel.fillComponents(2);
+                frame.motherPanel.teamPanel.createTeamDetail(ChiToEng(team2Str));
             }
         });
 		add(team2);
@@ -156,7 +159,8 @@ public class LivePanel extends JPanel {
         img1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("click");
+                frame.motherPanel.fillComponents(2);
+                frame.motherPanel.teamPanel.createTeamDetail(ChiToEng(team1Str));
             }
         });
 		add(img1);
@@ -165,7 +169,8 @@ public class LivePanel extends JPanel {
         img2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("click");
+                frame.motherPanel.fillComponents(2);
+                frame.motherPanel.teamPanel.createTeamDetail(ChiToEng(team2Str));
             }
         });
 		add(img2);

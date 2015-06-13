@@ -52,10 +52,10 @@ public class PlayerAllTablePane extends TablePanel {
 		this.updateWidth();
 	}
 
-	private void updateWidth() {
+	public void updateWidth() {
 		FrameUtil.setTableColumnWidth(table, this.getWidth(), 10);
 		for(int i = 1;i<this.table.getColumnModel().getColumnCount();i++){
-			this.table.getColumnModel().getColumn(i).setPreferredWidth(39);
+			this.table.getColumnModel().getColumn(i).setPreferredWidth(41);
 		}
 		 this.table.getColumnModel().getColumn(0).setPreferredWidth(100);
 		// this.table.getColumnModel().getColumn(1).setPreferredWidth(170);
@@ -150,11 +150,11 @@ public class PlayerAllTablePane extends TablePanel {
 		}
 
 		while (this.dtm.getRowCount() < size) {
-			Object[] rowData = { 0, 0, 0, 0 };
+			Object[] rowData = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 			this.dtm.addRow(rowData);
 
 		}
-		for (int i = size - 1; i >= 0; --i) {
+		for (int i = 0; i<size; i++) {
 			Object[] vo = list[i];
 
 			this.setRow(i, vo);

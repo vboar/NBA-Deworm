@@ -143,7 +143,7 @@ public class HomePanel extends JPanel {
             public void mouseClicked(MouseEvent arg0) {
                 frame.home.setVisible(false);
                 motherPanel.setVisible(true);
-                motherPanel.fillComponents(3); // TODO
+                motherPanel.fillComponents(4);
                 frame.repaint();
             }
 

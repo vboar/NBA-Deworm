@@ -50,6 +50,7 @@ public class MatchNav extends JPanel{
 	
 	private void initLabels(){
 		matchstat = new MyLabel(pcfg.getLabels().element("matchstat"));
+        matchstat.setIcon(new ImageIcon("img/match/nav/stat_click.png"));
 		matchstat.addMouseListener(new MouseAdapter(){
 			String[] temp = pcfg.getLabels().element("matchstat").attributeValue("path").split("\\.");
 			String path = temp[0];
@@ -58,8 +59,9 @@ public class MatchNav extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				matchstat.setIcon(new ImageIcon(path+"_click."+fix));
+                live.setIcon(new ImageIcon(pcfg.getLabels().element("live").attributeValue("path")));
 				show = 0;
-				live.setIcon(new ImageIcon(pcfg.getLabels().element("live").attributeValue("path")));
+
 			}
 
 			@Override
@@ -83,7 +85,7 @@ public class MatchNav extends JPanel{
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				matchstat.setIcon(new ImageIcon(path+"_click."+fix));
-				
+                frame.motherPanel.matchPanel.switchPanel(0);
 			}
 			
 		});
@@ -98,8 +100,7 @@ public class MatchNav extends JPanel{
 				live.setIcon(new ImageIcon(path+"_click."+fix));
 				show =1;
 				matchstat.setIcon(new ImageIcon(pcfg.getLabels().element("matchstat").attributeValue("path")));
-				frame.motherPanel.matchPanel.liveChoosePane.setVisible(true);
-                frame.motherPanel.matchPanel.liveChoosePane.removeLivePanel();
+				frame.motherPanel.matchPanel.switchPanel(1);
 			}
 
 			@Override
@@ -131,6 +132,13 @@ public class MatchNav extends JPanel{
 		add(matchstat);
 		add(live);
 	}
+
+    public void recoverFirst() {
+        matchstat.setIcon(new ImageIcon("img/match/nav/stat_click.png"));
+        live.setIcon(new ImageIcon("img/match/nav/live.png"));
+        revalidate();
+        repaint();
+    }
 	
 	
 }

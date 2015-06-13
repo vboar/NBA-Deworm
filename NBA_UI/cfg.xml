@@ -510,6 +510,15 @@
 			</labels>
 			
 			</panel>
+
+            <panel className="ui.stats.StatsNav" width="770"
+                   height="60" x="106" y="45" bg="img/common/nav/navbg.jpg" >
+
+                <labels>
+
+                </labels>
+
+            </panel>
 			
 			<panel className="ui.player.stat.PlayerFilter" width="690" height="260"
 			x="0" y="0" bg="img/common/filter/filterbg.jpg">
@@ -810,7 +819,7 @@
                 </labels>
 
                 <tables>
-                    <scores width="302" height="85" x="500" y="8">
+                    <scores width="302" height="85" x="608" y="8">
                         <columnnames>
                             <columnname name="球队" />
                             <columnname name="一" />
@@ -1020,6 +1029,11 @@
 			
 			</buttons>
 		</panel>
+
+        <panel className="ui.stats.StatsPanel" width="940" height="511"
+               x="0" y="0">
+
+        </panel>
 		
 	</homeframe>
 </nba>

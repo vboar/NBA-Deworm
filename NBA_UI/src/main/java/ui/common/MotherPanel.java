@@ -18,6 +18,8 @@ import ui.match.MatchNav;
 import ui.match.MatchPanel;
 import ui.player.PlayerNav;
 import ui.player.PlayerPanel;
+import ui.stats.StatsNav;
+import ui.stats.StatsPanel;
 import ui.team.TeamNav;
 import ui.team.TeamPanel;
 import ui.util.MyButton;
@@ -42,9 +44,11 @@ public class MotherPanel extends JPanel {
 	public PlayerNav playernav; 
 	public TeamNav teamnav;
 	public MatchNav matchnav;
+    public StatsNav statsNav;
 	public PlayerPanel playerPanel;
 	public TeamPanel teamPanel;
 	public MatchPanel matchPanel;
+    public StatsPanel statsPanel;
 
 	private int panel = 0;
     public boolean isshow = false;
@@ -82,13 +86,17 @@ public class MotherPanel extends JPanel {
 		teamPanel = new TeamPanel(frame);
 		matchnav =new MatchNav(frame);
 		matchPanel = new MatchPanel(frame);
+        statsNav = new StatsNav(frame);
+        statsPanel = new StatsPanel(frame);
 		add(dropdown);
 		add(playernav);
 		add(teamnav);
 		add(matchnav);
+        add(statsNav);
 		add(playerPanel);
 		add(teamPanel);
 		add(matchPanel);
+        add(statsPanel);
 	}
 	
 	private void initButtons(){
@@ -181,6 +189,8 @@ public class MotherPanel extends JPanel {
         teamPanel.setVisible(true);
         matchnav.setVisible(true);
         matchPanel.setVisible(true);
+        statsNav.setVisible(true);
+        statsPanel.setVisible(true);
 
         if (panel != 1) {
             playernav.setVisible(false);
@@ -193,6 +203,10 @@ public class MotherPanel extends JPanel {
         if (panel != 3) {
             matchnav.setVisible(false);
             matchPanel.setVisible(false);
+        }
+        if (panel != 4) {
+            statsNav.setVisible(false);
+            statsPanel.setVisible(false);
         }
     }
 

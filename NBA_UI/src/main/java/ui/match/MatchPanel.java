@@ -31,11 +31,23 @@ public class MatchPanel extends JPanel{
 		initPanels();
 	}
 	
-	
-	
 	private void initPanels(){
 		liveChoosePane = new LiveChoosePane(frame);
 		liveChoosePane.setVisible(false);
 		add(liveChoosePane);
 	}
+
+    public void recoverFirst() {
+        switchPanel(0);
+        frame.motherPanel.matchnav.recoverFirst();
+    }
+
+    public void switchPanel(int show) {
+        if (show == 0) {
+            liveChoosePane.setVisible(false);
+            liveChoosePane.removeLivePanel();
+        } else if (show == 1) {
+            liveChoosePane.setVisible(true);
+        }
+    }
 }

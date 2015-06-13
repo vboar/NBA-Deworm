@@ -68,6 +68,7 @@ public class TeamDetail extends JPanel{
 	
 	private void initData(){
 		try {
+            System.out.println(abbr);
 			vo = ServiceFactoryImpl.getInstance().getTeamService().getTeamInfoByAbbr(abbr);
 			pergamevo = ServiceFactoryImpl.getInstance().getTeamService().getTeamPerGameBySeasonAbbr("14-15", abbr);
 			totalvo = ServiceFactoryImpl.getInstance().getTeamService().getTeamTotalBySeasonAbbr("14-15", abbr);
@@ -101,7 +102,7 @@ public class TeamDetail extends JPanel{
 		
 		team = new MyLabel(pcfg.getLabels().element("team"));
 		team.setText(vo.name);
-		team.setFont(new Font("华文细黑",0,20));
+		team.setFont(new Font("华文细黑", 0, 20));
 		add(team);
 		
 		buildtime = new MyLabel(pcfg.getLabels().element("buildtime"));
@@ -110,28 +111,28 @@ public class TeamDetail extends JPanel{
 		add(buildtime);
 		
 		location = new MyLabel(pcfg.getLabels().element("location"));
-		location.setText("地理位置："+vo.location);
+		location.setText("地理位置：" + vo.location);
 		location.setFont(new Font("宋体",0,12));
 		add(location);
 		
 		league = new MyLabel(pcfg.getLabels().element("league"));
 		league.setText("联盟："+vo.league);
-		league.setFont(new Font("宋体",0,12));
+		league.setFont(new Font("宋体", 0, 12));
 		add(league);
 		
 		division = new MyLabel(pcfg.getLabels().element("division"));
 		division.setText("分区："+vo.division);
-		division.setFont(new Font("宋体",0,12));
+		division.setFont(new Font("宋体", 0, 12));
 		add(division);
 		
 		championship = new MyLabel(pcfg.getLabels().element("championship"));
-		championship.setText("夺冠次数："+vo.championships);
+		championship.setText("夺冠次数：" + vo.championships);
 		championship.setFont(new Font("宋体",0,12));
 		add(championship);
 		
 		current = new MyLabel(pcfg.getLabels().element("current"));
 		current.setText("本赛季表现：");
-		current.setFont(new Font("宋体",0,12));
+		current.setFont(new Font("宋体", 0, 12));
 		add(current);
 		
 		more = new MyLabel(pcfg.getLabels().element("more"));
