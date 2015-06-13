@@ -93,6 +93,7 @@ public class Dropdownmenu extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 frame.motherPanel.fillComponents(3);
                 frame.motherPanel.fillMenu();
+                frame.motherPanel.matchPanel.recoverFirst();
                 setVisible(false);
             }
         });
