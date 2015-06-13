@@ -1168,5 +1168,60 @@
 			</comboboxes>
 			</panel>
 			
+			
+			
+			<panel className="ui.match.info.MatchInfoPanel" width="940" height="511"
+			x="0" y="0">
+			<labels>
+			
+			<namehint text="姓名" w="1030" h="60" x="20" y="200" />
+				
+			<hometeamhint text="主队：" w="1030" h="60" x="360" y="20" />
+			<homepointhint text="主队得分：" w="1030" h="60" x="360" y="50" />	
+			<guestteamhint text="客队：" w="1030" h="60" x="360" y="80" />	
+			<guestpointhint text="客队得分：" w="1030" h="60" x="360" y="110" />
+			<timehint text="比赛时长：" w="1030" h="60" x="360" y="140" />	
+			<seasonhint text="赛季：" w="1030" h="60" x="560" y="20" />	
+			<datehint text="比赛日期：" w="1030" h="60" x="560" y="50" />
+			<typehint text="比赛类型：" w="1030" h="60" x="560" y="80" />	
+			<locationhint text="比赛地点：" w="1030" h="60" x="560" y="110" />					
+			
+			<hometeam text="hh" w="1030" h="60" x="420" y="20" />
+			<homepoint text="hh" w="1030" h="60" x="420" y="50" />	
+			<guestteam text="hh" w="1030" h="60" x="420" y="80" />	
+			<guestpoint text="hh" w="1030" h="60" x="420" y="110" />				
+			<time text="hh" w="1030" h="60" x="420" y="140" />	
+			<season text="hh" w="1030" h="60" x="640" y="20" />	
+			<date text="hh" w="1030" h="60" x="640" y="50" />	
+			<type text="hh" w="1030" h="60" x="640" y="80" />	
+			<location text="hh" w="1030" h="60" x="640" y="110" />	
+						
+			
+			<chart1 text="hh" w="400" h="300" x="250" y="0" />	
+			<chart2 text="hh" w="400" h="300" x="550" y="0" />	
+			
+			<findmore text="查看更多信息" w="1030" h="60" x="500" y="300" />
+			</labels>
+			
+			 <tables>
+                    <scores width="302" height="85" x="0" y="8">
+                        <columnnames>
+                            <columnname name="球队" />
+                            <columnname name="一" />
+                            <columnname name="二" />
+                            <columnname name="三" />
+                            <columnname name="四" />
+                            <columnname name="总分" />
+                        </columnnames>
+                    </scores>
+                </tables>
+
+			
+			
+		</panel>
+		<panel className="ui.player.compare.CompareChoosePanel" width="940" height="511"
+			x="0" y="0">
+		</panel>
+		
 	</homeframe>
 </nba>
