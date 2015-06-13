@@ -5,7 +5,7 @@ __author__ = 'Vboar'
 import numpy as np
 import matplotlib.pyplot as plt
 
-f = file('stats/PlayerComparisionRadar.txt')
+f = file('stats/RadarCompare.txt')
 
 data = np.loadtxt(f, delimiter=";", dtype=str)
 
@@ -43,5 +43,5 @@ ax.grid(True)
 ax.set_rlim(0, max(max(data1), max(data2))+1)
 ax.legend((name[0], name[1]), loc=(0.9, 0.9), labelspacing=0.005)
 
-plt.savefig('stats/PlayerComparisionRadar.png')
-plt.savefig('stats/PlayerComparisionRadar_' + name[0] + '_' + name[1] + '_' + season + '_' + regular + '.png')
+plt.savefig('stats/RadarCompare.png')
+plt.savefig('stats/RadarCompare_' + name[0] + '_' + name[1] + '_' + season + '_' + regular + '.png')

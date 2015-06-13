@@ -55,7 +55,6 @@ public class PlayerDaoImpl implements PlayerDao {
 				+ ".png";
 		String pic = FileManager.DATA_PATH + "/players/pic/" + name + ".png";
 		ImageIcon icon = new ImageIcon(now_pic);
-		System.out.println(icon.getImage().getWidth(null));
 		if (icon.getImageLoadStatus() == MediaTracker.ERRORED)
 			icon = new ImageIcon(pic);
 		icon.setDescription(name);
