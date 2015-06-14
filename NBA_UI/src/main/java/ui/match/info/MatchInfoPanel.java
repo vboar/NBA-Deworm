@@ -1,6 +1,8 @@
 package ui.match.info;
 
 import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
 import ui.util.MyLabel;
+import ui.util.MyPressedLabel;
 import vo.MatchInfoVO;
 
 public class MatchInfoPanel extends JPanel {
@@ -22,6 +25,7 @@ public class MatchInfoPanel extends JPanel {
 	private PanelConfig pcfg;
 	private HomeUI frame;
 
+	private MyPressedLabel findMore;
 	private MyLabel season;
 	private MyLabel date;
 	private MyLabel type;
@@ -119,6 +123,44 @@ public class MatchInfoPanel extends JPanel {
 		
 		timeHint = new MyLabel(pcfg.getLabels().element("timehint"));
 		add(timeHint);
+		
+		
+		findMore = new MyPressedLabel(pcfg.getLabels().element("findmore"));
+		findMore.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.motherPanel.matchPanel.matchInfoPanel.setVisible(false);
+				frame.motherPanel.matchPanel.matchDetail.changeName(gameId);
+				frame.motherPanel.matchPanel.matchDetail.setVisible(true);
+				
+			}
+		});
+		add(findMore);
 	}
 	
 	private void initTable(){

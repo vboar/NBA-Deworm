@@ -173,11 +173,10 @@ public class PlayerHotPane extends JPanel {
 			
 			teamlist = new ArrayList<String>(5);
 			playerimglist = new ArrayList<ImageIcon>(5);
-			volist = ServiceFactoryImpl.getInstance().getPlayerService().getSeasonHotPlayer(seasonStr,FieldType.values()[item].ordinal(),5);
+			volist = ServiceFactoryImpl.getInstance().getPlayerService().getSeasonHotPlayer(seasonStr,getSelect(item),5);
 			for(int i= 0;i<5;i++){
 			ImageIcon icon = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerPortraitByName(volist.get(i).name);					
-			String teamStr = ServiceFactoryImpl.getInstance().getPlayerService().getTeamByPlayerNameSeason(volist.get(i).name, seasonStr).get(0);
-			teamStr = teamStr.split(";")[0];
+			String teamStr = volist.get(i).team;
 			teamlist.add(teamStr);
 			
 			playerimglist.add(icon);
@@ -217,5 +216,19 @@ public class PlayerHotPane extends JPanel {
 		hint.setText(season.getSelectedItem().toString()+ " / "+type.getSelectedItem().toString());
 		repaint();
 		
+	}
+	
+	private int getSelect(int num){
+		switch(num){
+		case 0:return FieldType.PTS.ordinal();
+		case 1:return FieldType.TRB.ordinal();
+		case 2:return FieldType.ORB.ordinal();
+		case 3:return FieldType.DRB.ordinal();
+		case 4:return FieldType.AST.ordinal();
+		case 5:return FieldType.BLK.ordinal();
+		case 6:return FieldType.STL.ordinal();
+		case 7:return FieldType.PER.ordinal();
+		default:return 0;
+		}
 	}
 }

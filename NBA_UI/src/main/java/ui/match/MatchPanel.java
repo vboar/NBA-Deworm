@@ -7,6 +7,7 @@ import ui.config.SystemConfig;
 import ui.home.HomeUI;
 import ui.live.LiveChoosePane;
 import ui.match.info.MatchInfoPanel;
+import ui.match.stat.MatchDetail;
 import ui.match.stat.MatchStat;
 import ui.util.MyLabel;
 
@@ -17,7 +18,7 @@ public class MatchPanel extends JPanel{
 	public  LiveChoosePane liveChoosePane;
 	public MatchStat matchStat;
 	public MatchInfoPanel matchInfoPanel;
-	
+	public MatchDetail matchDetail;
 	public MatchPanel(HomeUI frame){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
@@ -47,6 +48,10 @@ public class MatchPanel extends JPanel{
 		matchInfoPanel =new MatchInfoPanel(frame);
 		matchInfoPanel.setVisible(false);
 		add(matchInfoPanel);
+		
+		matchDetail =new MatchDetail(frame);
+		matchDetail.setVisible(false);
+		add(matchDetail);
 		
 	}
 

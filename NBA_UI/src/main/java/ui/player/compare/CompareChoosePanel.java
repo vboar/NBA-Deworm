@@ -1,5 +1,8 @@
 package ui.player.compare;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
@@ -15,7 +18,6 @@ import ui.config.SystemConfig;
 import ui.home.HomeUI;
 import ui.util.FuzzySearch;
 import ui.util.MyButton;
-import ui.util.MyComboBox;
 import ui.util.MyLabel;
 import ui.util.MySpecialTextField;
 import vo.PlayerInfoVO;
@@ -26,6 +28,7 @@ public class CompareChoosePanel extends JPanel {
 	private HomeUI frame;
 
 	private int fill = 0;
+	Image bg;
 
 	private MySpecialTextField[] fields = new MySpecialTextField[2];
 
@@ -85,6 +88,7 @@ public class CompareChoosePanel extends JPanel {
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
 		this.frame = frame;
+		this.bg = pcfg.getBg();
 		// 设置布局管理器为自由布局
 		this.setOpaque(false);
 		this.setLayout(null);
@@ -96,6 +100,11 @@ public class CompareChoosePanel extends JPanel {
 
 	}
 
+	@Override
+	public void paintComponent(Graphics g) {
+		g.drawImage(bg, 0, 0, pcfg.getW(), pcfg.getH(), null);
+	}
+
 	private void initComponent() {
 		inittextFields();
 		initButtons();
@@ -105,7 +114,6 @@ public class CompareChoosePanel extends JPanel {
 
 	private void inittextFields() {
 		FuzzySearch fz = new FuzzySearch() {
-
 			@Override
 			public ArrayList<String> getFuzzyResult(String keyword) {
 				List<String> list = null;
@@ -117,9 +125,15 @@ public class CompareChoosePanel extends JPanel {
 					e.printStackTrace();
 				}
 
-				return (ArrayList<String>) list;
+				ArrayList<String> list2 = new ArrayList<String>();
+				for (String s : list) {
+					if (s.contains(keyword))
+						list2.add(s);
+				}
+				return list2;
 			}
 		};
+
 		fields[0] = new MySpecialTextField(pcfg.getTextFields().element(
 				"field1"), fz);
 		fields[1] = new MySpecialTextField(pcfg.getTextFields().element(
@@ -129,16 +143,15 @@ public class CompareChoosePanel extends JPanel {
 	}
 
 	private void initButtons() {
-		btn1 = new MyButton(pcfg.getButtons().element("btn1"));
-		btn2 = new MyButton(pcfg.getButtons().element("btn2"));
-		search = new MyButton(pcfg.getButtons().element("search"));
+		btn1 = new MyButton(pcfg.getButtons().element("btn1"), true);
+		btn2 = new MyButton(pcfg.getButtons().element("btn2"), true);
+		search = new MyButton(pcfg.getButtons().element("search"), true);
 		add(btn1);
 		add(btn2);
 		add(search);
 		addAction(btn1, 0);
 		addAction(btn2, 1);
 		addSerachAction(search);
-		
 
 	}
 
@@ -179,6 +192,7 @@ public class CompareChoosePanel extends JPanel {
 		//
 
 		name = new MyLabel(pcfg.getLabels().element("name"));
+		name.setForeground(Color.white);
 		add(name);
 
 		position = new MyLabel(pcfg.getLabels().element("position"));
@@ -220,7 +234,7 @@ public class CompareChoosePanel extends JPanel {
 		bornHint2 = new MyLabel(pcfg.getLabels().element("bornhint2"));
 		add(bornHint2);
 
-		hometownHint2 = new MyLabel(pcfg.getLabels().element("2"));
+		hometownHint2 = new MyLabel(pcfg.getLabels().element("hometownhint2"));
 		add(hometownHint2);
 
 		heightHint2 = new MyLabel(pcfg.getLabels().element("heighthint2"));
@@ -231,7 +245,7 @@ public class CompareChoosePanel extends JPanel {
 
 		highschoolHint2 = new MyLabel(pcfg.getLabels().element(
 				"highschoolhint2"));
-		add(highschoolHint);
+		add(highschoolHint2);
 
 		collegeHint2 = new MyLabel(pcfg.getLabels().element("collegehint2"));
 		add(collegeHint2);
@@ -248,6 +262,7 @@ public class CompareChoosePanel extends JPanel {
 		//
 
 		name2 = new MyLabel(pcfg.getLabels().element("name2"));
+		name2.setForeground(Color.white);
 		add(name2);
 
 		position2 = new MyLabel(pcfg.getLabels().element("position2"));
@@ -290,7 +305,7 @@ public class CompareChoosePanel extends JPanel {
 				try {
 					PlayerInfoVO vo = ServiceFactoryImpl.getInstance()
 							.getPlayerService().getPlayerInfoByName(name);
-					changeData(num, vo);
+					changeData(vo, num);
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -301,37 +316,60 @@ public class CompareChoosePanel extends JPanel {
 
 	}
 
-	private void changeData(int number, PlayerInfoVO vo) {
+	private void changeData(PlayerInfoVO vo, int number) {
 		switch (number) {
 		case 0: {
 			name.setText(vo.name);
 
-			position.setText(vo.position);
-
+			if (vo.position.toString().length() < 1) {
+				position.setText("No Data");
+			} else {
+				position.setText(vo.position);
+			}
 			born.setText(vo.born);
-
-			hometown.setText(vo.hometown);
+			hometown.setText(vo.hometown.split(",")[0]);
 			height.setText(vo.height);
-
 			weight.setText(vo.weight.toString());
+			if (vo.high_school.toString().length() < 2) {
+				highschool.setText("No Data");
+			} else {
+				highschool.setText("YES");
+			}
 
-			highschool.setText(vo.high_school);
-
-			college.setText(vo.college);
-
+			if (vo.college.toString().length() < 2) {
+				college.setText("No Data");
+			} else {
+				college.setText("YES");
+			}
 			debut.setText(vo.debut);
-
-			exp.setText(vo.exp.toString());
-
+			if (vo.exp != null) {
+				if (vo.exp.toString().contains("-1")) {
+					exp.setText("Retired");
+				} else {
+					exp.setText(vo.exp.toString());
+				}
+			} else {
+				exp.setText("无数据");
+			}
 			num.setText(vo.number.toString());
 
+			ImageIcon icon = null;
 			try {
-				ImageIcon icon = ServiceFactoryImpl.getInstance()
-						.getPlayerService().getPlayerPortraitByName(vo.name);
-				img.setImage(icon);
+				icon = ServiceFactoryImpl.getInstance().getPlayerService()
+						.getPlayerPortraitByName(vo.name);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+			if (icon != null) {
+				icon.setImage(icon.getImage().getScaledInstance(200, 150,
+						Image.SCALE_DEFAULT));
+				img.setIcon(icon);
+			} else {
+				icon = new ImageIcon("img/player/unknown.png");
+				icon.setImage(icon.getImage().getScaledInstance(169, 130,
+						Image.SCALE_DEFAULT));
+				img.setIcon(icon);
 			}
 			fill++;
 			break;
@@ -339,46 +377,73 @@ public class CompareChoosePanel extends JPanel {
 		case 1: {
 			name2.setText(vo.name);
 
-			position2.setText(vo.position);
-
+			if (vo.position.toString().length() < 1) {
+				position2.setText("No Data");
+			} else {
+				position2.setText(vo.position);
+			}
 			born2.setText(vo.born);
-
-			hometown2.setText(vo.hometown);
+			hometown2.setText(vo.hometown.split(",")[0]);
 			height2.setText(vo.height);
-
 			weight2.setText(vo.weight.toString());
+			if (vo.high_school.toString().length() < 2) {
+				highschool2.setText("No Data");
+			} else {
+				highschool2.setText("YES");
+			}
 
-			highschool2.setText(vo.high_school);
-
-			college2.setText(vo.college);
-
+			if (vo.college.toString().length() < 2) {
+				college2.setText("No Data");
+			} else {
+				college2.setText("YES");
+			}
 			debut2.setText(vo.debut);
-
-			exp2.setText(vo.exp.toString());
-
+			if (vo.exp != null) {
+				if (vo.exp.toString().contains("-1")) {
+					exp2.setText("Retired");
+				} else {
+					exp2.setText(vo.exp.toString());
+				}
+			} else {
+				exp2.setText("无数据");
+			}
 			num2.setText(vo.number.toString());
 
+			ImageIcon icon = null;
 			try {
-				ImageIcon icon = ServiceFactoryImpl.getInstance()
-						.getPlayerService().getPlayerPortraitByName(vo.name);
-				img2.setImage(icon);
+				icon = ServiceFactoryImpl.getInstance().getPlayerService()
+						.getPlayerPortraitByName(vo.name);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+			if (icon != null) {
+				icon.setImage(icon.getImage().getScaledInstance(200, 150,
+						Image.SCALE_DEFAULT));
+				img2.setIcon(icon);
+			} else {
+				icon = new ImageIcon("img/player/unknown.png");
+				icon.setImage(icon.getImage().getScaledInstance(169, 130,
+						Image.SCALE_DEFAULT));
+				img2.setIcon(icon);
 			}
 			fill++;
 			break;
 		}
 		}
 	}
-	
-	private void addSerachAction(MyButton btn){
+
+	private void addSerachAction(MyButton btn) {
 		btn.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(fill>=2){
-					//TODO
+				if (fill >= 2) {
+					frame.motherPanel.playerPanel.compareChoosePanel
+							.setVisible(false);
+					frame.motherPanel.playerPanel.comparePanel.changeData(
+							fields[0].getText(), fields[1].getText());
+					frame.motherPanel.playerPanel.comparePanel.setVisible(true);
 				}
 			}
 		});

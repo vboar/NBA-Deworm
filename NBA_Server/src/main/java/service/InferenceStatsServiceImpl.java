@@ -41,8 +41,6 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 	// TODO ---------main----------------
 	public static void main(String[] args) {
 		InferenceStatsServiceImpl is = new InferenceStatsServiceImpl();
-//		is.getTeamTestingResultBySeason("13-14");
-		is.getTeamTestingResult_10();
 	}
 
 	@Override

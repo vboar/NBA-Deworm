@@ -25,6 +25,7 @@ import ui.util.MyTab;
 import util.FieldType;
 import vo.MatchFilter;
 import vo.MatchInfoVO;
+import vo.PlayerAdvancedVO;
 import vo.PlayerInfoVO;
 import vo.PlayerPerGameVO;
 
@@ -64,17 +65,17 @@ public class PlayerInfoPane extends JPanel {
 
 	private MyLabel chart1;
 	private MyLabel chart1Name;
-	
+
 	private MyLabel chart2;
 	private MyLabel chart2Name;
-	
+
 	private MyComboBox box;
 
 	private FiveMatchTabelPane fiveTablePane;
 	private MyTab myTab;
-	
-	private String boxItem="PTS";
-	private String latestSeason ="14-15";
+
+	private String boxItem = "PTS";
+	private String latestSeason = "14-15";
 	private String nameStr = "Kobe Bryant";
 
 	public Object[][] matchData;
@@ -255,7 +256,7 @@ public class PlayerInfoPane extends JPanel {
 		chart1 = new MyLabel(pcfg.getLabels().element("chart1"));
 		// chart1.setImage(icon);
 		add(chart1);
-		
+
 		chart2Name = new MyLabel(pcfg.getLabels().element("chart2name"));
 		add(chart2Name);
 		box = new MyComboBox(pcfg.getComboboxes().element("box"));
@@ -263,7 +264,6 @@ public class PlayerInfoPane extends JPanel {
 		getSelectChange(box);
 		chart2 = new MyLabel(pcfg.getLabels().element("chart2"));
 		add(chart2);
-		
 
 	}
 
@@ -293,11 +293,12 @@ public class PlayerInfoPane extends JPanel {
 	}
 
 	public void changeData(String name) {
-nameStr= name;
-		 latestSeason = "14-15";
+		nameStr = name;
+		latestSeason = "14-15";
 		try {
-			latestSeason = ServiceFactoryImpl.getInstance().getPlayerService()
-					.getPlayerAdvancedByName(name, 1).get(0).season;
+			List<PlayerAdvancedVO> vo = ServiceFactoryImpl.getInstance().getPlayerService()
+					.getPlayerAdvancedByName(name, 1);
+			latestSeason= vo.get(vo.size()-2).season;
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -319,7 +320,12 @@ nameStr= name;
 					.getMatchInfoByFilter(filter);
 			radar = ServiceFactoryImpl.getInstance().getStatsService()
 					.getPlayerRadar(name, latestSeason, 1);
-			line = ServiceFactoryImpl.getInstance().getStatsService().getMatchPlayerLineChart(name, latestSeason,getField( box.getSelectedIndex()));
+			System.out.println(latestSeason);
+			line = ServiceFactoryImpl
+					.getInstance()
+					.getStatsService()
+					.getMatchPlayerLineChart(name, latestSeason,
+							getField(box.getSelectedIndex()));
 			List<String> teamList = ServiceFactoryImpl.getInstance()
 					.getPlayerService()
 					.getTeamByPlayerNameSeason(name, latestSeason);
@@ -370,11 +376,9 @@ nameStr= name;
 		chart1.setImage(radar);
 		chart1Name.setText(latestSeason + " radar chart");
 		chart2.setImage(line);
-		chart2Name.setText(latestSeason+" "+box.getSelectedItem().toString()+" line chart");
-		
-		
-		
-		
+		chart2Name.setText(latestSeason + " "
+				+ box.getSelectedItem().toString() + " line chart");
+
 		ImageIcon icon = null;
 		try {
 			icon = ServiceFactoryImpl.getInstance().getPlayerService()
@@ -416,43 +420,61 @@ nameStr= name;
 		}
 		fiveTablePane.renewTable(matchData2);
 	}
-	
-	public int getField(int num){
-		switch(num){
-		case 0:return FieldType.PTS.ordinal();
-		case 1:return FieldType.AST.ordinal();
-		case 2:return FieldType.BLK.ordinal();
-		case 3:return FieldType.STL.ordinal();
-		case 4:return FieldType.TRB.ordinal();
-		case 5:return FieldType.DRB.ordinal();
-		case 6:return FieldType.ORB.ordinal();
-		case 7:return FieldType.TOV.ordinal();
-		case 8:return FieldType.PF.ordinal();
-		case 9:return FieldType.FG3_PCT.ordinal();
-		case 10:return FieldType.FGA_PCT.ordinal();
-		case 11:return FieldType.FT_PCT.ordinal();
-		default:return 0;
+
+	public int getField(int num) {
+		switch (num) {
+		case 0:
+			return FieldType.PTS.ordinal();
+		case 1:
+			return FieldType.AST.ordinal();
+		case 2:
+			return FieldType.BLK.ordinal();
+		case 3:
+			return FieldType.STL.ordinal();
+		case 4:
+			return FieldType.TRB.ordinal();
+		case 5:
+			return FieldType.DRB.ordinal();
+		case 6:
+			return FieldType.ORB.ordinal();
+		case 7:
+			return FieldType.TOV.ordinal();
+		case 8:
+			return FieldType.PF.ordinal();
+		case 9:
+			return FieldType.FG3_PCT.ordinal();
+		case 10:
+			return FieldType.FGA_PCT.ordinal();
+		case 11:
+			return FieldType.FT_PCT.ordinal();
+		default:
+			return 0;
 		}
 	}
-	
-	private void getSelectChange(MyComboBox box){
+
+	private void getSelectChange(MyComboBox box) {
 		box.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!box.getSelectedItem().toString().equals(boxItem)){
+				if (!box.getSelectedItem().toString().equals(boxItem)) {
 					boxItem = box.getSelectedItem().toString();
 					ImageIcon line = null;
 					try {
-						line = ServiceFactoryImpl.getInstance().getStatsService().getMatchPlayerLineChart(nameStr, latestSeason,getField( box.getSelectedIndex()));
+						line = ServiceFactoryImpl
+								.getInstance()
+								.getStatsService()
+								.getMatchPlayerLineChart(nameStr, latestSeason,
+										getField(box.getSelectedIndex()));
 					} catch (RemoteException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					chart2Name.setText(latestSeason+" "+box.getSelectedItem().toString()+" line chart");
+					chart2Name.setText(latestSeason + " "
+							+ box.getSelectedItem().toString() + " line chart");
 					chart2.setImage(line);
 				}
-				
+
 			}
 		});
 	}

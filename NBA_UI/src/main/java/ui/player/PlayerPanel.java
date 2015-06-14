@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
+import ui.player.compare.CompareChoosePanel;
+import ui.player.compare.ComparePanel;
 import ui.player.hot.PlayerHotPane;
 import ui.player.index.PlayerIndex;
 import ui.player.info.FourTablePane;
@@ -32,6 +34,8 @@ public class PlayerPanel extends JPanel {
 	public PlayerInfoPane playerInfoPane;
 	public PlayerHotPane playerHotPane;
 	public FourTablePane fourTablePane;
+	public CompareChoosePanel compareChoosePanel;
+	public ComparePanel comparePanel;
 	private JFrame coverFrame;
 	
 	private MyLabel settingbg;
@@ -87,6 +91,15 @@ public class PlayerPanel extends JPanel {
 		fourTablePane = new FourTablePane(frame);
 		fourTablePane.setVisible(false);
 		add(fourTablePane);
+		
+		compareChoosePanel = new CompareChoosePanel(frame);
+		compareChoosePanel.setVisible(false);
+		add(compareChoosePanel);
+		
+		comparePanel = new ComparePanel(frame);
+		comparePanel.setVisible(false);
+		add(comparePanel);
+		
 		
 		
 	}
