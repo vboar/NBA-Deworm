@@ -17,6 +17,7 @@ import service.impl.ServiceFactoryImpl;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
+import ui.util.LoadFont;
 import ui.util.MyButton;
 import ui.util.MyComboBox;
 import ui.util.MyLabel;
@@ -86,9 +87,9 @@ public class PlayerHotPane extends JPanel {
 
 			if(i==0){
 			names[i].setForeground(Color.WHITE);
-			names[i].setFont(new Font("Helvetica-Condensed-Black-Se",0,22));
+			names[i].setFont(LoadFont.loadFont("HELVETICA.TTF",0,22));
 			}else{
-				names[i].setFont(new Font("华文细黑",0,16));
+				names[i].setFont(LoadFont.loadFont("XIHEI.TTF",0,16));
 				names[i].setForeground(new Color(83,83,83));
 			}
 			add(names[i]);
@@ -96,26 +97,26 @@ public class PlayerHotPane extends JPanel {
 			positions[i] = new MyLabel(pcfg.getLabels().element("position"+i));
 			positions[i].setForeground(new Color(83,83,83));
 			if(i==0)
-				positions[i].setFont(new Font("微软雅黑",0,18));
+				positions[i].setFont(LoadFont.loadFont("YAHEI.TTC",0,18));
 			else
-				positions[i].setFont(new Font("微软雅黑",0,13));
+				positions[i].setFont(LoadFont.loadFont("YAHEI.TTC",0,13));
 			add(positions[i]);
 			
 			
 			teams[i] = new MyLabel(pcfg.getLabels().element("team"+i));
 			teams[i].setForeground(new Color(83,83,83));
 			if(i==0)
-				teams[i].setFont(new Font("微软雅黑",0,18));
+				teams[i].setFont(LoadFont.loadFont("YAHEI.TTC",0,18));
 			else
-			teams[i].setFont(new Font("微软雅黑",0,13));
+			teams[i].setFont(LoadFont.loadFont("YAHEI.TTC",0,13));
 			add(teams[i]);
 			
 			datas[i] = new MyLabel(pcfg.getLabels().element("data"+i));
 			datas[i].setForeground(new Color(83,83,83));
 			if(i==0)
-				datas[i].setFont(new Font("华文细黑",1,36));
+				datas[i].setFont(LoadFont.loadFont("XIHEI.TTF",1,36));
 			else
-				datas[i].setFont(new Font("华文细黑",1,30));
+				datas[i].setFont(LoadFont.loadFont("XIHEI.TTF",1,30));
 			add(datas[i]);
 			
 			playerImgs[i] = new MyLabel(pcfg.getLabels().element("playerImg"+i));
