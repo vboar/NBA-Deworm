@@ -43,6 +43,7 @@ public class TBYTablePane extends TablePanel{
 		
         table = new MyTable(this.dtm,this.getWidth());
         table.setRowHeight(25);
+        table.setShowGrid(false);
         table.getTableHeader().setFont(new Font("华文细黑",0,12));
         table.getTableHeader().setForeground(Color.BLACK);
         table.FitTableColumns(table);

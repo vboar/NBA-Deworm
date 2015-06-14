@@ -138,7 +138,7 @@ public class TeamDetail extends JPanel{
 		more = new MyLabel(pcfg.getLabels().element("more"));
 		more.setText("点此查看更多");
 		more.setFont(new Font("华文细黑",0,15));
-		more.setForeground(Color.BLUE);
+		more.setForeground(new Color(93,156,236));
 		more.addMouseListener(new MouseAdapter(){
 
 			@Override

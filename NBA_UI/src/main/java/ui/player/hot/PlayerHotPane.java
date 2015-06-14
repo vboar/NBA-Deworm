@@ -1,5 +1,9 @@
 package ui.player.hot;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
@@ -47,11 +51,12 @@ public class PlayerHotPane extends JPanel {
 	List<String> teamlist = null;
 	List<ImageIcon> playerimglist = null;
 		
-	
+	private Image bg;
 	
 	public PlayerHotPane(HomeUI frame){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
+		this.bg = pcfg.getBg();
 		this.frame = frame;
 		// 设置布局管理器为自由布局
 		this.setOpaque(false);
@@ -65,6 +70,10 @@ public class PlayerHotPane extends JPanel {
 		
 	}
 	
+	public void paintComponent(Graphics g){
+		g.drawImage(bg, 0, 0, pcfg.getW(), pcfg.getH(), null);
+	}
+	
 	private void initComponent(){
 		initLabels();
 		initBoxes();
@@ -74,16 +83,39 @@ public class PlayerHotPane extends JPanel {
 	private void initLabels(){
 		for(int i = 0;i<5;i++){
 			names[i] = new MyLabel(pcfg.getLabels().element("name"+i));
+
+			if(i==0){
+			names[i].setForeground(Color.WHITE);
+			names[i].setFont(new Font("Helvetica-Condensed-Black-Se",0,22));
+			}else{
+				names[i].setFont(new Font("华文细黑",0,16));
+				names[i].setForeground(new Color(83,83,83));
+			}
 			add(names[i]);
 			
 			positions[i] = new MyLabel(pcfg.getLabels().element("position"+i));
+			positions[i].setForeground(new Color(83,83,83));
+			if(i==0)
+				positions[i].setFont(new Font("微软雅黑",0,18));
+			else
+				positions[i].setFont(new Font("微软雅黑",0,13));
 			add(positions[i]);
 			
 			
 			teams[i] = new MyLabel(pcfg.getLabels().element("team"+i));
+			teams[i].setForeground(new Color(83,83,83));
+			if(i==0)
+				teams[i].setFont(new Font("微软雅黑",0,18));
+			else
+			teams[i].setFont(new Font("微软雅黑",0,13));
 			add(teams[i]);
 			
 			datas[i] = new MyLabel(pcfg.getLabels().element("data"+i));
+			datas[i].setForeground(new Color(83,83,83));
+			if(i==0)
+				datas[i].setFont(new Font("华文细黑",1,36));
+			else
+				datas[i].setFont(new Font("华文细黑",1,30));
 			add(datas[i]);
 			
 			playerImgs[i] = new MyLabel(pcfg.getLabels().element("playerImg"+i));
@@ -152,12 +184,18 @@ public class PlayerHotPane extends JPanel {
 	
 	private void changeData(){
 		for(int i = 0;i<5;i++){
-			names[i].setText(volist.get(i).name);
+
+				names[i].setText(volist.get(i).name);
 			
-			positions[i].setText(volist.get(i).position);
+			if(i==0)
+				positions[i].setText("球员位置：    "+volist.get(i).position);
+			else
+				positions[i].setText(volist.get(i).position);
 			
-			
-			teams[i].setText(teamlist.get(i));
+			if(i==0)
+				teams[i].setText("所属球队：    "+teamlist.get(i));
+			else
+				teams[i].setText(teamlist.get(i));
 			
 			datas[i].setText(volist.get(i).value);
 			if(playerimglist.get(i) != null){

@@ -932,48 +932,48 @@
 		</panel>
 		
 		<panel className="ui.player.hot.PlayerHotPane" width="940" height="511"
-			x="0" y="0">
+			x="0" y="0" bg="img/player/hot/hotbg.png">
 			<labels>
-			<name0 text="姓名1" w="1030" h="60" x="250" y="20" />
-			<position0 text="位置1" w="1030" h="60" x="250" y="60" />
-			<team0 text="球队1" w="1030" h="60" x="250" y="100" />
-			<data0 text="数据1" w="1030" h="60" x="250" y="140" />
-			<playerImg0 text="球员照片1" w="200" h="153" x="10" y="20" />
-			<teamImg0 text="球队照片1" w="100" h="100" x="350" y="20" />
+			<name0 text="姓名1" w="200" h="30" x="130" y="80" />
+			<position0 text="位置1" w="200" h="60" x="70" y="310" />
+			<team0 text="球队1" w="200" h="30" x="70" y="370" />
+			<data0 text="数据1" w="100" h="30" x="230" y="175" />
+			<playerImg0 text="球员照片1" w="150" h="115" x="70" y="140" />
+			<teamImg0 text="球队照片1" w="100" h="100" x="370" y="20" />
 			
-			<name1 text="姓名2" w="1030" h="60" x="695" y="20" />
-			<position1 text="位置2" w="1030" h="60" x="695" y="60" />
-			<team1 text="球队2" w="1030" h="60" x="695" y="100" />
-			<data1 text="数据2" w="1030" h="60" x="695" y="140" />
-			<playerImg1 text="球员图2" w="200" h="153" x="455" y="20" />
-			<teamImg1 text="球队图2" w="100" h="100" x="795" y="20" />
+			<name1 text="姓名2" w="130" h="30" x="580" y="100" />
+			<position1 text="位置2" w="100" h="30" x="603" y="135" />
+			<team1 text="球队2" w="100" h="30" x="654" y="135" />
+			<data1 text="数据2" w="100" h="30" x="785" y="110" />
+			<playerImg1 text="球员图2" w="100" h="76" x="470" y="90" />
+			<teamImg1 text="球队图2" w="100" h="100" x="785" y="20" />
 			
-			<name2 text="姓名" w="1030" h="60" x="180" y="330" />
-			<position2 text="姓名" w="1030" h="60" x="320" y="330" />
-			<team2 text="姓名" w="1030" h="60" x="420" y="330" />
-			<data2 text="姓名" w="1030" h="60" x="520" y="330" />
-			<playerImg2 text="姓名" w="60" h="46" x="0" y="330" />
+			<name2 text="姓名" w="130" h="30" x="580" y="205" />
+			<position2 text="姓名" w="1030" h="30" x="603" y="240" />
+			<team2 text="姓名" w="100" h="30" x="654" y="240" />
+			<data2 text="姓名" w="100" h="30" x="785" y="215" />
+			<playerImg2 text="姓名" w="100" h="76" x="470" y="195" />
 			<teamImg2 text="姓名" w="92" h="92" x="720" y="330" />
 			
-			<name3 text="姓名" w="1030" h="60" x="180" y="390" />
-			<position3 text="姓名" w="1030" h="60" x="320" y="390" />
-			<team3 text="姓名" w="1030" h="60" x="420" y="390" />
-			<data3 text="姓名" w="1030" h="60" x="520" y="390" />
-			<playerImg3 text="姓名" w="60" h="46" x="0" y="390" />
+			<name3 text="姓名" w="130" h="30" x="580" y="315" />
+			<position3 text="姓名" w="100" h="30" x="603" y="350" />
+			<team3 text="姓名" w="100" h="30" x="654" y="350" />
+			<data3 text="姓名" w="100" h="30" x="785" y="315" />
+			<playerImg3 text="姓名" w="100" h="76" x="470" y="300" />
 			<teamImg3 text="姓名" w="92" h="92" x="720" y="390" />
 			
-			<name4 text="姓名" w="1030" h="60" x="180" y="450" />
-			<position4 text="姓名" w="1030" h="60" x="320" y="450" />
-			<team4 text="姓名" w="1030" h="60" x="420" y="450" />
-			<data4 text="姓名" w="1030" h="60" x="520" y="450" />
-			<playerImg4 text="姓名" w="60" h="46" x="0" y="450" />
+			<name4 text="姓名" w="130" h="30" x="580" y="415" />
+			<position4 text="姓名" w="100" h="30" x="603" y="450" />
+			<team4 text="姓名" w="100" h="30" x="654" y="450" />
+			<data4 text="姓名" w="100" h="30" x="785" y="435" />
+			<playerImg4 text="姓名" w="100" h="76" x="470" y="400" />
 			<teamImg4 text="姓名" w="92" h="92" x="720" y="450" />
 			
 			
 			</labels>
 			
 			<comboboxes>
-			<season w="110" h="25" x="10" y="20">
+			<season w="110" h="25" x="410" y="25">
 					<string str="14-15" />
 					<string str="13-14" />
 					<string str="12-13" />
@@ -991,7 +991,7 @@
 					<string str="00-01" />
 				</season>
 				
-				<type w="110" h="25" x="200" y="20">
+				<type w="110" h="25" x="550" y="25">
 				
 				<string str="PTS"/>
 				<string str="TRB"/>
@@ -1025,7 +1025,7 @@
 			
 			</comboboxes>
 			<buttons>
-			<search w="110" h="25" x="300" y="20"/>
+			<search text="SEARCH" w="110" h="25" x="765" y="25"/>
 			
 			</buttons>
 		</panel>
