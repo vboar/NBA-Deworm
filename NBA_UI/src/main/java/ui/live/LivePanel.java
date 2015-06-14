@@ -16,6 +16,7 @@ import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
 import ui.team.TeamDetail;
+import ui.util.LoadFont;
 import ui.util.MyButton;
 import ui.util.MyLabel;
 import vo.LiveMatchInfoVO;

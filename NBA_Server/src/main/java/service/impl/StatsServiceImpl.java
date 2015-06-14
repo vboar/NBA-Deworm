@@ -736,6 +736,7 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		PlayerFilter pf = new PlayerFilter();
 		pf.team = abbr;
 		pf.season = season;
+        pf.regular = 1;
 		List<PlayerStatsAdvanced> list = pdao.getPlayerAdvancedByFilter(pf);
 		String pl="";
 		String per="";
@@ -743,6 +744,8 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			pl += psa.getName() + ";";
 			per += psa.getPer() + ";";
 		}
+        pl = pl.substring(0, pl.length()-1);
+        per = per.substring(0, per.length()-1);
 		List<String> strs = new ArrayList<String>();
 		strs.add(abbr+";"+season);
 		strs.add(pl);
