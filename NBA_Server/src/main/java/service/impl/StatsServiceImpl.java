@@ -16,6 +16,7 @@ import dao.MatchDao;
 import dao.PlayerDao;
 import dao.TeamDao;
 import dao.impl.DaoFactoryImpl;
+import entity.MatchInfo;
 import entity.MatchPlayerAdvanced;
 import entity.MatchPlayerBasic;
 import entity.PlayerStatsAdvanced;
@@ -410,6 +411,40 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		return img;
 	}
 
+	@Override
+	public ImageIcon getTeamCompareRadarByGameId(String gameid)
+			throws RemoteException {
+		MatchInfo info = mdao.getMatchInfoByGameId(gameid);
+		MatchPlayerBasic home = mdao.getMatchPlayerByGameIdNameAbbr(gameid, "Team Totals", info.getHome_team());
+		MatchPlayerBasic guest = mdao.getMatchPlayerByGameIdNameAbbr(gameid, "Team Totals", info.getGuest_team());
+		if(home==null||guest==null)
+			return null;
+		String h = home.getTeam_abbr() + ";" + home.getSeason() + ";"  + "0" + ";" + home.getTrb() + ";"
+				+ home.getAst() + ";" + home.getStl() + ";" + home.getBlk() + ";"
+				+ home.getTov() + ";" + home.getPf();
+		String g = guest.getTeam_abbr() + ";" + guest.getSeason() + ";"  + "0" + ";" + guest.getTrb() + ";"
+				+ guest.getAst() + ";" + guest.getStl() + ";" + guest.getBlk() + ";"
+				+ guest.getTov() + ";" + guest.getPf();
+
+		// 将数据写入文件
+		List<String> str = new ArrayList<String>();
+		str.add(h);
+		str.add(g);
+		String path = "stats/RadarCompare";
+		Utility.writeMulti(str, path + ".txt");
+		try {
+			Process p = Runtime.getRuntime().exec("python stats/radar_compare.py");
+			p.waitFor();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		ImageIcon img = new ImageIcon(path + ".png");
+		if (img.getImageLoadStatus() == MediaTracker.ERRORED)
+			return null;
+		return img;
+	}
+	
+	
 	@Override
 	public ImageIcon getTeamCompareRadar(String teamA, String teamB,
 			String season) throws RemoteException {
@@ -1423,5 +1458,6 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		}
 		return fields;
 	}
+
 
 }
