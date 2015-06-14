@@ -61,7 +61,7 @@ public class StatsServiceTest extends TestCase {
 			List<Integer> list = new ArrayList<Integer>();
 			list.add(1);
 			list.add(0);
-			ss.getPlayerBasicCompareBarChart("Kobe Bryant", "Yao Ming", "04-05", list, 1);
+			ss.getPlayerBasicCompareBarChart("Kobe Bryant", "Yao Ming", "Career", list, 1);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -72,7 +72,7 @@ public class StatsServiceTest extends TestCase {
 			List<Integer> list = new ArrayList<Integer>();
 			list.add(FieldType.AST_PCT.ordinal());
 			list.add(FieldType.STL_PCT.ordinal());
-			ss.getPlayerAdvancedCompareBarChart("Kobe Bryant", "Yao Ming", "05-06", list, 1);
+			ss.getPlayerAdvancedCompareBarChart("Kobe Bryant", "Yao Ming", "Career", list, 1);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
