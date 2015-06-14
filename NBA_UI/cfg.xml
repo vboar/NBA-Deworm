@@ -639,7 +639,7 @@
 			
 			</panel>
 			
-			</panel>
+			
 		<panel className="ui.player.compare.TeamCompareChoosePanel" width="940" height="511"
 			x="0" y="0" bg="img/player/comparechoose.png">
 			<labels>
@@ -1436,7 +1436,7 @@
 			
 						
 			
-			<chart1 text="hh" w="400" h="300" x="250" y="0" />	
+			<chart1 text="" w="400" h="300" x="250" y="200" />	
 			<chart2 text="hh" w="400" h="300" x="550" y="0" />	
 			
 			<findmore text="查看更多信息" w="1030" h="60" x="800" y="450" />

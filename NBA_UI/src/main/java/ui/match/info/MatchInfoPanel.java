@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import service.impl.ServiceFactoryImpl;
@@ -48,6 +49,8 @@ public class MatchInfoPanel extends JPanel {
 	
 	
 
+	private MyLabel chart1;
+	private MyLabel chart2;
 	private ScoreTablePane score;
 
 	public MatchInfoPanel(HomeUI frame) {
@@ -123,6 +126,12 @@ public class MatchInfoPanel extends JPanel {
 		add(timeHint);
 		
 		
+		chart1 = new MyLabel(pcfg.getLabels().element("chart1"));
+		add(chart1);
+		
+		chart2 = new MyLabel(pcfg.getLabels().element("chart2"));
+		add(chart2);
+		
 		findMore = new MyPressedLabel(pcfg.getLabels().element("findmore"));
 		findMore.addMouseListener(new MouseListener() {
 
@@ -182,8 +191,12 @@ public class MatchInfoPanel extends JPanel {
 		this.gameId = gameId;
 		MatchInfoVO vo = null;
 		List<List<Integer>> scores = null;
+		ImageIcon icon1 = null;
+		ImageIcon icon2 = null;
 		try {
 			vo=ServiceFactoryImpl.getInstance().getMatchService().getMatchInfoByGameId(gameId);
+			icon1= ServiceFactoryImpl.getInstance().getStatsService().getTeamCompareRadarByGameId(gameId);
+			
 		scores = ServiceFactoryImpl.getInstance().getMatchService().getSectionScoreByGameId(gameId);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -210,5 +223,8 @@ public class MatchInfoPanel extends JPanel {
 		scoreData.add(score2);
 		score.refresh(scoreData, vo.home_team, vo.guest_team);
 		//System.out.println(scores.get(0).size());
+		
+		chart1.setImage(icon1);
+		
 	}
 }
