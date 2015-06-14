@@ -2,8 +2,11 @@ package ui.team.advance;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import ui.config.TableConfig;
+import ui.home.HomeUI;
 import ui.util.MyTable;
 import ui.util.MyTableModel;
 import ui.util.TablePanel;
@@ -18,9 +21,15 @@ public class TBYTablePane extends TablePanel{
 
 	private int COLUMN_NUM = 24;
 	private Object[][] list;
+	private String abbr ;
+	private HomeUI frame;
+	TeamMore teamMore;
 	
-	public TBYTablePane(TableConfig cfg,Object[][] list){
+	public TBYTablePane(TableConfig cfg,Object[][] list,String abbr,HomeUI frame,TeamMore teamMore){
 		super(cfg);
+		this.teamMore = teamMore;
+		this.abbr = abbr;
+		this.frame = frame;
 		this.list = list;
 		this.initTable();
 	}
@@ -49,7 +58,25 @@ public class TBYTablePane extends TablePanel{
         table.setFont(new Font("华文细黑", 0, 12));
         table.FitTableColumns(table);
         initComponent();
+        
+        this.table.addMouseListener(showDataInfo());
 	}
+	 private MouseAdapter showDataInfo(){
+	    	MouseAdapter adapter = new MouseAdapter() {
+	    		 public void mouseReleased (MouseEvent e) {  
+	            	 int column = table.columnAtPoint(e.getPoint());
+	            	 int row = table.rowAtPoint(e.getPoint());
+	            	 if(column == 0){	            		 
+	            		SeasonDetail se = new SeasonDetail(frame, table.getValueAt(row, 0).toString(), abbr);
+	            		teamMore.setVisible(false);
+	            		System.out.println(frame.motherPanel.teamPanel.teamDetail==null);
+	            		frame.motherPanel.teamPanel.add(se);
+	            	 }
+	             }  	    		
+			};
+			return adapter;
+	    	
+	    }
 
 	private void initData(Object[][] list) {
 		int size;

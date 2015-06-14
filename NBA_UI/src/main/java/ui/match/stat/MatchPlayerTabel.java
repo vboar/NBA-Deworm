@@ -85,9 +85,11 @@ public MatchPlayerTabel(TableConfig cfg,Object[][] list,HomeUI frame) {
 	            	 int column = table.columnAtPoint(e.getPoint());
 	            	 int row = table.rowAtPoint(e.getPoint());
 	            	 if(column == 0){	            		 
-	            		frame.motherPanel.matchPanel.matchDetail.setVisible(false);
+	            		frame.motherPanel.matchPanel.setVisible(false);
 	            		frame.motherPanel.playerPanel.playerInfoPane.changeData(table.getValueAt(row, 0).toString());
-	            		System.out.println(table.getValueAt(row, 0).toString());
+	            		
+	            		frame.motherPanel.playerPanel.indexpanel.setVisible(false);
+	            		frame.motherPanel.playerPanel.setVisible(true);
 	            		frame.motherPanel.playerPanel.playerInfoPane.setVisible(true);
 	            		 
 	            	 }

@@ -53,8 +53,10 @@ public class TeamMore extends JPanel{
 	private MyLabel opppergame;
 	
 	private String abbr;
+	private HomeUI frame;
 	
 	public TeamMore(HomeUI frame,String abbr){
+		this.frame = frame;
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
 		this.abbr = abbr;
@@ -221,18 +223,18 @@ public class TeamMore extends JPanel{
 	}
 	
 	private void initTables(){
-		table1 = new TBYTablePane(new TableConfig(pcfg.getTablepane().element("table1")),data1);
+		table1 = new TBYTablePane(new TableConfig(pcfg.getTablepane().element("table1")),data1,abbr,frame,this);
 		add(table1);
 		
-		table2 = new PGBYTablePane(new TableConfig(pcfg.getTablepane().element("table2")),data2);
+		table2 = new PGBYTablePane(new TableConfig(pcfg.getTablepane().element("table2")),data2,abbr,frame,this);
 		table2.setVisible(false);
 		add(table2);
 		
-		table3 = new OppTotalTablePane(new TableConfig(pcfg.getTablepane().element("table3")),data3);
+		table3 = new OppTotalTablePane(new TableConfig(pcfg.getTablepane().element("table3")),data3,abbr,frame,this);
 		table3.setVisible(false);
 		add(table3);
 		
-		table4 = new OppTotalTablePane(new TableConfig(pcfg.getTablepane().element("table4")),data4);
+		table4 = new OppTotalTablePane(new TableConfig(pcfg.getTablepane().element("table4")),data4,abbr,frame,this);
 		table4.setVisible(false);
 		add(table4);
 	}

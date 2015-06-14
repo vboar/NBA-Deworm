@@ -1,7 +1,12 @@
 package util;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -138,6 +143,18 @@ public class Utility {
 		}
 	}
 
+	public static void writeMultiAppend(List<String> list, String path){
+		try {
+			FileWriter fw = new FileWriter(path, true);
+			for (String s : list) {
+				fw.write(s + "\n");
+			}
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * 写入一行数据到文本文件（覆盖）
 	 * 
@@ -154,5 +171,25 @@ public class Utility {
 		}
 	}
 	
-	
+    /**
+     * 从文本文件中读取数据
+     * @param path 文件路径
+     * @return String的ArrayList
+     */
+    public static List<String> read(String path) {
+        List<String> lists = new ArrayList<String>();
+        try {
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(new FileInputStream(new File(path)), "UTF-8")
+            );
+            String temp = null;
+            while((temp = br.readLine()) != null) {
+                lists.add(temp);
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lists;
+    }
 }
