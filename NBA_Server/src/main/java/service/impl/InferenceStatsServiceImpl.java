@@ -1,4 +1,4 @@
-package service;
+package service.impl;
 
 import java.awt.MediaTracker;
 import java.util.ArrayList;
@@ -6,12 +6,19 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
+import service.InferenceStatsService;
+import util.FieldType;
 import util.Utility;
+import vo.MultiRegressionVO;
+import vo.SimpleRegressionVO;
 import vo.TeamWinAnalysisVO;
 import dao.MatchDao;
+import dao.TeamDao;
 import dao.impl.DaoFactoryImpl;
 import entity.MatchInfo;
 import entity.MatchPlayerBasic;
+import entity.OpponentStatsPerGame;
+import entity.TeamStatsPerGame;
 
 /**
  * 推断统计
@@ -21,13 +28,14 @@ import entity.MatchPlayerBasic;
 public class InferenceStatsServiceImpl implements InferenceStatsService {
 
 	private MatchDao mdao;
-
+	private TeamDao tdao;
+	
 	private String[] teams = { "ATL", "BOS", "NJN", "CHA", "CHI", "CLE", "DAL",
 			"DEN", "DET", "GSW", "HOU", "IND", "LAC", "LAL", "MEM", "MIA",
 			"MIL", "MIN", "NOH", "NYK", "OKC", "ORL", "PHI", "PHO", "POR",
 			"SAC", "SAS", "TOR", "UTA", "WAS" };
 
-	private String[] fields = { "pts", "ast", "blk", "stl", "trb", "tov", "pf" };
+	private String[] fields = { "pts", "ast", "blk", "stl", "trb", "tov", "pf", "dif" };
 
 	private String[] seasons = { "14-15", "13-14", "12-13", "10-11", "09-10",
 			"08-09", "07-08", "06-07", "05-06", "04-05" };
@@ -36,12 +44,14 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 
 	public InferenceStatsServiceImpl() {
 		mdao = DaoFactoryImpl.getDaoFactory().getMatchDao();
+		tdao = DaoFactoryImpl.getDaoFactory().getTeamDao();
 	}
 
 	// TODO ---------main----------------
 	public static void main(String[] args) {
 		InferenceStatsServiceImpl is = new InferenceStatsServiceImpl();
-		is.getTeamStepwiseMatchToTxt("14-15");
+		is.getSimpleRegression(FieldType.TRB.ordinal(), "13-14");
+		is.getMultiRegression("14-15");
 	}
 
 	@Override
@@ -55,7 +65,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 	@Override
 	public void getTeamStepwiseToTxt_10() {
 		List<List<String>> list = new ArrayList<List<String>>();
-		for (int i = 0; i < 7; ++i) {
+		for (int i = 0; i < 8; ++i) {
 			String home = "";
 			String guest = "";
 			List<String> s = new ArrayList<String>();
@@ -65,7 +75,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 		}
 		for (int i = 0; i < seasons.length; ++i) {
 			List<List<String>> single = getStepwistString(seasons[i]);
-			for (int j = 0; j < 7; ++j) {
+			for (int j = 0; j < 8; ++j) {
 				String home = list.get(j).get(0);
 				String guest = list.get(j).get(1);
 				home += single.get(j).get(0) + ";";
@@ -74,7 +84,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 				list.get(j).set(1, guest);
 			}
 		}
-		for (int i = 0; i < 7; ++i) {
+		for (int i = 0; i < 8; ++i) {
 			String h = checkString(list.get(i).get(0));
 			String g = checkString(list.get(i).get(1));
 			List<String> strs = new ArrayList<String>();
@@ -97,6 +107,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 		String[] trb = { "", "" };
 		String[] tov = { "", "" };
 		String[] pf = { "", "" };
+		String[] dif = { "", ""};
 		for (int i = 0; i < homelist.size(); ++i) {
 			MatchPlayerBasic h = homelist.get(i);
 			MatchPlayerBasic g = guestlist.get(i);
@@ -107,6 +118,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 			trb[0] += h.getTrb() + ";";
 			tov[0] += h.getTov() + ";";
 			pf[0]  += h.getPf()  + ";";
+			dif[0] += (h.getPts() - g.getPts()) + ";";
 			pts[1] += g.getPts() + ";";
 			ast[1] += g.getAst() + ";";
 			blk[1] += g.getBlk() + ";";
@@ -114,9 +126,10 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 			trb[1] += g.getTrb() + ";";
 			tov[1] += g.getTov() + ";";
 			pf[1]  += g.getPf()  + ";";
+			dif[1] += (g.getPts()-h.getPts()) +";";
 		}
-		String[][] a = {pts,ast,blk,stl,trb,tov,pf};
-		for(int i=0; i<7; ++i){
+		String[][] a = {pts,ast,blk,stl,trb,tov,pf,dif};
+		for(int i=0; i<8; ++i){
 			List<String> l = new ArrayList<String>();
 			l.add(checkString(a[i][0]));
 			l.add(checkString(a[i][1]));
@@ -174,7 +187,115 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 		}
 		return getWinVO();
 	}
+	
+	@Override
+	public MultiRegressionVO getMultiRegression(String season){
+//		List<TeamStatsPerGame> list = tdao.getTeamPerGameBySeason(season);
+//		List<OpponentStatsPerGame> opplist = tdao.getTeamOppPerGameBySeason(season);
+		List<TeamStatsPerGame> list = new ArrayList<TeamStatsPerGame>();
+		List<OpponentStatsPerGame> opplist = new ArrayList<OpponentStatsPerGame>();
+		for(int i=0; i<seasons.length;++i){
+			List<TeamStatsPerGame> totalist = tdao.getTeamPerGameBySeason(seasons[i]);
+			List<OpponentStatsPerGame> ol = tdao.getTeamOppPerGameBySeason(seasons[i]);
+			list.addAll(totalist);
+			opplist.addAll(ol);
+		}
+		double[] pts = new double[list.size()];
+		double[][] x = new double[6][list.size()];
+		System.out.println(list.size());
+		for(int i=0; i<list.size(); ++i){
+			TeamStatsPerGame tsp = list.get(i);
+			double t_pts = tsp.getPts()==null?0:tsp.getPts();
+			for(int j=0; j<list.size(); ++j){
+				if((tsp.getAbbr().equals(opplist.get(j).getAbbr()))
+						&&(tsp.getSeason().equals(opplist.get(j).getSeason()))){
+					System.out.println(tsp.getAbbr()+" "+tsp.getPts()+" "+opplist.get(j).getAbbr()+" " 
+				+ opplist.get(j).getPts());
+					double o_pts = opplist.get(j).getPts()==null?0:opplist.get(j).getPts();
+					pts[i] = t_pts-o_pts;
+					break;
+				}
+			}
+			//pts[i] = tsp.getPts()==null?0:tsp.getPts();
+			System.out.println(pts[i]);
+			x[0][i] = tsp.getAst()==null?0:tsp.getAst();
+			x[1][i] = tsp.getStl()==null?0:tsp.getStl();
+			x[2][i] = tsp.getBlk()==null?0:tsp.getBlk();
+			x[3][i] = tsp.getTrb()==null?0:tsp.getTrb();
+			x[4][i] = tsp.getTov()==null?0:tsp.getTov();
+			x[5][i] = tsp.getPf()==null?0:tsp.getPf();
+		}
+		double[] a = new double[7];
+		double[] dt = new double[4];
+		double[] v = new double[6];
+		Regression.sqt2(x, pts, 6, list.size(), a, dt, v);
+		MultiRegressionVO vo = new MultiRegressionVO();
+		vo.q = dt[0];
+		vo.s = dt[1];
+		vo.r = dt[2];
+		vo.u = dt[3];
+		vo.v = v;
+		for(int i=0; i<v.length;++i){
+			System.out.println(v[i]);
+		}
+		for(int i=0; i<a.length;++i){
+			System.out.println(a[i]);
+		}
+		return vo;
+	}
+	
 
+	//TODO
+	@Override
+	public SimpleRegressionVO getSimpleRegression(int typeNum, String season){
+		FieldType type = FieldType.values()[typeNum];
+		List<TeamStatsPerGame> list = tdao.getTeamPerGameBySeason(season);
+		List<OpponentStatsPerGame> opplist = tdao.getTeamOppPerGameBySeason(season);
+		double[] pts = new double[list.size()];
+		double[] x = new double[list.size()];
+		for(int i=0; i<list.size(); ++i){
+			TeamStatsPerGame tsp = list.get(i);
+			double t_pts = tsp.getPts()==null?0:tsp.getPts();
+			for(int j=0; j<list.size(); ++j){
+				if(tsp.getAbbr().equals(opplist.get(j).getAbbr())){
+					double o_pts = opplist.get(j).getPts()==null?0:opplist.get(j).getPts();
+					pts[i] = t_pts-o_pts;
+					break;
+				}
+			}
+			switch(type){
+			case AST:
+				x[i] = tsp.getAst()==null?0:tsp.getAst();break;
+			case STL:
+				x[i] = tsp.getStl()==null?0:tsp.getStl();break;
+			case BLK:
+				x[i] = tsp.getBlk()==null?0:tsp.getBlk();break;
+			case TRB:
+				x[i] = tsp.getTrb()==null?0:tsp.getTrb();break;
+			case TOV:
+				x[i] = tsp.getTov()==null?0:tsp.getTov();break;
+			case PF:
+				x[i] = tsp.getPf()==null?0:tsp.getPf();break;
+			default:
+			}
+		}
+		double[] a = new double[2];
+		double[] dt = new double[6];
+		Regression.SPT1(x, pts, list.size(), a, dt);
+
+		System.out.println(a[0] + " a: " +a[1]);
+		SimpleRegressionVO vo = new SimpleRegressionVO();
+		vo.b = a[0];
+		vo.a = a[1];
+		vo.q = dt[0];
+		vo.s = dt[1];
+		vo.p = dt[2];
+		vo.umax = dt[3];
+		vo.umin = dt[4];
+		vo.u = dt[5];
+		return vo;
+	}
+	
 	private String checkString(String str) {
 		if (str.length() == 0) {
 			return str;
@@ -223,7 +344,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 		vo.home_skewness = Utility.stringToDouble(data[0]);
 		vo.home_kurtosis = Utility.stringToDouble(data[1]);
 		// 分析第7行数据
-		line = strs.get(7);
+		line = strs.get(8);
 		data = line.split(";", -1);
 		vo.guest_skewness = Utility.stringToDouble(data[0]);
 		vo.guest_kurtosis = Utility.stringToDouble(data[1]);
@@ -291,11 +412,11 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 	}
 
 	private List<List<String>> getStepwistString(String season) {
-		int[][] homes = new int[30][7];
-		int[][] guests = new int[30][7];
-		String[] home_str = new String[7];
-		String[] guest_str = new String[7];
-		for (int i = 0; i < 7; ++i) {
+		int[][] homes = new int[30][8];
+		int[][] guests = new int[30][8];
+		String[] home_str = new String[8];
+		String[] guest_str = new String[8];
+		for (int i = 0; i < 8; ++i) {
 			home_str[i] = "";
 			guest_str[i] = "";
 		}
@@ -315,6 +436,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 					homes[i][4] += h.getTrb();
 					homes[i][5] += h.getTov();
 					homes[i][6] += h.getPf();
+					homes[i][7] += (h.getPts()-g.getPts());
 					guests[i][0] += g.getPts();
 					guests[i][1] += g.getAst();
 					guests[i][2] += g.getBlk();
@@ -322,6 +444,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 					guests[i][4] += g.getTrb();
 					guests[i][5] += g.getTov();
 					guests[i][6] += g.getPf();
+					guests[i][7] += (g.getPts()-h.getPts());
 				}
 			}
 
@@ -334,6 +457,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 			home_str[4] += homes[i][4] + ";";
 			home_str[5] += homes[i][5] + ";";
 			home_str[6] += homes[i][6] + ";";
+			home_str[7] += homes[i][7] + ";";
 			guest_str[0] += guests[i][0] + ";";
 			guest_str[1] += guests[i][1] + ";";
 			guest_str[2] += guests[i][2] + ";";
@@ -341,9 +465,10 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 			guest_str[4] += guests[i][4] + ";";
 			guest_str[5] += guests[i][5] + ";";
 			guest_str[6] += guests[i][6] + ";";
+			guest_str[7] += guests[i][7] + ";";
 		}
 		List<List<String>> fieldStr = new ArrayList<List<String>>();
-		for (int i = 0; i < 7; ++i) {
+		for (int i = 0; i < 8; ++i) {
 			List<String> strs = new ArrayList<String>();
 			strs.add(checkString(home_str[i]));
 			strs.add(checkString(guest_str[i]));
