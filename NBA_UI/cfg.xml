@@ -405,11 +405,16 @@
 			</panel>
 			
 			<panel className="ui.team.advance.SeasonDetail" width="940" height="511"
-			x="0" y="0">
+			x="0" y="0" bg="img/team/tablebg.png">
+			<labels>
+			<hint1 w="300" h="30" x="35" y="23" />
+			<hint2 w="300" h="30" x="35" y="235" />
+			</labels>
 			<tablepane>
-			<table1 className="ui.team.advance.OppStatTablePane" width="881"
-				height="125" x="20" y="75">
+			<table1 className="ui.team.advance.OppStatTablePane" width="911"
+				height="138" x="16" y="48">
 			<columnnames>
+					<columnname name="Role" />
 					<columnname name="G" />
 					<columnname name="MP" />
 					<columnname name="FG" />
@@ -435,6 +440,34 @@
 					<columnname name="PTS" />
 				</columnnames>
 				</table1>
+				
+				<table2 className="ui.team.advance.SeasonPlayerTablePane" width="911"
+				height="220" x="16" y="260">
+			<columnnames>
+					<columnname name="Player" />
+					<columnname name="G" />
+					<columnname name="GS" />
+					<columnname name="MP" />
+					<columnname name="FG" />
+					<columnname name="FGA" />
+					<columnname name="FG%" />
+					<columnname name="3P" />
+					<columnname name="3PA" />
+					<columnname name="3P%" />
+					<columnname name="FT" />
+					<columnname name="FTA" />
+					<columnname name="FT%" />
+					<columnname name="ORB" />
+					<columnname name="DRB" />
+					<columnname name="TRB" />
+					<columnname name="AST" />
+					<columnname name="STL" />
+					<columnname name="BLK" />
+					<columnname name="TOV" />
+					<columnname name="PF" />
+					<columnname name="PTS" />
+				</columnnames>
+				</table2>
 				
 				</tablepane>
 			</panel>
