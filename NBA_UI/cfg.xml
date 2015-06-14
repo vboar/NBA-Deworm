@@ -903,13 +903,30 @@
 			<team text="Knight" w="1030" h="60" x="25" y="190" font="微软雅黑"
 					fontsize="20"  />
 			
-			<chart1name text="14-15 radar" w="1030" h="60" x="25" y="180"/>
+			<chart1name text="14-15 radar" w="1030" h="60" x="20" y="210"/>
 			<chart1 text="hh" w="400" h="300" x="20" y="220" />	
-			<chart2 text="hh" w="400" h="300" x="550" y="0" />	
+			<chart2name text="14-15 line chart" w="1030" h="60" x="430" y="180"/>
+			<chart2 text="hh" w="400" h="300" x="400" y="200" />	
 			
-			<findmore text="查看更多信息" w="1030" h="60" x="500" y="300" />
+			<findmore text="查看更多信息" w="1030" h="60" x="800" y="450" />
 			</labels>
 			
+			<comboboxes>
+			<box w="110" h="25" x="780" y="225">
+					<string str="PTS" />
+					<string str="AST" />
+					<string str="BLK" />
+					<string str="STL" />
+					<string str="TRB" />
+					<string str="DRB" />
+					<string str="ORB" />
+					<string str="TOV" />
+					<string str="PF" />
+					<string str="FG3_PCT" />
+					<string str="FGA_PCT" />
+					<string str="FT_PCT" />
+				</box>
+			</comboboxes>
 			<tablepane className="ui.player.info.FiveMatchTablePane"
 				width="940" height="200" x="0" y="305">
 				<columnnames>

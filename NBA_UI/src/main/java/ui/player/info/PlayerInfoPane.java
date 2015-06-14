@@ -2,10 +2,11 @@ package ui.player.info;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -17,9 +18,11 @@ import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
+import ui.util.MyComboBox;
 import ui.util.MyLabel;
 import ui.util.MyPressedLabel;
 import ui.util.MyTab;
+import util.FieldType;
 import vo.MatchFilter;
 import vo.MatchInfoVO;
 import vo.PlayerInfoVO;
@@ -55,17 +58,25 @@ public class PlayerInfoPane extends JPanel {
 	private MyLabel debut;
 	private MyLabel exp;
 	private MyLabel num;
-	//private MyLabel team;
-	
+	// private MyLabel team;
+
 	private MyPressedLabel findMore;
-	
+
 	private MyLabel chart1;
 	private MyLabel chart1Name;
 	
+	private MyLabel chart2;
+	private MyLabel chart2Name;
+	
+	private MyComboBox box;
 
 	private FiveMatchTabelPane fiveTablePane;
 	private MyTab myTab;
 	
+	private String boxItem="PTS";
+	private String latestSeason ="14-15";
+	private String nameStr = "Kobe Bryant";
+
 	public Object[][] matchData;
 
 	public PlayerInfoPane(HomeUI frame) {
@@ -87,22 +98,22 @@ public class PlayerInfoPane extends JPanel {
 	private void initComponent() {
 		initLabels();
 		initTables();
-		//initTabs();
+		// initTabs();
 		initChart();
-		
+
 	}
 
 	private void initLabels() {
 		ImageIcon icon = null;
-//		try {
-//			icon = ServiceFactoryImpl.getInstance().getPlayerService()
-//					.getPlayerPortraitByName("LeBron James");
-//		} catch (RemoteException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		icon.setImage(icon.getImage().getScaledInstance(169, 130,
-//				Image.SCALE_DEFAULT));
+		// try {
+		// icon = ServiceFactoryImpl.getInstance().getPlayerService()
+		// .getPlayerPortraitByName("LeBron James");
+		// } catch (RemoteException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		// icon.setImage(icon.getImage().getScaledInstance(169, 130,
+		// Image.SCALE_DEFAULT));
 		img = new MyLabel(pcfg.getLabels().element("img"));
 		img.setIcon(icon);
 		add(img);
@@ -142,7 +153,6 @@ public class PlayerInfoPane extends JPanel {
 		name = new MyLabel(pcfg.getLabels().element("name"));
 		add(name);
 
-		
 		position = new MyLabel(pcfg.getLabels().element("position"));
 		add(position);
 
@@ -172,42 +182,42 @@ public class PlayerInfoPane extends JPanel {
 
 		num = new MyLabel(pcfg.getLabels().element("num"));
 		add(num);
-		
-		
+
 		findMore = new MyPressedLabel(pcfg.getLabels().element("findmore"));
 		add(findMore);
 		findMore.addMouseListener(new MouseListener() {
-			
+
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.motherPanel.playerPanel.playerInfoPane.setVisible(false);
-				frame.motherPanel.playerPanel.fourTablePane.changeName(name.getText());
+				frame.motherPanel.playerPanel.fourTablePane.changeName(name
+						.getText());
 				frame.motherPanel.playerPanel.fourTablePane.setVisible(true);
-				
+
 			}
 		});
 		add(findMore);
@@ -233,21 +243,29 @@ public class PlayerInfoPane extends JPanel {
 		add(fiveTablePane);
 		fiveTablePane.setVisible(false);
 	}
-	
-	private void initChart(){		
-		
-			//System.out.println(name.getText());
-			//ImageIcon icon = ServiceFactoryImpl.getInstance().getStatsService().getPlayerRadar(name.getText(), "14-15", 1);
-			
-			chart1 = new MyLabel(pcfg.getLabels().element("chart1"));
-		//	chart1.setImage(icon);
-			add(chart1);
 
-	
+	private void initChart() {
+
+		// System.out.println(name.getText());
+		// ImageIcon icon =
+		// ServiceFactoryImpl.getInstance().getStatsService().getPlayerRadar(name.getText(),
+		// "14-15", 1);
+		chart1Name = new MyLabel(pcfg.getLabels().element("chart1name"));
+		add(chart1Name);
+		chart1 = new MyLabel(pcfg.getLabels().element("chart1"));
+		// chart1.setImage(icon);
+		add(chart1);
 		
+		chart2Name = new MyLabel(pcfg.getLabels().element("chart2name"));
+		add(chart2Name);
+		box = new MyComboBox(pcfg.getComboboxes().element("box"));
+		add(box);
+		getSelectChange(box);
+		chart2 = new MyLabel(pcfg.getLabels().element("chart2"));
+		add(chart2);
+		
+
 	}
-	
-	
 
 	private void setTab() {
 
@@ -263,22 +281,23 @@ public class PlayerInfoPane extends JPanel {
 		myTab.tab1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				 Object[][]matchData2 = new Object[5][10];
-				 for(int i =0;i<5;i++){
-					for(int j = 0;j<10;j++){
+				Object[][] matchData2 = new Object[5][10];
+				for (int i = 0; i < 5; i++) {
+					for (int j = 0; j < 10; j++) {
 						matchData2[i][j] = matchData[i][j];
 					}
-				 }
-				 fiveTablePane.renewTable(matchData2);
+				}
+				fiveTablePane.renewTable(matchData2);
 			}
 		});
 	}
 
-	public void changeData(String name){
-		
-		String latestSeason = "14-15";
+	public void changeData(String name) {
+nameStr= name;
+		 latestSeason = "14-15";
 		try {
-			latestSeason = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerAdvancedByName(name, 1).get(0).season;
+			latestSeason = ServiceFactoryImpl.getInstance().getPlayerService()
+					.getPlayerAdvancedByName(name, 1).get(0).season;
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -286,62 +305,75 @@ public class PlayerInfoPane extends JPanel {
 		MatchFilter filter = new MatchFilter();
 		filter.player = name;
 		List<PlayerPerGameVO> listAll = null;
-		PlayerInfoVO info = null; 
-		List<MatchInfoVO> matchlist= null;
+		PlayerInfoVO info = null;
+		List<MatchInfoVO> matchlist = null;
 		String teamStr = null;
 		ImageIcon radar = null;
+		ImageIcon line = null;
 		try {
-			info = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerInfoByName(name);
-			listAll = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerPerGameByName(name, 2);
-			matchlist = ServiceFactoryImpl.getInstance().getMatchService().getMatchInfoByFilter(filter);		 
-		    radar = ServiceFactoryImpl.getInstance().getStatsService().getPlayerRadar(name, latestSeason, 1);
-				
-			List<String> teamList = ServiceFactoryImpl.getInstance().getPlayerService().getTeamByPlayerNameSeason(name, latestSeason);
-		if(teamList.size()>0){
-			teamStr = teamList.get(0).split(";")[0];
-		}else{
-			teamStr = "";
-		}
+			info = ServiceFactoryImpl.getInstance().getPlayerService()
+					.getPlayerInfoByName(name);
+			listAll = ServiceFactoryImpl.getInstance().getPlayerService()
+					.getPlayerPerGameByName(name, 2);
+			matchlist = ServiceFactoryImpl.getInstance().getMatchService()
+					.getMatchInfoByFilter(filter);
+			radar = ServiceFactoryImpl.getInstance().getStatsService()
+					.getPlayerRadar(name, latestSeason, 1);
+			line = ServiceFactoryImpl.getInstance().getStatsService().getMatchPlayerLineChart(name, latestSeason,getField( box.getSelectedIndex()));
+			List<String> teamList = ServiceFactoryImpl.getInstance()
+					.getPlayerService()
+					.getTeamByPlayerNameSeason(name, latestSeason);
+			if (teamList.size() > 0) {
+				teamStr = teamList.get(0).split(";")[0];
+			} else {
+				teamStr = "";
+			}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		this.name.setText(name);
-		
-		if(info.position.toString().length()<1){
+
+		if (info.position.toString().length() < 1) {
 			position.setText("No Data");
-		}else{
+		} else {
 			position.setText(info.position);
 		}
 		born.setText(info.born);
 		hometown.setText(info.hometown);
 		height.setText(info.height);
 		weight.setText(info.weight.toString());
-		if(info.high_school.toString().length()<2){
+		if (info.high_school.toString().length() < 2) {
 			highschool.setText("No Data");
-		}else{
+		} else {
 			highschool.setText(info.high_school);
 		}
-		
-		if(info.college.toString().length()<2){
+
+		if (info.college.toString().length() < 2) {
 			college.setText("No Data");
-		}else{
+		} else {
 			college.setText(info.college);
 		}
 		debut.setText(info.debut);
-		if(info.exp!=null){
-			if(info.exp.toString().contains("-1")){
+		if (info.exp != null) {
+			if (info.exp.toString().contains("-1")) {
 				exp.setText("Retired");
-			}else{
-			exp.setText(info.exp.toString());
+			} else {
+				exp.setText(info.exp.toString());
 			}
-		}else{
+		} else {
 			exp.setText("无数据");
 		}
 		num.setText(info.number.toString());
-		
+
 		chart1.setImage(radar);
+		chart1Name.setText(latestSeason + " radar chart");
+		chart2.setImage(line);
+		chart2Name.setText(latestSeason+" "+box.getSelectedItem().toString()+" line chart");
+		
+		
+		
 		
 		ImageIcon icon = null;
 		try {
@@ -351,36 +383,77 @@ public class PlayerInfoPane extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(icon!=null){
-		icon.setImage(icon.getImage().getScaledInstance(200, 150,
-				Image.SCALE_DEFAULT));
-		img.setIcon(icon);
-		}else{
+		if (icon != null) {
+			icon.setImage(icon.getImage().getScaledInstance(200, 150,
+					Image.SCALE_DEFAULT));
+			img.setIcon(icon);
+		} else {
 			icon = new ImageIcon("img/player/unknown.png");
 			icon.setImage(icon.getImage().getScaledInstance(169, 130,
 					Image.SCALE_DEFAULT));
 			img.setIcon(icon);
 		}
-		
-		 matchData = new Object[matchlist.size()][10];
-		 for(int i =0;i<matchlist.size();i++){
-			 matchData[i][0] = matchlist.get(i).game_id;
-			 matchData[i][1] = matchlist.get(i).season;
-			 matchData[i][2] = matchlist.get(i).date;
-			 matchData[i][3] = matchlist.get(i).is_normal == true?"regular season":"post season";
-			 matchData[i][4] = matchlist.get(i).location;
-			 matchData[i][5] = matchlist.get(i).home_team;
-			 matchData[i][6] = matchlist.get(i).home_point;
-			 matchData[i][7] = matchlist.get(i).guest_team;
-			 matchData[i][8] = matchlist.get(i).guest_point;
-			 matchData[i][9] = matchlist.get(i).time;			
-		 }
-		 Object[][]matchData2 = new Object[5][10];
-		 for(int i =0;i<5;i++){
-			for(int j = 0;j<10;j++){
+
+		matchData = new Object[matchlist.size()][10];
+		for (int i = 0; i < matchlist.size(); i++) {
+			matchData[i][0] = matchlist.get(i).game_id;
+			matchData[i][1] = matchlist.get(i).season;
+			matchData[i][2] = matchlist.get(i).date;
+			matchData[i][3] = matchlist.get(i).is_normal == true ? "regular season"
+					: "post season";
+			matchData[i][4] = matchlist.get(i).location;
+			matchData[i][5] = matchlist.get(i).home_team;
+			matchData[i][6] = matchlist.get(i).home_point;
+			matchData[i][7] = matchlist.get(i).guest_team;
+			matchData[i][8] = matchlist.get(i).guest_point;
+			matchData[i][9] = matchlist.get(i).time;
+		}
+		Object[][] matchData2 = new Object[5][10];
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 10; j++) {
 				matchData2[i][j] = matchData[i][j];
 			}
-		 }
-		 fiveTablePane.renewTable(matchData2);
+		}
+		fiveTablePane.renewTable(matchData2);
+	}
+	
+	public int getField(int num){
+		switch(num){
+		case 0:return FieldType.PTS.ordinal();
+		case 1:return FieldType.AST.ordinal();
+		case 2:return FieldType.BLK.ordinal();
+		case 3:return FieldType.STL.ordinal();
+		case 4:return FieldType.TRB.ordinal();
+		case 5:return FieldType.DRB.ordinal();
+		case 6:return FieldType.ORB.ordinal();
+		case 7:return FieldType.TOV.ordinal();
+		case 8:return FieldType.PF.ordinal();
+		case 9:return FieldType.FG3_PCT.ordinal();
+		case 10:return FieldType.FGA_PCT.ordinal();
+		case 11:return FieldType.FT_PCT.ordinal();
+		default:return 0;
+		}
+	}
+	
+	private void getSelectChange(MyComboBox box){
+		box.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!box.getSelectedItem().toString().equals(boxItem)){
+					boxItem = box.getSelectedItem().toString();
+					ImageIcon line = null;
+					try {
+						line = ServiceFactoryImpl.getInstance().getStatsService().getMatchPlayerLineChart(nameStr, latestSeason,getField( box.getSelectedIndex()));
+					} catch (RemoteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					chart2Name.setText(latestSeason+" "+box.getSelectedItem().toString()+" line chart");
+					chart2.setImage(line);
+				}
+				
+			}
+		});
 	}
 }
