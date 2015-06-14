@@ -82,7 +82,7 @@ public MatchAllTablePane(TableConfig cfg, Object[][] list,HomeUI frame) {
 		// this.table.getColumnModel().getColumn(1).setPreferredWidth(170);
 		// this.table.getColumnModel().getColumn(2).setPreferredWidth(420);
 		// this.table.getTableHeader().setPreferredSize(new Dimension(0, 50));
-//		 this.table.setRowHeight(18);
+		 this.table.setRowHeight(25);
 		this.updateUI();
 	}
 	

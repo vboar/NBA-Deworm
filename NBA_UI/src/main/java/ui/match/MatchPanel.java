@@ -68,6 +68,8 @@ public class MatchPanel extends JPanel{
             liveChoosePane.removeLivePanel();
         } else if (show == 1) {
         	matchInfoPanel.setVisible(false);
+            matchDetail.setVisible(false);
+            matchStat.setVisible(false);
         	matchStat.setVisible(false);
             liveChoosePane.setVisible(true);
             liveChoosePane.removeLivePanel();

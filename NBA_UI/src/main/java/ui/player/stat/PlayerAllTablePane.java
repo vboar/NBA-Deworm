@@ -52,7 +52,7 @@ public class PlayerAllTablePane extends TablePanel {
         table.setFont(new Font("华文细黑",0,12));
 		this.table.addMouseListener(showDataInfo());
 		table.setShowGrid(false);
-//        table.getTableHeader().setResizingAllowed(false);
+        table.getTableHeader().setResizingAllowed(false);
 		this.updateWidth();
 	}
 
@@ -73,7 +73,7 @@ public class PlayerAllTablePane extends TablePanel {
 		// this.table.getColumnModel().getColumn(1).setPreferredWidth(170);
 		// this.table.getColumnModel().getColumn(2).setPreferredWidth(420);
 		// this.table.getTableHeader().setPreferredSize(new Dimension(0, 50));
-//		 this.table.setRowHeight(18);
+		 this.table.setRowHeight(25);
 		this.updateUI();
 	}
 

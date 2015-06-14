@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import service.impl.LiveServiceImpl;
 import ui.common.MotherPanel;
 import ui.config.FrameConfig;
 import ui.config.SystemConfig;
@@ -67,7 +68,7 @@ public class HomeUI extends JFrame {
 		LoadFont.loadFont("YAHEI.TTC", 0, 12);
 
 
-//		LiveServiceImpl.getInstance().startLiveService();
+		LiveServiceImpl.getInstance().startLiveService();
 	}
 
 	public static void main(String[] args) {
