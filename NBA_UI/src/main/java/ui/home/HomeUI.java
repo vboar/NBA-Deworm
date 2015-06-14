@@ -60,9 +60,9 @@ public class HomeUI extends JFrame {
 		this.setIconImage(icon.getImage());
 		
 		home = new HomePanel(this);
-		//this.getContentPane().add(home);
+		this.getContentPane().add(home);
 		//this.getContentPane().add(new MotherPanel(this));
-		this.getContentPane().add(new SeasonDetail(this,"13-14","HOU"));
+		//this.getContentPane().add(new SeasonDetail(this,"13-14","HOU"));
 		this.setVisible(true);
 		LoadFont.loadFont("YAHEI.TTC", 0, 12);
 
