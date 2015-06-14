@@ -69,7 +69,7 @@ public class LiveChoosePane extends JPanel {
             MyLabel watch = new MyLabel(pcfg.getLabels().element("watch"));
             watch.setLocation(watch.getX(), watch.getY()+90*i);
             watch.setFont(new Font("微软雅黑", 0, 13));
-            watch.setForeground(Color.BLUE);
+            watch.setForeground(new Color(237,85,101));
             watch.addMouseListener(new MouseAdapter() {
 
                 @Override
@@ -117,7 +117,7 @@ public class LiveChoosePane extends JPanel {
             MyLabel hwatch = new MyLabel(pcfg.getLabels().element("hwatch"));
             hwatch.setLocation(hwatch.getX(), hwatch.getY()+85*i);
             hwatch.setFont(new Font("微软雅黑", 0, 12));
-            hwatch.setForeground(Color.BLUE);
+            hwatch.setForeground(new Color(72,207,173));
             hwatch.addMouseListener(new MouseAdapter(){
 
                 @Override

@@ -812,24 +812,22 @@
 			
 			
 			<!-- 直播panel -->
-			<panel className="ui.live.LivePanel" width="940" height="511" x="0" y="0" bg="img/match/live/vs.png">
+			<panel className="ui.live.LivePanel" width="940" height="511" x="0" y="0" bg="img/match/live/vs.jpg">
                 <labels>
-                    <score1  text="" w="103" h="60" x="75" y="134" />
-                    <score2 text="" w="103" h="60" x="75" y="287" />
-                    <team1  text="" w="103" h="60" x="137" y="46" />
-                    <team2  text="" w="103" h="60" x="137" y="374" />
-                    <img1   w="100" h="100" x="25" y="26" />
-                    <img2   w="100" h="100" x="25" y="358" />
-                    <start w="200" h="40" x="231" y="8" />
-                    <totaltime w="200" h="40" x="231" y="38" />
-                    <gym w="200" h="40" x="231" y="68" />
-                    <att w="200" h="40" x="231" y="98" />
-                    <rtime w="200" h="40" x="560" y="98" />
-                    <data text="点击查看详细数据" w="150" h="30" x="805" y="102"/>
+                    <score1  text="" w="103" h="60" x="87" y="165" />
+                    <score2 text="" w="103" h="60" x="87" y="282" />
+                    <img1   w="80" h="80" x="82" y="67" />
+                    <img2   w="80" h="80" x="82" y="363" />
+                    <start w="200" h="40" x="270" y="0" />
+                    <totaltime w="200" h="40" x="270" y="30" />
+                    <gym w="200" h="40" x="270" y="60" />
+                    <att w="200" h="40" x="270" y="90" />
+                    <rtime w="200" h="40" x="580" y="95" />
+                    <data text="点击查看详细" w="150" h="30" x="850" y="102"/>
                 </labels>
 
                 <tables>
-                    <scores width="302" height="85" x="608" y="8">
+                    <scores width="302" height="85" x="628" y="8">
                         <columnnames>
                             <columnname name="球队" />
                             <columnname name="一" />
@@ -839,7 +837,7 @@
                             <columnname name="总分" />
                         </columnnames>
                     </scores>
-                    <msg width="680" height="350" x="231" y="140">
+                    <msg width="680" height="350" x="250" y="137">
                         <columnnames>
                             <columnname name="时间" />
                             <columnname name="球队" />

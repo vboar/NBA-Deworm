@@ -149,13 +149,19 @@ public class PlayerHotPane extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				makeChangePrep();
+				new Thread(new ChangeThread()).start();
 			}
 		});
 		
 	}
-	
-	
+
+    private class ChangeThread implements Runnable {
+
+        @Override
+        public void run() {
+            makeChangePrep();
+        }
+    }
 	
 	private void makeChangePrep(){
 		int item = type.getSelectedIndex();
