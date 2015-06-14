@@ -59,7 +59,6 @@ public class TeamHot extends JPanel{
 		// 初始化组件
 		this.initComponent();
 		makeChangePrep();
-		this.repaint();
 		this.updateUI();
 	}
 	
@@ -115,8 +114,7 @@ public class TeamHot extends JPanel{
 		
 		season = new MyComboBox(pcfg.getComboboxes().element("season"));
 		add(season);
-		
-		this.updateUI();
+
 	}
 	
 	private void initButtons(){
@@ -132,6 +130,13 @@ public class TeamHot extends JPanel{
 		add(button);
 	}
 
+	  private class ChangeThread implements Runnable {
+
+	        @Override
+	        public void run() {
+	            makeChangePrep();
+	        }
+	    }
 	private void makeChangePrep(){
 		int item = type.getSelectedIndex();
 		String seasonStr = season.getSelectedItem().toString();
@@ -139,7 +144,7 @@ public class TeamHot extends JPanel{
 		try {
 
 			teamimglist = new ArrayList<ImageIcon>(5);
-			hotlist = ServiceFactoryImpl.getInstance().getTeamService().getSeasonHotTeam(seasonStr, FieldType.typeToInt(FieldType.values()[item]),5);
+			hotlist = ServiceFactoryImpl.getInstance().getTeamService().getSeasonHotTeam(seasonStr, FieldType.values()[item].ordinal(),5);
 			for(int i= 0;i<5;i++){
 			ImageIcon icon = ServiceFactoryImpl.getInstance().getTeamService().getTeamLogoByAbbr(hotlist.get(i).abbr);					
 			
