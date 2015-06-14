@@ -404,6 +404,41 @@
 			</labels>
 			</panel>
 			
+			<panel className="ui.team.advance.SeasonDetail" width="940" height="511"
+			x="0" y="0">
+			<tablepane>
+			<table1 className="ui.team.advance.OppStatTablePane" width="881"
+				height="125" x="20" y="75">
+			<columnnames>
+					<columnname name="G" />
+					<columnname name="MP" />
+					<columnname name="FG" />
+					<columnname name="FGA" />
+					<columnname name="FG%" />
+					<columnname name="3P" />
+					<columnname name="3PA" />
+					<columnname name="3P%" />
+					<columnname name="2P" />
+					<columnname name="2PA" />
+					<columnname name="2P%" />
+					<columnname name="FT" />
+					<columnname name="FTA" />
+					<columnname name="FT%" />
+					<columnname name="ORB" />
+					<columnname name="DRB" />
+					<columnname name="TRB" />
+					<columnname name="AST" />
+					<columnname name="STL" />
+					<columnname name="BLK" />
+					<columnname name="TOV" />
+					<columnname name="PF" />
+					<columnname name="PTS" />
+				</columnnames>
+				</table1>
+				
+				</tablepane>
+			</panel>
+			
 			<panel className="ui.team.TeamStat" width="940" height="511"
 			x="0" y="0">
 			<buttons>
