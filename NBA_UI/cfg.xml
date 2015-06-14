@@ -161,6 +161,17 @@
 			</tab>
 			</panel>
 			
+			<panel className="ui.team.TeamNav" width="770" 
+			height="60" x="106" y="45" bg="img/common/nav/navbg.jpg" >
+			
+			<labels>
+			<index  w="103" h="60" x="0" y="0" path="img/team/nav/index.png"/>
+			<teamstat  w="103" h="60" x="104" y="0" path="img/team/nav/stat.png"/>
+			<hotteam  w="103" h="60" x="208" y="0" path="img/team/nav/hotteam.png"/>
+			</labels>
+			
+			</panel>
+			
 			<panel className="ui.team.TeamPanel" width="940" height="511"
 			x="37" y="148" >
 			
@@ -473,6 +484,11 @@
 			</tablepane>
 			</panel>
 			
+			<panel className="ui.team.TeamHot" width="940" height="511"
+			x="37" y="148" bg="img/team/hot/hotbg.png">
+			
+			</panel>
+			
 			<panel className="ui.match.MatchPanel" width="940" height="511"
 			x="37" y="148">
 			
@@ -490,16 +506,7 @@
 			
 			</panel>
 
-			<panel className="ui.team.TeamNav" width="770" 
-			height="60" x="106" y="45" bg="img/common/nav/navbg.jpg" >
 			
-			<labels>
-			<index  w="103" h="60" x="0" y="0" path="img/team/nav/index.png"/>
-			<teamstat  w="103" h="60" x="104" y="0" path="img/team/nav/stat.png"/>
-			<hotteam  w="103" h="60" x="208" y="0" path="img/team/nav/hotteam.png"/>
-			</labels>
-			
-			</panel>
 			
 			<panel className="ui.match.MatchNav" width="770" 
 			height="60" x="106" y="45" bg="img/common/nav/navbg.jpg" >
