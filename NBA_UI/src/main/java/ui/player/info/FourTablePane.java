@@ -176,7 +176,7 @@ public class FourTablePane extends JPanel {
 			List<PlayerTotalVO> list = null;
 			try {
 				list = ServiceFactoryImpl.getInstance().getPlayerService()
-						.getPlayerTotalByName(playerName, 0);
+						.getPlayerTotalByName(playerName, 2);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -223,7 +223,7 @@ public class FourTablePane extends JPanel {
 			List<PlayerPerGameVO> list = null;
 			try {
 				list = ServiceFactoryImpl.getInstance().getPlayerService()
-						.getPlayerPerGameByName(playerName, 0);
+						.getPlayerPerGameByName(playerName, 2);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -272,7 +272,7 @@ public class FourTablePane extends JPanel {
 			try {
 
 				list = ServiceFactoryImpl.getInstance().getPlayerService()
-						.getPlayerAdvancedByName(playerName, 1);
+						.getPlayerAdvancedByName(playerName, 2);
 			} catch (RemoteException ee) {
 				// TODO Auto-generated catch block
 				ee.printStackTrace();

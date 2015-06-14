@@ -60,6 +60,7 @@ public class PlayerInfoPane extends JPanel {
 	private MyPressedLabel findMore;
 	
 	private MyLabel chart1;
+	private MyLabel chart1Name;
 	
 
 	private FiveMatchTabelPane fiveTablePane;
@@ -87,7 +88,7 @@ public class PlayerInfoPane extends JPanel {
 		initLabels();
 		initTables();
 		//initTabs();
-		//initChart();
+		initChart();
 		
 	}
 
@@ -234,18 +235,15 @@ public class PlayerInfoPane extends JPanel {
 	}
 	
 	private void initChart(){		
-		try {
+		
 			//System.out.println(name.getText());
-			ImageIcon icon = ServiceFactoryImpl.getInstance().getStatsService().getPlayerRadar(name.getText(), "14-15", 1);
+			//ImageIcon icon = ServiceFactoryImpl.getInstance().getStatsService().getPlayerRadar(name.getText(), "14-15", 1);
 			
 			chart1 = new MyLabel(pcfg.getLabels().element("chart1"));
-			chart1.setImage(icon);
+		//	chart1.setImage(icon);
 			add(chart1);
 
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 		
 	}
 	
@@ -277,18 +275,28 @@ public class PlayerInfoPane extends JPanel {
 	}
 
 	public void changeData(String name){
+		
+		String latestSeason = "14-15";
+		try {
+			latestSeason = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerAdvancedByName(name, 1).get(0).season;
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		MatchFilter filter = new MatchFilter();
 		filter.player = name;
 		List<PlayerPerGameVO> listAll = null;
 		PlayerInfoVO info = null; 
 		List<MatchInfoVO> matchlist= null;
 		String teamStr = null;
+		ImageIcon radar = null;
 		try {
 			info = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerInfoByName(name);
 			listAll = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerPerGameByName(name, 2);
 			matchlist = ServiceFactoryImpl.getInstance().getMatchService().getMatchInfoByFilter(filter);		 
-			
-			List<String> teamList = ServiceFactoryImpl.getInstance().getPlayerService().getTeamByPlayerNameSeason(name, "14-15");
+		    radar = ServiceFactoryImpl.getInstance().getStatsService().getPlayerRadar(name, latestSeason, 1);
+				
+			List<String> teamList = ServiceFactoryImpl.getInstance().getPlayerService().getTeamByPlayerNameSeason(name, latestSeason);
 		if(teamList.size()>0){
 			teamStr = teamList.get(0).split(";")[0];
 		}else{
@@ -333,6 +341,7 @@ public class PlayerInfoPane extends JPanel {
 		}
 		num.setText(info.number.toString());
 		
+		chart1.setImage(radar);
 		
 		ImageIcon icon = null;
 		try {
@@ -343,7 +352,7 @@ public class PlayerInfoPane extends JPanel {
 			e.printStackTrace();
 		}
 		if(icon!=null){
-		icon.setImage(icon.getImage().getScaledInstance(169, 130,
+		icon.setImage(icon.getImage().getScaledInstance(200, 150,
 				Image.SCALE_DEFAULT));
 		img.setIcon(icon);
 		}else{

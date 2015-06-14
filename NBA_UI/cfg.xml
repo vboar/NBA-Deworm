@@ -896,7 +896,8 @@
 			<team text="Knight" w="1030" h="60" x="25" y="190" font="微软雅黑"
 					fontsize="20"  />
 			
-			<chart1 text="hh" w="400" h="300" x="250" y="0" />	
+			<chart1name text="14-15 radar" w="1030" h="60" x="25" y="180"/>
+			<chart1 text="hh" w="400" h="300" x="20" y="220" />	
 			<chart2 text="hh" w="400" h="300" x="550" y="0" />	
 			
 			<findmore text="查看更多信息" w="1030" h="60" x="500" y="300" />
