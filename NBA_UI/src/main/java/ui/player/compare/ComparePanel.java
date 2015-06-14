@@ -82,8 +82,23 @@ public class ComparePanel extends JPanel {
 	}
 	
 	public void changeData(String name1,String name2){
+		
+		ArrayList<Integer> field0 =new ArrayList<>();
+		field0.add(FieldType.PER.ordinal());
+		System.out.println(field0.get(0));
+//		field0.add(FieldType.ORB_PCT.ordinal());
+//		field0.add(FieldType.DRB_PCT.ordinal());
+//		field0.add(FieldType.TRB_PCT.ordinal());
+//		field0.add(FieldType.AST_PCT.ordinal());
+//		field0.add(FieldType.STL_PCT.ordinal());
+//		field0.add(FieldType.BLK_PCT.ordinal());
+//		field0.add(FieldType.TOV_PCT.ordinal());
+//		field0.add(FieldType.USG_PCT.ordinal());
+		
+		
+		
 		ArrayList<Integer> field =new ArrayList<>();
-//		field.add(FieldType.PTS.ordinal());
+		field.add(FieldType.PTS.ordinal());
 //		field.add(FieldType.AST.ordinal());
 //		field.add(FieldType.BLK.ordinal());
 //		field.add(FieldType.STL.ordinal());
@@ -101,9 +116,9 @@ public class ComparePanel extends JPanel {
 		ImageIcon basic = null;
 		ImageIcon advance = null;
 		try {
-		radar = ServiceFactoryImpl.getInstance().getStatsService().getPlayerCompareRadar(name1, name2, "13-14", 1);
-		basic = ServiceFactoryImpl.getInstance().getStatsService().getPlayerAdvancedCompareBarChart(name1, name2, "Career", field, 1);
-		advance = ServiceFactoryImpl.getInstance().getStatsService().getPlayerBasicCompareBarChart(name1, name2, "Career", field, 1);
+		radar = ServiceFactoryImpl.getInstance().getStatsService().getPlayerCompareRadar(name1, name2, "Career", 1);
+		//advance = ServiceFactoryImpl.getInstance().getStatsService().getPlayerAdvancedCompareBarChart(name1, name2, "Career", field0, 1);
+		basic = ServiceFactoryImpl.getInstance().getStatsService().getPlayerBasicCompareBarChart(name1, name2, "Career", field, 1);
 		
 		
 		} catch (RemoteException e) {
@@ -111,7 +126,7 @@ public class ComparePanel extends JPanel {
 			e.printStackTrace();
 		}		
 		chart1.setImage(radar);
-		//chart2.setImage(basic);
+		chart2.setImage(basic);
 		//chart3.setImage(advance);
 
 		

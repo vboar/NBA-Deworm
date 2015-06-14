@@ -6,7 +6,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import service.impl.ServiceFactoryImpl;
@@ -50,6 +49,8 @@ public class TeamDetail extends JPanel{
 	private TeamInfoVO vo;
 	private TeamPerGameVO pergamevo;
 	private TeamTotalVO totalvo;
+	
+	public TeamMore teamMore;
 	
 	public TeamDetail(HomeUI frame,String abbr){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
@@ -144,7 +145,8 @@ public class TeamDetail extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				removeAll();
-				add(new TeamMore(frame,abbr));
+				teamMore = new TeamMore(frame,abbr);
+				add(teamMore);
 				updateUI();
 			}
 
