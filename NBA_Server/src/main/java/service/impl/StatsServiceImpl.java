@@ -73,10 +73,12 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			String season, int regular) throws RemoteException {
 		PlayerStatsPerGame pa = getPlayerPerGameFromList(pdao
 				.getPlayerPerGameBySeasonName(season, playerA, regular));
+		System.out.println("a");
 		PlayerStatsPerGame pb = getPlayerPerGameFromList(pdao
 				.getPlayerPerGameBySeasonName(season, playerB, regular));
-		if(pa==null||pb==null)
+		if(pa==null||pb==null){
 			return null;
+		}
 		String sa = playerA + ";" + season + ";" + regular + ";" + pa.getTrb()
 				+ ";" + pa.getAst() + ";" + pa.getStl() + ";" + pa.getBlk()
 				+ ";" + pa.getTov() + ";" + pa.getPf();
@@ -86,7 +88,6 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		List<String> slist = new ArrayList<String>();
 		slist.add(sa);
 		slist.add(sb);
-
 		// 将数据写入文件
 		String path = "stats/RadarCompare";
 		Utility.writeMulti(slist, path + ".txt");
@@ -140,8 +141,9 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 				.getPlayerPerGameBySeasonName(season, playerA, regular));
 		PlayerStatsPerGame pb = getPlayerPerGameFromList(pdao
 				.getPlayerPerGameBySeasonName(season, playerB, regular));
-		if(pa==null||pb==null)
+		if(pa==null||pb==null){
 			return null;
+		}
 		List<String> strs = new ArrayList<String>();
 		strs.add(playerA + ";" + playerB + ";" + season + ";" + regular);
 		String types = "";
@@ -1186,12 +1188,11 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			for (PlayerStatsPerGame po : list) {
 				if (po.getTeam().equals("TOT")) {
 					pp = po;
-					break;
+					return pp;
 				}
 			}
-		} else {
-			pp = list.get(0);
-		}
+		}	
+		pp = list.get(0);
 		return pp;
 	}
 
@@ -1210,12 +1211,11 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			for (PlayerStatsAdvanced po : list) {
 				if (po.getTeam().equals("TOT")) {
 					pa = po;
-					break;
+					return pa;
 				}
 			}
-		} else {
-			pa = list.get(0);
-		}
+		}	
+		pa = list.get(0);
 		return pa;
 	}
 

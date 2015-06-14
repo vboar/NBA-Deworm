@@ -181,6 +181,59 @@ public class MatchDaoImpl implements MatchDao {
 		return list;
 	}
 
+	public MatchPlayerBasic getMatchPlayerByGameIdNameAbbr(String gameid, String name, String abbr){
+		sqlManager.getConnection();
+		String sql = "SELECT * FROM match_player_basic WHERE game_id=? and player_name=? and team_abbr=? ";
+		Map<String,Object> map = sqlManager.querySimple(sql, new Object[]{gameid,name,abbr});
+		sqlManager.releaseAll();
+		return getMatchPlayerBasic(map);
+	}
+	
+	public List<MatchPlayerBasic> getGuestHomeTeamTotalBySeason(String season, boolean home){
+		List<MatchPlayerBasic> list = new ArrayList<MatchPlayerBasic>();
+		sqlManager.getConnection();
+		String sql = "SELECT DISTINCT "
+				+ "a.game_id, "
+				+ "player_name, "
+				+ "team_abbr, "
+				+ "starter, "
+				+ "minute, "
+				+ "fg, "
+				+ "fga, "
+				+ "fga_pct, "
+				+ "fg3, "
+				+ "fg3a, "
+				+ "fg3_pct, "
+				+ "ft, "
+				+ "fta, "
+				+ "ft_pct, "
+				+ "orb, "
+				+ "drb, "
+				+ "trb, "
+				+ "ast, "
+				+ "stl, "
+				+ "blk, "
+				+ "tov, "
+				+ "pf, "
+				+ "pts, "
+				+ "plus_minus "
+				+ "FROM match_player_basic as a, match_info as b "
+				+ "WHERE a.game_id = b.game_id "
+				+ "AND player_name='Team Totals' "
+				+ "AND b.season=? ";
+		if(home){
+			sql += "AND a.team_abbr = b.home_team ";
+		}else{
+			sql += "AND a.team_abbr = b.guest_team ";
+		}
+		List<Map<String,Object>> maplist = sqlManager.queryMulti(sql, new Object[]{season});
+		for(Map<String,Object> map: maplist){
+			list.add(getMatchPlayerBasic(map));
+		}
+		sqlManager.releaseAll();
+		return list;
+	}
+	
 	@Override
 	public List<MatchPlayerBasic> getMatchPlayerBasicByPlayerName(String name,
 			String season, String abbr, int regular) {

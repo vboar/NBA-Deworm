@@ -1,5 +1,6 @@
 package ui.match.stat;
 
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.rmi.RemoteException;
@@ -12,7 +13,6 @@ import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
-import ui.player.info.PlayerDetailPane;
 import ui.util.MyLabel;
 import ui.util.MyPressedLabel;
 import vo.MatchInfoVO;
