@@ -25,7 +25,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 	public static void main(String[] args) {
 		InferenceStatsServiceImpl is = new InferenceStatsServiceImpl();
 		//is.getTeamStepwise("14-15");
-		is.getTeamWins("14-15");
+		is.getTeamWins();
 	}
 	
 	public void getTeamStepwise(String season){
@@ -69,43 +69,50 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 		return str.substring(0,str.length()-1);
 	}
 
-	public void getTeamWins(String season){
-		List<MatchInfo> list = mdao.getRegularMatchInfoBySeason(season);
+	public void getTeamWins(){
+		String[] seasons = {"14-15", "13-14", "12-13", "10-11", "09-10", 
+							"08-09", "07-08", "06-07", "05-06", "04-05"};
 		String[] teams = {"ATL", "BOS", "NJN", "CHA", "CHI", "CLE",
-						  "DAL", "DEN", "DET", "GSW", "HOU", "IND",
-						  "LAC", "LAL", "MEM", "MIA", "MIL", "MIN",
-						  "NOH", "NYK", "OKC", "ORL", "PHI", "PHO",
-						  "POR", "SAC", "SAS", "TOR", "UTA", "WAS"};
-		int[] home_wins = new int[30];
-		int[] guest_wins = new int[30];
-		for(MatchInfo m:list){
-			String home = m.getHome_team();
-			String guest = m.getGuest_team();
-			if(m.getHome_point()>m.getGuest_point()){
-				for(int i=0; i<teams.length; ++i){
-					if(teams[i].equals(home)){
-						home_wins[i]++;
+				  "DAL", "DEN", "DET", "GSW", "HOU", "IND",
+				  "LAC", "LAL", "MEM", "MIA", "MIL", "MIN",
+				  "NOH", "NYK", "OKC", "ORL", "PHI", "PHO",
+				  "POR", "SAC", "SAS", "TOR", "UTA", "WAS"};
+		String home_Str="";
+		String guest_Str="";
+		for(int k=0; k<seasons.length;++k){
+			List<MatchInfo> list = mdao.getRegularMatchInfoBySeason(seasons[k]);
+			int[] home_wins = new int[30];
+			int[] guest_wins = new int[30];
+			for(MatchInfo m: list){
+				String home = m.getHome_team();
+				String guest = m.getGuest_team();
+				if(m.getHome_point()>m.getGuest_point()){
+					for(int i=0; i<teams.length; ++i){
+						if(teams[i].equals(home)){
+							home_wins[i]++;
+						}
 					}
-				}
-			}else{
-				for(int i=0; i<teams.length;++i){
-					if(teams[i].equals(guest)){
-						guest_wins[i]++;
+				}else{
+					for(int j=0; j<teams.length;++j){
+						if(teams[j].equals(guest)){
+							guest_wins[j]++;
+						}
 					}
 				}
 			}
+			int hsum=0;
+			int gsum=0;
+			for(int i=0; i<30; ++i){
+				home_Str += home_wins[i] + ";";
+				guest_Str += guest_wins[i] + ";";
+				hsum += home_wins[i];
+				gsum += guest_wins[i];
+			}
+			System.out.println(hsum + " " + gsum);
 		}
-		String home_Str="";
-		String guest_Str="";
-		int hsum=0;
-		int gsum=0;
-		for(int i=0; i<30; ++i){
-			home_Str += home_wins[i] + ";";
-			guest_Str += guest_wins[i] + ";";
-			hsum += home_wins[i];
-			gsum += guest_wins[i];
-		}
-		System.out.println(hsum + " " + gsum);
+
+		home_Str=home_Str.substring(0,home_Str.length()-1);
+		guest_Str = guest_Str.substring(0, guest_Str.length()-1);
 		List<String> s = new ArrayList<String>();
 		s.add(home_Str);
 		s.add(guest_Str);
