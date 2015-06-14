@@ -1,6 +1,7 @@
 package ui.team;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -146,19 +147,31 @@ public class TeamHot extends JPanel{
 		updateUI();
 	}
 	
+	private class ChangeThread2 implements Runnable {
+
+        @Override
+        public void run() {
+            makeChangePrep();
+        }
+    }
+	
 	private void initButtons(){
 		button = new MyButton(pcfg.getButtons().element("search"));
-		button.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				makeChangePrep();
-			}
-		});
-		
+		addButtonAction(button);
 		add(button);
 	}
 
+	private void addButtonAction(MyButton btn){
+		btn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new Thread(new ChangeThread2()).start();
+			}
+		});
+		
+	}
+	
 	private void makeChangePrep(){
 		int item = type.getSelectedIndex();
 		String seasonStr = season.getSelectedItem().toString();
@@ -182,6 +195,8 @@ public class TeamHot extends JPanel{
 	}
 	
 	private void changeData(){
+		hint = new MyLabel(pcfg.getLabels().element("hint"));
+		add(hint);
 		try {
 			location.setText(ServiceFactoryImpl.getInstance().getTeamService().
 					getTeamInfoByAbbr(hotlist.get(0).abbr).location);
@@ -206,6 +221,9 @@ public class TeamHot extends JPanel{
 			}
 			
 		}
+		hint.setText(season.getSelectedItem().toString()+ "   "+type.getSelectedItem().toString());
+		hint.setForeground(new Color(237,85,101));
+		hint.setFont(new Font("HELVETICA",1,35));
 		repaint();
 		
 	}
