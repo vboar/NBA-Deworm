@@ -28,11 +28,8 @@ public class LivePanel extends JPanel {
 	private PanelConfig pcfg;
 	private HomeUI frame;
 	private Image bg;
-	
 	private MyLabel score1;
 	private MyLabel score2;
-	private MyLabel team1;
-	private MyLabel team2;
 	private MyLabel img1;
 	private MyLabel img2;
     private MyLabel start;
@@ -110,18 +107,18 @@ public class LivePanel extends JPanel {
 
                 @Override
                 public void mouseEntered(MouseEvent arg0) {
-                    data.setText("<html><u>点击查看详细数据</u></html>");
+                    data.setText("<html><u>点击查看详细</u></html>");
 
                 }
 
                 @Override
                 public void mouseExited(MouseEvent arg0) {
-                    data.setText("点击查看详细数据");
+                    data.setText("点击查看详细");
                 }
 
             });
             data.setFont(new Font("微软雅黑", 0, 13));
-            data.setForeground(Color.BLUE);
+            data.setForeground(new Color(72,207,173));
             add(data);
         }
     }
@@ -139,35 +136,17 @@ public class LivePanel extends JPanel {
 		path1 = "img/team/final/" + ChiToEng(team1Str) + ".png";
 		path2 = "img/team/final/" + ChiToEng(team2Str) + ".png";
 		score1 = new MyLabel("0", pcfg.getLabels().element("score1"));
-		score1.setFont(new Font("Arial", 0, 38));
+		score1.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 38));
+        score1.setForeground(Color.WHITE);
 		add(score1);
 
 		score2 = new MyLabel("0", pcfg.getLabels().element("score2"));
-		score2.setFont(new Font("Arial", 0, 38));
+		score2.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 38));
+        score2.setForeground(Color.WHITE);
 		add(score2);
 
-		team1 = new MyLabel(team1Str, pcfg.getLabels().element("team1"));
-		team1.setFont(new Font("微软雅黑", 0, 22));
-        team1.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        team1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                frame.motherPanel.fillComponents(2);
-                frame.motherPanel.teamPanel.createTeamDetail(ChiToEng(team1Str));
-            }
-        });
-		add(team1);
-		team2 = new MyLabel(team2Str, pcfg.getLabels().element("team2"));
-		team2.setFont(new Font("微软雅黑", 0, 22));
-        team2.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        team2.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                frame.motherPanel.fillComponents(2);
-                frame.motherPanel.teamPanel.createTeamDetail(ChiToEng(team2Str));
-            }
-        });
-		add(team2);
+        fillScore(score1);
+        fillScore(score2);
 
 		img1 = new MyLabel(pcfg.getLabels().element("img1"), path1, 0);
         img1.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -191,24 +170,24 @@ public class LivePanel extends JPanel {
 		add(img2);
 
         start = new MyLabel("开赛：  " + info.date + " " + info.time, pcfg.getLabels().element("start"));
-        start.setFont(new Font("微软雅黑", 0, 14));
+        start.setFont(new Font("微软雅黑", 0, 13));
         add(start);
 
         totaltime = new MyLabel("耗时：  " + vo.time, pcfg.getLabels().element("totaltime"));
-        totaltime.setFont(new Font("微软雅黑", 0, 14));
+        totaltime.setFont(new Font("微软雅黑", 0, 13));
         add(totaltime);
 
         gym = new MyLabel("球馆：  " + vo.gym, pcfg.getLabels().element("gym"));
-        gym.setFont(new Font("微软雅黑", 0, 14));
+        gym.setFont(new Font("微软雅黑", 0, 13));
         add(gym);
 
         att = new MyLabel("观众：  " + vo.attendance, pcfg.getLabels().element("att"));
-        att.setFont(new Font("微软雅黑", 0, 14));
+        att.setFont(new Font("微软雅黑", 0, 13));
         add(att);
 
         rtime = new MyLabel(vo.residualTime, pcfg.getLabels().element("rtime"));
-        rtime.setFont(new Font("微软雅黑", 1, 14));
-        rtime.setForeground(Color.red);
+        rtime.setFont(new Font("微软雅黑", 1, 13));
+        rtime.setForeground(new Color(237,85,101));
         add(rtime);
 	}
 
@@ -236,6 +215,8 @@ public class LivePanel extends JPanel {
             score1.setText(vo.scoresA.get(vo.scoresA.size()-1));
             score2.setText(vo.scoresB.get(vo.scoresB.size()-1));
         }
+        fillScore(score1);
+        fillScore(score2);
         rtime.setText(vo.residualTime);
 
         messageTablePane.refresh(mList);
@@ -272,6 +253,16 @@ public class LivePanel extends JPanel {
 
     public void stopThread() {
         stop = true;
+    }
+
+    private void fillScore(JLabel score) {
+        if (score.getText().length() == 1) {
+            score.setLocation(111, score.getY());
+        } else if (score.getText().length() == 2) {
+            score.setLocation(100, score.getY());
+        } else {
+            score.setLocation(87, score.getY());
+        }
     }
 
 }
