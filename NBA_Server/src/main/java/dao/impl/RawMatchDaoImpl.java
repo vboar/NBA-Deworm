@@ -54,12 +54,12 @@ public class RawMatchDaoImpl implements RawMatchDao {
 	private Match getEntity(String season, String name, String path) {
 		Match match = new Match();
 		// 从比赛文件名中获得赛季、日期、对阵队伍名称信息
-		match.setGame_id(name);
 		match.setSeason(season);
 		match.setDate(name.substring(0, 4) + "-" + name.substring(4, 6) + "-"
 				+ name.substring(6, 8));
-		match.setHome_team(name.substring(9, 12));
-		match.setGuest_team(name.substring(13, 16));
+		match.setHome_team(checkTeamName(name.substring(9, 12)));
+		match.setGuest_team(checkTeamName(name.substring(13, 16)));
+		match.setGame_id(name.subSequence(0, 9)+match.getHome_team()+"-"+match.getGuest_team());
 
 		// 标志数据类型
 		int playerType = -1;
@@ -158,7 +158,7 @@ public class RawMatchDaoImpl implements RawMatchDao {
 		MatchPlayerBasic mpb = new MatchPlayerBasic();
 		String[] data = str.split(";", -1);
 		mpb.setGame_id(game);
-		mpb.setTeam_abbr(team);
+		mpb.setTeam_abbr(checkTeamName(team));
 		mpb.setPlayer_name(data[0]);
 		// Team Total球队总数据，Starter首发球员，Reserve是非首发上场，DidNotPlayer冷板凳
 		if (data[0].equals("Team Totals")) {
@@ -202,7 +202,7 @@ public class RawMatchDaoImpl implements RawMatchDao {
 		MatchPlayerAdvanced mpa = new MatchPlayerAdvanced();
 		String[] data = str.split(";", -1);
 		mpa.setGame_id(game);
-		mpa.setTeam_abbr(team);
+		mpa.setTeam_abbr(checkTeamName(team));
 		mpa.setPlayer_name(data[0]);
 		if (data[0].equals("Team Totals")) {
 			mpa.setStarter("Team Totals");
@@ -230,6 +230,20 @@ public class RawMatchDaoImpl implements RawMatchDao {
 		mpa.setDef_rtg(Utility.stringToDouble(data[15]));
 		return mpa;
 
+	}
+	
+	private String checkTeamName(String name){
+		switch(name){
+		case "BRK": return "NJN"; 
+		case "CHO":
+		case "CHH": return "CHA";
+		case "VAN": return "MEM";
+		case "NOK":
+		case "NOP": return "NOH";
+		case "SEA": return "OKC";
+		default:
+			return name;
+		}
 	}
 
 }
