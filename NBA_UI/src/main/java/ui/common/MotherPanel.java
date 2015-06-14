@@ -106,10 +106,20 @@ public class MotherPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (panel == 3) {
-                    if (matchnav.show == 1) {
+                	if (matchnav.show == 1) {
+                		if(matchPanel.liveChoosePane.isVisible()==false){
                         matchPanel.liveChoosePane.setVisible(true);
                         matchPanel.liveChoosePane.removeLivePanel();
-                    }
+                        }else{
+                       	frame.motherPanel.setVisible(false);
+                       	frame.home.setVisible(true);
+                }
+                		}
+                 
+                  if(matchnav.show == 0){
+                		frame.motherPanel.setVisible(false);
+                       	frame.home.setVisible(true);
+                  }
                 }
             }
         });

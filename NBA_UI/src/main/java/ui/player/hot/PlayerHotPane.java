@@ -131,10 +131,11 @@ public class PlayerHotPane extends JPanel {
 	private void initBoxes(){
 		type = new MyComboBox(pcfg.getComboboxes().element("type"));
 		add(type);
+		type.updateUI();
 		
 		season = new MyComboBox(pcfg.getComboboxes().element("season"));
 		add(season);
-		
+		season.updateUI();
 	
 	}
 	
@@ -213,7 +214,9 @@ public class PlayerHotPane extends JPanel {
 			}
 			
 		}
-		hint.setText(season.getSelectedItem().toString()+ " / "+type.getSelectedItem().toString());
+		hint.setText(season.getSelectedItem().toString()+ "   "+type.getSelectedItem().toString());
+		hint.setForeground(new Color(237,85,101));
+		hint.setFont(new Font("HELVETICA",1,35));
 		repaint();
 		
 	}

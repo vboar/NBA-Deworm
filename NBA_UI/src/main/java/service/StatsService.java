@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
  * 统计服务接口 Created by Vboar on 2015/6/11.
  */
 public interface StatsService extends Remote {
+
 	/**
 	 * 获得指定球员的某个赛季的常规赛/季后赛的雷达图
 	 * 
@@ -124,6 +125,14 @@ public interface StatsService extends Remote {
 	public ImageIcon getTeamCompareRadar(String teamA, String teamB, String season) throws RemoteException;
 	
 	/**
+	 * 获得某场比赛的球队六项雷达图
+	 * @param gameid
+	 * @return
+	 * @throws RemoteException
+	 */
+	public ImageIcon getTeamCompareRadarByGameId(String gameid) throws RemoteException;
+	
+	/**
 	 * 某球队某数据属性历史折线图
 	 * @param team 球队缩写
 	 * @param field 数据属性
@@ -141,7 +150,7 @@ public interface StatsService extends Remote {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public ImageIcon getTeamBasicCompareBarChar(String teamA, String teamB, String season, List<Integer> field) throws RemoteException;
+	public ImageIcon getTeamBasicCompareBarChart(String teamA, String teamB, String season, List<Integer> field) throws RemoteException;
 
 	/**
 	 * 获得两只球队某赛季高阶属性对比直方图
@@ -195,4 +204,5 @@ public interface StatsService extends Remote {
 	 * @throws RemoteException
 	 */
 	public ImageIcon getPlayerContribution(String abbr, String season) throws RemoteException;
+	
 }

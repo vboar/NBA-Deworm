@@ -125,6 +125,14 @@ public interface StatsService extends Remote {
 	public ImageIcon getTeamCompareRadar(String teamA, String teamB, String season) throws RemoteException;
 	
 	/**
+	 * 获得某场比赛的球队六项雷达图
+	 * @param gameid
+	 * @return
+	 * @throws RemoteException
+	 */
+	public ImageIcon getTeamCompareRadarByGameId(String gameid) throws RemoteException;
+	
+	/**
 	 * 某球队某数据属性历史折线图
 	 * @param team 球队缩写
 	 * @param field 数据属性
