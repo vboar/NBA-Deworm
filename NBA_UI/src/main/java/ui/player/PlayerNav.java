@@ -205,6 +205,9 @@ public class PlayerNav extends JPanel{
 			
 				//更改playerpanel内容
 				hintAll();
+				frame.motherPanel.playerPanel.compareChoosePanel.setVisible(true);
+				
+				
 			}
 
 			@Override
@@ -241,6 +244,8 @@ public class PlayerNav extends JPanel{
 	
 	
 	public void hintAll(){
+		frame.motherPanel.playerPanel.comparePanel.setVisible(false);
+		frame.motherPanel.playerPanel.compareChoosePanel.setVisible(false);
 		frame.motherPanel.playerPanel.fourTablePane.setVisible(false);
 		frame.motherPanel.playerPanel.playerInfoPane.setVisible(false);
 		frame.motherPanel.playerPanel.indexpanel.setVisible(false);

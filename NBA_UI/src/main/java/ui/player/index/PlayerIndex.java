@@ -245,9 +245,11 @@ public class PlayerIndex extends JPanel {
 				ArrayList<String> list2 = new ArrayList<String>();
 				for (String s : allList) {
 					if(s.equals(keyword)){
+						
 						frame.motherPanel.playerPanel.indexpanel.setVisible(false);
 						frame.motherPanel.playerPanel.playerInfoPane.changeData(s);
 						frame.motherPanel.playerPanel.playerInfoPane.setVisible(true);
+						
 						break;
 					}
 					if (s.contains(keyword))

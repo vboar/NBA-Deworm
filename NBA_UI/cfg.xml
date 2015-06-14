@@ -1102,27 +1102,8 @@
 				<string str="AST"/>
 				<string str="BLK"/>
 				<string str="STL"/>
-				<string str="TOV"/>
-				<string str="PF"/>
-				<string str="FG3_PCT"/>
-				<string str="FGA_PCT"/>
 				<string str="PER"/>
-				<string str="TS_PCT"/>
-				<string str="STL_PCT"/>
-				<string str="BLK_PCT"/>
-				<string str="AST_PCT"/>
-				<string str="TOV_PCT"/>
-				<string str="USG_PCT"/>
-				<string str="TRB_PCT"/>
-				<string str="ORB_PCT"/>
-				<string str="DRB_PCT"/>
-				<string str="OFF_RTG"/>
-				<string str="DEF_RTG"/>
-				<string str="OFF_EFG_PCT"/>
-				<string str="OFF_TOV_PCT"/>
-				<string str="SOS"/>
-				<string str="SRS"/>
-				<string str="MOV"/>
+				
 				</type>
 			
 			</comboboxes>
@@ -1300,7 +1281,7 @@
 			<chart1 text="hh" w="400" h="300" x="250" y="0" />	
 			<chart2 text="hh" w="400" h="300" x="550" y="0" />	
 			
-			<findmore text="查看更多信息" w="1030" h="60" x="500" y="300" />
+			<findmore text="查看更多信息" w="1030" h="60" x="800" y="450" />
 			</labels>
 			
 			 <tables>
@@ -1320,8 +1301,132 @@
 			
 		</panel>
 		<panel className="ui.player.compare.CompareChoosePanel" width="940" height="511"
-			x="0" y="0">
+			x="0" y="0" bg="img/player/comparechoose.png">
+			<labels>
+			<img  w="195" h="150" x="350" y="65" />
+			
+			<numhint text="号码：" w="1030" h="60" x="580" y="55" />
+			<positionhint text="位置:" w="1030" h="60" x="580" y="85" />	
+			<bornhint text="生日:" w="1030" h="60" x="580" y="115" />	
+			<debuthint text="首秀:" w="1030" h="60" x="580" y="145" />
+			<heighthint text="身高:" w="1030" h="60" x="580" y="175" />	
+			<weighthint text="体重:" w="1030" h="60" x="760" y="55" />	
+			<hometownhint text="出生地:" w="1030" h="60" x="760" y="85" />
+			<highschoolhint text="高中:" w="1030" h="60" x="760" y="115" />	
+			<collegehint text="大学:" w="1030" h="60" x="760" y="145" />					
+			<exphint text="球龄:" w="1030" h="60" x="760" y="175" />					
+			
+			<num text="hh" w="1030" h="60" x="620" y="55" />
+			<position text="hh" w="1030" h="60" x="620" y="85" />	
+			<born text="hh" w="1030" h="60" x="620" y="115" />	
+			<debut text="hh" w="1030" h="60" x="620" y="145" />				
+			<height text="hh" w="1030" h="60" x="620" y="175" />	
+			<weight text="hh" w="1030" h="60" x="810" y="55" />	
+			<hometown text="hh" w="1030" h="60" x="810" y="85" />	
+			<highschool text="hh" w="1030" h="60" x="810" y="115" />	
+			<college text="hh" w="1030" h="60" x="810" y="145" />	
+			<exp text="hh" w="1030" h="60" x="810" y="175" />	
+						
+			<name text="Lerborn James" w="1030" h="60" x="480" y="0" font="微软雅黑"
+					fontsize="20"  />
+			<team text="Knight" w="1030" h="60" x="25" y="190" font="微软雅黑"
+					fontsize="20"  />
+					
+			<img2  w="195" h="150" x="350" y="310" />
+					
+			<numhint2 text="号码：" w="1030" h="60" x="580" y="300" />
+			<positionhint2 text="位置:" w="1030" h="60" x="580" y="330" />	
+			<bornhint2 text="生日:" w="1030" h="60" x="580" y="360" />	
+			<debuthint2 text="首秀:" w="1030" h="60" x="580" y="390" />
+			<heighthint2 text="身高:" w="1030" h="60" x="580" y="420" />	
+			<weighthint2 text="体重:" w="1030" h="60" x="760" y="300" />	
+			<hometownhint2 text="出生地:" w="1030" h="60" x="760" y="330" />
+			<highschoolhint2 text="高中:" w="1030" h="60" x="760" y="360" />	
+			<collegehint2 text="大学:" w="1030" h="60" x="760" y="390" />					
+			<exphint2 text="球龄:" w="1030" h="60" x="760" y="420" />					
+			
+			<num2 text="hh" w="1030" h="60" x="620" y="300" />
+			<position2 text="hh" w="1030" h="60" x="620" y="330" />	
+			<born2 text="hh" w="1030" h="60" x="620" y="360" />	
+			<debut2 text="hh" w="1030" h="60" x="620" y="390" />				
+			<height2 text="hh" w="1030" h="60" x="620" y="420" />	
+			<weight2 text="hh" w="1030" h="60" x="810" y="300" />	
+			<hometown2 text="hh" w="1030" h="60" x="810" y="330" />	
+			<highschool2 text="hh" w="1030" h="60" x="810" y="360" />	
+			<college2 text="hh" w="1030" h="60" x="810" y="390" />	
+			<exp2 text="hh" w="1030" h="60" x="810" y="420" />	
+						
+			<name2 text="Lerborn James" w="1030" h="60" x="480" y="245" font="微软雅黑"
+					fontsize="20"  />
+			<team2 text="Knight" w="1030" h="60" x="25" y="190" font="微软雅黑"
+					fontsize="20"  />
+			</labels>
+			
+			<buttons>
+			<btn1 text="btn1" w="30" h="30" x="238" y="280" path="img/player/compare/compare.jpg" />	
+			<btn2 text="btn2" w="30" h="30" x="238" y="330" path="img/player/compare/compare.jpg"/>	
+			<search text="Search" w="142" h="43" x="88" y="397" path="img/player/compare/compbtn.png"/>
+			
+			</buttons>
+			
+			<textfields>
+			<field1 w="180" h="30" x="58" y="280" />
+			<field2 w="180" h="30" x="58" y="330" />
+			</textfields>
 		</panel>
 		
+		
+		<panel className="ui.player.compare.ComparePanel" width="940" height="511"
+			x="0" y="0" bg="img/player/compare.png">
+			<labels>
+			<name1 text="hh" w="1030" h="60" x="0" y="0" />	
+			<name2 text="hh" w="1030" h="60" x="200" y="0" />	
+			<chart1 text="hh" w="400" h="300" x="30" y="60" />	
+			<chart2 text="hh" w="200" h="150" x="690" y="100" />	
+			<chart3 text="hh" w="200" h="150" x="810" y="330" />
+			</labels>
+		</panel>
+		
+		
+        <panel className="ui.match.stat.MatchDetail" width="940" height="511"
+               x="0" y="0">
+               <labels>
+              <info text="姓名" w="1300" h="60" x="50" y="10"  font="微软雅黑"
+					fontsize="15"  />
+              
+              <basic text="Home Team Basic Data" w="230" h="80" x="10" y="70" font="微软雅黑"
+					fontsize="15"  />
+              <advanced text="Home Team Advanced Data" w="230" h="80" x="240" y="70" font="微软雅黑"
+					fontsize="15"  />
+              <basic2 text="Guest Team Basic Data" w="230" h="80" x="470" y="70" font="微软雅黑"
+					fontsize="15"  />
+              <advanced2 text="Guest Team Advanced Data" w="230" h="80" x="700" y="70" font="微软雅黑"
+					fontsize="15"  />
+               
+               </labels>
+               <tablepane className="ui.match.stat.MatchPlayerTabel" width="940"
+				height="340" x="0" y="166">
+				<columnnames>
+					<columnname name="SEASON" />
+					<columnname name="TEAM" />
+					<columnname name="G" />
+					<columnname name="GS" />
+					<columnname name="MIN" />
+					<columnname name="FG" />					
+					<columnname name="FGA%" />
+					<columnname name="FG3" />					
+					<columnname name="FG3%" />
+					<columnname name="FG2" />					
+					<columnname name="FG2%" />
+					<columnname name="EFG%" />
+					<columnname name="FT" />
+					<columnname name="FT%" />
+					<columnname name="TRB" />
+					<columnname name="AST" />
+					<columnname name="STL" />
+					<columnname name="BLK" />
+				</columnnames>
+			</tablepane>
+        </panel>
 	</homeframe>
 </nba>
