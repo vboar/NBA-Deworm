@@ -32,8 +32,8 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 	
 	public static void main(String[] args) {
 		InferenceStatsServiceImpl is = new InferenceStatsServiceImpl();
-		is.getTeamStepwiseToTxt("14-15");
-		is.getTeamWinsToTxt("13-14");
+		is.getTeamStepwiseToTxt("12-13");
+		is.getTeamWinsToTxt("12-13");
 	}
 	
 	@Override
