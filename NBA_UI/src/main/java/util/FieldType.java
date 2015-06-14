@@ -70,24 +70,4 @@ public enum FieldType {
     	return super.toString().toLowerCase();
     }
     
-    private static FieldType[] types = {
-     PTS,TRB, ORB, DRB, AST, BLK, STL, TOV, PF, FG3_PCT, FGA_PCT, FT_PCT,
-	 PER, TS_PCT, STL_PCT, BLK_PCT, AST_PCT, TOV_PCT, USG_PCT, TRB_PCT,
-	 ORB_PCT, DRB_PCT, OFF_RTG, DEF_RTG, OFF_EFG_PCT, OFF_TOV_PCT, OPP_EFG_PCT,
-	 OPP_TOV_PCT, SOS, SRS, MOV
-    };
-    
-    public static int typeToInt(FieldType type){
-    	for(int i=0; i<types.length; ++i){
-    		if(types[i].equals(type))
-    			return i;
-    	}
-    	return -1;
-    }
-    
-    public static FieldType intToType(int i){
-    	if(i<0||i>=types.length)
-    		return null;
-    	return types[i];
-    }
 }

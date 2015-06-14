@@ -485,10 +485,86 @@
 			</panel>
 			
 			<panel className="ui.team.TeamHot" width="940" height="511"
-			x="37" y="148" bg="img/team/hot/hotbg.png">
+			x="0" y="0" bg="img/team/hot/hotbg.png">
+			<labels>
+			<team0 w="200" h="30" x="90" y="120" />
+			<location w="200" h="30" x="105" y="330"/>
+			<league w="30" h="30" x="105" y="360"/>
+			<division w="100" h="30" x="105" y="390"/>
+			<data0 text="数据1" w="100" h="30" x="200" y="190" />
+			<teamImg0 text="球员照片1" w="120" h="120" x="70" y="160" />
 			
+			<team1 text="姓名2" w="200" h="30" x="580" y="100" />
+			<data1 text="数据2" w="100" h="30" x="785" y="110" />
+			<teamImg1 text="球员图2" w="80" h="80" x="470" y="90" />
+			
+			<team2 text="姓名" w="200" h="30" x="580" y="205" />
+			<data2 text="姓名" w="100" h="30" x="785" y="215" />
+			<teamImg2 text="姓名" w="80" h="80" x="470" y="195" />
+			
+			<team3 text="姓名" w="200" h="30" x="580" y="315" />
+			<data3 text="姓名" w="100" h="30" x="785" y="315" />
+			<teamImg3 text="姓名" w="80" h="80" x="470" y="300" />
+			
+			<team4 text="姓名" w="200" h="30" x="580" y="420" />
+			<data4 text="姓名" w="100" h="30" x="785" y="430" />
+			<teamImg4 text="姓名" w="80" h="80" x="470" y="400" />
+			</labels>
+			
+			<comboboxes>
+			<season w="110" h="25" x="410" y="25">
+					<string str="14-15" />
+					<string str="13-14" />
+					<string str="12-13" />
+					<string str="11-12" />
+					<string str="10-11" />
+					<string str="09-10" />
+					<string str="08-09" />
+					<string str="07-08" />
+					<string str="06-07" />
+					<string str="05-06" />
+					<string str="04-05" />
+					<string str="03-04" />
+					<string str="02-03" />
+					<string str="01-02" />
+					<string str="00-01" />
+				</season>
+				
+				<type w="110" h="25" x="550" y="25">
+				
+				<string str="PTS"/>
+				<string str="TRB"/>
+				<string str="ORB"/>
+				<string str="DRB"/>
+				<string str="AST"/>
+				<string str="BLK"/>
+				<string str="STL"/>
+				<string str="FG3_PCT"/>
+				<string str="FGA_PCT"/>
+				<string str="PER"/>
+				<string str="TS_PCT"/>
+				<string str="STL_PCT"/>
+				<string str="BLK_PCT"/>
+				<string str="AST_PCT"/>
+				<string str="USG_PCT"/>
+				<string str="TRB_PCT"/>
+				<string str="ORB_PCT"/>
+				<string str="DRB_PCT"/>
+				<string str="OFF_RTG"/>
+				<string str="DEF_RTG"/>
+				<string str="OFF_EFG_PCT"/>
+				<string str="SOS"/>
+				<string str="SRS"/>
+				<string str="MOV"/>
+				</type>
+			
+			</comboboxes>
+			<buttons>
+			<search text="SEARCH" w="110" h="25" x="765" y="25"/>
+			
+			</buttons>
 			</panel>
-			
+
 			<panel className="ui.match.MatchPanel" width="940" height="511"
 			x="37" y="148">
 			
@@ -959,6 +1035,7 @@
 		<panel className="ui.player.hot.PlayerHotPane" width="940" height="511"
 			x="0" y="0" bg="img/player/hot/hotbg.png">
 			<labels>
+			<hint w="200" h="30" x="60" y="20" />
 			<name0 text="姓名1" w="200" h="30" x="130" y="80" />
 			<position0 text="位置1" w="200" h="60" x="70" y="310" />
 			<team0 text="球队1" w="200" h="30" x="70" y="370" />

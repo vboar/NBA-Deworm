@@ -85,7 +85,7 @@ public class PlayerServiceTest extends TestCase {
 	public void testGetAllPlayerInfo() {
 		try {
 			List<PlayerInfoVO> list = ps.getAllPlayerInfo();
-			assertEquals(1465,list.size());
+			assertEquals(1474,list.size());
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -102,10 +102,10 @@ public class PlayerServiceTest extends TestCase {
 
 	public void testGetPlayerTotalByName() {
 		try {
-			List<PlayerTotalVO> list = ps.getPlayerTotalByName("Aaron Brooks",1);
-            System.out.println(list.size());
+			List<PlayerTotalVO> list = ps.getPlayerTotalByName("A.J. Guyton",1);
+            System.out.println("total: "+list.size());
 			for(PlayerTotalVO pst: list){
-				assertEquals("Aaron Brooks", pst.name);
+				assertEquals("A.J. Guyton", pst.name);
 				System.out.println(pst.season + " " + pst.team);
 			}
 		} catch (RemoteException e) {
@@ -115,9 +115,9 @@ public class PlayerServiceTest extends TestCase {
 
 	public void testGetPlayerPerGameByName() {
 		try {
-			List<PlayerPerGameVO> list = ps.getPlayerPerGameByName("Kevin Durant",1);
+			List<PlayerPerGameVO> list = ps.getPlayerPerGameByName("A.J. Guyton",1);
 			for(PlayerPerGameVO pst: list){
-				assertEquals("Kevin Durant", pst.name);
+				assertEquals("A.J. Guyton", pst.name);
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -211,7 +211,7 @@ public class PlayerServiceTest extends TestCase {
 	public void testGetPlayerPerGameByFilter() {
 		try {
 			PlayerFilter pf = new PlayerFilter();
-//			pf.position = "PF";
+			pf.position = "PF";
 //			pf.league = "Atlantic";
 			pf.season = "Career";
 //			pf.height = ">6-7";
@@ -272,10 +272,10 @@ public class PlayerServiceTest extends TestCase {
 
 	public void testGetSeasonHotPlayer() {
 		try {
-			List<HotPlayerInfoVO> list = ps.getSeasonHotPlayer("13-14", FieldType.typeToInt(FieldType.AST),5);
+			List<HotPlayerInfoVO> list = ps.getSeasonHotPlayer("13-14", FieldType.PTS.ordinal(),5);
 			for(HotPlayerInfoVO info : list){
 				assertEquals("13-14", info.season);
-				assertEquals(FieldType.AST, info.field);
+				assertEquals(FieldType.TS_PCT, info.field);
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();

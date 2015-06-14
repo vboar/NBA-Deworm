@@ -225,7 +225,7 @@ public class TeamServiceImpl extends UnicastRemoteObject implements TeamService 
 	@Override
 	public List<HotTeamInfoVO> getSeasonHotTeam(String season, int fieldNum, int number)
 			throws RemoteException {
-		FieldType field = FieldType.intToType(fieldNum);
+		FieldType field = FieldType.values()[fieldNum];
 		List<HotTeamInfo> list = tdao.getSeasonHotTeam(season, field, number);
 		List<HotTeamInfoVO> volist = new ArrayList<HotTeamInfoVO>();
 		for(HotTeamInfo info : list){

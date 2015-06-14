@@ -213,12 +213,16 @@ public class PlayerDaoImpl implements PlayerDao {
 				+ "blk, "
 				+ "tov, "
 				+ "pf, "
-				+ "pts "
-				+ "FROM player_total as pt, player_info as pi, team_info as ti "
-				+ "WHERE pt.player_name = pi.player_name "
-				+ "AND pt.team_abbr = ti.abbr ";
+				+ "pts ";
 		List<Object> objects = new ArrayList<Object>();
-		//TODO career
+		if(filter.season.equals("Career")){
+			sql += "FROM player_total as pt WHERE season=? ";
+			objects.add(filter.season);
+		}else{
+			sql += "FROM player_total as pt, player_info as pi, team_info as ti "
+					+ "WHERE pt.player_name = pi.player_name "
+					+ "AND pt.team_abbr = ti.abbr ";
+		} 
 		if (filter.season != null) {
 			sql += " AND pt.season=? ";
 			objects.add(filter.season);
@@ -499,12 +503,16 @@ public class PlayerDaoImpl implements PlayerDao {
 				+ "obpm, "
 				+ "dbpm, "
 				+ "bpm, "
-				+ "vorp "
-				+ " FROM player_advanced as pa, player_info as pi, team_info as ti "
-				+ "WHERE pa.player_name = pi.player_name "
-				+ "AND pa.team_abbr = ti.abbr ";
+				+ "vorp ";
 		List<Object> objects = new ArrayList<Object>();
-		//TODO career
+		if(filter.season.equals("Career")){
+			sql += "FROM player_advanced as pg WHERE season=? ";
+			objects.add(filter.season);
+		}else{
+			sql += "FROM player_advanced as pa, player_info as pi, team_info as ti "
+			+ "WHERE pa.player_name = pi.player_name "
+			+ "AND pa.team_abbr = ti.abbr ";
+		}
 		if (filter.season != null) {
 			sql += " AND pa.season=? ";
 			objects.add(filter.season);
@@ -643,12 +651,14 @@ public class PlayerDaoImpl implements PlayerDao {
 	@Override
 	public List<HotPlayerInfo> getHotPlayerBySeason(String season, FieldType field, int num) {
 		List<HotPlayerInfo> list = new ArrayList<HotPlayerInfo>();
-		if (!isFieldValid(field))
-			return list;
 		sqlManager.getConnection();
 		String sql = "SELECT player_name, team_abbr, season, position,"
-				+ field.toString()
-				+ " FROM player_per_game WHERE season=? AND is_normal=1 "
+				+ field.toString();
+		if(FieldType.isFieldAdvanced(field))
+			sql += " FROM player_advanced ";
+		else 
+			sql += " FROM player_per_game ";
+		sql += "WHERE season=? AND is_normal=1 "
 				+ " ORDER BY " + field.toString() + " DESC LIMIT 0,"+num;
 		List<Object> objects = new ArrayList<Object>();
 		objects.add(season);
@@ -1093,18 +1103,6 @@ public class PlayerDaoImpl implements PlayerDao {
 		info.setField(field);
 		info.setValue(map.get(field.toString()).toString());
 		return info;
-	}
-
-	private boolean isFieldValid(FieldType field) {
-		switch (field) {
-		case DEF_RTG:
-		case OFF_RTG:
-		case DRB_PCT:
-		case ORB_PCT:
-			return false;
-		default:
-			return true;
-		}
 	}
 
 }
