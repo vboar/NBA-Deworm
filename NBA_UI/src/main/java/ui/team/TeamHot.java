@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +61,7 @@ public class TeamHot extends JPanel{
 		// 初始化组件
 		this.initComponent();
 		makeChangePrep();
-		this.updateUI();
+		this.repaint();
 	}
 	
 	public void paintComponent(Graphics g){
@@ -94,7 +96,9 @@ public class TeamHot extends JPanel{
 			}else{
 				teams[i].setFont(LoadFont.loadFont("XIHEI.TTF",0,16));
 			}
+			//addListener(teams[i]);
 			add(teams[i]);
+			
 			datas[i] = new MyLabel(pcfg.getLabels().element("data"+i));
 			datas[i].setForeground(new Color(83,83,83));
 			if(i==0)
@@ -108,6 +112,30 @@ public class TeamHot extends JPanel{
 		}
 	}
 	
+	private void addListener(MyLabel lb) {
+			lb.addMouseListener(new MouseAdapter(){
+				String s = lb.getText();
+				
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					// TODO 自动生成的方法存根
+					
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					lb.setText("<html><u>"+s+"</u></html>");
+				}
+
+				@Override
+				public void mouseExited(MouseEvent arg0) {
+					lb.setText(s);
+					
+				}
+
+			});		
+	}
+
 	private void initBoxes(){
 		type = new MyComboBox(pcfg.getComboboxes().element("type"));
 		add(type);
@@ -115,6 +143,7 @@ public class TeamHot extends JPanel{
 		season = new MyComboBox(pcfg.getComboboxes().element("season"));
 		add(season);
 
+		updateUI();
 	}
 	
 	private void initButtons(){
@@ -130,13 +159,6 @@ public class TeamHot extends JPanel{
 		add(button);
 	}
 
-	  private class ChangeThread implements Runnable {
-
-	        @Override
-	        public void run() {
-	            makeChangePrep();
-	        }
-	    }
 	private void makeChangePrep(){
 		int item = type.getSelectedIndex();
 		String seasonStr = season.getSelectedItem().toString();
