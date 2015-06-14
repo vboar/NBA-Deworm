@@ -105,20 +105,17 @@ public class MatchFilter extends JPanel {
 						ee.printStackTrace();
 					}
 
-					Object[][] data = new Object[list.size()][8];
-					for (int i = 0; i < list.size(); i++) {
-						data[i][0] = list.get(i).game_id;
-						data[i][1] = list.get(i).date;
-						data[i][2] = list.get(i).location;
-						data[i][3] = list.get(i).home_team;
-						data[i][4] = list.get(i).home_point;
-						data[i][5] = list.get(i).guest_team;
-						data[i][6] = list.get(i).guest_point;
-						data[i][7] = list.get(i).time;
-					
-
-					}
-					frame.motherPanel.matchPanel.matchStat.table.setData(data);
+					Object[][] data2 = new Object[list.size()][8];
+					for(int i=0;i<list.size();i++){			
+						data2[i][0] =list.get(i).game_id;
+						data2[i][1] = list.get(i).date;				
+						data2[i][2] = list.get(i).home_team;
+						data2[i][3] = list.get(i).guest_team;				
+						data2[i][4] = list.get(i).home_point+"-"+list.get(i).guest_point;
+						data2[i][5] =list.get(i).time;
+						data2[i][6] = list.get(i).location;
+				}
+					frame.motherPanel.matchPanel.matchStat.table.setData(data2);
 					frame.motherPanel.matchPanel.matchStat.table.updateWidth();
 					
 					

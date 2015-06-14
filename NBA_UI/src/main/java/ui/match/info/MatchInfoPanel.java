@@ -29,7 +29,7 @@ public class MatchInfoPanel extends JPanel {
 	private MyLabel season;
 	private MyLabel date;
 	private MyLabel type;
-	private MyLabel location;
+	
 	private MyLabel home_team;
 	private MyLabel home_point;
 	private MyLabel guest_team;
@@ -39,12 +39,14 @@ public class MatchInfoPanel extends JPanel {
 	private MyLabel seasonHint;
 	private MyLabel dateHint;
 	private MyLabel typeHint;
-	private MyLabel locationHint;
+	
 	private MyLabel home_teamHint;
 	private MyLabel home_pointHint;
 	private MyLabel guest_teamHint;
 	private MyLabel guest_pointHint;
 	private MyLabel timeHint;
+	
+	
 
 	private ScoreTablePane score;
 
@@ -79,8 +81,7 @@ public class MatchInfoPanel extends JPanel {
 		type = new MyLabel(pcfg.getLabels().element("type"));
 		add(type);
 		
-		location = new MyLabel(pcfg.getLabels().element("location"));
-		add(location);
+		
 		
 		home_team = new MyLabel(pcfg.getLabels().element("hometeam"));
 		add(home_team);
@@ -105,9 +106,6 @@ public class MatchInfoPanel extends JPanel {
 		
 		typeHint = new MyLabel(pcfg.getLabels().element("typehint"));
 		add(typeHint);
-		
-		locationHint = new MyLabel(pcfg.getLabels().element("locationhint"));
-		add(locationHint);
 		
 		home_teamHint = new MyLabel(pcfg.getLabels().element("hometeamhint"));
 		add(home_teamHint);
@@ -195,7 +193,6 @@ public class MatchInfoPanel extends JPanel {
 		season.setText(vo.season);
 		date.setText(vo.date);
 		type.setText(vo.is_normal?"Regular Season":"Post Season");
-		location.setText(vo.location);
 		home_team.setText(vo.home_team);
 		home_point.setText(vo.home_point+"");
 		guest_team.setText(vo.guest_team);

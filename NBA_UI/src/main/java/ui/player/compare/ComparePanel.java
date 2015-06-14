@@ -117,8 +117,8 @@ public class ComparePanel extends JPanel {
 		ImageIcon advance = null;
 		try {
 		radar = ServiceFactoryImpl.getInstance().getStatsService().getPlayerCompareRadar(name1, name2, "Career", 1);
-		//advance = ServiceFactoryImpl.getInstance().getStatsService().getPlayerAdvancedCompareBarChart(name1, name2, "Career", field0, 1);
 		basic = ServiceFactoryImpl.getInstance().getStatsService().getPlayerBasicCompareBarChart(name1, name2, "Career", field, 1);
+		advance = ServiceFactoryImpl.getInstance().getStatsService().getPlayerAdvancedCompareBarChart(name1, name2, "Career", field0, 1);
 		
 		
 		} catch (RemoteException e) {
@@ -127,7 +127,7 @@ public class ComparePanel extends JPanel {
 		}		
 		chart1.setImage(radar);
 		chart2.setImage(basic);
-		//chart3.setImage(advance);
+		chart3.setImage(advance);
 
 		
 	}

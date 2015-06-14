@@ -77,16 +77,15 @@ public class MatchStat extends JPanel{
 			e.printStackTrace();
 		}
 		
-		Object[][] data2 = new Object[volist.size()][8];
+		Object[][] data2 = new Object[volist.size()][7];
 		for(int i=0;i<volist.size();i++){			
 				data2[i][0] =volist.get(i).game_id;
-				data2[i][1] = volist.get(i).date;
-				data2[i][2] = volist.get(i).location;
-				data2[i][3] = volist.get(i).home_team;
-				data2[i][4] = volist.get(i).home_point;
-				data2[i][5] = volist.get(i).guest_team;				
-				data2[i][6] = volist.get(i).guest_point;
-				data2[i][7] =volist.get(i).time;
+				data2[i][1] = volist.get(i).date;				
+				data2[i][2] = volist.get(i).home_team;
+				data2[i][3] = volist.get(i).guest_team;				
+				data2[i][4] = volist.get(i).home_point+"-"+volist.get(i).guest_point;
+				data2[i][5] =volist.get(i).time;
+				data2[i][6] = volist.get(i).location;
 		}
 			table = new MatchAllTablePane(new TableConfig(pcfg.getTablepane()), data2,frame);
 			add(table);
