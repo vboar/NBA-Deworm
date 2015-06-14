@@ -1,5 +1,7 @@
 package ui.match.stat;
 
-public class MatchDetail {
+import javax.swing.JPanel;
+
+public class MatchDetail extends JPanel{
 
 }
