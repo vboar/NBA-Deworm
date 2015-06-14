@@ -160,7 +160,16 @@ public class MatchInfoPanel extends JPanel {
 		guest_point.setText(vo.guest_point+"");
 		time.setText(vo.time);
 		
-		score.refresh(scores, vo.home_team, vo.guest_team);
+		List<Integer> score1 = new ArrayList<Integer>(scores.size());
+		List<Integer> score2 = new ArrayList<Integer>(scores.size());
+		for(int i = 0;i<scores.size();i++){
+			score1.add(scores.get(i).get(0));
+			score2.add(scores.get(i).get(1));
+		}
+		List<List<Integer>> scoreData = new ArrayList<List<Integer>>(2);
+		scoreData.add(score1);
+		scoreData.add(score2);
+		score.refresh(scoreData, vo.home_team, vo.guest_team);
 		//System.out.println(scores.get(0).size());
 	}
 }
