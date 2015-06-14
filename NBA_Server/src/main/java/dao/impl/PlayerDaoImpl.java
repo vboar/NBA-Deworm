@@ -315,7 +315,6 @@ public class PlayerDaoImpl implements PlayerDao {
 			sql += " AND is_normal=" + regular;
 		}
 		List<Map<String, Object>> maplist = sqlManager.queryMultiByList(sql, objects);
-
 		for (Map<String, Object> map : maplist) {
 			list.add(getPlayerPerGame(map));
 		}
@@ -403,8 +402,6 @@ public class PlayerDaoImpl implements PlayerDao {
 		sql += " ORDER BY pg.player_name";
 		List<Map<String, Object>> mapList = sqlManager.queryMultiByList(sql,
 				objects);
-		System.out.println(sql);
-		System.out.println("Maplsit: "  + mapList.size());
 		for (Map<String, Object> map : mapList) {
 			list.add(getPlayerPerGame(map));
 		}

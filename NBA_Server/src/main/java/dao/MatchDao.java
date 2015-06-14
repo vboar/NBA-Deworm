@@ -77,6 +77,10 @@ public interface MatchDao {
 	
 	public List<MatchPlayerAdvanced> getMatchPlayerAdvancedByPlayerName(String name, String season, String abbr,  int regular);
 	
+	public MatchPlayerBasic getMatchPlayerByGameIdNameAbbr(String gameid, String name, String abbr);
+		
+	public List<MatchPlayerBasic> getGuestHomeTeamTotalBySeason(String season, boolean home);
+	
     /**
      * 插入比赛的完整信息和数据
      * @param list Match的List

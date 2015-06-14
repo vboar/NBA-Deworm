@@ -42,7 +42,7 @@ public class StatsServiceTest extends TestCase {
 
 	public void testGetPlayerCompareRadar() {
 		try {
-			ss.getPlayerCompareRadar("Kobe Bryant", "Yao Ming", "01-02", 1);
+			ss.getPlayerCompareRadar("Kobe Bryant", "LeBron James", "Career", 2);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -186,7 +186,7 @@ public class StatsServiceTest extends TestCase {
 //        ImageIcon img = ss.getPlayerBasicCompareBarChart("Kobe Bryant", "Yao Ming", "Career", list, 1);
 //        ImageIcon img = ss.getMatchTeamLineChart("HOU", "14-15", FieldType.typeToInt(FieldType.PTS));
 //        ImageIcon img = ss.getPlayerContribution("HOU", "13-14");
-        ImageIcon img = ss.getPlayerContribution("CLE", "13-14");
+        ImageIcon img = ss.getPlayerCompareRadar("Kobe Bryant", "LeBron James", "Career", 2);
 //        ImageIcon img = ss.getMatchPlayerLineChart("Kobe Bryant", "11-12", FieldType.TRB);
         JFrame frame = new JFrame();
         frame.setBounds(0, 0, 1366, 700);

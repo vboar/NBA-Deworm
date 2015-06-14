@@ -59,7 +59,8 @@ public class RawMatchDaoImpl implements RawMatchDao {
 				+ name.substring(6, 8));
 		match.setHome_team(checkTeamName(name.substring(9, 12)));
 		match.setGuest_team(checkTeamName(name.substring(13, 16)));
-		match.setGame_id(name.subSequence(0, 9)+match.getHome_team()+"-"+match.getGuest_team());
+		String checkId = name.subSequence(0, 9)+match.getHome_team()+"-"+match.getGuest_team();
+		match.setGame_id(checkId);
 
 		// 标志数据类型
 		int playerType = -1;
@@ -122,22 +123,22 @@ public class RawMatchDaoImpl implements RawMatchDao {
 			switch (playerType) {
 			case 0:
 				isStarter++;
-				guest_basic.add(getBasic(name, match.getGuest_team(),
+				guest_basic.add(getBasic(checkId, match.getGuest_team(),
 						lines.get(i), isStarter));
 				break;
 			case 1:
 				isStarter++;
-				home_basic.add(getBasic(name, match.getHome_team(),
+				home_basic.add(getBasic(checkId, match.getHome_team(),
 						lines.get(i), isStarter));
 				break;
 			case 2:
 				isStarter++;
-				guest_advanced.add(getAdvanced(name, match.getGuest_team(),
+				guest_advanced.add(getAdvanced(checkId, match.getGuest_team(),
 						lines.get(i), isStarter));
 				break;
 			case 3:
 				isStarter++;
-				home_advanced.add(getAdvanced(name, match.getHome_team(),
+				home_advanced.add(getAdvanced(checkId, match.getHome_team(),
 						lines.get(i), isStarter));
 				break;
 			default:
