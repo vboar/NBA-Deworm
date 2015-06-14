@@ -181,6 +181,10 @@ public class MotherPanel extends JPanel {
 		add(max);
 	}
 
+    public void recoverFirst() {
+        matchPanel.recoverFirst();
+    }
+
     public void fillComponents(int panel) {
         this.panel = panel;
         playernav.setVisible(true);

@@ -1,110 +1,99 @@
-package ui.player;
+package ui.match.stat;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.rmi.RemoteException;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import service.impl.ServiceFactoryImpl;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
+import ui.config.TableConfig;
 import ui.home.HomeUI;
-import ui.player.hot.PlayerHotPane;
-import ui.player.index.PlayerIndex;
-import ui.player.info.FourTablePane;
-import ui.player.info.PlayerInfoPane;
-import ui.player.stat.PlayerFilter;
-import ui.player.stat.PlayerStat;
+import ui.player.stat.PlayerAllTablePane;
 import ui.util.MyButton;
-import ui.util.MyLabel;
+import vo.MatchFilter;
+import vo.MatchInfoVO;
 
-public class PlayerPanel extends JPanel {
+public class MatchStat extends JPanel{
 
-	private PanelConfig pcfg ;
+	private PanelConfig pcfg;
 	private HomeUI frame;
 	
-	
-	public PlayerIndex indexpanel;
-	public PlayerFilter playerfilter;
-	public PlayerStat playerstat;
-	public PlayerInfoPane playerInfoPane;
-	public PlayerHotPane playerHotPane;
-	public FourTablePane fourTablePane;
-	private JFrame coverFrame;
-	
-	private MyLabel settingbg;
+	public MatchAllTablePane table;
+	public List<MatchInfoVO> volist = null;
 	
 	public MyButton setting;
 	public MyButton menu;
 	
-	public PlayerPanel(HomeUI frame){
+	public ui.match.stat.MatchFilter matchFilter;
+	
+	private JFrame coverFrame;
+	
+	public MatchStat(HomeUI frame){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
 		this.frame = frame;
-		// 设置布局管理器为自由布局
-		this.setOpaque(false);
+		
 		this.setLayout(null);
 		this.setSize(pcfg.getW(), pcfg.getH());
-		this.setLocation(pcfg.getX(), pcfg.getY());
-		// 初始化组件
-		this.initComponent();
-		this.repaint();
+		this.setLocation(pcfg.getX(),pcfg.getY());
 		
+		initComponent();
 	}
 	
 	private void initComponent(){
-		initPanel();
-		initCover();
-		
-		initButtons();
+		initPanels();
 		initLabels();
+		initTable();
+		initButtons();
 	}
 	
-	
-	private void initPanel() {
-		playerfilter = new PlayerFilter(frame);
-		playerfilter.setVisible(false);
-		add(playerfilter);	
-		
-		indexpanel = new PlayerIndex(frame);
-		//indexpanel.setVisible(false);
-		add(indexpanel);
-		
-		playerstat = new PlayerStat(frame);
-		playerstat.setVisible(false);
-		add(playerstat);
-		
-		playerInfoPane =new PlayerInfoPane(frame);
-		playerInfoPane.setVisible(false);
-		add(playerInfoPane);
-		
-		playerHotPane = new PlayerHotPane(frame);
-		playerHotPane.setVisible(false);
-		add(playerHotPane);
-		
-		fourTablePane = new FourTablePane(frame);
-		fourTablePane.setVisible(false);
-		add(fourTablePane);
-		
-		
+	private void initPanels(){
+		matchFilter = new ui.match.stat.MatchFilter(frame);
+		matchFilter.setVisible(false);
+		initCover();
 	}
-	
 	private void initCover(){
 		coverFrame = new JFrame();
 		coverFrame.setBounds(458,218,690, 260);
 		coverFrame.setUndecorated(true);
-		coverFrame.add(playerfilter);
+		coverFrame.add(matchFilter);
 		coverFrame.setAlwaysOnTop(true);
 	}
 	
-	//table的内容
-	
+	private void initTable(){
+		MatchFilter filter = new MatchFilter();
+		filter.season = "14-15";
+		try {
+			volist=ServiceFactoryImpl.getInstance().getMatchService().getMatchInfoByFilter(filter);
+			} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Object[][] data2 = new Object[volist.size()][8];
+		for(int i=0;i<volist.size();i++){			
+				data2[i][0] =volist.get(i).game_id;
+				data2[i][1] = volist.get(i).date;
+				data2[i][2] = volist.get(i).location;
+				data2[i][3] = volist.get(i).home_team;
+				data2[i][4] = volist.get(i).home_point;
+				data2[i][5] = volist.get(i).guest_team;				
+				data2[i][6] = volist.get(i).guest_point;
+				data2[i][7] =volist.get(i).time;
+		}
+			table = new MatchAllTablePane(new TableConfig(pcfg.getTablepane()), data2,frame);
+			add(table);
+	}
 	
 	private void initLabels(){
-		settingbg = new MyLabel(pcfg.getLabels().element("settingbg"));
-		add(settingbg);
+		
 	}
 	
 	
@@ -138,10 +127,10 @@ public class PlayerPanel extends JPanel {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				playerfilter.resetPanel();			
+				matchFilter.resetPanel();			
 			}
 		});
-		menu.setVisible(false);
+		
 		add(menu);
 		
 		setting = new MyButton(pcfg.getButtons().element("setting"));
@@ -153,14 +142,14 @@ public class PlayerPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
-				if(playerfilter.isVisible() == false){
-					playerfilter.setFocusable(true);
+				if(matchFilter.isVisible() == false){
+					
 					coverFrame.setVisible(true);
 					
-					playerfilter.setVisible(true);
+					matchFilter.setVisible(true);
 					coverFrame.setVisible(true);
 					}else{
-						playerfilter.setVisible(false);
+						matchFilter.setVisible(false);
 						coverFrame.setVisible(false);
 						
 					}
@@ -169,14 +158,14 @@ public class PlayerPanel extends JPanel {
 
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				if(playerfilter.isVisible()==false)
+				if(matchFilter.isVisible()==false)
 				setting.setIcon(new ImageIcon(path+"_point."+fix));
 				
 			}
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
-				if(playerfilter.isVisible() == false)
+				if(matchFilter.isVisible() == false)
 					setting.setIcon(new ImageIcon(path+"."+fix));
 				
 			}
@@ -188,13 +177,13 @@ public class PlayerPanel extends JPanel {
 			}
 
 		});
-		setting.setVisible(false);
+		
 		add(setting);
 	}
-
+	
 	public void filter(){
 		setting.setIcon(new ImageIcon(pcfg.getButtons().element("setting").attributeValue("path")));
-		playerfilter.setVisible(false);
+		matchFilter.setVisible(false);
 		coverFrame.setVisible(false);
 		
 	}

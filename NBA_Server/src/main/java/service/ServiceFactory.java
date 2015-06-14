@@ -17,5 +17,7 @@ public interface ServiceFactory extends Remote{
 	public MatchService getMatchService() throws RemoteException;
 	
 	public CommonService getCommonService() throws RemoteException;
+	
+	public StatsService getStatsService() throws RemoteException;
 
 }

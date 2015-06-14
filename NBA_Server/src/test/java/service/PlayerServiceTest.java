@@ -211,9 +211,9 @@ public class PlayerServiceTest extends TestCase {
 	public void testGetPlayerPerGameByFilter() {
 		try {
 			PlayerFilter pf = new PlayerFilter();
-			pf.position = "PF";
+//			pf.position = "PF";
 //			pf.league = "Atlantic";
-			pf.season = "13-14";
+			pf.season = "Career";
 //			pf.height = ">6-7";
 //			pf.weight = "<270";
 //			pf.regular = 1;
@@ -231,12 +231,13 @@ public class PlayerServiceTest extends TestCase {
 	public void testGetPlayerTotalByFilter() {
 		try {
 			PlayerFilter pf = new PlayerFilter();
-			pf.position = "PF";
-			pf.league = "Atlantic";
+//			pf.position = "PF";
+//			pf.league = "Atlantic";
 			pf.season = "13-14";
 			List<PlayerTotalVO> list = ps.getPlayerTotalByFilter(pf);
+			System.out.println("filter...-> "+list.size());
 			for(PlayerTotalVO pst: list){
-				assertEquals("PF", pst.position);
+				//assertEquals("PF", pst.position);
 				assertEquals("13-14", pst.season);
 			}
 		} catch (RemoteException e) {
@@ -271,7 +272,7 @@ public class PlayerServiceTest extends TestCase {
 
 	public void testGetSeasonHotPlayer() {
 		try {
-			List<HotPlayerInfoVO> list = ps.getSeasonHotPlayer("13-14", FieldType.AST,5);
+			List<HotPlayerInfoVO> list = ps.getSeasonHotPlayer("13-14", FieldType.typeToInt(FieldType.AST),5);
 			for(HotPlayerInfoVO info : list){
 				assertEquals("13-14", info.season);
 				assertEquals(FieldType.AST, info.field);

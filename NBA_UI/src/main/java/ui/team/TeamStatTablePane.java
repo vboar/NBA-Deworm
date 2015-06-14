@@ -40,6 +40,7 @@ public class TeamStatTablePane extends TablePanel{
         table.setRowHeight(25);
         table.getTableHeader().setFont(new Font("华文细黑",0,12));
         table.getTableHeader().setForeground(Color.BLACK);
+        table.setFont(new Font("华文细黑", 0, 12));
         table.FitTableColumns(table);
         initComponent();
 	}

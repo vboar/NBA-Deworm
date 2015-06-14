@@ -57,6 +57,7 @@ public class Dropdownmenu extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
                 frame.motherPanel.fillMenu();
+                frame.motherPanel.recoverFirst();
                 setVisible(false);
                 frame.motherPanel.setVisible(false);
 				frame.home.setVisible(true);;

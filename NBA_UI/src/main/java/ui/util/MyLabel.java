@@ -91,7 +91,7 @@ public class MyLabel extends JLabel {
 
 		icon.setImage(icon.getImage().getScaledInstance(
 				Integer.parseInt(ele.attributeValue("w")),
-				Integer.parseInt(ele.attributeValue("h")), Image.SCALE_DEFAULT));
+				Integer.parseInt(ele.attributeValue("h")), Image.SCALE_SMOOTH));
 		
 		this.setIcon(icon);
 
@@ -136,7 +136,7 @@ public class MyLabel extends JLabel {
 
 		icon.setImage(icon.getImage().getScaledInstance(
 				Integer.parseInt(ele.attributeValue("w")),
-				Integer.parseInt(ele.attributeValue("h")), Image.SCALE_DEFAULT));
+				Integer.parseInt(ele.attributeValue("h")), Image.SCALE_SMOOTH));
 		
 		this.setIcon(icon);
 	
@@ -147,7 +147,7 @@ public class MyLabel extends JLabel {
 
 		icon.setImage(icon.getImage().getScaledInstance(
 				Integer.parseInt(ele.attributeValue("w")),
-				Integer.parseInt(ele.attributeValue("h")), Image.SCALE_DEFAULT));
+				Integer.parseInt(ele.attributeValue("h")), Image.SCALE_SMOOTH));
 		
 		this.setIcon(icon);
 	}

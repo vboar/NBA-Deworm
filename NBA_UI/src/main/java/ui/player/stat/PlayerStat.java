@@ -36,6 +36,7 @@ public class PlayerStat extends JPanel{
 	public int state=0;//0:avg 1:all 2:adv
 	
 
+	
 
 	
 	public PlayerStat(HomeUI frame){

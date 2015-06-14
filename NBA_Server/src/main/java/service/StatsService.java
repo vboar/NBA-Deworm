@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import util.FieldType;
-
 /**
  * 统计服务接口 Created by Vboar on 2015/6/11.
  */
@@ -56,7 +54,7 @@ public interface StatsService extends Remote {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public ImageIcon getPlayerCareerLineChart(String player, FieldType field,
+	public ImageIcon getPlayerCareerLineChart(String player, int fieldNum,
 			int regular) throws RemoteException;
 
 	/**
@@ -76,7 +74,7 @@ public interface StatsService extends Remote {
 	 * @throws RemoteException
 	 */
 	public ImageIcon getPlayerBasicCompareBarChart(String playerA,
-			String playerB, String season, List<FieldType> fields, int regular)
+			String playerB, String season, List<Integer> fields, int regular)
 			throws RemoteException;
 
 	/**
@@ -90,7 +88,7 @@ public interface StatsService extends Remote {
 	 * @throws RemoteException
 	 */
 	public ImageIcon getPlayerAdvancedCompareBarChart(String playerA,
-			String playerB, String season, List<FieldType> fields, int regular)
+			String playerB, String season, List<Integer> fields, int regular)
 			throws RemoteException;
 	
 	/**
@@ -104,7 +102,7 @@ public interface StatsService extends Remote {
 	 * @throws RemoteException
 	 */
 	public ImageIcon getPlayerPctCompareBarChart(String playerA,
-			String playerB, String season, List<FieldType> fields, int regular)
+			String playerB, String season, List<Integer> fields, int regular)
 			throws RemoteException;
 	
 	/**
@@ -133,7 +131,7 @@ public interface StatsService extends Remote {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public ImageIcon getTeamCareerLineChar(String team, FieldType field) throws RemoteException;
+	public ImageIcon getTeamCareerLineChart(String team, int fieldNum) throws RemoteException;
 
 	/**
 	 * 获得两只球队某赛季基本属性对比直方图
@@ -144,7 +142,7 @@ public interface StatsService extends Remote {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public ImageIcon getTeamBasicCompareBarChar(String teamA, String teamB, String season, List<FieldType> field) throws RemoteException;
+	public ImageIcon getTeamBasicCompareBarChart(String teamA, String teamB, String season, List<Integer> field) throws RemoteException;
 
 	/**
 	 * 获得两只球队某赛季高阶属性对比直方图
@@ -155,7 +153,7 @@ public interface StatsService extends Remote {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public ImageIcon getTeamAdvancedCompareBarChart(String teamA, String teamB, String season, List<FieldType> field) throws RemoteException;
+	public ImageIcon getTeamAdvancedCompareBarChart(String teamA, String teamB, String season, List<Integer> field) throws RemoteException;
 
 	/**
 	 * 获得两只球队xx率属性对比直方图
@@ -166,7 +164,7 @@ public interface StatsService extends Remote {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public ImageIcon getTeamPctCompareBarChart(String teamA, String teamB, String season, List<FieldType> field) throws RemoteException;
+	public ImageIcon getTeamPctCompareBarChart(String teamA, String teamB, String season, List<Integer> field) throws RemoteException;
 	
 	/**
 	 * 获得某赛季某球员各比赛属性折线图
@@ -177,7 +175,7 @@ public interface StatsService extends Remote {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public ImageIcon getMatchPlayerLineChart(String name, String season, FieldType field) throws RemoteException;
+	public ImageIcon getMatchPlayerLineChart(String name, String season, int fieldNum) throws RemoteException;
 	
 	/**
 	 * 获得某赛季球队各属性折线图
@@ -188,6 +186,15 @@ public interface StatsService extends Remote {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public ImageIcon getMatchTeamLineChart(String abbr, String season, FieldType field) throws RemoteException;
+	public ImageIcon getMatchTeamLineChart(String abbr, String season, int field) throws RemoteException;
+	
+	/**
+	 * 获得球员对所在球队贡献比例图
+	 * @param abbr
+	 * @param season
+	 * @return
+	 * @throws RemoteException
+	 */
+	public ImageIcon getPlayerContribution(String abbr, String season) throws RemoteException;
 	
 }

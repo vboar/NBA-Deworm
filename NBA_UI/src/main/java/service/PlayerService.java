@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import util.FieldType;
 import vo.HotPlayerInfoVO;
 import vo.PlayerAdvancedVO;
 import vo.PlayerFilter;
@@ -173,7 +172,7 @@ public interface PlayerService extends Remote{
 	 * @param field
 	 * @return
 	 */
-	public List<HotPlayerInfoVO> getSeasonHotPlayer(String season, FieldType field, int num) throws RemoteException;
+	public List<HotPlayerInfoVO> getSeasonHotPlayer(String season, int field, int num) throws RemoteException;
 	
 	/**
 	 * 获得单个球员每赛季的薪水列表
@@ -196,5 +195,13 @@ public interface PlayerService extends Remote{
 	 * @return
 	 */
 	public List<String> getTeamByPlayerNameSeason(String name, String season) throws RemoteException;
+
+	/**
+	 * 获得某球员参加的全部赛季列表
+	 * @param name
+	 * @return
+	 * @throws RemoteException
+	 */
+	public List<String> getSessonsByPlayerName(String name) throws RemoteException;
 	
 }
