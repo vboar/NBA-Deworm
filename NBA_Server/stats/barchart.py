@@ -38,6 +38,7 @@ ax.legend((rects1[0], rects2[0]), (a, b))
 ax.set_xticks(ind+width+0.33)
 ax.set_xticklabels(labels)
 
+
 def autolabel(rects):
     # attach some text labels
     for rect in rects:
@@ -48,4 +49,4 @@ autolabel(rects1)
 autolabel(rects2)
 
 plt.savefig('stats/Barchart.png')
-plt.savefig('stats/Barchart_' + a + '_' + 'b' + '_' + season + '_' + regular + '.png')
+plt.savefig('stats/Barchart_' + a + '_' + b + '_' + season + '_' + regular + '.png')
