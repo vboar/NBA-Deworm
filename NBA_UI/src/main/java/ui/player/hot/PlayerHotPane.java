@@ -171,7 +171,7 @@ public class PlayerHotPane extends JPanel {
 			
 			teamlist = new ArrayList<String>(5);
 			playerimglist = new ArrayList<ImageIcon>(5);
-			volist = ServiceFactoryImpl.getInstance().getPlayerService().getSeasonHotPlayer(seasonStr, FieldType.typeToInt(FieldType.values()[item]),5);
+			volist = ServiceFactoryImpl.getInstance().getPlayerService().getSeasonHotPlayer(seasonStr,FieldType.values()[item].ordinal(),5);
 			for(int i= 0;i<5;i++){
 			ImageIcon icon = ServiceFactoryImpl.getInstance().getPlayerService().getPlayerPortraitByName(volist.get(i).name);					
 			String teamStr = ServiceFactoryImpl.getInstance().getPlayerService().getTeamByPlayerNameSeason(volist.get(i).name, seasonStr).get(0);

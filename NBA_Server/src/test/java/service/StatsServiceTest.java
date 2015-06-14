@@ -70,8 +70,8 @@ public class StatsServiceTest extends TestCase {
 	public void testGetPlayerAdvancedCompareBarChart() {
 		try {
 			List<Integer> list = new ArrayList<Integer>();
-			list.add(FieldType.typeToInt(FieldType.AST_PCT));
-			list.add(FieldType.typeToInt(FieldType.STL_PCT));
+			list.add(FieldType.AST_PCT.ordinal());
+			list.add(FieldType.STL_PCT.ordinal());
 			ss.getPlayerAdvancedCompareBarChart("Kobe Bryant", "Yao Ming", "05-06", list, 1);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -81,8 +81,8 @@ public class StatsServiceTest extends TestCase {
 	public void testGetPlayerPctCompareBarChart() {
 		try {
 			List<Integer> list = new ArrayList<Integer>();
-			list.add(FieldType.typeToInt(FieldType.USG_PCT));
-			list.add(FieldType.typeToInt(FieldType.AST_PCT));
+			list.add(FieldType.USG_PCT.ordinal());
+			list.add(FieldType.AST_PCT.ordinal());
 			ss.getPlayerAdvancedCompareBarChart("Kobe Bryant", "Yao Ming", "01-02", list, 1);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -116,8 +116,8 @@ public class StatsServiceTest extends TestCase {
 	public void testGetTeamBasicCompareBarChar() {
 		try {
 			List<Integer> list = new ArrayList<Integer>();
-			list.add(FieldType.typeToInt(FieldType.AST));
-			list.add(FieldType.typeToInt(FieldType.STL));
+			list.add(FieldType.AST.ordinal());
+			list.add(FieldType.STL.ordinal());
 			ss.getTeamBasicCompareBarChart("ATL", "HOU", "13-14", list);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -127,8 +127,8 @@ public class StatsServiceTest extends TestCase {
 	public void testGetTeamAdvancedCompareBarChart() {
 		try {
 			List<Integer> list = new ArrayList<Integer>();
-			list.add(FieldType.typeToInt(FieldType.OFF_RTG));
-			list.add(FieldType.typeToInt(FieldType.DEF_RTG));
+			list.add(FieldType.OFF_RTG.ordinal());
+			list.add(FieldType.DEF_RTG.ordinal());
 			ss.getTeamAdvancedCompareBarChart("ATL", "HOU", "13-14", list);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -138,8 +138,8 @@ public class StatsServiceTest extends TestCase {
 	public void testGetTeamPctCompareBarChart() {
 		try {
 			List<Integer> list = new ArrayList<Integer>();
-			list.add(FieldType.typeToInt(FieldType.FT_PCT));
-			list.add(FieldType.typeToInt(FieldType.FGA_PCT));
+			list.add(FieldType.FT_PCT.ordinal());
+			list.add(FieldType.FGA_PCT.ordinal());
 			ss.getTeamPctCompareBarChart("ATL", "HOU", "13-14", list);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -177,9 +177,8 @@ public class StatsServiceTest extends TestCase {
 //        ImageIcon img = ss.getTeamRadar("BOS", "13-14");
 //        ImageIcon img = ss.getTeamCompareRadar("CLE", "GSW", "14-15");
         List<Integer> list = new ArrayList<>();
-        list.add(FieldType.typeToInt(FieldType.AST));
-        list.add(FieldType.typeToInt(FieldType.BLK));
-        list.add(FieldType.typeToInt(FieldType.TOV));
+        list.add(FieldType.AST.ordinal());
+        list.add(FieldType.TOV.ordinal());
 //        ImageIcon img = ss.getPlayerCareerLineChart("Yao Ming", FieldType.TRB, 1);
 //        ImageIcon img = ss.getTeamCareerLineChar("BOS", FieldType.TRB);
 //        ImageIcon img = ss.getTeamCareerLineChar("BOS", FieldType.DRB_PCT);

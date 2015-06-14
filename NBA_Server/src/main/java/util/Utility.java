@@ -1,5 +1,9 @@
 package util;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+
 /**
  * 通用工具类
  * 
@@ -114,4 +118,41 @@ public class Utility {
 		str = str.replace(",", "");
 		return Long.parseLong(str);
 	}
+	
+
+	/**
+	 * 写入多行数据到文本文件（覆盖）
+	 * 
+	 * @param path
+	 *            存储路径
+	 */
+	public static void writeMulti(List<String> list, String path) {
+		try {
+			FileWriter fw = new FileWriter(path, false);
+			for (String s : list) {
+				fw.write(s + "\n");
+			}
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 写入一行数据到文本文件（覆盖）
+	 * 
+	 * @param s
+	 * @param path
+	 */
+	public static void write(String s, String path) {
+		try {
+			FileWriter fw = new FileWriter(path, false);
+			fw.write(s + "\n");
+			fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }

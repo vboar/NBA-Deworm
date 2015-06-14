@@ -227,7 +227,7 @@ public class TeamServiceTest extends TestCase {
 
 	public void testGetSeasonHotTeam() {
 		try {
-			List<HotTeamInfoVO> list = ts.getSeasonHotTeam("13-14", FieldType.typeToInt(FieldType.AST), 5);
+			List<HotTeamInfoVO> list = ts.getSeasonHotTeam("13-14", FieldType.AST.ordinal(), 5);
 			for(HotTeamInfoVO info: list){
 				assertEquals("13-14", info.season);
 				assertEquals(FieldType.AST, info.field);

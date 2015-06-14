@@ -17,7 +17,7 @@ public class StatsServiceTest {
 //        ImageIcon img = ss.getPlayerRadar("Kobe Bryant", "13-14", 1);
 //        ImageIcon img = ss.getPlayerCareerLineChart("Kobe Bryant", FieldType.typeToInt(FieldType.BLK), 1);
 //        ImageIcon img = ss.getMatchPlayerLineChart("Kobe Bryant", "09-10", FieldType.typeToInt(FieldType.PTS));
-        ImageIcon img = ss.getMatchTeamLineChart("HOU", "09-10", FieldType.typeToInt(FieldType.TRB));
+        ImageIcon img = ss.getMatchTeamLineChart("HOU", "09-10", FieldType.TRB.ordinal());
         JFrame frame = new JFrame();
         frame.setBounds(0, 0, 1366, 700);
         frame.setVisible(true);
