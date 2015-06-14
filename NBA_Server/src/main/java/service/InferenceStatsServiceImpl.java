@@ -1,10 +1,12 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import util.Utility;
 import dao.MatchDao;
 import dao.impl.DaoFactoryImpl;
+import entity.MatchInfo;
 import entity.MatchPlayerBasic;
 
 /**
@@ -22,7 +24,8 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 	
 	public static void main(String[] args) {
 		InferenceStatsServiceImpl is = new InferenceStatsServiceImpl();
-		is.getTeamStepwise("14-15");
+		//is.getTeamStepwise("14-15");
+		is.getTeamWins("14-15");
 	}
 	
 	public void getTeamStepwise(String season){
@@ -66,4 +69,47 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 		return str.substring(0,str.length()-1);
 	}
 
+	public void getTeamWins(String season){
+		List<MatchInfo> list = mdao.getRegularMatchInfoBySeason(season);
+		String[] teams = {"ATL", "BOS", "NJN", "CHA", "CHI", "CLE",
+						  "DAL", "DEN", "DET", "GSW", "HOU", "IND",
+						  "LAC", "LAL", "MEM", "MIA", "MIL", "MIN",
+						  "NOH", "NYK", "OKC", "ORL", "PHI", "PHO",
+						  "POR", "SAC", "SAS", "TOR", "UTA", "WAS"};
+		int[] home_wins = new int[30];
+		int[] guest_wins = new int[30];
+		for(MatchInfo m:list){
+			String home = m.getHome_team();
+			String guest = m.getGuest_team();
+			if(m.getHome_point()>m.getGuest_point()){
+				for(int i=0; i<teams.length; ++i){
+					if(teams[i].equals(home)){
+						home_wins[i]++;
+					}
+				}
+			}else{
+				for(int i=0; i<teams.length;++i){
+					if(teams[i].equals(guest)){
+						guest_wins[i]++;
+					}
+				}
+			}
+		}
+		String home_Str="";
+		String guest_Str="";
+		int hsum=0;
+		int gsum=0;
+		for(int i=0; i<30; ++i){
+			home_Str += home_wins[i] + ";";
+			guest_Str += guest_wins[i] + ";";
+			hsum += home_wins[i];
+			gsum += guest_wins[i];
+		}
+		System.out.println(hsum + " " + gsum);
+		List<String> s = new ArrayList<String>();
+		s.add(home_Str);
+		s.add(guest_Str);
+		Utility.writeMulti(s, "stats/team_testing.txt");
+	}
+	
 }
