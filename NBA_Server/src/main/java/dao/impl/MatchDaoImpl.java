@@ -569,6 +569,7 @@ public class MatchDaoImpl implements MatchDao {
 		mpb.setDrb(Utility.objectToInt(map.get("drb")));
 		mpb.setTrb(Utility.objectToInt(map.get("trb")));
 		mpb.setAst(Utility.objectToInt(map.get("ast")));
+		mpb.setStl(Utility.objectToInt(map.get("stl")));
 		mpb.setBlk(Utility.objectToInt(map.get("blk")));
 		mpb.setTov(Utility.objectToInt(map.get("tov")));
 		mpb.setPf(Utility.objectToInt(map.get("pf")));

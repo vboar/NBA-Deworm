@@ -13,7 +13,6 @@ import ui.common.MotherPanel;
 import ui.config.FrameConfig;
 import ui.config.SystemConfig;
 import ui.live.LivePanel;
-import ui.team.TeamStat;
 import ui.util.FrameUtil;
 import ui.util.LoadFont;
 

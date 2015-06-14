@@ -141,7 +141,7 @@ public class PlayerAPI {
                 name = m.group().substring(5);
                 try {
                     JSONObject jo = new JSONObject();
-                    JSONObject jo1 = new JSONObject();
+//                    JSONObject jo1 = new JSONObject();
                     jo.put("name", name);
                     PlayerInfoVO vo = ps.getPlayerInfoByName(name);
                     if (vo == null) return APIServer.NOTFOUND;

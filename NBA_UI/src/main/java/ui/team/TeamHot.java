@@ -139,7 +139,7 @@ public class TeamHot extends JPanel{
 		try {
 
 			teamimglist = new ArrayList<ImageIcon>(5);
-			hotlist = ServiceFactoryImpl.getInstance().getTeamService().getSeasonHotTeam(seasonStr, FieldType.typeToInt(FieldType.values()[item]),5);
+			hotlist = ServiceFactoryImpl.getInstance().getTeamService().getSeasonHotTeam(seasonStr, FieldType.values()[item].ordinal(),5);
 			for(int i= 0;i<5;i++){
 			ImageIcon icon = ServiceFactoryImpl.getInstance().getTeamService().getTeamLogoByAbbr(hotlist.get(i).abbr);					
 			

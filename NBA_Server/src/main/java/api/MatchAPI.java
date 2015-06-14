@@ -77,7 +77,7 @@ public class MatchAPI {
             MatchInfoVO vo = ms.getMatchInfoByGameId(id);
             if (vo == null) return APIServer.NOTFOUND;
             JSONObject jo = new JSONObject();
-            JSONObject jo1 = new JSONObject();
+//            JSONObject jo1 = new JSONObject();
             jo.put("info", getMatchInfoJO(vo));
             jo.put("game_id", vo.game_id);
 
