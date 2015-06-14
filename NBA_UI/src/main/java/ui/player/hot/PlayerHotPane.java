@@ -82,6 +82,8 @@ public class PlayerHotPane extends JPanel {
 	}
 	
 	private void initLabels(){
+		hint = new MyLabel(pcfg.getLabels().element("hint"));
+		add(hint);
 		for(int i = 0;i<5;i++){
 			names[i] = new MyLabel(pcfg.getLabels().element("name"+i));
 
@@ -212,6 +214,7 @@ public class PlayerHotPane extends JPanel {
 			}
 			
 		}
+		hint.setText(season.getSelectedItem().toString()+ " / "+type.getSelectedItem().toString());
 		repaint();
 		
 	}
