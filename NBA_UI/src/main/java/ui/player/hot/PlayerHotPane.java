@@ -41,7 +41,7 @@ public class PlayerHotPane extends JPanel {
 	private MyLabel[] teams= new MyLabel[10];
 	private MyLabel[] datas= new MyLabel[10];
 	private MyLabel[] playerImgs= new MyLabel[10];
-	
+	private MyLabel hint;
 	
 	private MyComboBox type;
 	private MyComboBox season;

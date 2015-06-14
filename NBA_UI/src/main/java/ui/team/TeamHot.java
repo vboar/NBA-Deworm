@@ -1,5 +1,7 @@
 package ui.team;
 
+import java.awt.Graphics;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -11,5 +13,9 @@ public class TeamHot extends JPanel{
 		this.setSize(500, 300);
 		this.setLocation(50, 150);
 		this.add(new JButton("test"));
+	}
+	
+	public void paintComponent(Graphics g){
+		g.drawImage(bg, 0, 0, pcfg.getW(), pcfg.getH(), null);
 	}
 }
