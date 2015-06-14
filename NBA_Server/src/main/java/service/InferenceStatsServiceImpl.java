@@ -33,7 +33,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 			"08-09", "07-08", "06-07", "05-06", "04-05" };
 
 	private String testing_path = "stats/team_testing.txt";
-	
+
 	public InferenceStatsServiceImpl() {
 		mdao = DaoFactoryImpl.getDaoFactory().getMatchDao();
 	}
@@ -41,45 +41,86 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 	// TODO ---------main----------------
 	public static void main(String[] args) {
 		InferenceStatsServiceImpl is = new InferenceStatsServiceImpl();
+		is.getTeamStepwiseMatchToTxt("14-15");
 	}
 
 	@Override
 	public void getTeamStepwiseToTxt(String season) {
 		List<List<String>> strs = getStepwistString(season);
-		for(int i=0 ;i<strs.size(); ++i){
-			Utility.writeMulti(strs.get(i), "stats/"+fields[i]+".txt");
+		for (int i = 0; i < strs.size(); ++i) {
+			Utility.writeMulti(strs.get(i), "stats/" + fields[i] + ".txt");
 		}
 	}
 
 	@Override
 	public void getTeamStepwiseToTxt_10() {
 		List<List<String>> list = new ArrayList<List<String>>();
-		for(int i=0; i<7; ++i){
-			String home="";
-			String guest="";
+		for (int i = 0; i < 7; ++i) {
+			String home = "";
+			String guest = "";
 			List<String> s = new ArrayList<String>();
 			s.add(home);
 			s.add(guest);
 			list.add(s);
 		}
-		for(int i=0; i<seasons.length; ++i){
+		for (int i = 0; i < seasons.length; ++i) {
 			List<List<String>> single = getStepwistString(seasons[i]);
-			for(int j=0; j<7;++j){
+			for (int j = 0; j < 7; ++j) {
 				String home = list.get(j).get(0);
 				String guest = list.get(j).get(1);
-				home += single.get(j).get(0)+";";
-				guest += single.get(j).get(1)+";";
+				home += single.get(j).get(0) + ";";
+				guest += single.get(j).get(1) + ";";
 				list.get(j).set(0, home);
 				list.get(j).set(1, guest);
 			}
 		}
-		for(int i=0; i<7;++i){	
+		for (int i = 0; i < 7; ++i) {
 			String h = checkString(list.get(i).get(0));
 			String g = checkString(list.get(i).get(1));
 			List<String> strs = new ArrayList<String>();
 			strs.add(h);
 			strs.add(g);
 			Utility.writeMulti(strs, "stats/" + fields[i] + ".txt");
+		}
+	}
+
+	@Override
+	public void getTeamStepwiseMatchToTxt(String season) {
+		List<MatchPlayerBasic> homelist = mdao.getGuestHomeTeamTotalBySeason(
+				season, true);
+		List<MatchPlayerBasic> guestlist = mdao.getGuestHomeTeamTotalBySeason(
+				season, false);
+		String[] pts = { "", "" };
+		String[] ast = { "", "" };
+		String[] blk = { "", "" };
+		String[] stl = { "", "" };
+		String[] trb = { "", "" };
+		String[] tov = { "", "" };
+		String[] pf = { "", "" };
+		for (int i = 0; i < homelist.size(); ++i) {
+			MatchPlayerBasic h = homelist.get(i);
+			MatchPlayerBasic g = guestlist.get(i);
+			pts[0] += h.getPts() + ";";
+			ast[0] += h.getAst() + ";";
+			blk[0] += h.getBlk() + ";";
+			stl[0] += h.getStl() + ";";
+			trb[0] += h.getTrb() + ";";
+			tov[0] += h.getTov() + ";";
+			pf[0]  += h.getPf()  + ";";
+			pts[1] += g.getPts() + ";";
+			ast[1] += g.getAst() + ";";
+			blk[1] += g.getBlk() + ";";
+			stl[1] += g.getStl() + ";";
+			trb[1] += g.getTrb() + ";";
+			tov[1] += g.getTov() + ";";
+			pf[1]  += g.getPf()  + ";";
+		}
+		String[][] a = {pts,ast,blk,stl,trb,tov,pf};
+		for(int i=0; i<7; ++i){
+			List<String> l = new ArrayList<String>();
+			l.add(checkString(a[i][0]));
+			l.add(checkString(a[i][1]));
+			Utility.writeMulti(l, "stats/"+fields[i]+".txt");
 		}
 	}
 
@@ -91,14 +132,14 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 
 	@Override
 	public void getTeamWinsToTxt_10() {
-		String home="";
-		String guest="";
-		for(int i=0; i<seasons.length;++i){
+		String home = "";
+		String guest = "";
+		for (int i = 0; i < seasons.length; ++i) {
 			home += getWinStringList(seasons[i]).get(0) + ";";
 			guest += getWinStringList(seasons[i]).get(1) + ";";
 		}
-		home = home.substring(0,home.length()-1);
-		guest = guest.substring(0,guest.length()-1);
+		home = home.substring(0, home.length() - 1);
+		guest = guest.substring(0, guest.length() - 1);
 		List<String> strs = new ArrayList<String>();
 		strs.add(home);
 		strs.add(guest);
@@ -121,7 +162,8 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 
 	@Override
 	public TeamWinAnalysisVO getTeamTestingResult_10() {
-		this.getTeamWinsToTxt_10();;
+		this.getTeamWinsToTxt_10();
+		;
 		this.getTeamStepwiseToTxt_10();
 		try {
 			Process p = Runtime.getRuntime().exec(
@@ -211,7 +253,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 		vo.guest_P_P = img;
 		return vo;
 	}
-	
+
 	private List<String> getWinStringList(String season) {
 		String home_Str = "";
 		String guest_Str = "";
@@ -248,7 +290,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 		return s;
 	}
 
-	private List<List<String>> getStepwistString(String season){
+	private List<List<String>> getStepwistString(String season) {
 		int[][] homes = new int[30][7];
 		int[][] guests = new int[30][7];
 		String[] home_str = new String[7];
@@ -305,10 +347,9 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 			List<String> strs = new ArrayList<String>();
 			strs.add(checkString(home_str[i]));
 			strs.add(checkString(guest_str[i]));
-			//Utility.writeMulti(strs, "stats/" + fields[i] + ".txt");
 			fieldStr.add(strs);
 		}
 		return fieldStr;
 	}
-	
+
 }
