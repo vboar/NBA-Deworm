@@ -1,23 +1,23 @@
 package ui.stats;
 
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
-import service.InferenceStatsService;
-import service.impl.ServiceFactoryImpl;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import service.InferStatsService;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
 import ui.util.LoadFont;
-import ui.util.MyButton;
 import ui.util.MyComboBox;
 import vo.TeamWinAnalysisVO;
-
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Stat1 extends JPanel{
 
@@ -26,7 +26,7 @@ public class Stat1 extends JPanel{
     List<InferPanel> pList;
     String season;
     InferPanel ip;
-    InferenceStatsService ss;
+    InferStatsService ss;
     int show = 0;
     JLabel next;
 
