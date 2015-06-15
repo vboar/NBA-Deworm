@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import service.CommonService;
-import service.InferenceStatsService;
+import service.InferStatsService;
 import service.MatchService;
 import service.PlayerService;
 import service.ServiceFactory;
@@ -63,8 +63,8 @@ public class ServiceFactoryImpl extends UnicastRemoteObject implements ServiceFa
 	}
 
 	@Override
-	public InferenceStatsService getInferenceService() throws RemoteException {
-		return new InferenceStatsServiceImpl();
+	public InferStatsService getInferStatsService() throws RemoteException {
+		return new InferStatsServiceImpl();
 	}
-
+	
 }
