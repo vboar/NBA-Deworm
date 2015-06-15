@@ -60,7 +60,7 @@ public class TeamCompare extends JPanel{
 	private void initComponent(){
 		initLabels();
 		initChart();
-		initBox();
+		
 	}
 	
 	@Override
