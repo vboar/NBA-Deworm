@@ -9,6 +9,7 @@ import javax.swing.table.TableCellRenderer;
 
 import ui.config.TableConfig;
 import ui.home.HomeUI;
+import ui.team.TeamDetail;
 import ui.util.FrameUtil;
 import ui.util.MyTable;
 import ui.util.MyTableModel;
@@ -87,7 +88,13 @@ private static int COLUMN_NUM = 22;
 	            	 int column = table.columnAtPoint(e.getPoint());
 	            	 int row = table.rowAtPoint(e.getPoint());
 	            	 if(column == 0){	            		 
-	            		
+	            		String name = table.getValueAt(row, 1).toString();
+	            		if(name.length()>2){
+	            			frame.motherPanel.playerPanel.setVisible(false);
+	            			frame.motherPanel.teamPanel.add(frame.motherPanel.teamPanel.
+	            					teamDetail = new TeamDetail(frame,name));
+	            			frame.motherPanel.teamPanel.setVisible(false);
+	            		}
 	            		 
 	            	 }
 	             }  	    		

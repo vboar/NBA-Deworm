@@ -168,6 +168,7 @@
 			<index  w="103" h="60" x="0" y="0" path="img/team/nav/index.png"/>
 			<teamstat  w="103" h="60" x="104" y="0" path="img/team/nav/stat.png"/>
 			<hotteam  w="103" h="60" x="208" y="0" path="img/team/nav/hotteam.png"/>
+			<compare  w="103" h="60" x="312" y="0" path="img/team/nav/compare.png"/>
 			</labels>
 			
 			</panel>
@@ -639,64 +640,53 @@
 			
 			</panel>
 			
-			</panel>
-		<panel className="ui.player.compare.TeamCompareChoosePanel" width="940" height="511"
-			x="0" y="0" bg="img/player/comparechoose.png">
+		<panel className="ui.team.compare.TeamCompareChoosePanel" width="940" height="511"
+			x="0" y="0" bg="img/team/compare/teamcomparechoose.png">
 			<labels>
-			<img  w="195" h="150" x="346" y="75" />
+			<img  w="300" h="200" x="335" y="65" />
 			
-			<numhint text="号码：" w="100" h="60" x="580" y="55" />
-			<positionhint text="位置:" w="100" h="60" x="580" y="85" />	
-			<bornhint text="生日:" w="100" h="60" x="580" y="115" />	
-			<debuthint text="首秀:" w="100" h="60" x="580" y="145" />
-			<heighthint text="身高:" w="100" h="60" x="580" y="175" />	
-			<weighthint text="体重:" w="100" h="60" x="760" y="55" />	
-			<hometownhint text="出生地:" w="100" h="60" x="760" y="85" />
-			<highschoolhint text="高中:" w="100" h="60" x="760" y="115" />	
-			<collegehint text="大学:" w="100" h="60" x="760" y="145" />					
-			<exphint text="球龄:" w="100" h="60" x="760" y="175" />					
+			<abbrhint text="缩写：" w="100" h="60" x="570" y="55" />
+			<timehint text="建立时间:" w="100" h="60" x="570" y="85" />	
+			<divisionhint text="分区:" w="100" h="60" x="570" y="115" />	
+			<leaguehint text="联盟:" w="100" h="60" x="570" y="145" />
+			<recordhint text="纪录:" w="100" h="60" x="570" y="175" />	
+			<playoffhint text="参加季后赛次数:" w="200" h="60" x="740" y="55" />	
+			<winhint text="夺冠次数:" w="100" h="60" x="740" y="85" />
+					
 			
-			<num text="hh" w="100" h="60" x="620" y="55" />
-			<position text="hh" w="100" h="60" x="620" y="85" />	
-			<born text="hh" w="100" h="60" x="620" y="115" />	
-			<debut text="hh" w="100" h="60" x="620" y="145" />				
-			<height text="hh" w="100" h="60" x="620" y="175" />	
-			<weight text="hh" w="100" h="60" x="810" y="55" />	
-			<hometown text="hh" w="100" h="60" x="810" y="85" />	
-			<highschool text="hh" w="100" h="60" x="810" y="115" />	
-			<college text="hh" w="100" h="60" x="810" y="145" />	
-			<exp text="hh" w="100" h="60" x="810" y="175" />	
+			<abbr text="sample" w="100" h="60" x="610" y="55" />
+			<time text="sample" w="100" h="60" x="640" y="85" />	
+			<division text="sample" w="100" h="60" x="610" y="115" />	
+			<league text="sample" w="100" h="60" x="610" y="145" />				
+			<record text="sample" w="100" h="60" x="610" y="175" />	
+			<playoff text="sample" w="100" h="60" x="850" y="55" />	
+			<win text="sample" w="100" h="60" x="820" y="85" />	
+			
 						
-			<name text="Lerborn James" w="200" h="62" x="480" y="0" font="微软雅黑"
+			<name text="Example team1" w="200" h="62" x="480" y="0" font="微软雅黑"
 					fontsize="20"  />
 			<team text="Knight" w="1030" h="60" x="25" y="190" font="微软雅黑"
 					fontsize="20"  />
 					
-			<img2  w="195" h="150" x="340" y="325" />
+			<img2  w="300" h="200" x="320" y="320" />
 					
-			<numhint2 text="号码：" w="1030" h="60" x="580" y="300" />
-			<positionhint2 text="位置:" w="1030" h="60" x="580" y="330" />	
-			<bornhint2 text="生日:" w="1030" h="60" x="580" y="360" />	
-			<debuthint2 text="首秀:" w="1030" h="60" x="580" y="390" />
-			<heighthint2 text="身高:" w="1030" h="60" x="580" y="420" />	
-			<weighthint2 text="体重:" w="1030" h="60" x="760" y="300" />	
-			<hometownhint2 text="出生地:" w="1030" h="60" x="760" y="330" />
-			<highschoolhint2 text="高中:" w="1030" h="60" x="760" y="360" />	
-			<collegehint2 text="大学:" w="1030" h="60" x="760" y="390" />					
-			<exphint2 text="球龄:" w="1030" h="60" x="760" y="420" />					
+			<abbrhint2 text="缩写：" w="1030" h="60" x="570" y="300" />
+			<timehint2 text="建立时间:" w="1030" h="60" x="570" y="330" />	
+			<divisionhint2 text="分区:" w="1030" h="60" x="570" y="360" />	
+			<leaguehint2 text="联盟:" w="1030" h="60" x="570" y="390" />
+			<recordhint2 text="纪录:" w="1030" h="60" x="570" y="420" />	
+			<playoffhint2 text="参加季后赛次数:" w="200" h="60" x="740" y="300" />	
+			<winhint2 text="夺冠次数:" w="1030" h="60" x="740" y="330" />
 			
-			<num2 text="hh" w="1030" h="60" x="620" y="300" />
-			<position2 text="hh" w="1030" h="60" x="620" y="330" />	
-			<born2 text="hh" w="1030" h="60" x="620" y="360" />	
-			<debut2 text="hh" w="1030" h="60" x="620" y="390" />				
-			<height2 text="hh" w="1030" h="60" x="620" y="420" />	
-			<weight2 text="hh" w="1030" h="60" x="810" y="300" />	
-			<hometown2 text="hh" w="1030" h="60" x="810" y="330" />	
-			<highschool2 text="hh" w="1030" h="60" x="810" y="360" />	
-			<college2 text="hh" w="1030" h="60" x="810" y="390" />	
-			<exp2 text="hh" w="1030" h="60" x="810" y="420" />	
+			<abbr2 text="sample" w="1030" h="60" x="610" y="300" />
+			<time2 text="sample" w="1030" h="60" x="640" y="330" />	
+			<division2 text="sample" w="1030" h="60" x="610" y="360" />	
+			<league2 text="sample" w="1030" h="60" x="610" y="390" />				
+			<record2 text="sample" w="1030" h="60" x="610" y="420" />	
+			<playoff2 text="sample" w="1030" h="60" x="850" y="300" />	
+			<win2 text="sample" w="1030" h="60" x="820" y="330" />	
 						
-			<name2 text="Lerborn James" w="200" h="60" x="480" y="250" font="微软雅黑"
+			<name2 text="Example Team2" w="200" h="60" x="480" y="250" font="微软雅黑"
 					fontsize="20"  />
 			<team2 text="Knight" w="200" h="60" x="25" y="190" font="微软雅黑"
 					fontsize="20"  />
@@ -716,8 +706,8 @@
 		</panel>
 		
 		
-		<panel className="ui.player.compare.TeamCompare" width="940" height="511"
-			x="0" y="0" bg="img/player/compare.png">
+		<panel className="ui.team.compare.TeamCompare" width="940" height="511"
+			x="0" y="0" bg="img/team/compare/teamcomparechoose.png">
 			<labels>
 			<name1 text="hh" w="1030" h="60" x="0" y="0" />	
 			<name2 text="hh" w="1030" h="60" x="200" y="0" />	
@@ -1485,7 +1475,7 @@
 			<college text="hh" w="100" h="60" x="810" y="145" />	
 			<exp text="hh" w="100" h="60" x="810" y="175" />	
 						
-			<name text="Lerborn James" w="200" h="62" x="480" y="0" font="微软雅黑"
+			<name text="Example Name1" w="200" h="62" x="480" y="0" font="微软雅黑"
 					fontsize="20"  />
 			<team text="Knight" w="1030" h="60" x="25" y="190" font="微软雅黑"
 					fontsize="20"  />
@@ -1514,7 +1504,7 @@
 			<college2 text="hh" w="1030" h="60" x="810" y="390" />	
 			<exp2 text="hh" w="1030" h="60" x="810" y="420" />	
 						
-			<name2 text="Lerborn James" w="200" h="60" x="480" y="250" font="微软雅黑"
+			<name2 text="Example Name2" w="200" h="60" x="480" y="250" font="微软雅黑"
 					fontsize="20"  />
 			<team2 text="Knight" w="200" h="60" x="25" y="190" font="微软雅黑"
 					fontsize="20"  />

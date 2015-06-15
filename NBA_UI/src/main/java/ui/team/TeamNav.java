@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
+import ui.team.compare.TeamCompare;
+import ui.team.compare.TeamCompareChoosePanel;
 import ui.util.MyLabel;
 
 public class TeamNav extends JPanel{
@@ -21,7 +23,8 @@ public class TeamNav extends JPanel{
 	private MyLabel index;
 	private MyLabel teamstat;
 	private MyLabel hotteam;
-
+	private MyLabel compare;
+	
 	int show =0;
 	
 	public TeamNav(HomeUI frame){
@@ -58,6 +61,7 @@ public class TeamNav extends JPanel{
 				show = 0;
 				teamstat.setIcon(new ImageIcon(pcfg.getLabels().element("teamstat").attributeValue("path")));
 				hotteam.setIcon(new ImageIcon(pcfg.getLabels().element("hotteam").attributeValue("path")));
+				compare.setIcon(new ImageIcon(pcfg.getLabels().element("compare").attributeValue("path")));
 				
 				frame.motherPanel.teamPanel.removeAll();
 				frame.motherPanel.teamPanel.teamindex = new TeamIndex(frame);
@@ -102,7 +106,8 @@ public class TeamNav extends JPanel{
 				show =1;
 				index.setIcon(new ImageIcon(pcfg.getLabels().element("index").attributeValue("path")));
 				hotteam.setIcon(new ImageIcon(pcfg.getLabels().element("hotteam").attributeValue("path")));
-			
+				compare.setIcon(new ImageIcon(pcfg.getLabels().element("compare").attributeValue("path")));
+
 				//更改teampanel内容
 				frame.motherPanel.teamPanel.removeAll();
 				frame.motherPanel.teamPanel.teamstat = new TeamStat(frame);
@@ -147,7 +152,8 @@ public class TeamNav extends JPanel{
 				show = 2;
 				index.setIcon(new ImageIcon(pcfg.getLabels().element("index").attributeValue("path")));
 				teamstat.setIcon(new ImageIcon(pcfg.getLabels().element("teamstat").attributeValue("path")));
-			
+				compare.setIcon(new ImageIcon(pcfg.getLabels().element("hotteam").attributeValue("path")));
+
 				frame.motherPanel.teamPanel.removeAll();
 				frame.motherPanel.teamPanel.teamhot = new TeamHot(frame);
 				frame.motherPanel.teamPanel.add(frame.motherPanel.teamPanel.teamhot);
@@ -179,9 +185,54 @@ public class TeamNav extends JPanel{
 			}
 			
 		});
+		compare = new MyLabel(pcfg.getLabels().element("compare"));
+		compare.addMouseListener(new MouseAdapter(){
+			String[] temp = pcfg.getLabels().element("compare").attributeValue("path").split("\\.");
+			String path = temp[0];
+			String fix = temp[1];
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				compare.setIcon(new ImageIcon(path+"_click."+fix));
+				show = 3;
+				index.setIcon(new ImageIcon(pcfg.getLabels().element("index").attributeValue("path")));
+				teamstat.setIcon(new ImageIcon(pcfg.getLabels().element("teamstat").attributeValue("path")));
+				hotteam.setIcon(new ImageIcon(pcfg.getLabels().element("hotteam").attributeValue("path")));
+				
+				frame.motherPanel.teamPanel.removeAll();
+				frame.motherPanel.teamPanel.comparechoose = new TeamCompareChoosePanel(frame);
+				frame.motherPanel.teamPanel.add(frame.motherPanel.teamPanel.comparechoose);
+				frame.motherPanel.teamPanel.repaint();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				compare.setIcon(new ImageIcon(path+"_click."+fix));	
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				if(show!=3)
+					compare.setIcon(new ImageIcon(path+"."+fix));
 		
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				compare.setIcon(new ImageIcon(path+"_click."+fix));
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				compare.setIcon(new ImageIcon(path+"_click."+fix));
+				
+			}
+			
+		});
 		add(index);
 		add(teamstat);
 		add(hotteam);
+		add(compare);
 	}
 }

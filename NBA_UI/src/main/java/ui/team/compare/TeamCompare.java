@@ -82,15 +82,6 @@ public class TeamCompare extends JPanel{
 	
 	public void changeData(String name1,String name2){
 		ArrayList<Integer> field =new ArrayList<>();
-//		field.add(FieldType.PTS.ordinal());
-//		field.add(FieldType.AST.ordinal());
-//		field.add(FieldType.BLK.ordinal());
-//		field.add(FieldType.STL.ordinal());
-//		field.add(FieldType.TRB.ordinal());		
-//		field.add(FieldType.ORB.ordinal());
-//		field.add(FieldType.DRB.ordinal());
-//		field.add(FieldType.TOV.ordinal());
-//		field.add(FieldType.PF.ordinal());		
 		nameLb1.setText(name1);
 		nameLb2.setText(name2);
 		System.out.println(name1);

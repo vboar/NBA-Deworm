@@ -1,6 +1,7 @@
 package ui.team.compare;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -17,10 +18,11 @@ import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
 import ui.util.FuzzySearch;
+import ui.util.LoadFont;
 import ui.util.MyButton;
 import ui.util.MyLabel;
 import ui.util.MySpecialTextField;
-import vo.PlayerInfoVO;
+import vo.TeamInfoVO;
 
 public class TeamCompareChoosePanel extends JPanel{
 	private PanelConfig pcfg;
@@ -35,53 +37,46 @@ public class TeamCompareChoosePanel extends JPanel{
 	private MyButton btn2;
 	private MyButton search;
 
-	private MyLabel positionHint;
-	private MyLabel bornHint;
-	private MyLabel hometownHint;
-	private MyLabel heightHint;
-	private MyLabel weightHint;
-	private MyLabel highschoolHint;
-	private MyLabel collegeHint;
-	private MyLabel debutHint;
-	private MyLabel expHint;
-	private MyLabel numHint;
-
-	private MyLabel img2;
-	private MyLabel name2;
-	private MyLabel position2;
-	private MyLabel born2;
-	private MyLabel hometown2;
-	private MyLabel height2;
-	private MyLabel weight2;
-	private MyLabel highschool2;
-	private MyLabel college2;
-	private MyLabel debut2;
-	private MyLabel exp2;
-	private MyLabel num2;
-
-	private MyLabel positionHint2;
-	private MyLabel bornHint2;
-	private MyLabel hometownHint2;
-	private MyLabel heightHint2;
-	private MyLabel weightHint2;
-	private MyLabel highschoolHint2;
-	private MyLabel collegeHint2;
-	private MyLabel debutHint2;
-	private MyLabel expHint2;
-	private MyLabel numHint2;
-
+	
 	private MyLabel img;
 	private MyLabel name;
-	private MyLabel position;
-	private MyLabel born;
-	private MyLabel hometown;
-	private MyLabel height;
-	private MyLabel weight;
-	private MyLabel highschool;
-	private MyLabel college;
-	private MyLabel debut;
-	private MyLabel exp;
-	private MyLabel num;
+	
+	private MyLabel abbrHint;
+	private MyLabel timeHint;
+	private MyLabel divisionHint;
+	private MyLabel leagueHint;
+	private MyLabel recordHint;
+	private MyLabel playoffHint;
+	private MyLabel winHint;
+	
+	private MyLabel abbr;
+	private MyLabel time;
+	private MyLabel division;
+	private MyLabel league;
+	private MyLabel record;
+	private MyLabel playoff;
+	private MyLabel win;
+
+	
+	private MyLabel img2;
+	private MyLabel name2;
+	
+	private MyLabel abbr2;
+	private MyLabel time2;
+	private MyLabel division2;
+	private MyLabel league2;
+	private MyLabel record2;
+	private MyLabel playoff2;
+	private MyLabel win2;
+
+
+	private MyLabel abbrHint2;
+	private MyLabel timeHint2;
+	private MyLabel divisionHint2;
+	private MyLabel leagueHint2;
+	private MyLabel recordHint2;
+	private MyLabel playoffHint2;
+	private MyLabel winHint2;
 
 	public TeamCompareChoosePanel(HomeUI frame) {
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
@@ -115,19 +110,19 @@ public class TeamCompareChoosePanel extends JPanel{
 		FuzzySearch fz = new FuzzySearch() {
 			@Override
 			public ArrayList<String> getFuzzyResult(String keyword) {
-				List<String> list = null;
+				List<TeamInfoVO> list = null;
 				try {
-					list = ServiceFactoryImpl.getInstance().getPlayerService()
-							.getNameList(" ");
+					list = ServiceFactoryImpl.getInstance().getTeamService()
+							.getAllTeamInfo();
 				} catch (RemoteException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
 				ArrayList<String> list2 = new ArrayList<String>();
-				for (String s : list) {
-					if (s.contains(keyword))
-						list2.add(s);
+				for (TeamInfoVO s : list) {
+					if (s.name.contains(keyword))
+						list2.add(s.name);
 				}
 				return list2;
 			}
@@ -156,37 +151,36 @@ public class TeamCompareChoosePanel extends JPanel{
 
 	private void initLabels() {
 		img = new MyLabel(pcfg.getLabels().element("img"));
+		img.setFont(new Font("华文细黑", 0, 14));
 		add(img);
 
-		positionHint = new MyLabel(pcfg.getLabels().element("positionhint"));
-		add(positionHint);
+		abbrHint = new MyLabel(pcfg.getLabels().element("abbrhint"));
+		abbrHint.setFont(new Font("华文细黑", 0, 14));
+		add(abbrHint);
 
-		bornHint = new MyLabel(pcfg.getLabels().element("bornhint"));
-		add(bornHint);
+		timeHint = new MyLabel(pcfg.getLabels().element("timehint"));
+		timeHint.setFont(new Font("华文细黑", 0, 14));
+		add(timeHint);
 
-		hometownHint = new MyLabel(pcfg.getLabels().element("hometownhint"));
-		add(hometownHint);
+		divisionHint = new MyLabel(pcfg.getLabels().element("divisionhint"));
+		divisionHint.setFont(new Font("华文细黑", 0, 14));
+		add(divisionHint);
 
-		heightHint = new MyLabel(pcfg.getLabels().element("heighthint"));
-		add(heightHint);
+		leagueHint = new MyLabel(pcfg.getLabels().element("leaguehint"));
+		leagueHint.setFont(new Font("华文细黑", 0, 14));
+		add(leagueHint);
 
-		weightHint = new MyLabel(pcfg.getLabels().element("weighthint"));
-		add(weightHint);
+		recordHint = new MyLabel(pcfg.getLabels().element("recordhint"));
+		recordHint.setFont(new Font("华文细黑", 0, 14));
+		add(recordHint);
 
-		highschoolHint = new MyLabel(pcfg.getLabels().element("highschoolhint"));
-		add(highschoolHint);
+		playoffHint = new MyLabel(pcfg.getLabels().element("playoffhint"));
+		playoffHint.setFont(new Font("华文细黑", 0, 14));
+		add(playoffHint);
 
-		collegeHint = new MyLabel(pcfg.getLabels().element("collegehint"));
-		add(collegeHint);
-
-		debutHint = new MyLabel(pcfg.getLabels().element("debuthint"));
-		add(debutHint);
-
-		expHint = new MyLabel(pcfg.getLabels().element("exphint"));
-		add(expHint);
-
-		numHint = new MyLabel(pcfg.getLabels().element("numhint"));
-		add(numHint);
+		winHint = new MyLabel(pcfg.getLabels().element("winhint"));
+		winHint.setFont(new Font("华文细黑", 0, 14));
+		add(winHint);
 
 		//
 
@@ -194,69 +188,65 @@ public class TeamCompareChoosePanel extends JPanel{
 		name.setForeground(Color.white);
 		add(name);
 
-		position = new MyLabel(pcfg.getLabels().element("position"));
-		add(position);
+		abbr = new MyLabel(pcfg.getLabels().element("abbr"));
+		abbr.setFont(new Font("华文细黑", 0, 14));
+		add(abbr);
 
-		born = new MyLabel(pcfg.getLabels().element("born"));
-		add(born);
+		time = new MyLabel(pcfg.getLabels().element("time"));
+		time.setFont(new Font("华文细黑", 0, 14));
+		add(time);
 
-		hometown = new MyLabel(pcfg.getLabels().element("hometown"));
-		add(hometown);
+		division = new MyLabel(pcfg.getLabels().element("division"));
+		division.setFont(new Font("华文细黑", 0, 14));
+		add(division);
 
-		height = new MyLabel(pcfg.getLabels().element("height"));
-		add(height);
+		league = new MyLabel(pcfg.getLabels().element("league"));
+		league.setFont(new Font("华文细黑", 0, 14));
+		add(league);
 
-		weight = new MyLabel(pcfg.getLabels().element("weight"));
-		add(weight);
+		record = new MyLabel(pcfg.getLabels().element("record"));
+		record.setFont(new Font("华文细黑", 0, 14));
+		add(record);
 
-		highschool = new MyLabel(pcfg.getLabels().element("highschool"));
-		add(highschool);
+		playoff = new MyLabel(pcfg.getLabels().element("playoff"));
+		playoff.setFont(new Font("华文细黑", 0, 14));
+		add(playoff);
 
-		college = new MyLabel(pcfg.getLabels().element("college"));
-		add(college);
-
-		debut = new MyLabel(pcfg.getLabels().element("debut"));
-		add(debut);
-
-		exp = new MyLabel(pcfg.getLabels().element("exp"));
-		add(exp);
-
-		num = new MyLabel(pcfg.getLabels().element("num"));
-		add(num);
+		win = new MyLabel(pcfg.getLabels().element("win"));
+		win.setFont(new Font("华文细黑", 0, 14));
+		add(win);
 
 		img2 = new MyLabel(pcfg.getLabels().element("img2"));
+		img2.setFont(new Font("华文细黑", 0, 14));
 		add(img2);
 
-		positionHint2 = new MyLabel(pcfg.getLabels().element("positionhint2"));
-		add(positionHint2);
+		abbrHint2 = new MyLabel(pcfg.getLabels().element("abbrhint2"));
+		abbrHint2.setFont(new Font("华文细黑", 0, 14));
+		add(abbrHint2);
 
-		bornHint2 = new MyLabel(pcfg.getLabels().element("bornhint2"));
-		add(bornHint2);
+		timeHint2 = new MyLabel(pcfg.getLabels().element("timehint2"));
+		timeHint2.setFont(new Font("华文细黑", 0, 14));
+		add(timeHint2);
 
-		hometownHint2 = new MyLabel(pcfg.getLabels().element("hometownhint2"));
-		add(hometownHint2);
+		divisionHint2 = new MyLabel(pcfg.getLabels().element("divisionhint2"));
+		divisionHint2.setFont(new Font("华文细黑", 0, 14));
+		add(divisionHint2);
 
-		heightHint2 = new MyLabel(pcfg.getLabels().element("heighthint2"));
-		add(heightHint2);
+		leagueHint2 = new MyLabel(pcfg.getLabels().element("leaguehint2"));
+		leagueHint2.setFont(new Font("华文细黑", 0, 14));
+		add(leagueHint2);
 
-		weightHint2 = new MyLabel(pcfg.getLabels().element("weighthint2"));
-		add(weightHint2);
+		recordHint2 = new MyLabel(pcfg.getLabels().element("recordhint2"));
+		recordHint2.setFont(new Font("华文细黑", 0, 14));
+		add(recordHint2);
 
-		highschoolHint2 = new MyLabel(pcfg.getLabels().element(
-				"highschoolhint2"));
-		add(highschoolHint2);
+		playoffHint2 = new MyLabel(pcfg.getLabels().element("playoffhint2"));
+		playoffHint2.setFont(new Font("华文细黑", 0, 14));
+		add(playoffHint2);
 
-		collegeHint2 = new MyLabel(pcfg.getLabels().element("collegehint2"));
-		add(collegeHint2);
-
-		debutHint2 = new MyLabel(pcfg.getLabels().element("debuthint2"));
-		add(debutHint2);
-
-		expHint2 = new MyLabel(pcfg.getLabels().element("exphint2"));
-		add(expHint2);
-
-		numHint2 = new MyLabel(pcfg.getLabels().element("numhint2"));
-		add(numHint2);
+		winHint2 = new MyLabel(pcfg.getLabels().element("winhint2"));
+		winHint2.setFont(new Font("华文细黑", 0, 14));
+		add(winHint2);
 
 		//
 
@@ -264,35 +254,34 @@ public class TeamCompareChoosePanel extends JPanel{
 		name2.setForeground(Color.white);
 		add(name2);
 
-		position2 = new MyLabel(pcfg.getLabels().element("position2"));
-		add(position2);
+		abbr2 = new MyLabel(pcfg.getLabels().element("abbr2"));
+		abbr2.setFont(new Font("华文细黑", 0, 14));
+		add(abbr2);
 
-		born2 = new MyLabel(pcfg.getLabels().element("born2"));
-		add(born2);
+		time2 = new MyLabel(pcfg.getLabels().element("time2"));
+		time2.setFont(new Font("华文细黑", 0, 14));
+		add(time2);
 
-		hometown2 = new MyLabel(pcfg.getLabels().element("hometown2"));
-		add(hometown2);
+		division2 = new MyLabel(pcfg.getLabels().element("division2"));
+		division2.setFont(new Font("华文细黑", 0, 14));
+		add(division2);
 
-		height2 = new MyLabel(pcfg.getLabels().element("height2"));
-		add(height2);
+		league2 = new MyLabel(pcfg.getLabels().element("league2"));
+		league2.setFont(new Font("华文细黑", 0, 14));
+		add(league2);
 
-		weight2 = new MyLabel(pcfg.getLabels().element("weight2"));
-		add(weight2);
+		record2 = new MyLabel(pcfg.getLabels().element("record2"));
+		record2.setFont(new Font("华文细黑", 0, 14));
+		add(record2);
 
-		highschool2 = new MyLabel(pcfg.getLabels().element("highschool2"));
-		add(highschool2);
+		playoff2 = new MyLabel(pcfg.getLabels().element("playoff2"));
+		playoff2.setFont(new Font("华文细黑", 0, 14));
+		add(playoff2);
 
-		college2 = new MyLabel(pcfg.getLabels().element("college2"));
-		add(college2);
+		win2 = new MyLabel(pcfg.getLabels().element("win2"));
+		win2.setFont(new Font("华文细黑", 0, 14));
+		add(win2);
 
-		debut2 = new MyLabel(pcfg.getLabels().element("debut2"));
-		add(debut2);
-
-		exp2 = new MyLabel(pcfg.getLabels().element("exp2"));
-		add(exp2);
-
-		num2 = new MyLabel(pcfg.getLabels().element("num2"));
-		add(num2);
 	}
 
 	private void addAction(MyButton btn, int num) {
@@ -302,8 +291,14 @@ public class TeamCompareChoosePanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				String name = fields[num].getText();
 				try {
-					PlayerInfoVO vo = ServiceFactoryImpl.getInstance()
-							.getPlayerService().getPlayerInfoByName(name);
+					List<TeamInfoVO> list = ServiceFactoryImpl.getInstance()
+							.getTeamService().getAllTeamInfo();
+					TeamInfoVO vo = null;
+					for(TeamInfoVO temp: list){
+						if(name.equals(temp.name))
+							vo = temp;
+					}
+					
 					changeData(vo, num);
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
@@ -315,47 +310,23 @@ public class TeamCompareChoosePanel extends JPanel{
 
 	}
 
-	private void changeData(PlayerInfoVO vo, int number) {
+	private void changeData(TeamInfoVO vo, int number) {
 		switch (number) {
 		case 0: {
 			name.setText(vo.name);
 
-			if (vo.position.toString().length() < 1) {
-				position.setText("No Data");
-			} else {
-				position.setText(vo.position);
-			}
-			born.setText(vo.born);
-			hometown.setText(vo.hometown.split(",")[0]);
-			height.setText(vo.height);
-			weight.setText(vo.weight.toString());
-			if (vo.high_school.toString().length() < 2) {
-				highschool.setText("No Data");
-			} else {
-				highschool.setText("YES");
-			}
-
-			if (vo.college.toString().length() < 2) {
-				college.setText("No Data");
-			} else {
-				college.setText("YES");
-			}
-			debut.setText(vo.debut);
-			if (vo.exp != null) {
-				if (vo.exp.toString().contains("-1")) {
-					exp.setText("Retired");
-				} else {
-					exp.setText(vo.exp.toString());
-				}
-			} else {
-				exp.setText("无数据");
-			}
-			num.setText(vo.number.toString());
+			abbr.setText(vo.abbr);			
+			time.setText(vo.buildup_time);
+			division.setText(vo.division);
+			league.setText(vo.league);
+			record.setText(vo.record);
+			playoff.setText(vo.playeroff_appearance.toString());
+			win.setText(vo.championships.toString());
 
 			ImageIcon icon = null;
 			try {
-				icon = ServiceFactoryImpl.getInstance().getPlayerService()
-						.getPlayerPortraitByName(vo.name);
+				icon = ServiceFactoryImpl.getInstance().getTeamService()
+						.getTeamLogoByAbbr(vo.abbr);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -376,42 +347,18 @@ public class TeamCompareChoosePanel extends JPanel{
 		case 1: {
 			name2.setText(vo.name);
 
-			if (vo.position.toString().length() < 1) {
-				position2.setText("No Data");
-			} else {
-				position2.setText(vo.position);
-			}
-			born2.setText(vo.born);
-			hometown2.setText(vo.hometown.split(",")[0]);
-			height2.setText(vo.height);
-			weight2.setText(vo.weight.toString());
-			if (vo.high_school.toString().length() < 2) {
-				highschool2.setText("No Data");
-			} else {
-				highschool2.setText("YES");
-			}
-
-			if (vo.college.toString().length() < 2) {
-				college2.setText("No Data");
-			} else {
-				college2.setText("YES");
-			}
-			debut2.setText(vo.debut);
-			if (vo.exp != null) {
-				if (vo.exp.toString().contains("-1")) {
-					exp2.setText("Retired");
-				} else {
-					exp2.setText(vo.exp.toString());
-				}
-			} else {
-				exp2.setText("无数据");
-			}
-			num2.setText(vo.number.toString());
+			abbr2.setText(vo.abbr);			
+			time2.setText(vo.buildup_time);
+			division2.setText(vo.division);
+			league2.setText(vo.league);
+			record2.setText(vo.record);
+			playoff2.setText(vo.playeroff_appearance.toString());
+			win2.setText(vo.championships.toString());
 
 			ImageIcon icon = null;
 			try {
-				icon = ServiceFactoryImpl.getInstance().getPlayerService()
-						.getPlayerPortraitByName(vo.name);
+				icon = ServiceFactoryImpl.getInstance().getTeamService()
+						.getTeamLogoByAbbr(vo.abbr);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
