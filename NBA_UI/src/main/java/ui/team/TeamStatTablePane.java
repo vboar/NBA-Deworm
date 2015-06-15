@@ -16,11 +16,13 @@ public class TeamStatTablePane extends TablePanel{
 	private int COLUMN_NUM = 24;
 	private Object[][] list;
 	private HomeUI frame;
+	private TeamStat teamstat;
 	
-	public TeamStatTablePane(TableConfig cfg,Object[][] list,HomeUI frame){
+	public TeamStatTablePane(TableConfig cfg,Object[][] list,TeamStat teamstat,HomeUI frame){
 		super(cfg);
 		this.list = list;
 		this.frame = frame;
+		this.teamstat = teamstat;
 		
 		this.initTable();
 	}
@@ -60,7 +62,7 @@ public class TeamStatTablePane extends TablePanel{
             	 int row = table.rowAtPoint(e.getPoint());
             	 if(column == 0){	            		 
             		TeamDetail te = new TeamDetail(frame, table.getValueAt(row, 0).toString());
-            		frame.motherPanel.teamPanel.teamstat.setVisible(false);
+            		teamstat.setVisible(false);
             		//System.out.println(frame.motherPanel.teamPanel.teamDetail==null);
             		frame.motherPanel.teamPanel.add(te);
             	 }

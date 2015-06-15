@@ -1,6 +1,8 @@
 package ui.team;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
@@ -16,6 +18,7 @@ import ui.config.TableConfig;
 import ui.home.HomeUI;
 import ui.util.LoadFont;
 import ui.util.MyButton;
+import ui.util.MyComboBox;
 import ui.util.MyLabel;
 import ui.util.MyTab;
 import vo.TeamInfoVO;
@@ -29,6 +32,8 @@ public class TeamStat extends JPanel{
 	
 	public TeamFilter teamfilter;
 	
+	private String item;
+	
 	private MyTab stat;
 	private MyLabel settingbg;
 	private MyLabel hint;
@@ -41,6 +46,8 @@ public class TeamStat extends JPanel{
 	private TeamStatTablePane table2;
 	private List<TeamPerGameVO> list1;
 	private List<TeamTotalVO> list2;
+	
+	private MyComboBox year;
 	
 	private TeamInfoVO teaminfo;
 	
@@ -65,6 +72,7 @@ public class TeamStat extends JPanel{
 		initLabels();
 		initPanels();
 		initTabs();
+		initBox();
 	}
 	
 	private void initData(){
@@ -134,13 +142,13 @@ public class TeamStat extends JPanel{
 	}
 	
 	private void initLabels(){
-		settingbg = new MyLabel(pcfg.getLabels().element("settingbg"));
-		add(settingbg);
-		
 		hint = new MyLabel(pcfg.getLabels().element("hint"));
 		hint.setForeground(new Color(83,83,83));
 		hint.setFont(LoadFont.loadFont("HELVETICA.TTF", 0, 26));
 		add(hint);
+		
+		settingbg = new MyLabel(pcfg.getLabels().element("settingbg"));
+		add(settingbg);
 	}
 	
 	private void initButtons(){
@@ -215,13 +223,21 @@ public class TeamStat extends JPanel{
 	
 	
 	private void initTable(){
-		table1 = new TeamStatTablePane(new TableConfig(pcfg.getTablepane().element("table1")),data1,frame);
+		table1 = new TeamStatTablePane(new TableConfig(pcfg.getTablepane().element("table1")),data1,this,frame);
 		add(table1);
 
-		table2 = new TeamStatTablePane(new TableConfig(pcfg.getTablepane().element("table2")),data2,frame);
+		table2 = new TeamStatTablePane(new TableConfig(pcfg.getTablepane().element("table2")),data2,this,frame);
 		table2.setVisible(false);
 		add(table2);
 	}
+	
+	private void initBox(){
+		year = new MyComboBox(pcfg.getComboboxes().element("year"));
+		add(year);
+		//getSelectChange(year);
+	}
+	
+	
 	
 	public void filter(){
 		setting.setIcon(new ImageIcon(pcfg.getButtons().element("setting").attributeValue("path")));
