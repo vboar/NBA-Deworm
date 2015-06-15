@@ -175,7 +175,7 @@ public class StatsServiceTest extends TestCase {
 //        ImageIcon img = ss.getPlayerCompareRadar("Kobe Bryant", "Yao Ming", "Career", 1);
 //        ImageIcon img = ss.getPlayerRadar("Kobe Bryant", "Career", 1);
 //        ImageIcon img = ss.getTeamRadar("BOS", "13-14");
-        ImageIcon img = ss.getTeamCompareRadarByGameId("201506110CLE-GSW");
+//        ImageIcon img = ss.getTeamCompareRadarByGameId("201506110CLE-GSW");
         List<Integer> list = new ArrayList<>();
         list.add(FieldType.AST_PCT.ordinal());
 //        list.add(FieldType.TOV_PCT.ordinal());
@@ -186,7 +186,8 @@ public class StatsServiceTest extends TestCase {
 //        ImageIcon img = ss.getPlayerBasicCompareBarChart("Kobe Bryant", "Yao Ming", "Career", list, 1);
 //        ImageIcon img = ss.getMatchTeamLineChart("HOU", "14-15", FieldType.typeToInt(FieldType.PTS));
 //        ImageIcon img = ss.getPlayerContribution("HOU", "13-14");
-//        ImageIcon img = ss.getPlayerAdvancedCompareBarChart("Kobe Bryant", "Yao Ming", "Career", list, 1);
+        ImageIcon img = ss.getPlayerAdvancedCompareBarChart("Kobe Bryant", "Yao Ming", "Career", list, 1);
+
         JFrame frame = new JFrame();
         frame.setBounds(0, 0, 1366, 700);
         frame.setVisible(true);

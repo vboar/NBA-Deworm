@@ -29,13 +29,13 @@ angles = np.concatenate((angles, [angles[0]]))
 
 data1 = np.concatenate((data1, [data1[0]]))
 ax = fig.add_subplot(111, polar=True)
-ax.plot(angles, data1, 'b-', linewidth=1, color='#F44336')
-ax.fill(angles, data1, facecolor='#F44336', alpha=0.25)
+ax.plot(angles, data1, 'b-', linewidth=1, color='#ED5565')
+ax.fill(angles, data1, facecolor='#ED5565', alpha=0.25)
 
 data2 = np.concatenate((data2, [data2[0]]))
 ax = fig.add_subplot(111, polar=True)
-ax.plot(angles, data2, 'b-', linewidth=1, color='#009688')
-ax.fill(angles, data2, facecolor='#009688', alpha=0.25)
+ax.plot(angles, data2, 'b-', linewidth=1, color='#48CFAD')
+ax.fill(angles, data2, facecolor='#48CFAD', alpha=0.25)
 
 ax.set_thetagrids(angles * 180/np.pi, labels)
 # ax.set_title(name[0] + ' VS ' + name[1] + ' - ' + season, va='baseline', color='b')

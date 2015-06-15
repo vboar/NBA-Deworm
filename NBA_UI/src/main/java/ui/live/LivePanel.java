@@ -207,7 +207,11 @@ public class LivePanel extends JPanel {
     public void refresh() {
         vo = LiveServiceImpl.getInstance().getMatchVO(matchId);
         if (vo == null) return;
-        mList = LiveServiceImpl.getInstance().getMsg(matchId);
+        List<LiveMsgVO> newM = LiveServiceImpl.getInstance().getMsg(matchId);
+        if (newM.size() > mList.size()) {
+            mList = newM;
+            messageTablePane.refresh(mList);
+        }
         if (vo.scoresA.size() == 0) {
             score1.setText("0");
             score2.setText("0");
@@ -218,8 +222,6 @@ public class LivePanel extends JPanel {
         fillScore(score1);
         fillScore(score2);
         rtime.setText(vo.residualTime);
-
-        messageTablePane.refresh(mList);
 //        scoreTablePane.refresh(vo);
     }
 
@@ -236,7 +238,7 @@ public class LivePanel extends JPanel {
                     add(scoreTablePane);
                     revalidate();
                     repaint();
-                    Thread.sleep(5000);
+                    Thread.sleep(1500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

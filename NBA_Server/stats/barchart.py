@@ -19,14 +19,17 @@ for item in temp:
     labels.append(item)
 
 data = np.loadtxt(f, delimiter=";", dtype=float)
-max_data = max(max(data[0]), max(data[1]))
+if len(data) == 2:
+    max_data = max(data[0], data[1])
+else:
+    max_data = max(max(data[0]), max(data[1]))
 
 ind = np.arange(len(labels))
 width = 0.33
 
 fig, ax = plt.subplots()
-rects1 = ax.bar(ind+0.33, data[0], width, color='#4878cf')
-rects2 = ax.bar(ind+0.33+width, data[1], width, color='#6acc65')
+rects1 = ax.bar(ind+0.33, data[0], width, color='#ED5565', edgecolor='white')
+rects2 = ax.bar(ind+0.33+width, data[1], width, color='#48CFAD', edgecolor='white')
 
 if max_data > 10:
     plt.axis([0, len(labels)+0.5, 0, max_data+5])

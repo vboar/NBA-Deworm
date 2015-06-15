@@ -42,10 +42,12 @@ def autolabel(rects, label, num):
 
 fig, ax = plt.subplots()
 for i in range(0, len(names)):
-    rectsi = ax.bar([i], [datas[i]], 0.8, color='#4878cf', edgecolor='white')
+    rectsi = ax.bar([i], [datas[i]], 0.8, color='#ED5565', edgecolor='white')
     autolabel(rectsi, names[i], datas[i])
 ax = plt.gca()
 ax.set_xticks([])
+
+
 
 plt.xlim(-0.3, len(names))
 if min(datas) > 0:

@@ -40,6 +40,22 @@ f = file("stats/trb.txt")
 datas = np.loadtxt(f, delimiter=";", dtype=int)
 trb_home = datas[0]
 trb_guest = datas[1]
+seven_home = []
+seven_guest = []
+seven_home.append(pts_home)
+seven_home.append(ast_home)
+seven_home.append(blk_home)
+seven_home.append(stl_home)
+seven_home.append(trb_home)
+seven_home.append(tov_home)
+seven_home.append(pf_home)
+seven_guest.append(pts_guest)
+seven_guest.append(ast_guest)
+seven_guest.append(blk_guest)
+seven_guest.append(stl_guest)
+seven_guest.append(trb_guest)
+seven_guest.append(tov_guest)
+seven_guest.append(pf_guest)
 
 f = open('stats/team_result.txt', 'w')
 
@@ -100,8 +116,41 @@ guest_avg = np.mean(win_guest)
 guest_std = np.std(win_guest)
 f.write(home_avg.__str__() + ';' + home_std.__str__() + ';' +
         guest_avg.__str__() + ';' + guest_std.__str__() + '\n')
+f.close()
+
+# 七项指标，考察指标主客场差异性
+f = open('stats/team_result_1.txt', 'w')
+
+# 第1~7行，分别是pts,ast,blk,stl,trb,tov,pf,0是主场均值，1是主场标准差，2是客场均值，3是客场标准差
+for i in range(0, 7):
+    f.write(np.mean(seven_home[i]).__str__() + ';' + np.std(seven_home[i]).__str__() + ';' +
+            np.mean(seven_guest[i]).__str__() + ';' + np.std(seven_guest[i]).__str__() + '\n')
 
 
-# print stats.ranksums(home, guest)
-# print stats.wilcoxon(home, guest)
-# print stats.mannwhitneyu(home, guest)
+# Wilconxon符号秩和检验， 进行指标主客场差异性检验
+result = []
+result.append(stats.wilcoxon(pts_home, pts_guest))
+result.append(stats.wilcoxon(ast_home, ast_guest))
+result.append(stats.wilcoxon(blk_home, blk_guest))
+result.append(stats.wilcoxon(stl_home, stl_guest))
+result.append(stats.wilcoxon(trb_home, trb_guest))
+result.append(stats.wilcoxon(tov_home, tov_guest))
+result.append(stats.wilcoxon(pf_home, pf_guest))
+# 第8~14行：分别是pts,ast,blk,stl,trb,tov,pf,0是T值，1是p-value
+for item in result:
+    f.write(item[0].__str__() + ';' + item[1].__str__() + '\n')
+
+# Mann-Whitneyu检验， 进行指标主客场差异性和大小对比检验
+result = []
+result.append(stats.mannwhitneyu(pts_home, pts_guest))
+result.append(stats.mannwhitneyu(ast_home, ast_guest))
+result.append(stats.mannwhitneyu(blk_home, blk_guest))
+result.append(stats.mannwhitneyu(stl_home, stl_guest))
+result.append(stats.mannwhitneyu(trb_home, trb_guest))
+result.append(stats.mannwhitneyu(tov_home, tov_guest))
+result.append(stats.mannwhitneyu(pf_home, pf_guest))
+# 第15~21行：分别是pts,ast,blk,stl,trb,tov,pf,0是u值，1是p-value
+for item in result:
+    f.write(item[0].__str__() + ';' + item[1].__str__() + '\n')
+
+

@@ -46,7 +46,7 @@ for i in range(0, len(seasons)):
         x_labels.append("")
 
 
-# 璁剧疆妯潗鏍�
+# 设置横坐标
 a = []
 count = 0
 for item in seasons:
@@ -60,8 +60,8 @@ for label in axis.get_ticklabels():
     label.set_fontsize(11)
 
 
-avg_line, = plt.plot(a, avgs, 'r--', color='b', linewidth=1)
-ca_line, = plt.plot(a, datas, 'b-', color='#F44336', linewidth=2)
+avg_line, = plt.plot(a, avgs, 'r--', color='48CFAD', linewidth=1)
+ca_line, = plt.plot(a, datas, 'b-', color='#ED5565', linewidth=2)
 fig.legend((avg_line, ca_line), ('average', 'career'), loc=(0.71, 0.91), labelspacing=0.005)
 plt.savefig('stats/LineChart.png')
 plt.savefig('stats/LineChart' + '_' + name + '_' + regular + '_' + filter_type + '.png')

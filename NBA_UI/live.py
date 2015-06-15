@@ -14,7 +14,7 @@ list_url = 'http://v.opahnet.com/nba/tv/'
 basic_url = 'http://g.hupu.com/nba/homepage/getMatchBasicInfo?matchId={0}'
 live_url = 'http://g.hupu.com/node/playbyplay/matchLives?s_count=0&match_id={0}&homeTeamName={1}&awayTeamName={2}'
 pbp_url = 'http://g.hupu.com/nba/playbyplay_{0}.html'
-match_ids = []
+match_ids = ['150123']
 
 
 def save_match_list():
@@ -187,4 +187,4 @@ if __name__ == '__main__':
         save_match(match_ids[0])
         save_match_info(match_ids[0])
         print 'update...'
-        time.sleep(5)
+        time.sleep(3)
