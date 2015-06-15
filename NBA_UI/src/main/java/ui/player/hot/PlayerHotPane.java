@@ -22,6 +22,7 @@ import ui.util.MyButton;
 import ui.util.MyComboBox;
 import ui.util.MyLabel;
 import util.FieldType;
+import util.Jump;
 import vo.HotPlayerInfoVO;
 
 public class PlayerHotPane extends JPanel {
@@ -113,6 +114,8 @@ public class PlayerHotPane extends JPanel {
 			teams[i].setFont(LoadFont.loadFont("YAHEI.TTC",0,13));
 			add(teams[i]);
 			
+			Jump.jumpToTeam(teams[i], 0, frame);
+			
 			datas[i] = new MyLabel(pcfg.getLabels().element("data"+i));
 			datas[i].setForeground(new Color(83,83,83));
 			if(i==0)
@@ -201,8 +204,10 @@ public class PlayerHotPane extends JPanel {
 			else
 				positions[i].setText(volist.get(i).position);
 			
-			if(i==0)
+			if(i==0){
 				teams[i].setText("所属球队：    "+teamlist.get(i));
+				teams[i].setName(volist.get(i).team);
+			}
 			else
 				teams[i].setText(teamlist.get(i));
 			

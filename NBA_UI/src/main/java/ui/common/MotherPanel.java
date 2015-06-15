@@ -148,7 +148,7 @@ public class MotherPanel extends JPanel {
             		}else{
             			teamPanel.teamindex.setVisible(true);
             			teamPanel.comparechoose.setVisible(false);
-            			teamPanel.teamDetail.setVisible(false);
+            			if(teamPanel.teamDetail!=null)teamPanel.teamDetail.setVisible(false);
             			teamPanel.teamhot.setVisible(false);
             			teamPanel.teamstat.setVisible(false);
             		}

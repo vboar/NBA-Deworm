@@ -13,6 +13,7 @@ import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
 import ui.util.MyLabel;
+import util.FieldType;
 
 public class TeamCompare extends JPanel{
 	private PanelConfig pcfg;
@@ -81,7 +82,32 @@ public class TeamCompare extends JPanel{
 	}
 	
 	public void changeData(String name1,String name2){
+		
+		ArrayList<Integer> field0 =new ArrayList<>();
+		field0.add(FieldType.PER.ordinal());
+		System.out.println(field0.get(0));
+//		field0.add(FieldType.ORB_PCT.ordinal());
+//		field0.add(FieldType.DRB_PCT.ordinal());
+//		field0.add(FieldType.TRB_PCT.ordinal());
+//		field0.add(FieldType.AST_PCT.ordinal());
+//		field0.add(FieldType.STL_PCT.ordinal());
+//		field0.add(FieldType.BLK_PCT.ordinal());
+//		field0.add(FieldType.TOV_PCT.ordinal());
+//		field0.add(FieldType.USG_PCT.ordinal());
+		
+		
+		
 		ArrayList<Integer> field =new ArrayList<>();
+		field.add(FieldType.PTS.ordinal());
+//		field.add(FieldType.AST.ordinal());
+//		field.add(FieldType.BLK.ordinal());
+//		field.add(FieldType.STL.ordinal());
+//		field.add(FieldType.TRB.ordinal());		
+//		field.add(FieldType.ORB.ordinal());
+//		field.add(FieldType.DRB.ordinal());
+//		field.add(FieldType.TOV.ordinal());
+//		field.add(FieldType.PF.ordinal());	
+		
 		nameLb1.setText(name1);
 		nameLb2.setText(name2);
 		System.out.println(name1);
@@ -91,18 +117,17 @@ public class TeamCompare extends JPanel{
 		ImageIcon basic = null;
 		ImageIcon advance = null;
 		try {
-		radar = ServiceFactoryImpl.getInstance().getStatsService().getPlayerCompareRadar(name1, name2, "13-14", 1);
-		basic = ServiceFactoryImpl.getInstance().getStatsService().getPlayerAdvancedCompareBarChart(name1, name2, "Career", field, 1);
-		advance = ServiceFactoryImpl.getInstance().getStatsService().getPlayerBasicCompareBarChart(name1, name2, "Career", field, 1);
-		
-		
+			radar = ServiceFactoryImpl.getInstance().getStatsService().getTeamCompareRadar(name1, name2, "14-15");
+			basic = ServiceFactoryImpl.getInstance().getStatsService().getTeamBasicCompareBarChart(name1, name2, "14-15", field);
+			advance = ServiceFactoryImpl.getInstance().getStatsService().getTeamAdvancedCompareBarChart(name1, name2, "14-15", field0);
+			
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 		chart1.setImage(radar);
-		//chart2.setImage(basic);
-		//chart3.setImage(advance);
+		chart2.setImage(basic);
+		chart3.setImage(advance);
 
 	}
 }

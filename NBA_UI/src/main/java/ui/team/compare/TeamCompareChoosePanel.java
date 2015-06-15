@@ -122,7 +122,7 @@ public class TeamCompareChoosePanel extends JPanel{
 				ArrayList<String> list2 = new ArrayList<String>();
 				for (TeamInfoVO s : list) {
 					if (s.name.contains(keyword))
-						list2.add(s.name);
+						list2.add(s.abbr);
 				}
 				return list2;
 			}
@@ -295,7 +295,7 @@ public class TeamCompareChoosePanel extends JPanel{
 							.getTeamService().getAllTeamInfo();
 					TeamInfoVO vo = null;
 					for(TeamInfoVO temp: list){
-						if(name.equals(temp.name))
+						if(name.equals(temp.abbr))
 							vo = temp;
 					}
 					
@@ -385,11 +385,13 @@ public class TeamCompareChoosePanel extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (fill >= 2) {
-					frame.motherPanel.playerPanel.compareChoosePanel
+					TeamCompareChoosePanel.this
 							.setVisible(false);
-					frame.motherPanel.playerPanel.comparePanel.changeData(
-							fields[0].getText(), fields[1].getText());
-					frame.motherPanel.playerPanel.comparePanel.setVisible(true);
+					TeamCompare temp = new TeamCompare(frame);
+					temp.changeData(fields[0].getText(), fields[1].getText());
+					
+					frame.motherPanel.teamPanel.add(temp);
+					
 				}
 			}
 		});
