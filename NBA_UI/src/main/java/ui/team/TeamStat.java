@@ -72,7 +72,7 @@ public class TeamStat extends JPanel{
 		initLabels();
 		initPanels();
 		initTabs();
-		initBox();
+		
 	}
 	
 	private void initData(){
@@ -231,11 +231,7 @@ public class TeamStat extends JPanel{
 		add(table2);
 	}
 	
-	private void initBox(){
-		year = new MyComboBox(pcfg.getComboboxes().element("year"));
-		add(year);
-		//getSelectChange(year);
-	}
+	
 	
 	
 	

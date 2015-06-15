@@ -169,6 +169,7 @@ public class TeamDetail extends JPanel{
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				TeamDetail.this.setVisible(false);
 				removeAll();
 				teamMore = new TeamMore(frame,abbr);
 				add(teamMore);
@@ -183,6 +184,7 @@ public class TeamDetail extends JPanel{
 
 			@Override
 			public void mouseExited(MouseEvent arg0) {
+				
 				more.setText("点此查看更多");
 			}
 			

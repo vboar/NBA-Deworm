@@ -87,6 +87,7 @@ public class SeasonDetail extends JPanel{
 			PlayerFilter f = new PlayerFilter();
 			f.season = season;
 			f.team = abbr;
+			f.regular = 1;
 			playertotal = ServiceFactoryImpl.getInstance().getPlayerService()
 					.getPlayerTotalByFilter(f);
 		} catch (RemoteException e) {

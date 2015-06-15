@@ -315,7 +315,11 @@ public class PlayerInfoPane extends JPanel {
 		try {
 			List<PlayerAdvancedVO> vo = ServiceFactoryImpl.getInstance().getPlayerService()
 					.getPlayerAdvancedByName(name, 1);
+			if(vo.size()>2){
 			latestSeason= vo.get(vo.size()-2).season;
+			}else{
+				latestSeason = "14-15";
+			}
 		} catch (RemoteException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
