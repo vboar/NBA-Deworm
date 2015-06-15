@@ -1,6 +1,7 @@
 package service.impl;
 
 import java.awt.MediaTracker;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,10 +50,14 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 
 	// TODO ---------main----------------
 	public static void main(String[] args) {
-		InferenceStatsServiceImpl is = new InferenceStatsServiceImpl();
-		is.getSimpleRegression(FieldType.TRB.ordinal(), "13-14");
-		is.getMultiRegression("14-15");
-	}
+//		InferenceStatsServiceImpl is = new InferenceStatsServiceImpl();
+//		is.getSimpleRegression(FieldType.TRB.ordinal(), "13-14");
+//        try {
+//            is.getMultiRegression("14-15");
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//        }
+    }
 
 	public void getTeamStepwiseToTxt(String season) {
 		List<List<String>> strs = getStepwistString(season);
@@ -155,7 +160,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 	}
 
 	@Override
-	public TeamWinAnalysisVO getTeamTestingResultBySeason(String season) {
+	public TeamWinAnalysisVO getTeamTestingResultBySeason(String season) throws RemoteException {
 		this.getTeamWinsToTxt(season);
 		this.getTeamStepwiseToTxt(season);
 		try {
@@ -169,7 +174,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 	}
 
 	@Override
-	public TeamWinAnalysisVO getTeamTestingResult_10() {
+	public TeamWinAnalysisVO getTeamTestingResult_10() throws RemoteException {
 		this.getTeamWinsToTxt_10();
 		;
 		this.getTeamStepwiseToTxt_10();
@@ -184,7 +189,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 	}
 	
 	@Override
-	public MultiRegressionVO getMultiRegression(String season){
+	public MultiRegressionVO getMultiRegression(String season) throws RemoteException {
 //		List<TeamStatsPerGame> list = tdao.getTeamPerGameBySeason(season);
 //		List<OpponentStatsPerGame> opplist = tdao.getTeamOppPerGameBySeason(season);
 		List<TeamStatsPerGame> list = new ArrayList<TeamStatsPerGame>();
@@ -242,7 +247,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 
 	//TODO
 	@Override
-	public SimpleRegressionVO getSimpleRegression(int typeNum, String season){
+	public SimpleRegressionVO getSimpleRegression(int typeNum, String season) throws RemoteException {
 		FieldType type = FieldType.values()[typeNum];
 		List<TeamStatsPerGame> list = tdao.getTeamPerGameBySeason(season);
 		List<OpponentStatsPerGame> opplist = tdao.getTeamOppPerGameBySeason(season);
