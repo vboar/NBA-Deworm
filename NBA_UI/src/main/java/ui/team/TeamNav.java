@@ -152,7 +152,7 @@ public class TeamNav extends JPanel{
 				show = 2;
 				index.setIcon(new ImageIcon(pcfg.getLabels().element("index").attributeValue("path")));
 				teamstat.setIcon(new ImageIcon(pcfg.getLabels().element("teamstat").attributeValue("path")));
-				compare.setIcon(new ImageIcon(pcfg.getLabels().element("hotteam").attributeValue("path")));
+				compare.setIcon(new ImageIcon(pcfg.getLabels().element("compare").attributeValue("path")));
 
 				frame.motherPanel.teamPanel.removeAll();
 				frame.motherPanel.teamPanel.teamhot = new TeamHot(frame);

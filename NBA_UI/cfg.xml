@@ -749,7 +749,8 @@
                    height="60" x="106" y="45" bg="img/common/nav/navbg.jpg" >
 
                 <labels>
-
+				<stat1  w="103" h="60" x="0" y="0" path="img/stat/nav/stat1.png"/>
+				<stat2 w="103" h="60" x="104" y="0" path="img/stat/nav/stat2.png"/>
                 </labels>
 
             </panel>

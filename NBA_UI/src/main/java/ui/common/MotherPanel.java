@@ -289,20 +289,20 @@ public class MotherPanel extends JPanel {
         menu.setIcon(new ImageIcon(path+"."+fix));
     }
 
-    public void checkLive() {
-        LiveMatchInfoVO vo = LiveServiceImpl.getInstance().checkMatchStart();
-        if (vo != null) {
-            String str = vo.date + " " + vo.time + " " + vo.homeTeam + "对" + vo.guestTeam +
-                    "的比赛已经开始了，是否立马前往观看？";
-            int result = JOptionPane.showConfirmDialog(frame, str,"直播提醒",
-                    JOptionPane.YES_NO_OPTION);
-            if(result == JOptionPane.YES_OPTION){
-                frame.home.setVisible(false);
-                setVisible(true);
-                fillComponents(3);
-                matchPanel.liveChoosePane.setLivePanel(vo);
-            }
-        }
-    }
+//    public void checkLive() {
+//        LiveMatchInfoVO vo = LiveServiceImpl.getInstance().checkMatchStart();
+//        if (vo != null) {
+//            String str = vo.date + " " + vo.time + " " + vo.homeTeam + "对" + vo.guestTeam +
+//                    "的比赛已经开始了，是否立马前往观看？";
+//            int result = JOptionPane.showConfirmDialog(frame, str,"直播提醒",
+//                    JOptionPane.YES_NO_OPTION);
+//            if(result == JOptionPane.YES_OPTION){
+//                frame.home.setVisible(false);
+//                setVisible(true);
+//                fillComponents(3);
+//                matchPanel.liveChoosePane.setLivePanel(vo);
+//            }
+//        }
+//    }
 
 }

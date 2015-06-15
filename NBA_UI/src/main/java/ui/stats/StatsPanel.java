@@ -14,6 +14,9 @@ public class StatsPanel extends JPanel {
     private PanelConfig pcfg ;
     private HomeUI frame;
 
+    public Stat1 stat1;
+    public Stat2 stat2;
+    
     public StatsPanel(HomeUI frame) {
         this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
                 .get(this.getClass().getName());
@@ -33,7 +36,12 @@ public class StatsPanel extends JPanel {
     }
 
     private void initPanel() {
-
+    	stat1 = new Stat1(frame);
+    	add(stat1);
+    	
+    	stat2 = new Stat2(frame);
+    	stat2.setVisible(false);
+    	add(stat2);
     }
 
 }
