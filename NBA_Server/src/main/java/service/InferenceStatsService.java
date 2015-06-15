@@ -1,5 +1,10 @@
 package service;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+import vo.MultiRegressionVO;
+import vo.SimpleRegressionVO;
 import vo.TeamWinAnalysisVO;
 
 /**
@@ -7,7 +12,7 @@ import vo.TeamWinAnalysisVO;
  * 
  * created by JaneLDQ on 2015年6月14日 下午3:38:47
  */
-public interface InferenceStatsService {
+public interface InferenceStatsService extends Remote{
 
 	/**
 	 * 获得30支球队某赛季的pts,ast,blk,stl,trb,tov,pf的主客场分别累计值
@@ -15,7 +20,7 @@ public interface InferenceStatsService {
 	 * 格式 : 主场一行/客场一行
 	 * @param season
 	 */
-	public void getTeamStepwiseToTxt(String season);
+	public void getTeamStepwiseToTxt(String season) throws RemoteException;
 	
 	/**
 	 * 获得30支球队10个赛季的pts,ast,blk,stl,trb,tov,pf的主客场分别累计值
@@ -23,7 +28,7 @@ public interface InferenceStatsService {
 	 * 格式 : 主场一行/客场一行
 	 * @param season
 	 */
-	public void getTeamStepwiseToTxt_10();
+	public void getTeamStepwiseToTxt_10() throws RemoteException;
 	
 	/**
 	 * 获得单个赛季每场比赛的pts,ast,blk,stl,trb,tov,pf的主客场球队分别累计值
@@ -31,7 +36,7 @@ public interface InferenceStatsService {
 	 * 格式 : 主场一行/客场一行
 	 * @param season
 	 */
-	public void getTeamStepwiseMatchToTxt(String season);
+	public void getTeamStepwiseMatchToTxt(String season) throws RemoteException;
 	
 	/**
 	 * 获得30支球队某赛季的主客场胜场数
@@ -39,26 +44,47 @@ public interface InferenceStatsService {
 	 * 格式：主场一行/客场一行
 	 * @param season
 	 */
-	public void getTeamWinsToTxt(String season);
+	public void getTeamWinsToTxt(String season) throws RemoteException;
 	
 	/**
 	 * 获得30支球队10个赛季的主客场胜场数
 	 * 存储路径为 stats/team_testing.txt
 	 * 格式：主场一行/客场一行
 	 */
-	public void getTeamWinsToTxt_10();
+	public void getTeamWinsToTxt_10() throws RemoteException;
 	
 	/**
 	 * 获得单个赛季——球队主客场胜场影响差异分析结果
 	 * @param season 单个赛季
 	 * @return
 	 */
-	public TeamWinAnalysisVO getTeamTestingResultBySeason(String season);
+	public TeamWinAnalysisVO getTeamTestingResultBySeason(String season) throws RemoteException;
 	
 	/**
 	 * 获得10个赛季——球队主客场胜场影响差异统计分析结果
 	 * @return
 	 */
-	public TeamWinAnalysisVO getTeamTestingResult_10();
+	public TeamWinAnalysisVO getTeamTestingResult_10() throws RemoteException;
+
+	/**
+	 * 获得一个赛季的球队数据的多元回归分析
+	 * @param season
+	 * @return
+	 * @throws RemoteException
+	 */
+	MultiRegressionVO getMultiRegression(String season) throws RemoteException;
+
+	/**
+	 * 获得某个数据与球队净胜分的一元回归分析
+	 * @param typeNum
+	 * @param season
+	 * @return
+	 * @throws RemoteException
+	 */
+	SimpleRegressionVO getSimpleRegression(int typeNum, String season) throws RemoteException;
+	
+	
+	
+	
 	
 }

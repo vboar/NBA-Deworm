@@ -41,7 +41,7 @@ public class PlayerDaoTest extends TestCase {
 
 	public void testGetAllPlayerInfo() {
 		List<PlayerInfo> list = pdao.getAllPlayerInfo();
-		assertEquals(1465,list.size());
+		assertEquals(1474,list.size());
 	}
 
 	public void testGetPlayerInfoByName() {

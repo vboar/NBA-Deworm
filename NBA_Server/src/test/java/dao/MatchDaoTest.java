@@ -20,14 +20,14 @@ public class MatchDaoTest extends TestCase {
 	}
 
 	public void testGetMatchInfoByGameid(){
-		MatchInfo info = mdao.getMatchInfoByGameId("200010310ATL-CHH");
-		assertEquals("200010310ATL-CHH", info.getGame_id());
+		MatchInfo info = mdao.getMatchInfoByGameId("200010310ATL-CHA");
+		assertEquals("200010310ATL-CHA", info.getGame_id());
 	}
 	
 	public void testGetSectionScoreByGameid(){
-		List<List<Integer>> list = mdao.getSectionScoreByGameId("200010310ATL-CHH");
+		List<List<Integer>> list = mdao.getSectionScoreByGameId("200010310ATL-CHA");
 		assertEquals(13, list.get(0).get(0).intValue());
-		list = mdao.getSectionScoreByGameId("200010310ATL-CHH");
+		list = mdao.getSectionScoreByGameId("200010310ATL-CHA");
 		for(List<Integer> pts: list){
 			System.out.println(pts.get(0)+" " + pts.get(1));
 		}
@@ -67,15 +67,15 @@ public class MatchDaoTest extends TestCase {
 	}
 
 	public void testGetMatchPlayerAdvancedByGameIdTeam() {
-		List<MatchPlayerAdvanced> list = mdao.getMatchPlayerAdvancedByGameIdTeam("200010310ATL-CHH","ATL");
+		List<MatchPlayerAdvanced> list = mdao.getMatchPlayerAdvancedByGameIdTeam("200010310ATL-CHA","ATL");
 		assertEquals("ATL", list.get(0).getTeam_abbr());
-		assertEquals("200010310ATL-CHH", list.get(0).getGame_id());
+		assertEquals("200010310ATL-CHA", list.get(0).getGame_id());
 	}
 
 	public void testGetMatchPlayerBasicByGameIdTeam() {
-		List<MatchPlayerBasic> list = mdao.getMatchPlayerBasicByGameIdTeam("200010310ATL-CHH","ATL");
+		List<MatchPlayerBasic> list = mdao.getMatchPlayerBasicByGameIdTeam("200010310ATL-CHA","ATL");
 		assertEquals("ATL", list.get(0).getTeam_abbr());
-		assertEquals("200010310ATL-CHH", list.get(0).getGame_id());
+		assertEquals("200010310ATL-CHA", list.get(0).getGame_id());
 	}
 	
 	public void testGetMatchPlayerBasicByPlayer(){
