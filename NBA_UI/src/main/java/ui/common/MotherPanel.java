@@ -140,6 +140,19 @@ public class MotherPanel extends JPanel {
             			
             		}
             	}
+            	
+            	if(panel == 2){
+            		if(teamPanel.teamindex.isVisible()){
+            			frame.motherPanel.setVisible(false);
+            			frame.home.setVisible(true);
+            		}else{
+            			teamPanel.teamindex.setVisible(true);
+            			teamPanel.comparechoose.setVisible(false);
+            			teamPanel.teamDetail.setVisible(false);
+            			teamPanel.teamhot.setVisible(false);
+            			teamPanel.teamstat.setVisible(false);
+            		}
+            	}
                 if (panel == 3) {
                 	if (matchnav.show == 1) {
                 		if(matchPanel.liveChoosePane.isVisible()==false){

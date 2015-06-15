@@ -239,6 +239,9 @@
 			<current w="200" h="30" x="450" y="50" />
 			
 			<more w="200" h="30" x="800" y="450"/>
+			
+			<chart1  w="200" h="300" x="500" y="100"/>
+			<chart2 w="200" h="300" x="200" y="100"/>
 			</labels>
 			
 			<tablepane className="ui.team.TeamGeneralTablePane" width="300"
@@ -252,23 +255,20 @@
 			
 			<comboboxes>
 				<cdt w="110" h="25" x="540" y="52">
-					<string str="得分" />
-					<string str="出手数" />
-					<string str="命中率" />
-					<string str="3分得分" />
-					<string str="3分出手" />
-					<string str="3分命中率" />
-					<string str="罚球得分" />
-					<string str="罚球次数" />
-					<string str="罚球命中率" />
-					<string str="进攻篮板" />
-					<string str="防守篮板" />
-					<string str="总篮板" />
-					<string str="助攻" />
-					<string str="抢断" />
-					<string str="盖帽" />
-					<string str="失误"/>
-					<string str="犯规"/>
+					<string str="PTS" />
+					<string str="AST" />
+					<string str="BLK" />
+					<string str="STL" />
+					<string str="TRB" />
+					<string str="DRB" />
+					<string str="ORB" />
+					<string str="TOV" />
+					<string str="PF" />
+					<string str="FG3_PCT" />
+					<string str="FGA_PCT" />
+					<string str="FT_PCT" />
+					
+					
 				</cdt>
 				</comboboxes>
 			</panel>
