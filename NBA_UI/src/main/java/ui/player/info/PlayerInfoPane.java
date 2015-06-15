@@ -1,6 +1,7 @@
 package ui.player.info;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +19,7 @@ import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
+import ui.util.LoadFont;
 import ui.util.MyComboBox;
 import ui.util.MyLabel;
 import ui.util.MyPressedLabel;
@@ -32,7 +34,8 @@ import vo.PlayerPerGameVO;
 public class PlayerInfoPane extends JPanel {
 	private PanelConfig pcfg;
 	private HomeUI frame;
-
+	private Image bg;
+	
 	private MyLabel img;
 
 	private MyLabel nameHint;
@@ -83,7 +86,9 @@ public class PlayerInfoPane extends JPanel {
 	public PlayerInfoPane(HomeUI frame) {
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
+		this.bg = pcfg.getBg();
 		this.frame = frame;
+		
 		// 设置布局管理器为自由布局
 		this.setLayout(null);
 		this.setOpaque(false);
@@ -97,6 +102,10 @@ public class PlayerInfoPane extends JPanel {
 
 	}
 
+	public void paintComponent(Graphics g){
+		g.drawImage(bg, 0, 0, pcfg.getW(), pcfg.getH(), null);
+	}
+	
 	private void initComponent() {
 		initLabels();
 		initTables();
@@ -153,6 +162,7 @@ public class PlayerInfoPane extends JPanel {
 		//
 
 		name = new MyLabel(pcfg.getLabels().element("name"));
+		name.setForeground(Color.WHITE);
 		add(name);
 
 		position = new MyLabel(pcfg.getLabels().element("position"));
@@ -186,6 +196,8 @@ public class PlayerInfoPane extends JPanel {
 		add(num);
 
 		findMore = new MyPressedLabel(pcfg.getLabels().element("findmore"));
+		findMore.setForeground(new Color(96,156,236));
+		findMore.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 17));
 		add(findMore);
 		findMore.addMouseListener(new MouseListener() {
 
@@ -253,12 +265,16 @@ public class PlayerInfoPane extends JPanel {
 		// ServiceFactoryImpl.getInstance().getStatsService().getPlayerRadar(name.getText(),
 		// "14-15", 1);
 		chart1Name = new MyLabel(pcfg.getLabels().element("chart1name"));
+		chart1Name.setForeground(Color.WHITE);
+		chart1Name.setFont(LoadFont.loadFont("HELVETICA.TTF", 0, 26));
 		add(chart1Name);
 		chart1 = new MyLabel(pcfg.getLabels().element("chart1"));
 		// chart1.setImage(icon);
 		add(chart1);
 
 		chart2Name = new MyLabel(pcfg.getLabels().element("chart2name"));
+		chart2Name.setFont(LoadFont.loadFont("HELVETICA.TTF", 0, 26));
+		chart2Name.setForeground(Color.WHITE);
 		add(chart2Name);
 		box = new MyComboBox(pcfg.getComboboxes().element("box"));
 		add(box);
@@ -375,10 +391,10 @@ public class PlayerInfoPane extends JPanel {
 		num.setText(info.number.toString());
 
 		chart1.setImage(radar);
-		chart1Name.setText(latestSeason + " radar chart");
+		chart1Name.setText(latestSeason + " Radar Chart");
 		chart2.setImage(line);
 		chart2Name.setText(latestSeason + " "
-				+ box.getSelectedItem().toString() + " line chart");
+				+ box.getSelectedItem().toString() + " Line Chart");
 
 		ImageIcon icon = null;
 		try {

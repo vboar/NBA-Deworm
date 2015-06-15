@@ -221,6 +221,8 @@ public class PlayerIndex extends JPanel {
 		setImage(x, "x");
 		setImage(y, "y");
 		setImage(z, "z");
+		a.setIcon(new ImageIcon(path +  "a_click.png"));
+
 
 		// for(int i= 0;i<13;i++){
 		// MyLabel left = new MyLabel(pcfg.getLabels().element("left"));
@@ -453,6 +455,7 @@ public class PlayerIndex extends JPanel {
 		jsp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		jsp.setOpaque(false);
+		jsp.getViewport().setOpaque(false);
 		jsp.setBorder(new EmptyBorder(0,0,0,0));
 		
 		layerPane = new JLayeredPane();
