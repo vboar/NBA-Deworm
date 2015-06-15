@@ -5,6 +5,7 @@ import ui.config.SystemConfig;
 import ui.home.HomeUI;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * Created by Vboar on 2015/6/13.
