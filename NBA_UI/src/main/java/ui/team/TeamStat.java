@@ -1,8 +1,8 @@
 package ui.team;
 
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -14,6 +14,7 @@ import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
+import ui.util.LoadFont;
 import ui.util.MyButton;
 import ui.util.MyLabel;
 import ui.util.MyTab;
@@ -30,6 +31,7 @@ public class TeamStat extends JPanel{
 	
 	private MyTab stat;
 	private MyLabel settingbg;
+	private MyLabel hint;
 	private MyButton setting;
 	private MyButton menu;
 	
@@ -134,11 +136,16 @@ public class TeamStat extends JPanel{
 	private void initLabels(){
 		settingbg = new MyLabel(pcfg.getLabels().element("settingbg"));
 		add(settingbg);
+		
+		hint = new MyLabel(pcfg.getLabels().element("hint"));
+		hint.setForeground(new Color(83,83,83));
+		hint.setFont(LoadFont.loadFont("HELVETICA.TTF", 0, 26));
+		add(hint);
 	}
 	
 	private void initButtons(){
 		menu = new MyButton(pcfg.getButtons().element("menu"),true);
-		add(menu);
+		//add(menu);
 		
 		setting = new MyButton(pcfg.getButtons().element("setting"));
 		setting.addMouseListener(new MouseAdapter(){
@@ -177,7 +184,7 @@ public class TeamStat extends JPanel{
 			}
 
 		});
-		add(setting);	
+		//add(setting);	
 	}
 	
 	private void initTabs(){
@@ -208,10 +215,10 @@ public class TeamStat extends JPanel{
 	
 	
 	private void initTable(){
-		table1 = new TeamStatTablePane(new TableConfig(pcfg.getTablepane().element("table1")),data1);
+		table1 = new TeamStatTablePane(new TableConfig(pcfg.getTablepane().element("table1")),data1,frame);
 		add(table1);
 
-		table2 = new TeamStatTablePane(new TableConfig(pcfg.getTablepane().element("table2")),data2);
+		table2 = new TeamStatTablePane(new TableConfig(pcfg.getTablepane().element("table2")),data2,frame);
 		table2.setVisible(false);
 		add(table2);
 	}

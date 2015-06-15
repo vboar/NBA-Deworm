@@ -15,8 +15,8 @@ import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
-import ui.player.stat.PlayerAllTablePane;
 import ui.util.MyButton;
+import ui.util.MyLabel;
 import vo.MatchFilter;
 import vo.MatchInfoVO;
 
@@ -30,6 +30,8 @@ public class MatchStat extends JPanel{
 	
 	public MyButton setting;
 	public MyButton menu;
+	
+	private MyLabel settingbg;
 	
 	public ui.match.stat.MatchFilter matchFilter;
 	
@@ -48,10 +50,10 @@ public class MatchStat extends JPanel{
 	}
 	
 	private void initComponent(){
+		initButtons();
 		initPanels();
 		initLabels();
 		initTable();
-		initButtons();
 	}
 	
 	private void initPanels(){
@@ -92,7 +94,7 @@ public class MatchStat extends JPanel{
 	}
 	
 	private void initLabels(){
-		
+		settingbg = new MyLabel(pcfg.getLabels().element("settingbg"));
 	}
 	
 	

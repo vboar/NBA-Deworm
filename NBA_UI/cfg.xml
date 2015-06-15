@@ -221,14 +221,14 @@
 			</panel>
 			
 			<panel className="ui.team.TeamDetail" width="940" height="511"
-			x="0" y="0" >
+			x="0" y="0" bg="img/team/teamdetail.png">
 			
 			<labels>
 			<info w="150" h="46" x="0" y="0" path="img/team/label/info.png"/>
 			<player w="150" h="46" x="150" y="0" path="img/team/label/player.png"/>
 			<labelbg w="940" h="50" x="0" y="0" path="img/player/setting/bg.png" />
 			
-			<team w="250" h="30" x="50" y="50" />
+			<team w="250" h="30" x="55" y="30" />
 			<logo w="100" h="100" x="40" y="90"/>
 			<buildtime w="100" h="30" x="160" y="90"/>
 			<location w="260" h="30" x="160" y="110"/>
@@ -240,12 +240,12 @@
 			
 			<more w="200" h="30" x="800" y="450"/>
 			
-			<chart1  w="300" h="200" x="500" y="100"/>
-			<chart2 w="300" h="200" x="200" y="100"/>
+			<chart1 w="350" h="205" x="425" y="70"/>
+			<chart2  w="350" h="205" x="425" y="285"/>
 			</labels>
 			
 			<tablepane className="ui.team.TeamGeneralTablePane" width="300"
-				height="160" x="10" y="200">
+				height="160" x="10" y="250">
 				<columnnames>
 					<columnname name="技术统计" />
 					<columnname name="场均" />
@@ -254,7 +254,7 @@
 			</tablepane>
 			
 			<comboboxes>
-				<cdt w="110" h="25" x="540" y="52">
+				<cdt w="110" h="25" x="180" y="220">
 					<string str="PTS" />
 					<string str="AST" />
 					<string str="BLK" />
@@ -482,6 +482,7 @@
 
 			<labels>
 			<settingbg w="940" h="50" x="0" y="0" path="img/player/setting/bg.png" />
+			<hint text="All Team Data Table" w="300" h="30" x="100" y="13"/>
 			</labels>
 						
 			<tab>
@@ -636,8 +637,12 @@
 			</panel>
 
 			<panel className="ui.match.MatchPanel" width="940" height="511"
-			x="37" y="148">
+			x="37" y="148" bg="img/common/background.jpg">
+			<labels>
+			<settingbg w="940" h="50" x="0" y="0" 
+			path="img/player/setting/bg.png"/>
 			
+			</labels >
 			</panel>
 			
 
@@ -1369,6 +1374,10 @@
 			<setting w="53" h="46" x="888" y="0" path="img/common/btn/setting.png"/>
 			<menu w="52" h="46" x="0" y="0" path="img/common/btn/dropdownmenu2.png"/>
 			</buttons>
+			
+			<labels>
+			<settingbg w="940" h="50" x="0" y="0" path="img/player/setting/bg.png"/>
+			</labels>
 			</panel>
 		<panel className="ui.match.stat.MatchFilter" width="690" height="260"
 			x="0" y="0" bg="img/common/filter/filterbg.jpg">

@@ -2,8 +2,11 @@ package ui.team;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import ui.config.TableConfig;
+import ui.home.HomeUI;
 import ui.util.MyTable;
 import ui.util.MyTableModel;
 import ui.util.TablePanel;
@@ -12,10 +15,13 @@ public class TeamStatTablePane extends TablePanel{
 	
 	private int COLUMN_NUM = 24;
 	private Object[][] list;
+	private HomeUI frame;
 	
-	public TeamStatTablePane(TableConfig cfg,Object[][] list){
+	public TeamStatTablePane(TableConfig cfg,Object[][] list,HomeUI frame){
 		super(cfg);
 		this.list = list;
+		this.frame = frame;
+		
 		this.initTable();
 	}
 
@@ -43,8 +49,27 @@ public class TeamStatTablePane extends TablePanel{
         table.setFont(new Font("华文细黑", 0, 12));
         table.FitTableColumns(table);
         initComponent();
+        
+        this.table.addMouseListener(showDataInfo());
 	}
 
+	private MouseAdapter showDataInfo(){
+    	MouseAdapter adapter = new MouseAdapter() {
+    		 public void mouseReleased (MouseEvent e) {  
+            	 int column = table.columnAtPoint(e.getPoint());
+            	 int row = table.rowAtPoint(e.getPoint());
+            	 if(column == 0){	            		 
+            		TeamDetail te = new TeamDetail(frame, table.getValueAt(row, 0).toString());
+            		frame.motherPanel.teamPanel.teamstat.setVisible(false);
+            		//System.out.println(frame.motherPanel.teamPanel.teamDetail==null);
+            		frame.motherPanel.teamPanel.add(te);
+            	 }
+             }  	    		
+		};
+		return adapter;
+    	
+    }
+	
 	private void initData(Object[][] list) {
 		int size;
         if(list == null) size = 0;

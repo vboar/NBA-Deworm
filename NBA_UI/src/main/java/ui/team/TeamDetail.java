@@ -2,6 +2,8 @@ package ui.team;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -27,7 +29,7 @@ import vo.TeamTotalVO;
 public class TeamDetail extends JPanel{
 	private PanelConfig pcfg;
 	private HomeUI frame;
-	
+	private Image bg;
 	private MyLabel labelbg;
 	//球队基本信息
 	private MyLabel info;
@@ -70,6 +72,7 @@ public class TeamDetail extends JPanel{
 				.get(this.getClass().getName());
 		this.frame = frame;
 		this.abbr = abbr;
+		this.bg = pcfg.getBg();
 		
 		this.setLayout(null);
 		this.setOpaque(false);
@@ -95,6 +98,11 @@ public class TeamDetail extends JPanel{
 		}
 	}
 	
+	
+	public void paintComponent(Graphics g){
+		g.drawImage(bg, 0, 0, pcfg.getW(), pcfg.getH(), null);
+	}
+	
 	private void initComponent(){
 		initTables();
 		initLabels();
@@ -112,9 +120,9 @@ public class TeamDetail extends JPanel{
 		}
 		add(logo);
 		info = new MyLabel(pcfg.getLabels().element("info"));
-		add(info);
+		//add(info);
 		player = new MyLabel(pcfg.getLabels().element("player"));
-		add(player);
+		//add(player);
 		labelbg = new MyLabel(pcfg.getLabels().element("labelbg"));
 		//add(labelbg);
 		
@@ -245,7 +253,7 @@ public class TeamDetail extends JPanel{
 		// chart1.setImage(icon);
 		add(chart2);
 		chart1.setImage(radar);
-		chart2.setIcon(linechart);
+		chart2.setImage(linechart);
 	}
 	
 	

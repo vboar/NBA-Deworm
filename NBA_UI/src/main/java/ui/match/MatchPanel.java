@@ -1,5 +1,8 @@
 package ui.match;
 
+import java.awt.Graphics;
+import java.awt.Image;
+
 import javax.swing.JPanel;
 
 import ui.config.PanelConfig;
@@ -9,12 +12,13 @@ import ui.live.LiveChoosePane;
 import ui.match.info.MatchInfoPanel;
 import ui.match.stat.MatchDetail;
 import ui.match.stat.MatchStat;
-import ui.util.MyLabel;
 
 public class MatchPanel extends JPanel{
 
 	private PanelConfig pcfg;
 	private HomeUI frame;
+	private Image bg;
+	
 	public  LiveChoosePane liveChoosePane;
 	public MatchStat matchStat;
 	public MatchInfoPanel matchInfoPanel;
@@ -23,6 +27,7 @@ public class MatchPanel extends JPanel{
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
 		this.frame = frame;
+		this.bg = pcfg.getBg();
 		
 		this.setLayout(null);
 		this.setOpaque(false);
@@ -30,6 +35,10 @@ public class MatchPanel extends JPanel{
 		this.setLocation(pcfg.getX(),pcfg.getY());
 		
 		initComponent();
+	}
+	
+	public void paintComponent(Graphics g){
+		g.drawImage(bg, 0, 0, pcfg.getW(), pcfg.getH(), null);
 	}
 	
 	private void initComponent(){
