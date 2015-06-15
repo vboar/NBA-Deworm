@@ -11,12 +11,12 @@ import java.awt.*;
 /**
  * Created by Vboar on 2015/6/15.
  */
-public class KSTable extends TablePanel {
+public class PFTable extends TablePanel {
 
-    private int COLUMN_NUM = 3;
+    private int COLUMN_NUM = 5;
     private Object[][] list;
 
-    public KSTable(TableConfig cfg,Object[][] list){
+    public PFTable(TableConfig cfg,Object[][] list){
         super(cfg);
         this.list = list;
         this.initTable();
@@ -69,6 +69,7 @@ public class KSTable extends TablePanel {
         row[0] = vo[0];
         row[1] = vo[1];
         row[2] = vo[2];
+        row[3] = vo[3];
+        row[4] = vo[4];
     }
-
 }

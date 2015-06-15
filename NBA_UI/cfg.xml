@@ -1288,6 +1288,24 @@
                     <string str="04-05" />
                 </season>
             </comboboxes>
+            <tables>
+                <ks width="300" height="150" x="200" y="200">
+                    <columnnames>
+                        <columnname name="" />
+                        <columnname name="D值" />
+                        <columnname name="p值" />
+                    </columnnames>
+                </ks>
+                <pf width="400" height="150" x="225" y="200">
+                    <columnnames>
+                        <columnname name="" />
+                        <columnname name="偏度" />
+                        <columnname name="峰度" />
+                        <columnname name="s^2+k^2" />
+                        <columnname name="p值" />
+                    </columnnames>
+                </pf>
+            </tables>
         </panel>
 
         <panel className="ui.stats.Stat2" width="940" height="511"
@@ -1477,7 +1495,7 @@
                             <columnname name="总分" />
                         </columnnames>
                     </scores>
-                </tables>
+             </tables>
 
 			
 			
