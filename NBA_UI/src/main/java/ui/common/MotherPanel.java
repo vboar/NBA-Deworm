@@ -105,6 +105,41 @@ public class MotherPanel extends JPanel {
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            	if(panel == 1){
+
+            		if(playerPanel.indexpanel.isVisible()){
+            			playernav.setColor(0);
+            			frame.motherPanel.setVisible(false);
+            			
+            			frame.home.setVisible(true);
+            		}
+            		else if(playerPanel.playerstat.isVisible()){
+            			playernav.setColor(0);
+            			playerPanel.playerstat.setVisible(false);
+            			playerPanel.indexpanel.setVisible(true);
+            		}else if(playerPanel.playerInfoPane.isVisible()){
+            			playernav.setColor(0);
+            			playerPanel.playerInfoPane.setVisible(false);
+            			playerPanel.indexpanel.setVisible(true);
+            		}else if(playerPanel.playerHotPane.isVisible()){
+            			playernav.setColor(0);
+            			playerPanel.playerHotPane.setVisible(false);
+            			playerPanel.indexpanel.setVisible(true);
+            		}else if(playerPanel.fourTablePane.isVisible()){
+            			playernav.setColor(1);
+            			playerPanel.fourTablePane.setVisible(false);
+            			playerPanel.playerInfoPane.setVisible(true);
+            		}else if(playerPanel.compareChoosePanel.isVisible()){
+            			playernav.setColor(0);
+            			playerPanel.compareChoosePanel.setVisible(false);
+            			playerPanel.indexpanel.setVisible(true);
+            		}else if(playerPanel.comparePanel.isVisible()){
+            			playernav.setColor(3);
+            			playerPanel.comparePanel.setVisible(false);
+            			playerPanel.compareChoosePanel.setVisible(true);
+            			
+            		}
+            	}
                 if (panel == 3) {
                 	if (matchnav.show == 1) {
                 		if(matchPanel.liveChoosePane.isVisible()==false){
@@ -117,8 +152,17 @@ public class MotherPanel extends JPanel {
                 		}
                  
                   if(matchnav.show == 0){
-                		frame.motherPanel.setVisible(false);
-                       	frame.home.setVisible(true);
+                		if(matchPanel.matchStat.isVisible()){
+                			frame.motherPanel.setVisible(false);
+                           	frame.home.setVisible(true);
+                		}else if(matchPanel.matchInfoPanel.isVisible()){
+                			matchPanel.matchInfoPanel.setVisible(false);
+                			matchPanel.matchStat.setVisible(true);
+                			
+                		}else if(matchPanel.matchDetail.isVisible()){
+                			matchPanel.matchDetail.setVisible(false);
+                			matchPanel.matchInfoPanel.setVisible(true);
+                		}
                   }
                 }
             }
