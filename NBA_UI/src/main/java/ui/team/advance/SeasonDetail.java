@@ -281,7 +281,7 @@ public class SeasonDetail extends JPanel{
 		table1 = new OppStatTablePane(new TableConfig(pcfg.getTablepane().element("table1")),data1);
 		add(table1);
 		
-		table2 = new SeasonPlayerTablePane(new TableConfig(pcfg.getTablepane().element("table2")),data2);
+		table2 = new SeasonPlayerTablePane(new TableConfig(pcfg.getTablepane().element("table2")),data2,frame);
 		add(table2);
 		updateUI();
 	}

@@ -2,8 +2,11 @@ package ui.team.advance;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import ui.config.TableConfig;
+import ui.home.HomeUI;
 import ui.util.MyTable;
 import ui.util.MyTableModel;
 import ui.util.TablePanel;
@@ -17,10 +20,12 @@ import ui.util.TablePanel;
 public class SeasonPlayerTablePane extends TablePanel{
 	private int COLUMN_NUM = 22;
 	private Object[][] list;
+	private HomeUI frame;
 	
-	public SeasonPlayerTablePane(TableConfig cfg,Object[][] list){
+	public SeasonPlayerTablePane(TableConfig cfg,Object[][] list,HomeUI frame){
 		super(cfg);
 		this.list = list;
+		this.frame = frame;
 		this.initTable();
 	}
 
@@ -47,6 +52,7 @@ public class SeasonPlayerTablePane extends TablePanel{
         table.getTableHeader().setForeground(Color.BLACK);
         table.FitTableColumns(table);
         table.getColumnModel().getColumn(0).setMaxWidth(144);
+        this.table.addMouseListener(showDataInfo());
         initComponent();
 	}
 
@@ -61,6 +67,22 @@ public class SeasonPlayerTablePane extends TablePanel{
         }
 	}
 
+	
+	 private MouseAdapter showDataInfo(){
+	    	MouseAdapter adapter = new MouseAdapter() {
+	    		 public void mouseReleased (MouseEvent e) {  
+	            	 int column = table.columnAtPoint(e.getPoint());
+	            	 int row = table.rowAtPoint(e.getPoint());
+	            	 if(column == 0){	            		 
+	            		
+	            		 
+	            	 }
+	             }  	    		
+			};
+			return adapter;
+	    	
+	    }
+	 
 	private void createRow(Object[] row, Object[] vo) {
 		for(int i=0;i<row.length;i++){
 			row[i] = vo[i];
