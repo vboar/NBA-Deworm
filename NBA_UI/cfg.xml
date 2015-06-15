@@ -1306,6 +1306,10 @@
                     </columnnames>
                 </pf>
             </tables>
+            <labels>
+                <a w="300" h="200" x="200" y="200"/>
+                <b w="300" h="200" x="500" y="200"/>
+            </labels>
         </panel>
 
         <panel className="ui.stats.Stat2" width="940" height="511"

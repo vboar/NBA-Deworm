@@ -61,6 +61,7 @@ public class StatsNav extends JPanel {
 				show = 0;
 
 				frame.motherPanel.statsPanel.stat1.setVisible(true);
+                frame.motherPanel.statsPanel.stat1.backFirst();
 				frame.motherPanel.statsPanel.stat2.setVisible(false);
 			}
 
@@ -126,10 +127,10 @@ public class StatsNav extends JPanel {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				stat2.setIcon(new ImageIcon(path+"_click."+fix));
-				
-			}
-			
-		});
+
+            }
+
+        });
 		
 		add(stat1);
 		add(stat2);

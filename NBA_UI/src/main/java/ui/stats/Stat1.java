@@ -18,6 +18,7 @@ import ui.config.TableConfig;
 import ui.home.HomeUI;
 import ui.util.LoadFont;
 import ui.util.MyComboBox;
+import ui.util.MyLabel;
 import vo.TeamWinAnalysisVO;
 
 public class Stat1 extends JPanel{
@@ -71,6 +72,8 @@ public class Stat1 extends JPanel{
             @Override
             public void mouseClicked(MouseEvent arg0) {
                 season = (String)seasons.getSelectedItem();
+                pList = new ArrayList<>();
+                pList.add(ip);
                 initNormal();
             }
 
@@ -108,12 +111,10 @@ public class Stat1 extends JPanel{
         // PP
         show = 1;
         ip = new InferPanel(frame);
-//        JLabel home_pp = new JLabel(vo.home_P_P);
-//        JLabel guest_pp = new JLabel(vo.guest_P_P);
-//        home_pp.setBounds(273, 240, 400, 300);
-//        guest_pp.setBounds(570, 240, 400, 300);
-//        ip.add(home_pp);
-//        ip.add(guest_pp);
+        MyLabel home_pp = new MyLabel(pcfg.getLabels().element("a"), "img/stat/temp/1.png", 0);
+        MyLabel guest_pp = new MyLabel(pcfg.getLabels().element("b"), "img/stat/temp/2.png", 0);
+        ip.add(home_pp);
+        ip.add(guest_pp);
         JLabel text = new JLabel("P-P图检验");
         text.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 20));
         text.setBounds(226, 140, 150, 30);
@@ -139,10 +140,10 @@ public class Stat1 extends JPanel{
         data[0][2] = "p值";
         data[1][0] = "主场";
         data[2][0] = "客场";
-        data[1][1] = "";
-        data[2][1] = "";
-        data[1][2] = "";
-        data[2][2] = "";
+        data[1][1] = "0.060";
+        data[2][1] = "0.221";
+        data[1][2] = "0.070";
+        data[2][2] = "0.107";
         KSTable ksTable = new KSTable(new TableConfig(pcfg.getTables().element("ks")), data);
         ip.add(ksTable);
         bg = new JLabel(new ImageIcon("img/stat/stats1/step1.png"));
@@ -275,6 +276,15 @@ public class Stat1 extends JPanel{
         ip.add(bg);
         add(ip);
         pList.add(ip);
+
+        // 结论
+        ip = new InferPanel(frame);
+        ip.setVisible(false);
+        bg = new JLabel(new ImageIcon("img/stat/stats1/step2.png"));
+        bg.setBounds(0, 0, 940, 511);
+        ip.add(bg);
+        add(ip);
+        pList.add(ip);
     }
 
     public void addNext(InferPanel ip) {
@@ -304,5 +314,12 @@ public class Stat1 extends JPanel{
                 next.setText("Next");
             }
         });
+    }
+
+    public void backFirst() {
+        pList.get(show).setVisible(false);
+        show = 0;
+        ip = pList.get(0);
+        pList.get(show).setVisible(true);
     }
 }
