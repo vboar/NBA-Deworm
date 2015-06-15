@@ -159,7 +159,6 @@ public class HomePanel extends JPanel {
             motherPanel.setVisible(false);
             frame.getContentPane().add(motherPanel);
             addListener();
-            motherPanel.checkLive();
             revalidate();
             repaint();
         }
