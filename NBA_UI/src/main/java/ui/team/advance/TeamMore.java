@@ -1,6 +1,8 @@
 package ui.team.advance;
 
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
@@ -28,7 +30,7 @@ import vo.TeamTotalVO;
  */
 public class TeamMore extends JPanel{
 	private PanelConfig pcfg;
-	
+	private Image bg;
 	public TBYTablePane table1;
 	public PGBYTablePane table2;
 	public OppTotalTablePane table3;
@@ -60,12 +62,16 @@ public class TeamMore extends JPanel{
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
 		this.abbr = abbr;
+		this.bg = pcfg.getBg();
 		
 		this.setLayout(null);
 		this.setSize(pcfg.getW(),pcfg.getH());
 		this.setLocation(pcfg.getX(), pcfg.getY());
-		this.setOpaque(false);
 		initComponent();
+	}
+	
+	public void paintComponent(Graphics g){
+		g.drawImage(bg, 0, 0, pcfg.getW(), pcfg.getH(), null);
 	}
 	
 	private void initComponent(){

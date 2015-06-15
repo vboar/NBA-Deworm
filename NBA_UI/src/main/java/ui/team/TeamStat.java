@@ -231,7 +231,7 @@ public class TeamStat extends JPanel{
 		add(table2);
 	}
 	
-	
+
 	
 	
 	
