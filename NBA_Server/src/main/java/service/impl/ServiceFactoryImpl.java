@@ -63,7 +63,7 @@ public class ServiceFactoryImpl extends UnicastRemoteObject implements ServiceFa
 	}
 
 	@Override
-	public InferenceStatsService getInferStatsService() throws RemoteException {
+	public InferenceStatsService getInferenceService() throws RemoteException {
 		return new InferenceStatsServiceImpl();
 	}
 
