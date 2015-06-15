@@ -220,7 +220,7 @@ public class LivePanel extends JPanel {
         rtime.setText(vo.residualTime);
 
         messageTablePane.refresh(mList);
-        scoreTablePane.refresh(vo);
+//        scoreTablePane.refresh(vo);
     }
 
     private class MyThread implements Runnable {
@@ -230,7 +230,13 @@ public class LivePanel extends JPanel {
                 try {
                     if (stop) break;
                     refresh();
-                    Thread.sleep(6000);
+                    remove(scoreTablePane);
+                    scoreTablePane.setVisible(false);
+                    scoreTablePane = new ScoreTablePane(new TableConfig(pcfg.getTables().element("scores")), vo, info);
+                    add(scoreTablePane);
+                    revalidate();
+                    repaint();
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

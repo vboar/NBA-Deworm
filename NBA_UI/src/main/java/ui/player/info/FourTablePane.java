@@ -42,6 +42,7 @@ public class FourTablePane extends JPanel {
 		this.frame = frame;
 
 		this.setLayout(null);
+		this.setOpaque(false);
 		this.setSize(pcfg.getW(), pcfg.getH());
 		this.setLocation(pcfg.getX(), pcfg.getY());
 

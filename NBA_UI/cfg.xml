@@ -640,8 +640,14 @@
 			
 			</panel>
 			
+<<<<<<< HEAD
 		<panel className="ui.team.compare.TeamCompareChoosePanel" width="940" height="511"
 			x="0" y="0" bg="img/team/compare/teamcomparechoose.png">
+=======
+			
+		<panel className="ui.player.compare.TeamCompareChoosePanel" width="940" height="511"
+			x="0" y="0" bg="img/player/comparechoose.png">
+>>>>>>> b4be7934209a079f37525b2a0f22937bf803e3b4
 			<labels>
 			<img  w="300" h="200" x="335" y="65" />
 			
@@ -1322,12 +1328,12 @@
 				<columnnames>
 				<columnname name="ID" />
 					<columnname name="DATE" />
-					<columnname name="LOATION" />
 					<columnname name="HOME_TEAM" />
-					<columnname name="HOME_POINT" />
 					<columnname name="GUEST_TEAM" />
-					<columnname name="GUEST_POINT" />					
+					<columnname name="POINT" />
 					<columnname name="TIME" />
+					<columnname name="LOCATION" />					
+					
 
 				</columnnames>
 			</tablepane>
@@ -1409,31 +1415,31 @@
 			<homepointhint text="主队得分：" w="1030" h="60" x="360" y="50" />	
 			<guestteamhint text="客队：" w="1030" h="60" x="360" y="80" />	
 			<guestpointhint text="客队得分：" w="1030" h="60" x="360" y="110" />
-			<timehint text="比赛时长：" w="1030" h="60" x="360" y="140" />	
+			<timehint text="比赛时长：" w="1030" h="60" x="560" y="110" />	
 			<seasonhint text="赛季：" w="1030" h="60" x="560" y="20" />	
 			<datehint text="比赛日期：" w="1030" h="60" x="560" y="50" />
 			<typehint text="比赛类型：" w="1030" h="60" x="560" y="80" />	
-			<locationhint text="比赛地点：" w="1030" h="60" x="560" y="110" />					
+								
 			
 			<hometeam text="hh" w="1030" h="60" x="420" y="20" />
 			<homepoint text="hh" w="1030" h="60" x="420" y="50" />	
 			<guestteam text="hh" w="1030" h="60" x="420" y="80" />	
 			<guestpoint text="hh" w="1030" h="60" x="420" y="110" />				
-			<time text="hh" w="1030" h="60" x="420" y="140" />	
+			<time text="hh" w="1030" h="60" x="640" y="110" />	
 			<season text="hh" w="1030" h="60" x="640" y="20" />	
 			<date text="hh" w="1030" h="60" x="640" y="50" />	
 			<type text="hh" w="1030" h="60" x="640" y="80" />	
-			<location text="hh" w="1030" h="60" x="640" y="110" />	
+			
 						
 			
-			<chart1 text="hh" w="400" h="300" x="250" y="0" />	
+			<chart1 text="" w="400" h="300" x="250" y="200" />	
 			<chart2 text="hh" w="400" h="300" x="550" y="0" />	
 			
 			<findmore text="查看更多信息" w="1030" h="60" x="800" y="450" />
 			</labels>
 			
 			 <tables>
-                    <scores width="302" height="85" x="0" y="8">
+                    <scores width="302" height="85" x="20" y="20">
                         <columnnames>
                             <columnname name="球队" />
                             <columnname name="一" />
@@ -1527,11 +1533,11 @@
 		<panel className="ui.player.compare.ComparePanel" width="940" height="511"
 			x="0" y="0" bg="img/player/compare.png">
 			<labels>
-			<name1 text="hh" w="1030" h="60" x="0" y="0" />	
-			<name2 text="hh" w="1030" h="60" x="200" y="0" />	
-			<chart1 text="hh" w="400" h="300" x="30" y="60" />	
-			<chart2 text="hh" w="200" h="150" x="690" y="100" />	
-			<chart3 text="hh" w="200" h="150" x="810" y="330" />
+			<name1 text="hh" w="1030" h="60" x="30" y="0" />	
+			<name2 text="hh" w="1030" h="60" x="250" y="0" />	
+			<chart1 text="hh" w="440" h="330" x="-40" y="100" />	
+			<chart2 text="hh" w="256" h="192" x="590" y="80" />	
+			<chart3 text="hh" w="256" h="192" x="590" y="312" />
 			</labels>
 		</panel>
 		

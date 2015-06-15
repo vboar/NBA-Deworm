@@ -254,4 +254,62 @@ public class PlayerNav extends JPanel{
 		frame.motherPanel.playerPanel.setting.setVisible(false);
 		frame.motherPanel.playerPanel.menu.setVisible(false);
 	}
+	
+	public void setColor(int num){
+		if(num == 3){
+			returnColor();
+			String[] temp = pcfg.getLabels().element("playerpast").attributeValue("path").split("\\.");
+			String path = temp[0];
+			String fix = temp[1];
+			playerpast.setIcon(new ImageIcon(path+"_click."+fix));
+			
+		}
+		if(num == 2){
+			returnColor();
+			String[] temp = pcfg.getLabels().element("hotplayer").attributeValue("path").split("\\.");
+			String path = temp[0];
+			String fix = temp[1];
+			hotplayer.setIcon(new ImageIcon(path+"_click."+fix));
+			
+		}
+		if(num == 1){
+			returnColor();
+			String[] temp = pcfg.getLabels().element("playerstat").attributeValue("path").split("\\.");
+			String path = temp[0];
+			String fix = temp[1];
+			playerstat.setIcon(new ImageIcon(path+"_click."+fix));
+			
+		}
+		if(num ==0){
+			returnColor();
+			String[] temp = pcfg.getLabels().element("index").attributeValue("path").split("\\.");
+			String path = temp[0];
+			String fix = temp[1];
+			index.setIcon(new ImageIcon(path+"_click."+fix));
+			
+		}
+	}
+	
+	public void returnColor(){
+		String[] temp = pcfg.getLabels().element("playerpast").attributeValue("path").split("\\.");
+		String path = temp[0];
+		String fix = temp[1];
+		playerpast.setIcon(new ImageIcon(path+"."+fix));
+		
+		 temp = pcfg.getLabels().element("hotplayer").attributeValue("path").split("\\.");
+		 path = temp[0];
+		 fix = temp[1];
+		 hotplayer.setIcon(new ImageIcon(path+"."+fix));
+		 
+		 temp = pcfg.getLabels().element("playerstat").attributeValue("path").split("\\.");
+		 path = temp[0];
+		 fix = temp[1];
+		 playerstat.setIcon(new ImageIcon(path+"."+fix));
+		 
+		 temp = pcfg.getLabels().element("index").attributeValue("path").split("\\.");
+		 path = temp[0];
+		 fix = temp[1];
+		 index.setIcon(new ImageIcon(path+"."+fix));
+
+	}
 }

@@ -47,6 +47,7 @@ public class ScoreTablePane extends TablePanel {
         score2 = vo.scoresB;
         this.initData();
         this.dtm.setDataVector(data, columnNames);
+
         this.updateWidth();
     }
 

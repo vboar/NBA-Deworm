@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import service.impl.ServiceFactoryImpl;
@@ -29,7 +30,7 @@ public class MatchInfoPanel extends JPanel {
 	private MyLabel season;
 	private MyLabel date;
 	private MyLabel type;
-	private MyLabel location;
+	
 	private MyLabel home_team;
 	private MyLabel home_point;
 	private MyLabel guest_team;
@@ -39,13 +40,17 @@ public class MatchInfoPanel extends JPanel {
 	private MyLabel seasonHint;
 	private MyLabel dateHint;
 	private MyLabel typeHint;
-	private MyLabel locationHint;
+	
 	private MyLabel home_teamHint;
 	private MyLabel home_pointHint;
 	private MyLabel guest_teamHint;
 	private MyLabel guest_pointHint;
 	private MyLabel timeHint;
+	
+	
 
+	private MyLabel chart1;
+	private MyLabel chart2;
 	private ScoreTablePane score;
 
 	public MatchInfoPanel(HomeUI frame) {
@@ -79,8 +84,7 @@ public class MatchInfoPanel extends JPanel {
 		type = new MyLabel(pcfg.getLabels().element("type"));
 		add(type);
 		
-		location = new MyLabel(pcfg.getLabels().element("location"));
-		add(location);
+		
 		
 		home_team = new MyLabel(pcfg.getLabels().element("hometeam"));
 		add(home_team);
@@ -106,9 +110,6 @@ public class MatchInfoPanel extends JPanel {
 		typeHint = new MyLabel(pcfg.getLabels().element("typehint"));
 		add(typeHint);
 		
-		locationHint = new MyLabel(pcfg.getLabels().element("locationhint"));
-		add(locationHint);
-		
 		home_teamHint = new MyLabel(pcfg.getLabels().element("hometeamhint"));
 		add(home_teamHint);
 		
@@ -124,6 +125,12 @@ public class MatchInfoPanel extends JPanel {
 		timeHint = new MyLabel(pcfg.getLabels().element("timehint"));
 		add(timeHint);
 		
+		
+		chart1 = new MyLabel(pcfg.getLabels().element("chart1"));
+		add(chart1);
+		
+		chart2 = new MyLabel(pcfg.getLabels().element("chart2"));
+		add(chart2);
 		
 		findMore = new MyPressedLabel(pcfg.getLabels().element("findmore"));
 		findMore.addMouseListener(new MouseListener() {
@@ -184,8 +191,12 @@ public class MatchInfoPanel extends JPanel {
 		this.gameId = gameId;
 		MatchInfoVO vo = null;
 		List<List<Integer>> scores = null;
+		ImageIcon icon1 = null;
+		ImageIcon icon2 = null;
 		try {
 			vo=ServiceFactoryImpl.getInstance().getMatchService().getMatchInfoByGameId(gameId);
+			icon1= ServiceFactoryImpl.getInstance().getStatsService().getTeamCompareRadarByGameId(gameId);
+			
 		scores = ServiceFactoryImpl.getInstance().getMatchService().getSectionScoreByGameId(gameId);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -195,7 +206,6 @@ public class MatchInfoPanel extends JPanel {
 		season.setText(vo.season);
 		date.setText(vo.date);
 		type.setText(vo.is_normal?"Regular Season":"Post Season");
-		location.setText(vo.location);
 		home_team.setText(vo.home_team);
 		home_point.setText(vo.home_point+"");
 		guest_team.setText(vo.guest_team);
@@ -213,5 +223,8 @@ public class MatchInfoPanel extends JPanel {
 		scoreData.add(score2);
 		score.refresh(scoreData, vo.home_team, vo.guest_team);
 		//System.out.println(scores.get(0).size());
+		
+		chart1.setImage(icon1);
+		
 	}
 }

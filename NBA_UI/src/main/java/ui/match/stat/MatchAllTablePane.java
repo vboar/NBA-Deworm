@@ -16,7 +16,7 @@ import ui.util.TablePanel;
 public class MatchAllTablePane extends TablePanel {
 
 	
-	private static int COLUMN_NUM = 8;
+	private static int COLUMN_NUM = 7;
 
 	private Object[][] list;
 	private HomeUI frame;
@@ -69,18 +69,20 @@ public MatchAllTablePane(TableConfig cfg, Object[][] list,HomeUI frame) {
 		this.table.getColumnModel().getColumn(0).setMinWidth(0);
 		this.table.getColumnModel().getColumn(0).setWidth(0);
 		this.table.getColumnModel().getColumn(0).setPreferredWidth(0);
-        this.table.getColumnModel().getColumn(1).setPreferredWidth(113);
-        this.table.getColumnModel().getColumn(2).setPreferredWidth(380);
-//        this.table.getColumnModel().getColumn(3).setPreferredWidth(28);
-//        this.table.getColumnModel().getColumn(6).setPreferredWidth(44);
-//        this.table.getColumnModel().getColumn(8).setPreferredWidth(44);
+        this.table.getColumnModel().getColumn(1).setPreferredWidth(115);
+        this.table.getColumnModel().getColumn(2).setPreferredWidth(100);
+        this.table.getColumnModel().getColumn(3).setPreferredWidth(100);
+        this.table.getColumnModel().getColumn(4).setPreferredWidth(80);
+        this.table.getColumnModel().getColumn(5).setPreferredWidth(80);
+        this.table.getColumnModel().getColumn(6).setPreferredWidth(360);
+        
 //        this.table.getColumnModel().getColumn(10).setPreferredWidth(44);
 //        this.table.getColumnModel().getColumn(11).setPreferredWidth(44);
 //        this.table.getColumnModel().getColumn(12).setPreferredWidth(28);
 		// this.table.getColumnModel().getColumn(1).setPreferredWidth(170);
 		// this.table.getColumnModel().getColumn(2).setPreferredWidth(420);
 		// this.table.getTableHeader().setPreferredSize(new Dimension(0, 50));
-//		 this.table.setRowHeight(18);
+		 this.table.setRowHeight(25);
 		this.updateUI();
 	}
 	
@@ -132,7 +134,7 @@ public MatchAllTablePane(TableConfig cfg, Object[][] list,HomeUI frame) {
 		row[4] = vo[4];
 		row[5] = vo[5];
 		row[6] = vo[6];
-		row[7] = vo[7];		
+			
 			}
 
 	public void setData(Object[][] list) {
@@ -169,7 +171,7 @@ public MatchAllTablePane(TableConfig cfg, Object[][] list,HomeUI frame) {
 		this.getTable().setValueAt(vo[4], i, 4);
 		this.getTable().setValueAt(vo[5], i, 5);
 		this.getTable().setValueAt(vo[6], i, 6);
-		this.getTable().setValueAt(vo[7], i, 7);
+		
 	}
 
 	

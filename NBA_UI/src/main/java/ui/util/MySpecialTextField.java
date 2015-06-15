@@ -30,6 +30,7 @@ public class MySpecialTextField extends MyTextField {
 		this.initTextField();
 		this.setLayout(new BorderLayout());
 		this.add(box, BorderLayout.SOUTH);
+        this.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 12));
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -42,6 +43,7 @@ public class MySpecialTextField extends MyTextField {
 		};
 		this.setPreferredSize(getPreferredSize());
 		this.box.setSelectedItem(null);
+        this.box.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 12));
 		this.box.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

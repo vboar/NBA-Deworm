@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 
 import junit.framework.TestCase;
 import service.impl.ServiceFactoryImpl;
-import service.impl.StatsServiceImpl;
 import util.FieldType;
 
 public class StatsServiceTest extends TestCase {
@@ -70,8 +69,9 @@ public class StatsServiceTest extends TestCase {
 	public void testGetPlayerAdvancedCompareBarChart() {
 		try {
 			List<Integer> list = new ArrayList<Integer>();
-			list.add(FieldType.AST_PCT.ordinal());
-			list.add(FieldType.STL_PCT.ordinal());
+			list.add(FieldType.PER.ordinal());
+			System.out.println(FieldType.PER.ordinal());
+			//list.add(FieldType.STL_PCT.ordinal());
 			ss.getPlayerAdvancedCompareBarChart("Kobe Bryant", "Yao Ming", "Career", list, 1);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -171,14 +171,14 @@ public class StatsServiceTest extends TestCase {
 	}
 
     public static void main(String[] args) throws RemoteException {
-        StatsService ss = new StatsServiceImpl();
+        StatsService ss = ServiceFactoryImpl.getInstance().getStatsService();
 //        ImageIcon img = ss.getPlayerCompareRadar("Kobe Bryant", "Yao Ming", "Career", 1);
 //        ImageIcon img = ss.getPlayerRadar("Kobe Bryant", "Career", 1);
 //        ImageIcon img = ss.getTeamRadar("BOS", "13-14");
-//        ImageIcon img = ss.getTeamCompareRadar("CLE", "GSW", "14-15");
+        ImageIcon img = ss.getTeamCompareRadarByGameId("201506110CLE-GSW");
         List<Integer> list = new ArrayList<>();
         list.add(FieldType.AST_PCT.ordinal());
-        list.add(FieldType.TOV_PCT.ordinal());
+//        list.add(FieldType.TOV_PCT.ordinal());
 //        ImageIcon img = ss.getPlayerCareerLineChart("Yao Ming", FieldType.TRB, 1);
 //        ImageIcon img = ss.getTeamCareerLineChar("BOS", FieldType.TRB);
 //        ImageIcon img = ss.getTeamCareerLineChar("BOS", FieldType.DRB_PCT);
@@ -186,10 +186,7 @@ public class StatsServiceTest extends TestCase {
 //        ImageIcon img = ss.getPlayerBasicCompareBarChart("Kobe Bryant", "Yao Ming", "Career", list, 1);
 //        ImageIcon img = ss.getMatchTeamLineChart("HOU", "14-15", FieldType.typeToInt(FieldType.PTS));
 //        ImageIcon img = ss.getPlayerContribution("HOU", "13-14");
-        List<Integer> a = new ArrayList<Integer>();
-		//ss.getPlayerAdvancedCompareBarChart("Kobe Bryant", "Yao Ming", "01-02", a, 1);
-        ImageIcon img = ss.getPlayerAdvancedCompareBarChart("Kobe Bryant", "James Harden", "13-14", list, 1);
-//        ImageIcon img = ss.getMatchPlayerLineChart("Kobe Bryant", "11-12", FieldType.TRB);
+//        ImageIcon img = ss.getPlayerAdvancedCompareBarChart("Kobe Bryant", "Yao Ming", "Career", list, 1);
         JFrame frame = new JFrame();
         frame.setBounds(0, 0, 1366, 700);
         frame.setVisible(true);
