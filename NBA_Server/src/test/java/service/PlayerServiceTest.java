@@ -275,7 +275,7 @@ public class PlayerServiceTest extends TestCase {
 			List<HotPlayerInfoVO> list = ps.getSeasonHotPlayer("13-14", FieldType.PTS.ordinal(),5);
 			for(HotPlayerInfoVO info : list){
 				assertEquals("13-14", info.season);
-				assertEquals(FieldType.TS_PCT, info.field);
+				assertEquals(FieldType.PTS, info.field);
 			}
 		} catch (RemoteException e) {
 			e.printStackTrace();

@@ -40,7 +40,7 @@ public class MatchServiceTest extends TestCase{
 
 	public void testGetSectionScoreByGameid(){	
 		try {
-			List<List<Integer>> list = ms.getSectionScoreByGameId("200010310ATL-CHH");
+			List<List<Integer>> list = ms.getSectionScoreByGameId("200010310ATL-CHA");
 			assertEquals(13, list.get(0).get(0).intValue());
 		} catch (RemoteException e) {
 				e.printStackTrace();
@@ -71,9 +71,9 @@ public class MatchServiceTest extends TestCase{
 
 	public void testGetMatchPlayerAdvancedByGameIdTeam() {
 		try {
-			List<MatchPlayerAdvancedVO> list = ms.getMatchPlayerAdvancedByGameIdTeam("200010310ATL-CHH","ATL");
+			List<MatchPlayerAdvancedVO> list = ms.getMatchPlayerAdvancedByGameIdTeam("200010310ATL-CHA","ATL");
 			assertEquals("ATL", list.get(0).team_abbr);
-			assertEquals("200010310ATL-CHH", list.get(0).game_id);
+			assertEquals("200010310ATL-CHA", list.get(0).game_id);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -81,9 +81,9 @@ public class MatchServiceTest extends TestCase{
 
 	public void testGetMatchPlayerBasicByGameIdTeam() {
 		try {
-			List<MatchPlayerBasicVO> list = ms.getMatchPlayerBasicByGameIdTeam("200010310ATL-CHH","ATL");
+			List<MatchPlayerBasicVO> list = ms.getMatchPlayerBasicByGameIdTeam("200010310ATL-CHA","ATL");
 			assertEquals("ATL", list.get(0).team_abbr);
-			assertEquals("200010310ATL-CHH", list.get(0).game_id);
+			assertEquals("200010310ATL-CHA", list.get(0).game_id);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
