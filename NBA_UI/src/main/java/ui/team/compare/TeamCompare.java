@@ -2,6 +2,8 @@ package ui.team.compare;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
@@ -12,6 +14,7 @@ import service.impl.ServiceFactoryImpl;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
+import ui.util.MyComboBox;
 import ui.util.MyLabel;
 import util.FieldType;
 
@@ -23,12 +26,17 @@ public class TeamCompare extends JPanel{
 	private String name1;
 	private String name2;
 	
+	private String box1Str;
+	private String box2Str;
+	
 	private MyLabel nameLb1;
 	private MyLabel nameLb2;
 	
 	private MyLabel chart1;
 	private MyLabel chart2;
 	private MyLabel chart3;
+	
+	private MyComboBox box1;
 	
 
 
@@ -52,6 +60,7 @@ public class TeamCompare extends JPanel{
 	private void initComponent(){
 		initLabels();
 		initChart();
+		initBox();
 	}
 	
 	@Override
@@ -86,27 +95,27 @@ public class TeamCompare extends JPanel{
 		ArrayList<Integer> field0 =new ArrayList<>();
 		field0.add(FieldType.PER.ordinal());
 		System.out.println(field0.get(0));
-//		field0.add(FieldType.ORB_PCT.ordinal());
-//		field0.add(FieldType.DRB_PCT.ordinal());
-//		field0.add(FieldType.TRB_PCT.ordinal());
-//		field0.add(FieldType.AST_PCT.ordinal());
-//		field0.add(FieldType.STL_PCT.ordinal());
-//		field0.add(FieldType.BLK_PCT.ordinal());
-//		field0.add(FieldType.TOV_PCT.ordinal());
-//		field0.add(FieldType.USG_PCT.ordinal());
+		field0.add(FieldType.ORB_PCT.ordinal());
+		field0.add(FieldType.DRB_PCT.ordinal());
+		field0.add(FieldType.TRB_PCT.ordinal());
+		field0.add(FieldType.AST_PCT.ordinal());
+		field0.add(FieldType.STL_PCT.ordinal());
+		field0.add(FieldType.BLK_PCT.ordinal());
+		field0.add(FieldType.TOV_PCT.ordinal());
+		field0.add(FieldType.USG_PCT.ordinal());
 		
 		
 		
 		ArrayList<Integer> field =new ArrayList<>();
 		field.add(FieldType.PTS.ordinal());
-//		field.add(FieldType.AST.ordinal());
-//		field.add(FieldType.BLK.ordinal());
-//		field.add(FieldType.STL.ordinal());
-//		field.add(FieldType.TRB.ordinal());		
-//		field.add(FieldType.ORB.ordinal());
-//		field.add(FieldType.DRB.ordinal());
-//		field.add(FieldType.TOV.ordinal());
-//		field.add(FieldType.PF.ordinal());	
+		field.add(FieldType.AST.ordinal());
+		field.add(FieldType.BLK.ordinal());
+		field.add(FieldType.STL.ordinal());
+		field.add(FieldType.TRB.ordinal());		
+		field.add(FieldType.ORB.ordinal());
+		field.add(FieldType.DRB.ordinal());
+		field.add(FieldType.TOV.ordinal());
+		field.add(FieldType.PF.ordinal());	
 		
 		nameLb1.setText(name1);
 		nameLb2.setText(name2);
@@ -130,4 +139,13 @@ public class TeamCompare extends JPanel{
 		chart3.setImage(advance);
 
 	}
+	
+	private void initBox(){
+		box1 = new MyComboBox(pcfg.getComboboxes().element("box1"));
+		add(box1);
+	}
+	
+	
+	
+	
 }

@@ -713,11 +713,11 @@
 		<panel className="ui.team.compare.TeamCompare" width="940" height="511"
 			x="0" y="0" bg="img/team/compare/compare.png">
 			<labels>
-			<name1 text="hh" w="1030" h="60" x="20" y="0" />	
-			<name2 text="hh" w="1030" h="60" x="300" y="0" />	
+			<name1 text="hh" w="100" h="30" x="50" y="0" />	
+			<name2 text="hh" w="100" h="30" x="300" y="0" />	
 			<chart1 text="hh" w="400" h="300" x="30" y="100" />	
-			<chart2 text="hh" w="200" h="150" x="590" y="60" />	
-			<chart3 text="hh" w="200" h="150" x="590" y="60" />
+			<chart2 text="hh" w="320" h="185" x="540" y="85" />	
+			<chart3 text="hh" w="320" h="185" x="540" y="315" />
 			</labels>
 		</panel>
 		
