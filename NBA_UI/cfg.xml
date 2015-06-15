@@ -1097,49 +1097,49 @@
 			</panel>
 			
 			<panel className="ui.player.info.PlayerInfoPane" width="940" height="511"
-			x="0" y="0">
+			x="0" y="0" bg="img/player/stat/playerdetail.png">
 			<labels>
-			<img  w="195" h="150" x="20" y="20" />
+			<img  w="195" h="150" x="20" y="50" />
 			
 			<namehint text="姓名" w="1030" h="60" x="20" y="200" />
 				
-			<numhint text="球衣号码:" w="1030" h="60" x="220" y="20" />
-			<positionhint text="位置:" w="1030" h="60" x="220" y="50" />	
-			<bornhint text="生日:" w="1030" h="60" x="220" y="80" />	
-			<debuthint text="首秀:" w="1030" h="60" x="220" y="110" />
-			<heighthint text="身高:" w="1030" h="60" x="220" y="140" />	
-			<weighthint text="体重:" w="1030" h="60" x="500" y="20" />	
-			<hometownhint text="出生地:" w="1030" h="60" x="500" y="50" />
-			<highschoolhint text="高中:" w="1030" h="60" x="500" y="80" />	
-			<collegehint text="大学:" w="1030" h="60" x="500" y="110" />					
-			<exphint text="球龄:" w="1030" h="60" x="500" y="140" />					
+			<numhint text="球衣号码:" w="1030" h="60" x="220" y="30" />
+			<positionhint text="位置:" w="1030" h="60" x="220" y="60" />	
+			<bornhint text="生日:" w="1030" h="60" x="220" y="90" />	
+			<debuthint text="首秀:" w="1030" h="60" x="220" y="120" />
+			<heighthint text="身高:" w="1030" h="60" x="220" y="150" />	
+			<weighthint text="体重:" w="1030" h="60" x="500" y="30" />	
+			<hometownhint text="出生地:" w="1030" h="60" x="500" y="60" />
+			<highschoolhint text="高中:" w="1030" h="60" x="500" y="90" />	
+			<collegehint text="大学:" w="1030" h="60" x="500" y="120" />					
+			<exphint text="球龄:" w="1030" h="60" x="500" y="150" />					
 			
-			<num text="hh" w="1030" h="60" x="300" y="20" />
-			<position text="hh" w="1030" h="60" x="300" y="50" />	
-			<born text="hh" w="1030" h="60" x="300" y="80" />	
-			<debut text="hh" w="1030" h="60" x="300" y="110" />				
-			<height text="hh" w="1030" h="60" x="300" y="140" />	
-			<weight text="hh" w="1030" h="60" x="580" y="20" />	
-			<hometown text="hh" w="1030" h="60" x="580" y="50" />	
-			<highschool text="hh" w="1030" h="60" x="580" y="80" />	
-			<college text="hh" w="1030" h="60" x="580" y="110" />	
+			<num text="hh" w="1030" h="60" x="300" y="30" />
+			<position text="hh" w="1030" h="60" x="300" y="60" />	
+			<born text="hh" w="1030" h="60" x="300" y="90" />	
+			<debut text="hh" w="1030" h="60" x="300" y="120" />				
+			<height text="hh" w="1030" h="60" x="300" y="150" />	
+			<weight text="hh" w="1030" h="60" x="580" y="30" />	
+			<hometown text="hh" w="1030" h="60" x="580" y="60" />	
+			<highschool text="hh" w="1030" h="60" x="580" y="90" />	
+			<college text="hh" w="1030" h="60" x="580" y="120" />	
 			<exp text="hh" w="1030" h="60" x="580" y="140" />	
 						
-			<name text="Lerborn James" w="1030" h="60" x="25" y="160" font="微软雅黑"
+			<name text="Lerborn James" w="1030" h="30" x="30" y="10" font="微软雅黑"
 					fontsize="20"  />
 			<team text="Knight" w="1030" h="60" x="25" y="190" font="微软雅黑"
 					fontsize="20"  />
 			
-			<chart1name text="14-15 radar" w="1030" h="60" x="20" y="210"/>
-			<chart1 text="hh" w="400" h="300" x="20" y="220" />	
-			<chart2name text="14-15 line chart" w="1030" h="60" x="430" y="180"/>
-			<chart2 text="hh" w="400" h="300" x="400" y="200" />	
+			<chart1name text="14-15 radar" w="250" h="30" x="32" y="227"/>
+			<chart1 text="hh" w="318" h="238" x="45" y="265" />	
+			<chart2name text="14-15 line chart" w="250" h="30" x="445" y="230"/>
+			<chart2 text="hh" w="315" h="205" x="440" y="290" />	
 			
-			<findmore text="查看更多信息" w="1030" h="60" x="800" y="450" />
+			<findmore text="查看更多" w="100" h="30" x="823" y="480" />
 			</labels>
 			
 			<comboboxes>
-			<box w="110" h="25" x="780" y="225">
+			<box w="100" h="20" x="480" y="285">
 					<string str="PTS" />
 					<string str="AST" />
 					<string str="BLK" />
@@ -1301,23 +1301,23 @@
         </panel>
         
         <panel className="ui.player.info.FourTablePane" width="940" height="511"
-               x="0" y="0">
+               x="0" y="0" bg="img/player/stat/playercareer.png">
                <labels>
-              <name text="姓名" w="130" h="60" x="50" y="110"  font="微软雅黑"
-					fontsize="15"  />
+              <name text="姓名" w="200" h="30" x="115" y="62"  font="微软雅黑"
+					fontsize="26"  />
               <img text="照片" w="130" h="100" x="50" y="20" />
-              <total text="Total Data" w="200" h="80" x="250" y="20" font="微软雅黑"
-					fontsize="25"  />
-              <pergame text="Average Data" w="200" h="80" x="480" y="20" font="微软雅黑"
-					fontsize="25"  />
-              <advanced text="Advanced Data" w="200" h="80" x="710" y="20" font="微软雅黑"
-					fontsize="25"  />
+              <total text="Total Data" w="150" h="30" x="310" y="10" font="微软雅黑"
+					fontsize="17"  />
+              <pergame text="Average Data" w="150" h="30" x="435" y="10" font="微软雅黑"
+					fontsize="17"  />
+              <advanced text="Advanced Data" w="150" h="30" x="590" y="10" font="微软雅黑"
+					fontsize="17"  />
               <salary text="Salary Data" w="150" h="60" x="780" y="20" />
                
                
                </labels>
                <tablepane className="ui.player.info.PlayerDetailPane" width="940"
-				height="340" x="0" y="166">
+				height="375" x="12" y="104">
 				<columnnames>
 					<columnname name="SEASON" />
 					<columnname name="TEAM" />
