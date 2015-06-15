@@ -3,21 +3,21 @@ package service.impl;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-import service.InferenceStatsService;
+import service.InferStatsService;
 import vo.MultiRegressionVO;
 import vo.SimpleRegressionVO;
 import vo.TeamWinAnalysisVO;
 
-public class InferenceStatsServiceImpl extends UnicastRemoteObject implements InferenceStatsService {
+public class InferStatsServiceImpl extends UnicastRemoteObject implements InferStatsService {
+	
+	public InferStatsServiceImpl() throws RemoteException {
+		super();
+	}
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	protected InferenceStatsServiceImpl() throws RemoteException {
-		super();
-	}
 
 	@Override
 	public TeamWinAnalysisVO getTeamTestingResultBySeason(String season)
@@ -26,7 +26,7 @@ public class InferenceStatsServiceImpl extends UnicastRemoteObject implements In
 	}
 
 	@Override
-	public TeamWinAnalysisVO getTeamTestingResult_10() {
+	public TeamWinAnalysisVO getTeamTestingResult_10() throws RemoteException {
 		return null;
 	}
 

@@ -5,20 +5,16 @@ import ui.config.SystemConfig;
 import ui.home.HomeUI;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
- * Created by Vboar on 2015/6/13.
+ * Created by Vboar on 2015/6/15.
  */
-public class StatsPanel extends JPanel {
+public class InferPanel extends JPanel {
 
     private PanelConfig pcfg ;
     private HomeUI frame;
 
-    public Stat1 stat1;
-    public Stat2 stat2;
-    
-    public StatsPanel(HomeUI frame) {
+    public InferPanel(HomeUI frame) {
         this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
                 .get(this.getClass().getName());
         this.frame = frame;
@@ -28,21 +24,11 @@ public class StatsPanel extends JPanel {
         this.setSize(pcfg.getW(), pcfg.getH());
         this.setLocation(pcfg.getX(), pcfg.getY());
         // 初始化组件
-        this.initComponent();
+        this.init();
+    }
+
+    public void init() {
         this.repaint();
-    }
-
-    private void initComponent(){
-        initPanel();
-    }
-
-    private void initPanel() {
-    	stat1 = new Stat1(frame);
-    	add(stat1);
-    	
-    	stat2 = new Stat2(frame);
-    	stat2.setVisible(false);
-    	add(stat2);
     }
 
 }

@@ -7,13 +7,8 @@ import vo.MultiRegressionVO;
 import vo.SimpleRegressionVO;
 import vo.TeamWinAnalysisVO;
 
-/**
- * 推断统计调用接口
- * 
- * created by JaneLDQ on 2015年6月14日 下午3:38:47
- */
-public interface InferenceStatsService extends Remote{
-	
+public interface InferStatsService extends Remote{
+
 	/**
 	 * 获得单个赛季——球队主客场胜场影响差异分析结果
 	 * @param season 单个赛季
@@ -33,7 +28,7 @@ public interface InferenceStatsService extends Remote{
 	 * @return
 	 * @throws RemoteException
 	 */
-	MultiRegressionVO getMultiRegression(String season) throws RemoteException;
+	public MultiRegressionVO getMultiRegression(String season) throws RemoteException;
 
 	/**
 	 * 获得某个数据与球队净胜分的一元回归分析
@@ -42,10 +37,6 @@ public interface InferenceStatsService extends Remote{
 	 * @return
 	 * @throws RemoteException
 	 */
-	SimpleRegressionVO getSimpleRegression(int typeNum, String season) throws RemoteException;
-	
-	
-	
-	
+	public SimpleRegressionVO getSimpleRegression(int typeNum, String season) throws RemoteException;
 	
 }

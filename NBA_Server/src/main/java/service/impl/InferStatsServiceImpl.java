@@ -1,12 +1,14 @@
 package service.impl;
 
 import java.awt.MediaTracker;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
 
-import service.InferenceStatsService;
+import service.InferStatsService;
 import util.FieldType;
 import util.Utility;
 import vo.MultiRegressionVO;
@@ -20,13 +22,11 @@ import entity.MatchPlayerBasic;
 import entity.OpponentStatsPerGame;
 import entity.TeamStatsPerGame;
 
-/**
- * 推断统计
- * 
- * created by JaneLDQ on 2015年6月14日 下午3:42:30
- */
-public class InferenceStatsServiceImpl implements InferenceStatsService {
-
+public class InferStatsServiceImpl extends UnicastRemoteObject implements InferStatsService {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private MatchDao mdao;
 	private TeamDao tdao;
 	
@@ -42,16 +42,10 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 
 	private String testing_path = "stats/team_testing.txt";
 
-	public InferenceStatsServiceImpl() {
+	public InferStatsServiceImpl() throws RemoteException {
+		super();
 		mdao = DaoFactoryImpl.getDaoFactory().getMatchDao();
 		tdao = DaoFactoryImpl.getDaoFactory().getTeamDao();
-	}
-
-	// TODO ---------main----------------
-	public static void main(String[] args) {
-		InferenceStatsServiceImpl is = new InferenceStatsServiceImpl();
-		is.getSimpleRegression(FieldType.TRB.ordinal(), "13-14");
-		is.getMultiRegression("14-15");
 	}
 
 	public void getTeamStepwiseToTxt(String season) {

@@ -107,14 +107,25 @@ public class TeamWinAnalysisVO implements Serializable{
 	public Double guest_kurtosis;
 	
 	/**
-	 * 偏度峰度检验——s2+k2 :where s is the z-score returned by skewtest and k is the z-score returned by kurtosistest
+	 * 偏度峰度检验——主场s2+k2 :
+	 * where s is the z-score returned by skewtest and k is the z-score returned by kurtosistest
 	 */
-	public Double s2_k2;
+	public Double home_s2_k2;
 	
 	/**
-	 * 偏度峰度检验——p-value;
+	 * 偏度峰度检验——主场p-value;
 	 */
-	public Double skew_p;
+	public Double skew_home_p;
+	
+	/**
+	 * 偏度峰度检验——客场s2+k2 :
+	 */
+	public Double guest_s2_k2;
+	
+	/**
+	 * 偏度峰度检验——客场p-value;
+	 */
+	public Double skew_guest_p;
 	
 	/**
 	 * 配对t检验——t值

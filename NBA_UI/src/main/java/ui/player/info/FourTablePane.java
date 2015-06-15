@@ -1,5 +1,8 @@
 package ui.player.info;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -14,6 +17,7 @@ import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
+import ui.util.LoadFont;
 import ui.util.MyLabel;
 import ui.util.MyPressedLabel;
 import vo.PlayerAdvancedVO;
@@ -25,7 +29,8 @@ public class FourTablePane extends JPanel {
 
 	private PanelConfig pcfg;
 	private HomeUI frame;
-
+	private Image bg;
+	
 	private MyLabel name;
 	private MyLabel img;
 	private MyPressedLabel totalChoose;
@@ -40,7 +45,8 @@ public class FourTablePane extends JPanel {
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
 		this.frame = frame;
-
+		this.bg = pcfg.getBg();
+		
 		this.setLayout(null);
 		this.setOpaque(false);
 		this.setSize(pcfg.getW(), pcfg.getH());
@@ -49,6 +55,10 @@ public class FourTablePane extends JPanel {
 		this.initComponent();
 	}
 
+	public void paintComponent(Graphics g){
+		g.drawImage(bg, 0, 0, pcfg.getW(), pcfg.getH(), null);
+	}
+	
 	private void initComponent() {
 		initLabels();
 		initTable();
@@ -56,16 +66,28 @@ public class FourTablePane extends JPanel {
 
 	private void initLabels() {
 		name = new MyLabel(pcfg.getLabels().element("name"));
+		name.setFont(LoadFont.loadFont("HELVETICA.TTF", 0, 26));
+		name.setForeground(new Color(237,85,101));
 		img = new MyLabel(pcfg.getLabels().element("img"));
+		
 		totalChoose = new MyPressedLabel(pcfg.getLabels().element("total"));
+		totalChoose.setFont(new Font("微软雅黑",0,17));
+		totalChoose.setForeground(Color.WHITE);
+		
 		perGameChoose = new MyPressedLabel(pcfg.getLabels().element("pergame"));
+		perGameChoose.setFont(new Font("微软雅黑",0,17));
+		perGameChoose.setForeground(Color.WHITE);
+
 		advancedChoose = new MyPressedLabel(pcfg.getLabels()
 				.element("advanced"));
+		advancedChoose.setFont(new Font("微软雅黑",0,17));
+		advancedChoose.setForeground(Color.WHITE);
+
 		addLabelAction(totalChoose, 0);
 		addLabelAction(perGameChoose, 1);
 		addLabelAction(advancedChoose, 2);
 		add(name);
-		add(img);
+		//add(img);
 		add(totalChoose);
 		add(perGameChoose);
 		add(advancedChoose);
