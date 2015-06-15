@@ -74,7 +74,7 @@ public class SeasonPlayerTablePane extends TablePanel{
 	            	 int column = table.columnAtPoint(e.getPoint());
 	            	 int row = table.rowAtPoint(e.getPoint());
 	            	 if(column == 0){	            		 
-	            		
+	            		//frame.
 	            		 
 	            	 }
 	             }  	    		

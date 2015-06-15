@@ -640,14 +640,12 @@
 			
 			</panel>
 			
-<<<<<<< HEAD
+
 		<panel className="ui.team.compare.TeamCompareChoosePanel" width="940" height="511"
 			x="0" y="0" bg="img/team/compare/teamcomparechoose.png">
-=======
+
 			
-		<panel className="ui.player.compare.TeamCompareChoosePanel" width="940" height="511"
-			x="0" y="0" bg="img/player/comparechoose.png">
->>>>>>> b4be7934209a079f37525b2a0f22937bf803e3b4
+
 			<labels>
 			<img  w="300" h="200" x="335" y="65" />
 			
