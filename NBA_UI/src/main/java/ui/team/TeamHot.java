@@ -63,6 +63,7 @@ public class TeamHot extends JPanel{
 		this.initComponent();
 		makeChangePrep();
 		this.repaint();
+		this.validate();
 	}
 	
 	public void paintComponent(Graphics g){
@@ -144,7 +145,7 @@ public class TeamHot extends JPanel{
 		season = new MyComboBox(pcfg.getComboboxes().element("season"));
 		add(season);
 
-		updateUI();
+		this.validate();
 	}
 	
 	private class ChangeThread2 implements Runnable {
@@ -225,6 +226,6 @@ public class TeamHot extends JPanel{
 		hint.setForeground(new Color(237,85,101));
 		hint.setFont(new Font("HELVETICA",1,35));
 		repaint();
-		
+		this.validate();
 	}
 }

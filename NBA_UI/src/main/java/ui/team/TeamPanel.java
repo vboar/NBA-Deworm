@@ -1,17 +1,12 @@
 package ui.team;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
-import ui.util.MyButton;
-import ui.util.MyLabel;
-import ui.util.MyTab;
+import ui.team.compare.TeamCompare;
+import ui.team.compare.TeamCompareChoosePanel;
 
 public class TeamPanel extends JPanel{
 
@@ -21,6 +16,7 @@ public class TeamPanel extends JPanel{
 	public TeamIndex teamindex;
 	public TeamStat teamstat; 
 	public TeamHot teamhot;
+	public TeamCompareChoosePanel comparechoose;
     public TeamDetail teamDetail;
 	
 	public TeamPanel(HomeUI frame){
@@ -53,6 +49,10 @@ public class TeamPanel extends JPanel{
 		teamhot = new TeamHot(frame);
 		teamhot.setVisible(false);
 		add(teamhot);
+		
+		comparechoose = new TeamCompareChoosePanel(frame);
+		comparechoose.setVisible(false);
+		add(comparechoose);
 	}
 
     public void removeTeamDetail() {

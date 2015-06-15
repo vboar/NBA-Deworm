@@ -452,7 +452,9 @@ public class PlayerIndex extends JPanel {
 		jsp.setLocation(0, 50);
 		jsp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-
+		jsp.setOpaque(false);
+		jsp.setBorder(new EmptyBorder(0,0,0,0));
+		
 		layerPane = new JLayeredPane();
 		layerPane.setPreferredSize(new Dimension(940, 1020));
 		layerPane.setLayout(null);

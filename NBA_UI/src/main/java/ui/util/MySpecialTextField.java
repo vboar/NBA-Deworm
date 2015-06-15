@@ -24,6 +24,7 @@ public class MySpecialTextField extends MyTextField {
 
 	public MySpecialTextField(Element ele,FuzzySearch listener) {
 		super(ele);
+		this.setFont(new Font("华文细黑", 0, 10));
 		this.listener = listener;
 		this.initBox();
 		this.initTextField();
