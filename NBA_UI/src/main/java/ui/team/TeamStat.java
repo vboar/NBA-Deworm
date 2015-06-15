@@ -233,8 +233,7 @@ public class TeamStat extends JPanel{
 	
 	private void initBox(){
 		year = new MyComboBox(pcfg.getComboboxes().element("year"));
-		add(year);
-		//getSelectChange(year);
+		//add(year);
 	}
 	
 	

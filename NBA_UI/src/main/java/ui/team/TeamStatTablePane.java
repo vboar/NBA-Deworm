@@ -52,25 +52,7 @@ public class TeamStatTablePane extends TablePanel{
         table.FitTableColumns(table);
         initComponent();
         
-        this.table.addMouseListener(showDataInfo());
 	}
-
-	private MouseAdapter showDataInfo(){
-    	MouseAdapter adapter = new MouseAdapter() {
-    		 public void mouseReleased (MouseEvent e) {  
-            	 int column = table.columnAtPoint(e.getPoint());
-            	 int row = table.rowAtPoint(e.getPoint());
-            	 if(column == 0){	            		 
-            		TeamDetail te = new TeamDetail(frame, table.getValueAt(row, 0).toString());
-            		teamstat.setVisible(false);
-            		//System.out.println(frame.motherPanel.teamPanel.teamDetail==null);
-            		frame.motherPanel.teamPanel.add(te);
-            	 }
-             }  	    		
-		};
-		return adapter;
-    	
-    }
 	
 	private void initData(Object[][] list) {
 		int size;

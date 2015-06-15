@@ -240,7 +240,7 @@
 			
 			<more w="200" h="30" x="800" y="450"/>
 			
-			<chart1 w="350" h="205" x="425" y="70"/>
+			<chart1 w="273" h="205" x="425" y="70"/>
 			<chart2  w="350" h="205" x="425" y="285"/>
 			</labels>
 			
@@ -274,7 +274,7 @@
 			</panel>
 			
 			<panel className="ui.team.advance.TeamMore" width="940" height="511"
-			x="0" y="0">
+			x="0" y="0" bg="img/common/blankbg.png">
 			
 			<tablepane>
 			<table1 className="ui.team.advance.TBYTablePane" width="903"
@@ -492,7 +492,7 @@
 			</tab>
 			
 			<comboboxes>
-			<box w="100" h="20" x="480" y="285">
+			<year w="100" h="20" x="480" y="285">
 					<string str="14-15" />
 					<string str="13-14" />
 					<string str="12-13" />
@@ -507,7 +507,7 @@
 					<string str="03-04" />
 					<string str="02-01" />
 					<string str="01-00" />
-				</box>
+				</year>
 			</comboboxes>
 			
 			<tablepane>
