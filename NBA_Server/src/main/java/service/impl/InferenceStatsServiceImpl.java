@@ -1,6 +1,7 @@
 package service.impl;
 
 import java.awt.MediaTracker;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,12 +50,15 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 
 	// TODO ---------main----------------
 	public static void main(String[] args) {
-		InferenceStatsServiceImpl is = new InferenceStatsServiceImpl();
-		is.getSimpleRegression(FieldType.TRB.ordinal(), "13-14");
-		is.getMultiRegression("14-15");
-	}
+//		InferenceStatsServiceImpl is = new InferenceStatsServiceImpl();
+//		is.getSimpleRegression(FieldType.TRB.ordinal(), "13-14");
+//        try {
+//            is.getMultiRegression("14-15");
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//        }
+    }
 
-	@Override
 	public void getTeamStepwiseToTxt(String season) {
 		List<List<String>> strs = getStepwistString(season);
 		for (int i = 0; i < strs.size(); ++i) {
@@ -62,7 +66,6 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 		}
 	}
 
-	@Override
 	public void getTeamStepwiseToTxt_10() {
 		List<List<String>> list = new ArrayList<List<String>>();
 		for (int i = 0; i < 8; ++i) {
@@ -94,7 +97,6 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 		}
 	}
 
-	@Override
 	public void getTeamStepwiseMatchToTxt(String season) {
 		List<MatchPlayerBasic> homelist = mdao.getGuestHomeTeamTotalBySeason(
 				season, true);
@@ -137,13 +139,11 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 		}
 	}
 
-	@Override
 	public void getTeamWinsToTxt(String season) {
 		List<String> s = getWinStringList(season);
 		Utility.writeMulti(s, testing_path);
 	}
 
-	@Override
 	public void getTeamWinsToTxt_10() {
 		String home = "";
 		String guest = "";
@@ -160,7 +160,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 	}
 
 	@Override
-	public TeamWinAnalysisVO getTeamTestingResultBySeason(String season) {
+	public TeamWinAnalysisVO getTeamTestingResultBySeason(String season) throws RemoteException {
 		this.getTeamWinsToTxt(season);
 		this.getTeamStepwiseToTxt(season);
 		try {
@@ -174,7 +174,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 	}
 
 	@Override
-	public TeamWinAnalysisVO getTeamTestingResult_10() {
+	public TeamWinAnalysisVO getTeamTestingResult_10() throws RemoteException {
 		this.getTeamWinsToTxt_10();
 		;
 		this.getTeamStepwiseToTxt_10();
@@ -189,7 +189,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 	}
 	
 	@Override
-	public MultiRegressionVO getMultiRegression(String season){
+	public MultiRegressionVO getMultiRegression(String season) throws RemoteException {
 //		List<TeamStatsPerGame> list = tdao.getTeamPerGameBySeason(season);
 //		List<OpponentStatsPerGame> opplist = tdao.getTeamOppPerGameBySeason(season);
 		List<TeamStatsPerGame> list = new ArrayList<TeamStatsPerGame>();
@@ -247,7 +247,7 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 
 	//TODO
 	@Override
-	public SimpleRegressionVO getSimpleRegression(int typeNum, String season){
+	public SimpleRegressionVO getSimpleRegression(int typeNum, String season) throws RemoteException {
 		FieldType type = FieldType.values()[typeNum];
 		List<TeamStatsPerGame> list = tdao.getTeamPerGameBySeason(season);
 		List<OpponentStatsPerGame> opplist = tdao.getTeamOppPerGameBySeason(season);
@@ -306,54 +306,58 @@ public class InferenceStatsServiceImpl implements InferenceStatsService {
 	private TeamWinAnalysisVO getWinVO() {
 		List<String> strs = Utility.read("stats/team_result.txt");
 		TeamWinAnalysisVO vo = new TeamWinAnalysisVO();
-		// 分析第0行数据
+		// 分析第1行数据
 		String line = strs.get(0);
 		String[] data = line.split(";", -1);
 		vo.home_gradient = Utility.stringToDouble(data[0]);
 		vo.home_intercept = Utility.stringToDouble(data[1]);
 		vo.home_correlation = Utility.stringToDouble(data[2]);
-		// 分析第1行数据
+		// 分析第2行数据
 		line = strs.get(1);
 		data = line.split(";", -1);
 		vo.guest_gradient = Utility.stringToDouble(data[0]);
 		vo.guest_intercept = Utility.stringToDouble(data[1]);
 		vo.guest_correlation = Utility.stringToDouble(data[2]);
-		// 分析第2行数据
+		// 分析第3行数据
 		line = strs.get(2);
 		data = line.split(";", -1);
 		vo.home_D = Utility.stringToDouble(data[0]);
 		vo.home_p = Utility.stringToDouble(data[1]);
-		// 分析第3行数据
+		// 分析第4行数据
 		line = strs.get(3);
 		data = line.split(";", -1);
 		vo.guest_D = Utility.stringToDouble(data[0]);
 		vo.guest_p = Utility.stringToDouble(data[1]);
-		// 分析第4行数据
+		// 分析第5行数据
 		line = strs.get(4);
 		data = line.split(";", -1);
 		vo.standardKS_D = Utility.stringToDouble(data[0]);
 		vo.standardKS_p = Utility.stringToDouble(data[1]);
-		// 分析第5行数据
+		// 分析第6行数据
 		line = strs.get(5);
 		data = line.split(";", -1);
 		vo.KS_D = Utility.stringToDouble(data[0]);
 		vo.KS_p = Utility.stringToDouble(data[1]);
-		// 分析第6行数据
+		// 分析第7行数据
 		line = strs.get(6);
 		data = line.split(";", -1);
 		vo.home_skewness = Utility.stringToDouble(data[0]);
 		vo.home_kurtosis = Utility.stringToDouble(data[1]);
-		// 分析第7行数据
-		line = strs.get(8);
+		vo.home_s2_k2 = Utility.stringToDouble(data[2]);
+		vo.skew_home_p = Utility.stringToDouble(data[3]);
+		// 分析第8行数据
+		line = strs.get(7);
 		data = line.split(";", -1);
 		vo.guest_skewness = Utility.stringToDouble(data[0]);
 		vo.guest_kurtosis = Utility.stringToDouble(data[1]);
-		// 分析第8行数据
+		vo.guest_s2_k2 = Utility.stringToDouble(data[2]);
+		vo.skew_guest_p = Utility.stringToDouble(data[3]);
+		// 分析第9行数据
 		line = strs.get(8);
 		data = line.split(";", -1);
 		vo.t = Utility.stringToDouble(data[0]);
 		vo.t_p = Utility.stringToDouble(data[1]);
-		// 分析第9行数据
+		// 分析第10行数据
 		line = strs.get(9);
 		data = line.split(";", -1);
 		vo.home_mean = Utility.stringToDouble(data[0]);

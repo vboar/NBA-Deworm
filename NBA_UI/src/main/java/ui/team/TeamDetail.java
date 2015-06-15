@@ -2,10 +2,13 @@ package ui.team;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import service.impl.ServiceFactoryImpl;
@@ -16,6 +19,7 @@ import ui.home.HomeUI;
 import ui.team.advance.TeamMore;
 import ui.util.MyComboBox;
 import ui.util.MyLabel;
+import util.FieldType;
 import vo.TeamInfoVO;
 import vo.TeamPerGameVO;
 import vo.TeamTotalVO;
@@ -41,6 +45,10 @@ public class TeamDetail extends JPanel{
 	
 	private MyLabel more;
 	
+	private MyLabel chart1;
+	private MyLabel chart2;
+	private MyComboBox box;
+	
 	private MyComboBox cdt;
 	
 	private TeamGeneralTablePane generalTable;
@@ -49,8 +57,13 @@ public class TeamDetail extends JPanel{
 	private TeamInfoVO vo;
 	private TeamPerGameVO pergamevo;
 	private TeamTotalVO totalvo;
+	private ImageIcon radar;
+	private ImageIcon linechart;
+	
 	
 	public TeamMore teamMore;
+	
+	String boxItem= null;
 	
 	public TeamDetail(HomeUI frame,String abbr){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
@@ -73,6 +86,9 @@ public class TeamDetail extends JPanel{
 			vo = ServiceFactoryImpl.getInstance().getTeamService().getTeamInfoByAbbr(abbr);
 			pergamevo = ServiceFactoryImpl.getInstance().getTeamService().getTeamPerGameBySeasonAbbr("14-15", abbr);
 			totalvo = ServiceFactoryImpl.getInstance().getTeamService().getTeamTotalBySeasonAbbr("14-15", abbr);
+			radar = ServiceFactoryImpl.getInstance().getStatsService().getTeamRadar(abbr, "14-15");
+			linechart = ServiceFactoryImpl.getInstance().getStatsService().getTeamCareerLineChart(abbr, 1);
+		
 		} catch (RemoteException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
@@ -83,6 +99,7 @@ public class TeamDetail extends JPanel{
 		initTables();
 		initLabels();
 		initCombox();
+		initChart();
 	}
 	
 	private void initLabels(){
@@ -191,6 +208,75 @@ public class TeamDetail extends JPanel{
 		cdt = new MyComboBox(pcfg.getComboboxes().element("cdt"));
 		cdt.setFocusable(false);
 		add(cdt);
+		
+		getSelectChange(cdt);
 	}
 	
+	private void getSelectChange(MyComboBox box) {
+		box.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (!box.getSelectedItem().toString().equals(boxItem)) {
+					boxItem = box.getSelectedItem().toString();
+					ImageIcon line = null;
+					try {
+						line = ServiceFactoryImpl
+								.getInstance()
+								.getStatsService()
+								.getTeamCareerLineChart(abbr, getField(box.getSelectedIndex()));
+					} catch (RemoteException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					chart2.setImage(line);
+				}
+
+			}
+		});
+	}
+	
+	private void initChart(){
+		chart1 = new MyLabel(pcfg.getLabels().element("chart1"));
+		// chart1.setImage(icon);
+		add(chart1);
+		
+		chart2 = new MyLabel(pcfg.getLabels().element("chart2"));
+		// chart1.setImage(icon);
+		add(chart2);
+		chart1.setImage(radar);
+		chart2.setIcon(linechart);
+	}
+	
+	
+	public int getField(int num) {
+		switch (num) {
+		case 0:
+			return FieldType.PTS.ordinal();
+		case 1:
+			return FieldType.AST.ordinal();
+		case 2:
+			return FieldType.BLK.ordinal();
+		case 3:
+			return FieldType.STL.ordinal();
+		case 4:
+			return FieldType.TRB.ordinal();
+		case 5:
+			return FieldType.DRB.ordinal();
+		case 6:
+			return FieldType.ORB.ordinal();
+		case 7:
+			return FieldType.TOV.ordinal();
+		case 8:
+			return FieldType.PF.ordinal();
+		case 9:
+			return FieldType.FG3_PCT.ordinal();
+		case 10:
+			return FieldType.FGA_PCT.ordinal();
+		case 11:
+			return FieldType.FT_PCT.ordinal();
+		default:
+			return 0;
+		}
+	}
 }

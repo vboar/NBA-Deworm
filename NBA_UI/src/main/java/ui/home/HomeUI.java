@@ -4,17 +4,18 @@ package ui.home;
  * 主界面panel
  * @author wang 
  */
+import java.rmi.RemoteException;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import service.impl.LiveServiceImpl;
+import service.impl.ServiceFactoryImpl;
 import ui.common.MotherPanel;
 import ui.config.FrameConfig;
 import ui.config.SystemConfig;
 import ui.live.LivePanel;
-import ui.team.advance.SeasonDetail;
 import ui.util.FrameUtil;
 import ui.util.LoadFont;
 
@@ -73,6 +74,12 @@ public class HomeUI extends JFrame {
 
 	public static void main(String[] args) {
 		new HomeUI();
+		try {
+			ServiceFactoryImpl.getInstance().getInferStatsService().getMultiRegression("13-14");
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 

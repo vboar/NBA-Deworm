@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 
 import ui.config.TableConfig;
 import ui.home.HomeUI;
+import ui.team.TeamDetail;
 import ui.util.FrameUtil;
 import ui.util.MyTable;
 import ui.util.MyTableModel;
@@ -124,6 +125,20 @@ public class PlayerAllTablePane extends TablePanel {
 						frame.motherPanel.playerPanel.playerInfoPane.changeData(table.getValueAt(row, 0).toString());
 						frame.motherPanel.playerPanel.playerInfoPane.setVisible(true);
 					}
+					 if(column == 1){	            		 
+		            		String name = table.getValueAt(row, 1).toString();
+		            		if(name.length()==3){
+		            			//System.out.println("ddd"+name);
+		            			frame.motherPanel.playerPanel.setVisible(false);
+		            			frame.motherPanel.teamPanel.add(frame.motherPanel.teamPanel.
+		            					teamDetail = new TeamDetail(frame,name));
+		            			frame.motherPanel.teamPanel.teamindex.setVisible(false);
+		            			frame.motherPanel.playernav.setVisible(false);
+		            			frame.motherPanel.teamnav.setVisible(true);
+		            			frame.motherPanel.teamPanel.setVisible(true);
+		            		}
+		            		 
+		            	 }
 				}
 			}
 

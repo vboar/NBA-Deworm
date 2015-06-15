@@ -18,6 +18,7 @@ public class TeamPanel extends JPanel{
 	public TeamHot teamhot;
 	public TeamCompareChoosePanel comparechoose;
     public TeamDetail teamDetail;
+    public TeamCompare teamCompare;
 	
 	public TeamPanel(HomeUI frame){
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
@@ -53,6 +54,10 @@ public class TeamPanel extends JPanel{
 		comparechoose = new TeamCompareChoosePanel(frame);
 		comparechoose.setVisible(false);
 		add(comparechoose);
+		
+		teamCompare =new TeamCompare(frame);
+		teamCompare.setVisible(false);
+		add(teamCompare);
 	}
 
     public void removeTeamDetail() {

@@ -87,13 +87,17 @@ private static int COLUMN_NUM = 22;
 	    		 public void mouseReleased (MouseEvent e) {  
 	            	 int column = table.columnAtPoint(e.getPoint());
 	            	 int row = table.rowAtPoint(e.getPoint());
-	            	 if(column == 0){	            		 
+	            	 if(column == 1){	            		 
 	            		String name = table.getValueAt(row, 1).toString();
-	            		if(name.length()>2){
+	            		if(name.length()==3){
+	            			//System.out.println("ddd"+name);
 	            			frame.motherPanel.playerPanel.setVisible(false);
 	            			frame.motherPanel.teamPanel.add(frame.motherPanel.teamPanel.
 	            					teamDetail = new TeamDetail(frame,name));
-	            			frame.motherPanel.teamPanel.setVisible(false);
+	            			frame.motherPanel.teamPanel.teamindex.setVisible(false);
+	            			frame.motherPanel.playernav.setVisible(false);
+	            			frame.motherPanel.teamnav.setVisible(true);
+	            			frame.motherPanel.teamPanel.setVisible(true);
 	            		}
 	            		 
 	            	 }

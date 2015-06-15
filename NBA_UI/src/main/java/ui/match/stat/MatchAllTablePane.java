@@ -107,10 +107,14 @@ public MatchAllTablePane(TableConfig cfg, Object[][] list,HomeUI frame) {
 					int column = table.columnAtPoint(e.getPoint());
 					int row = table.rowAtPoint(e.getPoint());
 					if (column == 1) {
-						frame.motherPanel.matchPanel.matchStat.setVisible(false);
-						frame.motherPanel.matchPanel.matchInfoPanel.refreashData(table.getValueAt(row, 0).toString());
-						frame.motherPanel.matchPanel.matchInfoPanel.setVisible(true);
-					}
+						frame.motherPanel.matchnav.setVisible(false);
+	            		frame.motherPanel.matchPanel.setVisible(false);
+	            		frame.motherPanel.playerPanel.playerInfoPane.changeData(table.getValueAt(row, 0).toString());
+	            		frame.motherPanel.playernav.setColor(0);
+	            		frame.motherPanel.playernav.hintAll();
+	            		frame.motherPanel.playerPanel.setVisible(true);
+	            		frame.motherPanel.playerPanel.playerInfoPane.setVisible(true);
+	            		 }
 				}
 			}
 

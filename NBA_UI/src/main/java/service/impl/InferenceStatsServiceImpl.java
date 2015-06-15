@@ -26,7 +26,7 @@ public class InferenceStatsServiceImpl extends UnicastRemoteObject implements In
 	}
 
 	@Override
-	public TeamWinAnalysisVO getTeamTestingResult_10() {
+	public TeamWinAnalysisVO getTeamTestingResult_10() throws RemoteException {
 		return null;
 	}
 

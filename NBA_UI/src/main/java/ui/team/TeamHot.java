@@ -77,6 +77,8 @@ public class TeamHot extends JPanel{
 	}
 	
 	private void initLabels(){
+		hint = new MyLabel(pcfg.getLabels().element("hint"));
+		add(hint);
 		location = new MyLabel(pcfg.getLabels().element("location"));
 		location.setForeground(new Color(83,83,83));
 		location.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 18));
@@ -196,8 +198,7 @@ public class TeamHot extends JPanel{
 	}
 	
 	private void changeData(){
-		hint = new MyLabel(pcfg.getLabels().element("hint"));
-		add(hint);
+		
 		try {
 			location.setText(ServiceFactoryImpl.getInstance().getTeamService().
 					getTeamInfoByAbbr(hotlist.get(0).abbr).location);

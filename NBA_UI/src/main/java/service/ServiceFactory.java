@@ -20,6 +20,6 @@ public interface ServiceFactory extends Remote{
 	
 	public StatsService getStatsService() throws RemoteException;
 	
-	public InferenceStatsService getInferenceService() throws RemoteException;
+	public InferStatsService getInferStatsService() throws RemoteException;
 
 }
