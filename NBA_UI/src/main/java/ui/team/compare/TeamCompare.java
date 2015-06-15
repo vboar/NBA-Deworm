@@ -140,10 +140,7 @@ public class TeamCompare extends JPanel{
 
 	}
 	
-	private void initBox(){
-		box1 = new MyComboBox(pcfg.getComboboxes().element("box1"));
-		add(box1);
-	}
+	
 	
 	
 	
