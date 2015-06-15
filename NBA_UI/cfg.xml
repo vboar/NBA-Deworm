@@ -718,11 +718,11 @@
 		<panel className="ui.team.compare.TeamCompare" width="940" height="511"
 			x="0" y="0" bg="img/team/compare/compare.png">
 			<labels>
-			<name1 text="hh" w="1030" h="60" x="20" y="0" />	
-			<name2 text="hh" w="1030" h="60" x="300" y="0" />	
+			<name1 text="hh" w="100" h="30" x="50" y="0" />	
+			<name2 text="hh" w="100" h="30" x="300" y="0" />	
 			<chart1 text="hh" w="400" h="300" x="30" y="100" />	
-			<chart2 text="hh" w="200" h="150" x="590" y="60" />	
-			<chart3 text="hh" w="200" h="150" x="590" y="60" />
+			<chart2 text="hh" w="320" h="185" x="540" y="85" />	
+			<chart3 text="hh" w="320" h="185" x="540" y="315" />
 			</labels>
 		</panel>
 		
@@ -1293,6 +1293,28 @@
                     <string str="04-05" />
                 </season>
             </comboboxes>
+            <tables>
+                <ks width="300" height="150" x="200" y="200">
+                    <columnnames>
+                        <columnname name="" />
+                        <columnname name="D值" />
+                        <columnname name="p值" />
+                    </columnnames>
+                </ks>
+                <pf width="400" height="150" x="225" y="200">
+                    <columnnames>
+                        <columnname name="" />
+                        <columnname name="偏度" />
+                        <columnname name="峰度" />
+                        <columnname name="s^2+k^2" />
+                        <columnname name="p值" />
+                    </columnnames>
+                </pf>
+            </tables>
+            <labels>
+                <a w="300" h="200" x="200" y="200"/>
+                <b w="300" h="200" x="500" y="200"/>
+            </labels>
         </panel>
 
         <panel className="ui.stats.Stat2" width="940" height="511"
@@ -1486,7 +1508,7 @@
                             <columnname name="总分" />
                         </columnnames>
                     </scores>
-                </tables>
+             </tables>
 
 			
 			

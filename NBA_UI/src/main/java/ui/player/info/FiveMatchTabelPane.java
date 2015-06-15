@@ -1,5 +1,6 @@
 package ui.player.info;
 
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -45,6 +46,9 @@ public class FiveMatchTabelPane extends TablePanel {
         table.setShowGrid(false);
         this.table.addMouseListener(showDataInfo());
         this.updateWidth();
+        table.getTableHeader().setFont(new Font("华文细黑",0,12));
+        table.getTableHeader().setForeground(Color.BLACK);
+        table.setFont(new Font("华文细黑",0,12));
 
 	}
 	

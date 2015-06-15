@@ -74,12 +74,12 @@ public class HomeUI extends JFrame {
 
 	public static void main(String[] args) {
 		new HomeUI();
-		try {
-			ServiceFactoryImpl.getInstance().getInferStatsService().getMultiRegression("13-14");
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			ServiceFactoryImpl.getInstance().getInferStatsService().getMultiRegression("13-14");
+//		} catch (RemoteException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 	
 

@@ -1,5 +1,6 @@
 package ui.player.info;
 
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -43,6 +44,10 @@ private static int COLUMN_NUM = 22;
         this.table = new MyTable(this.dtm, this.getWidth());
         table.setShowGrid(false);
         this.table.addMouseListener(showDataInfo());
+        table.getTableHeader().setFont(new Font("华文细黑",0,12));
+        table.getTableHeader().setForeground(Color.BLACK);
+        table.setFont(new Font("华文细黑",0,12));
+
         this.updateWidth();
 	}
 	public PlayerDetailPane(TableConfig cfg,Object[][] list,HomeUI frame) {
@@ -79,6 +84,7 @@ private static int COLUMN_NUM = 22;
 	            this.table.getColumnModel().getColumn(i).setPreferredWidth(40);
 	        }
 	        this.table.getColumnModel().getColumn(i).setPreferredWidth(85);
+         this.table.setRowHeight(25);
 			this.updateUI();
 		}	
 	 
