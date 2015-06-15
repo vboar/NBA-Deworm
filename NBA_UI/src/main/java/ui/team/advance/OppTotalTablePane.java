@@ -64,9 +64,8 @@ public class OppTotalTablePane extends TablePanel{
 	            	 if(column == 0){	            		 
 	            		SeasonDetail se = new SeasonDetail(frame, table.getValueAt(row, 0).toString(), abbr);
 	            		teamMore.setVisible(false);
-	            		
-	            		//frame.motherPanel.removeAll();
-	            		frame.motherPanel.teamPanel.add(se);
+	            	
+		            		frame.motherPanel.teamPanel.add(se);
 	            	 }
 	             }  	    		
 			};

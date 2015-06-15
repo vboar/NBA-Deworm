@@ -69,8 +69,10 @@ public class TBYTablePane extends TablePanel{
 	            	 if(column == 0){	            		 
 	            		SeasonDetail se = new SeasonDetail(frame, table.getValueAt(row, 0).toString(), abbr);
 	            		teamMore.setVisible(false);
-	            		System.out.println(frame.motherPanel.teamPanel.teamDetail==null);
+	            		//System.out.println(frame.motherPanel.teamPanel.teamDetail==null);
+	            		
 	            		frame.motherPanel.teamPanel.add(se);
+	            		
 	            	 }
 	             }  	    		
 			};

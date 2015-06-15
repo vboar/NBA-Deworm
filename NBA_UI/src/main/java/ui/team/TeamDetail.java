@@ -19,7 +19,6 @@ import ui.config.SystemConfig;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
 import ui.team.advance.TeamMore;
-import ui.util.LoadFont;
 import ui.util.MyComboBox;
 import ui.util.MyLabel;
 import util.FieldType;
@@ -99,9 +98,10 @@ public class TeamDetail extends JPanel{
 		}
 	}
 	
-	public void paintComponent(Graphics g){
-		g.drawImage(bg, 0, 0, pcfg.getW(), pcfg.getH(), null);
-	}
+	
+//	public void paintComponent(Graphics g){
+//		g.drawImage(bg, 0, 0, pcfg.getW(), pcfg.getH(), null);
+//	}
 	
 	private void initComponent(){
 		initTables();
@@ -128,8 +128,7 @@ public class TeamDetail extends JPanel{
 		
 		team = new MyLabel(pcfg.getLabels().element("team"));
 		team.setText(vo.name);
-		team.setFont(LoadFont.loadFont("HELVETICA.TTF", 0, 23));
-		team.setForeground(Color.WHITE);
+		team.setFont(new Font("华文细黑", 0, 20));
 		add(team);
 		
 		buildtime = new MyLabel(pcfg.getLabels().element("buildtime"));
@@ -160,7 +159,7 @@ public class TeamDetail extends JPanel{
 		current = new MyLabel(pcfg.getLabels().element("current"));
 		current.setText("本赛季表现：");
 		current.setFont(new Font("宋体", 0, 12));
-		//add(current);
+		add(current);
 		
 		more = new MyLabel(pcfg.getLabels().element("more"));
 		more.setText("点此查看更多");
@@ -170,7 +169,7 @@ public class TeamDetail extends JPanel{
 
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				TeamDetail.this.setVisible(false);
+				TeamDetail.this.setBackground(null);
 				removeAll();
 				teamMore = new TeamMore(frame,abbr);
 				add(teamMore);

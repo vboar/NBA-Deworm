@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 
 import ui.config.TableConfig;
 import ui.home.HomeUI;
+import ui.player.PlayerNav;
 import ui.util.MyTable;
 import ui.util.MyTableModel;
 import ui.util.TablePanel;
@@ -78,7 +79,8 @@ public class SeasonPlayerTablePane extends TablePanel{
 	            		frame.motherPanel.teamPanel.setVisible(false);
 	            		frame.motherPanel.playerPanel.playerInfoPane.changeData(table.getValueAt(row, 0).toString());
 	            		frame.motherPanel.playernav.setColor(0);
-	            		frame.motherPanel.playernav.hintAll();
+	            		frame.motherPanel.playernav .hintAll();
+	            		frame.motherPanel.playernav.setVisible(true);
 	            		frame.motherPanel.playerPanel.setVisible(true);
 	            		frame.motherPanel.playerPanel.playerInfoPane.setVisible(true);
 	            		 
