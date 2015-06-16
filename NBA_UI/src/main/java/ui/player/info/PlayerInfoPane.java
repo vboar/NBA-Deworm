@@ -297,6 +297,7 @@ public class PlayerInfoPane extends JPanel {
 		chart2Name.setForeground(Color.WHITE);
 		add(chart2Name);
 		box = new MyComboBox(pcfg.getComboboxes().element("box"));
+        box.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 12));
 		add(box);
 		getSelectChange(box);
 		chart2 = new MyLabel(pcfg.getLabels().element("chart2"));

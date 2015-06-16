@@ -1331,8 +1331,8 @@
                 </pf>
             </tables>
             <labels>
-                <a w="300" h="200" x="200" y="200"/>
-                <b w="300" h="200" x="500" y="200"/>
+                <a w="300" h="200" x="200" y="170"/>
+                <b w="300" h="200" x="500" y="170"/>
             </labels>
         </panel>
 
@@ -1343,7 +1343,20 @@
 
         <panel className="ui.stats.InferPanel" width="940" height="511"
                x="0" y="0">
-
+            <comboboxes>
+                <season w="100" h="22" x="730" y="140">
+                    <string str="14-15" />
+                    <string str="13-14" />
+                    <string str="12-13" />
+                    <string str="10-11" />
+                    <string str="09-10" />
+                    <string str="08-09" />
+                    <string str="07-08" />
+                    <string str="06-07" />
+                    <string str="05-06" />
+                    <string str="04-05" />
+                </season>
+            </comboboxes>
         </panel>
         
         <panel className="ui.player.info.FourTablePane" width="940" height="511"
