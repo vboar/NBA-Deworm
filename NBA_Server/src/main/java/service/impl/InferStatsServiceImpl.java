@@ -202,16 +202,16 @@ public class InferStatsServiceImpl extends UnicastRemoteObject implements InferS
 	
 	@Override
 	public MultiRegressionVO getMultiRegression(String season){
-//		List<TeamStatsPerGame> list = tdao.getTeamPerGameBySeason(season);
-//		List<OpponentStatsPerGame> opplist = tdao.getTeamOppPerGameBySeason(season);
-		List<TeamStatsPerGame> list = new ArrayList<TeamStatsPerGame>();
-		List<OpponentStatsPerGame> opplist = new ArrayList<OpponentStatsPerGame>();
-		for(int i=0; i<seasons.length;++i){
-			List<TeamStatsPerGame> totalist = tdao.getTeamPerGameBySeason(seasons[i]);
-			List<OpponentStatsPerGame> ol = tdao.getTeamOppPerGameBySeason(seasons[i]);
-			list.addAll(totalist);
-			opplist.addAll(ol);
-		}
+		List<TeamStatsPerGame> list = tdao.getTeamPerGameBySeason(season);
+		List<OpponentStatsPerGame> opplist = tdao.getTeamOppPerGameBySeason(season);
+//		List<TeamStatsPerGame> list = new ArrayList<TeamStatsPerGame>();
+//		List<OpponentStatsPerGame> opplist = new ArrayList<OpponentStatsPerGame>();
+//		for(int i=0; i<seasons.length;++i){
+//			List<TeamStatsPerGame> totalist = tdao.getTeamPerGameBySeason(seasons[i]);
+//			List<OpponentStatsPerGame> ol = tdao.getTeamOppPerGameBySeason(seasons[i]);
+//			list.addAll(totalist);
+//			opplist.addAll(ol);
+//		}
 		double[] pts = new double[list.size()];
 		double[][] x = new double[6][list.size()];
 		System.out.println(list.size());
