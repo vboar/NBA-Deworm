@@ -150,10 +150,12 @@ def save_history():
     save_history_match('150120', '勇士', '骑士')
     save_history_match('150121', '骑士', '勇士')
     save_history_match('150122', '骑士', '勇士')
+    save_history_match('150123', '勇士', '骑士')
     save_match_info(150119)
     save_match_info(150120)
     save_match_info(150121)
     save_match_info(150122)
+    save_match_info(150123)
     f.close()
 
 
@@ -181,8 +183,8 @@ def create_folder():
 
 if __name__ == '__main__':
     create_folder()
-    # save_history()
-    # save_match_list()
+    save_history()
+    save_match_list()
     while True:
         save_match(match_ids[0])
         save_match_info(match_ids[0])

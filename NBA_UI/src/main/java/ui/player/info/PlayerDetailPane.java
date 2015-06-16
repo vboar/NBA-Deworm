@@ -62,29 +62,32 @@ private static int COLUMN_NUM = 22;
         this.initTable();
         this.initComponent();
         
-        DefaultTableCellRenderer render = new DefaultTableCellRenderer(); 
-		render.setOpaque(false);
-		table.getTableHeader().setDefaultRenderer(render);
-	    TableCellRenderer headerRenderer = table.getTableHeader().getDefaultRenderer(); 
-	        if (headerRenderer instanceof JLabel) 
-	        {
-	            ((JLabel) headerRenderer).setHorizontalAlignment(JLabel.CENTER); 
-	            ((JLabel) headerRenderer).setOpaque(false);	
-	        }
+//        DefaultTableCellRenderer render = new DefaultTableCellRenderer();
+//		render.setOpaque(false);
+//		table.getTableHeader().setDefaultRenderer(render);
+//	    TableCellRenderer headerRenderer = table.getTableHeader().getDefaultRenderer();
+//	        if (headerRenderer instanceof JLabel)
+//	        {
+//	            ((JLabel) headerRenderer).setHorizontalAlignment(JLabel.CENTER);
+//	            ((JLabel) headerRenderer).setOpaque(false);
+//	        }
     }
 	
 	 public void updateWidth() {
 			FrameUtil.setTableColumnWidth(table, this.getWidth(), 8);
-			this.table.getColumnModel().getColumn(0).setPreferredWidth(50);
-//			this.table.getColumnModel().getColumn(1).setPreferredWidth(50);
-//			this.table.getColumnModel().getColumn(2).setPreferredWidth(85);
-//			this.table.getColumnModel().getColumn(3).setPreferredWidth(95);
+			this.table.getColumnModel().getColumn(0).setPreferredWidth(60);
+			this.table.getColumnModel().getColumn(1).setPreferredWidth(50);
+			this.table.getColumnModel().getColumn(2).setPreferredWidth(25);
+			this.table.getColumnModel().getColumn(3).setPreferredWidth(28);
 			int columncount = this.table.getColumnCount();
 			int i =0;
-	        for ( i = 1; i < columncount-1; i++) {
-	            this.table.getColumnModel().getColumn(i).setPreferredWidth(40);
+            for ( i = 4; i < 13; i++) {
+                this.table.getColumnModel().getColumn(i).setPreferredWidth(42);
+            }
+	        for ( i = 14; i < columncount-1; i++) {
+	            this.table.getColumnModel().getColumn(i).setPreferredWidth(34);
 	        }
-	        this.table.getColumnModel().getColumn(i).setPreferredWidth(85);
+	        this.table.getColumnModel().getColumn(i).setPreferredWidth(74);
          this.table.setRowHeight(25);
 			this.updateUI();
 		}	
