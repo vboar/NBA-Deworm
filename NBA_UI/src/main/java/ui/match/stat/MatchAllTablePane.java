@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 
 import ui.config.TableConfig;
 import ui.home.HomeUI;
+import ui.match.info.MatchInfoPanel;
 import ui.util.FrameUtil;
 import ui.util.MyTable;
 import ui.util.MyTableModel;
@@ -107,15 +108,9 @@ public MatchAllTablePane(TableConfig cfg, Object[][] list,HomeUI frame) {
 					int column = table.columnAtPoint(e.getPoint());
 					int row = table.rowAtPoint(e.getPoint());
 					if (column == 1) {
-						frame.motherPanel.matchnav.setVisible(false);
-	            		frame.motherPanel.matchPanel.setVisible(false);
-	            		System.out.println(table.getValueAt(row, 0).toString());
-	            		
-	            		frame.motherPanel.playerPanel.playerInfoPane.changeData(table.getValueAt(row, 0).toString());
-	            		frame.motherPanel.playernav.setColor(0);
-	            		frame.motherPanel.playernav.hintAll();
-	            		frame.motherPanel.playerPanel.setVisible(true);
-	            		frame.motherPanel.playerPanel.playerInfoPane.setVisible(true);
+						frame.motherPanel.matchPanel.matchInfoPanel.refreashData(table.getValueAt(row, 0).toString());
+						frame.motherPanel.matchPanel.matchStat.setVisible(false);
+						frame.motherPanel.matchPanel.matchInfoPanel.setVisible(true);
 	            		 }
 				}
 			}
