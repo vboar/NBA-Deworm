@@ -1380,10 +1380,6 @@
         <panel className="ui.stats.Stat2" width="940" height="511"
                x="0" y="0">
 
-        </panel>
-
-        <panel className="ui.stats.InferPanel" width="940" height="511"
-               x="0" y="0">
             <comboboxes>
                 <season w="100" h="22" x="730" y="140">
                     <string str="14-15" />
@@ -1397,7 +1393,27 @@
                     <string str="05-06" />
                     <string str="04-05" />
                 </season>
+                <what w="80" h="22" x="630" y="140">
+                    <string str="AST" />
+                    <string str="BLK" />
+                    <string str="STL" />
+                    <string str="TRB" />
+                    <string str="TOV" />
+                    <string str="PF" />
+                </what>
+                <ds w="100" h="22" x="510" y="140">
+                    <string str="Each Match" />
+                    <string str="30 Teams" />
+                </ds>
             </comboboxes>
+            <labels>
+                <img w="385" h="300" x="190" y="175"/>
+            </labels>
+
+        </panel>
+
+        <panel className="ui.stats.InferPanel" width="940" height="511"
+               x="0" y="0">
         </panel>
         
         <panel className="ui.player.info.FourTablePane" width="940" height="511"
