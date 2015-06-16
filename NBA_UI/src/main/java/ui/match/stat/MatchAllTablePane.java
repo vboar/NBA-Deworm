@@ -109,6 +109,8 @@ public MatchAllTablePane(TableConfig cfg, Object[][] list,HomeUI frame) {
 					if (column == 1) {
 						frame.motherPanel.matchnav.setVisible(false);
 	            		frame.motherPanel.matchPanel.setVisible(false);
+	            		System.out.println(table.getValueAt(row, 0).toString());
+	            		
 	            		frame.motherPanel.playerPanel.playerInfoPane.changeData(table.getValueAt(row, 0).toString());
 	            		frame.motherPanel.playernav.setColor(0);
 	            		frame.motherPanel.playernav.hintAll();
