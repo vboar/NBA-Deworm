@@ -103,6 +103,7 @@ public class StatsNav extends JPanel {
 				stat1.setIcon(new ImageIcon(pcfg.getLabels().element("stat1").attributeValue("path")));
 
 				frame.motherPanel.statsPanel.stat1.setVisible(false);
+                frame.motherPanel.statsPanel.stat2.backFirst();
 				frame.motherPanel.statsPanel.stat2.setVisible(true);
 			}
 

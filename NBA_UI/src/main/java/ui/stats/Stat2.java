@@ -11,6 +11,7 @@ import ui.home.HomeUI;
 import ui.util.LoadFont;
 import ui.util.MyComboBox;
 import ui.util.MyLabel;
+import vo.MultiRegressionVO;
 import vo.SimpleRegressionVO;
 
 import java.awt.*;
@@ -45,6 +46,20 @@ public class Stat2 extends JPanel{
     JLabel rl;
     JLabel pvl;
     JLabel sel;
+
+    JLabel qll;
+    JLabel sll;
+    JLabel rll;
+    JLabel ull;
+    JLabel fll;
+
+    JLabel vll;
+    JLabel v1;
+    JLabel v2;
+    JLabel v3;
+    JLabel v4;
+    JLabel v5;
+    JLabel v6;
 
 
     public Stat2(HomeUI frame){
@@ -133,7 +148,7 @@ public class Stat2 extends JPanel{
         ip.add(start);
 
         img = new MyLabel(pcfg.getLabels().element("img"));
-        add(img);
+        ip.add(img);
 
         bl = new JLabel();
         bl.setText("回归系数b：     ");
@@ -189,6 +204,93 @@ public class Stat2 extends JPanel{
         ip.add(bg);
         this.add(ip);
         pList.add(ip);
+
+
+
+    }
+
+    public void init2() {
+        ip = new InferPanel(frame);
+        final MyComboBox seasons = new MyComboBox(pcfg.getComboboxes().element("season"));
+        seasons.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 12));
+        seasons.setLocation(730, 140);
+        ip.add(seasons);
+        JLabel start = new JLabel("开始");
+        start.setBounds(870, 137, 50, 25);
+        start.setFont(new Font("微软雅黑", 0, 15));
+        start.setForeground(new Color(72, 207, 173));
+        start.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent arg0) {
+                season = (String)seasons.getSelectedItem();
+                new Thread(new MyThread2()).start();
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent arg0) {
+                start.setText("<html><u>开始</u></html>");
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent arg0) {
+                start.setText("开始");
+            }
+        });
+        ip.add(start);
+
+        qll = new JLabel();
+        qll.setText("偏差平方和：     ");
+        qll.setBounds(200, 180, 200, 30);
+        ip.add(qll);
+        sll = new JLabel();
+        sll.setText("平均标准差：     ");
+        sll.setBounds(200, 210, 200, 30);
+        ip.add(sll);
+        rll = new JLabel();
+        rll.setText("复相关系数：     ");
+        rll.setBounds(200, 240, 200, 30);
+        ip.add(rll);
+        ull = new JLabel();
+        ull.setText("回归平方和：     ");
+        ull.setBounds(200, 270, 200, 30);
+        ip.add(ull);
+        fll = new JLabel();
+        fll.setText("F检验值：       ");
+        fll.setBounds(200, 300, 200, 30);
+        ip.add(fll);
+
+        vll = new JLabel();
+        vll.setText("m个偏相关系数：     ");
+        vll.setBounds(600, 180, 200, 30);
+        ip.add(vll);
+        v1 = new JLabel();
+        v1.setBounds(600, 210, 200, 30);
+        ip.add(v1);
+        v2 = new JLabel();
+        v2.setBounds(600, 240, 200, 30);
+        ip.add(v2);
+        v3 = new JLabel();
+        v3.setBounds(600, 270, 200, 30);
+        ip.add(v3);
+        v4 = new JLabel();
+        v4.setBounds(600, 300, 200, 30);
+        ip.add(v4);
+        v5 = new JLabel();
+        v5.setBounds(600, 330, 200, 30);
+        ip.add(v5);
+        v6 = new JLabel();
+        v6.setBounds(600, 360, 200, 30);
+        ip.add(v6);
+
+
+
+        JLabel bg = new JLabel(new ImageIcon("img/stat/stats2/multi_step2.png"));
+        bg.setBounds(0, 0, 940, 511);
+        ip.add(bg);
+        this.add(ip);
+        pList.add(ip);
+
     }
 
     private void refresh() {
@@ -218,7 +320,26 @@ public class Stat2 extends JPanel{
     }
 
     private void refresh2() {
+        MultiRegressionVO vo = new MultiRegressionVO();
 
+        try {
+            vo = ss.getMultiRegression(season);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+        qll.setText("偏差平方和：     " + String.format("%.4f", vo.q));
+        sll.setText("平均标准差：     " + String.format("%.4f", vo.s));
+        rll.setText("复相关系数：     " + String.format("%.4f", vo.r));
+        ull.setText("回归平方和：     " + String.format("%.4f", vo.u));
+        fll.setText("F检验值：        " + String.format("%.4f", vo.f));
+
+        v1.setText(String.format("%.4f", vo.v[0]));
+        v2.setText(String.format("%.4f", vo.v[1]));
+        v3.setText(String.format("%.4f", vo.v[2]));
+        v4.setText(String.format("%.4f", vo.v[3]));
+        v5.setText(String.format("%.4f", vo.v[4]));
+        v6.setText(String.format("%.4f", vo.v[5]));
     }
 
     private class MyThread implements Runnable {
@@ -227,6 +348,17 @@ public class Stat2 extends JPanel{
         public void run() {
             Loading.getLoading().setVisible(true);
             refresh();
+            Loading.getLoading().setVisible(false);
+            repaint();
+        }
+    }
+
+    private class MyThread2 implements Runnable {
+
+        @Override
+        public void run() {
+            Loading.getLoading().setVisible(true);
+            refresh2();
             Loading.getLoading().setVisible(false);
             repaint();
         }
@@ -244,7 +376,7 @@ public class Stat2 extends JPanel{
             public void mouseClicked(MouseEvent arg0) {
                 pList.get(show).setVisible(false);
                 show++;
-                pList.get(show).setVisible(true);
+                init2();
                 repaint();
             }
 
