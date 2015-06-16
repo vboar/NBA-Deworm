@@ -295,7 +295,10 @@ public class InferStatsServiceImpl extends UnicastRemoteObject implements InferS
 		double[] x = new double[list.size()];
 		for(int i=0; i<list.size(); ++i){
 			MatchPlayerBasic tpm = list.get(i);
-			pts[i] = tpm.getPts()==null?0:tpm.getPts();
+			MatchInfo info = mdao.getMatchInfoByGameId(tpm.getGame_id());
+			if(info.getHome_team().equals(tpm.getTeam_abbr()))
+				pts[i] = tpm.getPts() - info.getGuest_point();
+			else pts[i] = tpm.getPts() - info.getHome_point();
 			switch(type){
 			case AST:
 				x[i] = tpm.getAst()==null?0:tpm.getAst();break;

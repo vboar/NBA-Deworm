@@ -17,22 +17,22 @@ public class TeamWinAnalysisVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * PP图——主场拟合直线斜率
+	 * QQ图——主场拟合直线斜率
 	 */
 	public Double home_gradient;
 	
 	/**
-	 * PP图——主场拟合直线截距
+	 * QQ图——主场拟合直线截距
 	 */
 	public Double home_intercept;
 	
 	/**
-	 * PP图——主场拟合直线相关系数
+	 * QQ图——主场拟合直线相关系数
 	 */
 	public Double home_correlation;
 	
 	/**
-	 * PP图——客场拟合直线斜率
+	 * QQ图——客场拟合直线斜率
 	 */
 	public Double guest_gradient;
 	

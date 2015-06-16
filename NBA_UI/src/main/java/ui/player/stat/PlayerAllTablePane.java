@@ -6,7 +6,10 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
 
+import service.impl.ServiceFactoryImpl;
+import ui.common.Loading;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
 import ui.team.TeamDetail;
@@ -14,6 +17,8 @@ import ui.util.FrameUtil;
 import ui.util.MyTable;
 import ui.util.MyTableModel;
 import ui.util.TablePanel;
+
+import javax.swing.*;
 
 public class PlayerAllTablePane extends TablePanel {
 
@@ -121,21 +126,13 @@ public class PlayerAllTablePane extends TablePanel {
 					int column = table.columnAtPoint(e.getPoint());
 					int row = table.rowAtPoint(e.getPoint());
 					if (column == 0) {
-						frame.motherPanel.playerPanel.playerstat.setVisible(false);
-						frame.motherPanel.playerPanel.playerInfoPane.changeData(table.getValueAt(row, 0).toString());
-						frame.motherPanel.playerPanel.playerInfoPane.setVisible(true);
+						new Thread(new PlayerThread(table.getValueAt(row, 0).toString())).start();
 					}
 					 if(column == 1){	            		 
 		            		String name = table.getValueAt(row, 1).toString();
 		            		if(name.length()==3){
 		            			//System.out.println("ddd"+name);
-		            			frame.motherPanel.playerPanel.setVisible(false);
-		            			frame.motherPanel.teamPanel.add(frame.motherPanel.teamPanel.
-		            					teamDetail = new TeamDetail(frame,name));
-		            			frame.motherPanel.teamPanel.teamindex.setVisible(false);
-		            			frame.motherPanel.playernav.setVisible(false);
-		            			frame.motherPanel.teamnav.setVisible(true);
-		            			frame.motherPanel.teamPanel.setVisible(true);
+		            			new Thread(new TeamThread(name)).start();
 		            		}
 		            		 
 		            	 }
@@ -245,5 +242,45 @@ public class PlayerAllTablePane extends TablePanel {
 //		this.getTable().setValueAt(vo[25], i, 25);
 //		this.getTable().setValueAt(vo[26], i, 26);
 	}
+
+    private class PlayerThread implements Runnable {
+
+        private String name;
+
+        public PlayerThread(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public void run() {
+            Loading.getLoading().setVisible(true);
+            frame.motherPanel.playerPanel.playerInfoPane.changeData(name);
+            frame.motherPanel.playerPanel.playerstat.setVisible(false);
+            Loading.getLoading().setVisible(false);
+            frame.motherPanel.playerPanel.playerInfoPane.setVisible(true);
+        }
+    }
+
+    private class TeamThread implements Runnable {
+
+        private String name;
+
+        public TeamThread(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public void run() {
+            Loading.getLoading().setVisible(true);
+            frame.motherPanel.teamPanel.add(frame.motherPanel.teamPanel.
+                    teamDetail = new TeamDetail(frame,name));
+            frame.motherPanel.teamPanel.teamindex.setVisible(false);
+            frame.motherPanel.playernav.setVisible(false);
+            frame.motherPanel.playerPanel.setVisible(false);
+            frame.motherPanel.teamnav.setVisible(true);
+            frame.motherPanel.teamPanel.setVisible(true);
+            Loading.getLoading().setVisible(false);
+        }
+    }
 
 }
