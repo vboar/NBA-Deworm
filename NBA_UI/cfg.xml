@@ -1083,7 +1083,7 @@
 				</season>
 				
 				
-				<division w="150" h="25" x="190" y="60">
+				<division w="150" h="25" x="190" y="10">
 					<string str="All Division"/>
 					<string str="Atlantic" />
 					<string str="Central" />
@@ -1093,7 +1093,7 @@
 					<string str="Southwest" />
 				</division>
 				
-				<league w="150" h="25" x="370" y="60">
+				<league w="150" h="25" x="370" y="10">
 					<string str="All Leagues"/>
 					<string str="W"/>
 					<string str="E"/>
@@ -1581,7 +1581,7 @@
 						
 			
 			<chart1 text="" w="400" h="300" x="60" y="220" />	
-			<chart2 text="hh" w="400" h="300" x="550" y="0" />	
+			<chart2 text="" w="400" h="300" x="550" y="0" />	
 			
 			<findmore text="查看更多信息" w="1030" h="60" x="800" y="450" />
 			</labels>
@@ -1647,16 +1647,16 @@
 			<collegehint2 text="大学:" w="1030" h="60" x="760" y="390" />					
 			<exphint2 text="球龄:" w="1030" h="60" x="760" y="420" />					
 			
-			<num2 text="hh" w="1030" h="60" x="620" y="300" />
-			<position2 text="hh" w="1030" h="60" x="620" y="330" />	
-			<born2 text="hh" w="1030" h="60" x="620" y="360" />	
-			<debut2 text="hh" w="1030" h="60" x="620" y="390" />				
-			<height2 text="hh" w="1030" h="60" x="620" y="420" />	
-			<weight2 text="hh" w="1030" h="60" x="810" y="300" />	
-			<hometown2 text="hh" w="1030" h="60" x="810" y="330" />	
-			<highschool2 text="hh" w="1030" h="60" x="810" y="360" />	
-			<college2 text="hh" w="1030" h="60" x="810" y="390" />	
-			<exp2 text="hh" w="1030" h="60" x="810" y="420" />	
+			<num2 text="" w="1030" h="60" x="620" y="300" />
+			<position2 text="" w="1030" h="60" x="620" y="330" />	
+			<born2 text="" w="1030" h="60" x="620" y="360" />	
+			<debut2 text="" w="1030" h="60" x="620" y="390" />				
+			<height2 text="" w="1030" h="60" x="620" y="420" />	
+			<weight2 text="" w="1030" h="60" x="810" y="300" />	
+			<hometown2 text="" w="1030" h="60" x="810" y="330" />	
+			<highschool2 text="" w="1030" h="60" x="810" y="360" />	
+			<college2 text="" w="1030" h="60" x="810" y="390" />	
+			<exp2 text="" w="1030" h="60" x="810" y="420" />	
 						
 			<name2 text="Example Name2" w="200" h="60" x="480" y="250" font="微软雅黑"
 					fontsize="20"  />
@@ -1681,11 +1681,11 @@
 		<panel className="ui.player.compare.ComparePanel" width="940" height="511"
 			x="0" y="0" bg="img/player/compare.png">
 			<labels>
-			<name1 text="hh" w="1030" h="60" x="30" y="0" />	
-			<name2 text="hh" w="1030" h="60" x="250" y="0" />	
-			<chart1 text="hh" w="440" h="330" x="-40" y="100" />	
-			<chart2 text="hh" w="256" h="192" x="590" y="80" />	
-			<chart3 text="hh" w="256" h="192" x="590" y="312" />
+			<name1 text="" w="1030" h="60" x="30" y="0" />	
+			<name2 text="" w="1030" h="60" x="250" y="0" />	
+			<chart1 text="" w="440" h="330" x="-40" y="100" />	
+			<chart2 text="" w="256" h="192" x="590" y="80" />	
+			<chart3 text="" w="256" h="192" x="590" y="312" />
 			</labels>
 		</panel>
 		

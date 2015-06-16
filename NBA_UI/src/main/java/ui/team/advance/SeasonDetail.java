@@ -17,6 +17,7 @@ import ui.home.HomeUI;
 import ui.util.LoadFont;
 import ui.util.MyLabel;
 import vo.PlayerFilter;
+import vo.PlayerInfoVO;
 import vo.PlayerTotalVO;
 import vo.TeamOppPerGameVO;
 import vo.TeamOppTotalVO;
@@ -90,6 +91,14 @@ public class SeasonDetail extends JPanel{
 			f.regular = 1;
 			playertotal = ServiceFactoryImpl.getInstance().getPlayerService()
 					.getPlayerTotalByFilter(f);
+			int max = playertotal.size();
+			for(int i=0;i<max;i++){
+				if((!playertotal.get(i).team.equals(abbr))||(!playertotal.get(i).season.equals(season))){
+					playertotal.remove(i);
+					i--;
+					max--;
+				}
+			}
 		} catch (RemoteException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
@@ -218,6 +227,7 @@ public class SeasonDetail extends JPanel{
 		
 		data2 = new Object[playertotal.size()+1][22];
 		for(int i=0;i<playertotal.size();i++){
+			
 			data2[i][0] = playertotal.get(i).name;
 			data2[i][1] = playertotal.get(i).game;
 			data2[i][2] = playertotal.get(i).game_started;

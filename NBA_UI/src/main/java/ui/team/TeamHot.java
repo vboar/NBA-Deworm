@@ -96,7 +96,7 @@ public class TeamHot extends JPanel{
 			teams[i] = new MyLabel(pcfg.getLabels().element("team"+i));
 			teams[i].setForeground(new Color(83,83,83));
 			if(i==0){
-				teams[i].setFont(LoadFont.loadFont("HELVETICA.TTF",0,22));
+				teams[i].setFont(LoadFont.loadFont("HELVETICA.TTF",0,20));
 			}else{
 				teams[i].setFont(LoadFont.loadFont("XIHEI.TTF",0,16));
 			}

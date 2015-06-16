@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
 import ui.match.info.MatchInfoPanel;
+import ui.team.TeamDetail;
 import ui.util.FrameUtil;
 import ui.util.MyTable;
 import ui.util.MyTableModel;
@@ -112,6 +113,27 @@ public MatchAllTablePane(TableConfig cfg, Object[][] list,HomeUI frame) {
 						frame.motherPanel.matchPanel.matchStat.setVisible(false);
 						frame.motherPanel.matchPanel.matchInfoPanel.setVisible(true);
 	            		 }
+					if(column ==2){
+						String home = table.getValueAt(row, 2).toString();
+						frame.motherPanel.matchPanel.setVisible(false);
+            			frame.motherPanel.teamPanel.add(frame.motherPanel.teamPanel.
+            					teamDetail = new TeamDetail(frame,home));
+            			frame.motherPanel.teamPanel.teamindex.setVisible(false);
+            			frame.motherPanel.matchnav.setVisible(false);
+            			frame.motherPanel.teamnav.setVisible(true);
+            			frame.motherPanel.teamPanel.setVisible(true);
+            		}
+					
+					if(column == 3){
+						String guest = table.getValueAt(row, 3).toString();
+						frame.motherPanel.matchPanel.setVisible(false);
+            			frame.motherPanel.teamPanel.add(frame.motherPanel.teamPanel.
+            					teamDetail = new TeamDetail(frame,guest));
+            			frame.motherPanel.teamPanel.teamindex.setVisible(false);
+            			frame.motherPanel.matchnav.setVisible(false);
+            			frame.motherPanel.teamnav.setVisible(true);
+            			frame.motherPanel.teamPanel.setVisible(true);
+					}
 				}
 			}
 

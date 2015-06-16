@@ -74,7 +74,8 @@ public class SeasonPlayerTablePane extends TablePanel{
 	    		 public void mouseReleased (MouseEvent e) {  
 	            	 int column = table.columnAtPoint(e.getPoint());
 	            	 int row = table.rowAtPoint(e.getPoint());
-	            	 if(column == 0){	            		 
+	            	 if(column == 0){
+	            		 if(table.getValueAt(row, 0).toString().contains(" ")){
 	            		frame.motherPanel.teamnav.setVisible(false);
 	            		frame.motherPanel.teamPanel.setVisible(false);
 	            		frame.motherPanel.playerPanel.playerInfoPane.changeData(table.getValueAt(row, 0).toString());
@@ -83,7 +84,7 @@ public class SeasonPlayerTablePane extends TablePanel{
 	            		frame.motherPanel.playernav.setVisible(true);
 	            		frame.motherPanel.playerPanel.setVisible(true);
 	            		frame.motherPanel.playerPanel.playerInfoPane.setVisible(true);
-	            		 
+	            		 }
 	            	 }
 	             }  	    		
 			};

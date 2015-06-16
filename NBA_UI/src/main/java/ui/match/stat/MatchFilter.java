@@ -1,6 +1,7 @@
 package ui.match.stat;
 
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,6 +50,9 @@ public class MatchFilter extends JPanel {
 		//initLabels();
 		initButtons();
 		initComboBox();
+	}
+	public void paintComponent(Graphics g) {
+		g.drawImage(bg, 0, 0, pcfg.getW(), pcfg.getH(), null);
 	}
 	
 	private void initButtons() {
@@ -168,15 +172,14 @@ public class MatchFilter extends JPanel {
 
 		Object[][] data2 = new Object[list.size()][8];
 		for(int i=0;i<list.size();i++){			
-				data2[i][0] =list.get(i).game_id;
-				data2[i][1] = list.get(i).date;
-				data2[i][2] = list.get(i).location;
-				data2[i][3] = list.get(i).home_team;
-				data2[i][4] = list.get(i).home_point;
-				data2[i][5] = list.get(i).guest_team;				
-				data2[i][6] = list.get(i).guest_point;
-				data2[i][7] =list.get(i).time;
-		}
+			data2[i][0] =list.get(i).game_id;
+			data2[i][1] = list.get(i).date;				
+			data2[i][2] = list.get(i).home_team;
+			data2[i][3] = list.get(i).guest_team;				
+			data2[i][4] = list.get(i).home_point+"-"+list.get(i).guest_point;
+			data2[i][5] =list.get(i).time;
+			data2[i][6] = list.get(i).location;
+	}
 		frame.motherPanel.matchPanel.matchStat.table.setData(data2);
 		frame.motherPanel.matchPanel.matchStat.table.updateWidth();
 
