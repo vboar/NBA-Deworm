@@ -89,27 +89,27 @@ public class ComparePanel extends JPanel {
 		ArrayList<Integer> field0 =new ArrayList<>();
 		field0.add(FieldType.PER.ordinal());
 		System.out.println(field0.get(0));
-		field0.add(FieldType.ORB_PCT.ordinal());
-		field0.add(FieldType.DRB_PCT.ordinal());
-		field0.add(FieldType.TRB_PCT.ordinal());
-		field0.add(FieldType.AST_PCT.ordinal());
-		field0.add(FieldType.STL_PCT.ordinal());
-		field0.add(FieldType.BLK_PCT.ordinal());
-		field0.add(FieldType.TOV_PCT.ordinal());
-		field0.add(FieldType.USG_PCT.ordinal());
+//		field0.add(FieldType.ORB_PCT.ordinal());
+//		field0.add(FieldType.DRB_PCT.ordinal());
+//		field0.add(FieldType.TRB_PCT.ordinal());
+//		field0.add(FieldType.AST_PCT.ordinal());
+//		field0.add(FieldType.STL_PCT.ordinal());
+//		field0.add(FieldType.BLK_PCT.ordinal());
+//		field0.add(FieldType.TOV_PCT.ordinal());
+//		field0.add(FieldType.USG_PCT.ordinal());
 		
 		
 		
 		ArrayList<Integer> field =new ArrayList<>();
 		field.add(FieldType.PTS.ordinal());
-		field.add(FieldType.AST.ordinal());
-		field.add(FieldType.BLK.ordinal());
-		field.add(FieldType.STL.ordinal());
-		field.add(FieldType.TRB.ordinal());		
-		field.add(FieldType.ORB.ordinal());
-		field.add(FieldType.DRB.ordinal());
-		field.add(FieldType.TOV.ordinal());
-		field.add(FieldType.PF.ordinal());		
+//		field.add(FieldType.AST.ordinal());
+//		field.add(FieldType.BLK.ordinal());
+//		field.add(FieldType.STL.ordinal());
+//		field.add(FieldType.TRB.ordinal());
+//		field.add(FieldType.ORB.ordinal());
+//		field.add(FieldType.DRB.ordinal());
+//		field.add(FieldType.TOV.ordinal());
+//		field.add(FieldType.PF.ordinal());
 		nameLb1.setText(name1);
 		nameLb2.setText(name2);
 		System.out.println(name1);

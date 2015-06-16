@@ -19,7 +19,7 @@ for item in temp:
     labels.append(item)
 
 data = np.loadtxt(f, delimiter=";", dtype=float)
-if len(data) == 2:
+if isinstance(data[0], float):
     max_data = max(data[0], data[1])
 else:
     max_data = max(max(data[0]), max(data[1]))
@@ -51,5 +51,5 @@ def autolabel(rects):
 autolabel(rects1)
 autolabel(rects2)
 
-plt.savefig('stats/Barchart.png')
-plt.savefig('stats/Barchart_' + a + '_' + b + '_' + season + '_' + regular + '.png')
+plt.savefig('stats/BarChart.png')
+plt.savefig('stats/BarChart_' + a + '_' + b + '_' + season + '_' + regular + '.png')

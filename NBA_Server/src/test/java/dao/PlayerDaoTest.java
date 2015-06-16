@@ -137,14 +137,14 @@ public class PlayerDaoTest extends TestCase {
 //		pf.position = "PF";
 //		pf.league = "E";
 		pf.season = "13-14";
-//		pf.team = "ATL";
-//		pf.regular = 1;
+		pf.team = "ATL";
+		pf.regular = 1;
 //		pf.height = ">6-5";
 //		pf.weight = ">270";
 		List<PlayerStatsPerGame> list = pdao.getPlayerPerGameByFilter(pf);
 		System.out.println("Filter...."+list.size());
 		for(PlayerStatsPerGame pst: list){
-			System.out.println(pst.getName());
+			System.out.println(pst.getName()+" "+pst.getTeam());
 			//assertEquals("PF", pst.getPosition());
 			assertEquals("13-14", pst.getSeason());
 		}

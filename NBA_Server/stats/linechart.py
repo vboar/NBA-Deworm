@@ -60,7 +60,7 @@ for label in axis.get_ticklabels():
     label.set_fontsize(11)
 
 
-avg_line, = plt.plot(a, avgs, 'r--', color='48CFAD', linewidth=1)
+avg_line, = plt.plot(a, avgs, 'r--', color='#48CFAD', linewidth=1)
 ca_line, = plt.plot(a, datas, 'b-', color='#ED5565', linewidth=2)
 fig.legend((avg_line, ca_line), ('average', 'career'), loc=(0.71, 0.91), labelspacing=0.005)
 plt.savefig('stats/LineChart.png')

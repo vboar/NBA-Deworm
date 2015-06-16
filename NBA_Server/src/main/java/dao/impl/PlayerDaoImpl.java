@@ -326,7 +326,7 @@ public class PlayerDaoImpl implements PlayerDao {
 	public List<PlayerStatsPerGame> getPlayerPerGameByFilter(PlayerFilter filter) {
 		List<PlayerStatsPerGame> list = new ArrayList<PlayerStatsPerGame>();
 		sqlManager.getConnection();
-		String sql = "SELECT  pg.player_name, "
+		String sql = "SELECT  DISTINCT pg.player_name, "
 				+ "season, "
 				+ "is_normal, "
 				+ "team_abbr, "
