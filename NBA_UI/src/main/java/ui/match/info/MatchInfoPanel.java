@@ -1,6 +1,8 @@
 package ui.match.info;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.rmi.RemoteException;
@@ -25,7 +27,8 @@ public class MatchInfoPanel extends JPanel {
 	
 	private PanelConfig pcfg;
 	private HomeUI frame;
-
+	private Image bg;
+	
 	private MyPressedLabel findMore;
 	private MyLabel season;
 	private MyLabel date;
@@ -57,6 +60,7 @@ public class MatchInfoPanel extends JPanel {
 		this.pcfg = SystemConfig.getHOME_CONFIG().getConfigMap()
 				.get(this.getClass().getName());
 		this.frame = frame;
+		this.bg = pcfg.getBg();
 		// 设置布局管理器为自由布局
 		this.setLayout(null);
 		this.setSize(pcfg.getW(), pcfg.getH());
@@ -69,6 +73,9 @@ public class MatchInfoPanel extends JPanel {
 
 	}
 	
+	public void paintComponent(Graphics g){
+		g.drawImage(bg, 0, 0, pcfg.getW(), pcfg.getH(), null);
+	}
 	private void initComponent(){
 		initTable();
 		initLabels();
