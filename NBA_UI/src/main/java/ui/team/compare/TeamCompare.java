@@ -97,14 +97,8 @@ public class TeamCompare extends JPanel{
 		System.out.println(field0.get(0));
 		field0.add(FieldType.ORB_PCT.ordinal());
 		field0.add(FieldType.DRB_PCT.ordinal());
-		field0.add(FieldType.TRB_PCT.ordinal());
-		field0.add(FieldType.AST_PCT.ordinal());
-		field0.add(FieldType.STL_PCT.ordinal());
-		field0.add(FieldType.BLK_PCT.ordinal());
-		field0.add(FieldType.TOV_PCT.ordinal());
-		field0.add(FieldType.USG_PCT.ordinal());
-		
-		
+		field0.add(FieldType.OFF_RTG.ordinal());
+		field0.add(FieldType.DEF_RTG.ordinal());	
 		
 		ArrayList<Integer> field =new ArrayList<>();
 		field.add(FieldType.PTS.ordinal());
@@ -131,7 +125,6 @@ public class TeamCompare extends JPanel{
 			advance = ServiceFactoryImpl.getInstance().getStatsService().getTeamAdvancedCompareBarChart(name1, name2, "14-15", field0);
 			
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 		chart1.setImage(radar);

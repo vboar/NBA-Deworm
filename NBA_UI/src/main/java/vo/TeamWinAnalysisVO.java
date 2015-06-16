@@ -160,12 +160,12 @@ public class TeamWinAnalysisVO implements Serializable{
 	/**
 	 * 主场P-P图
 	 */
-	public ImageIcon home_P_P;
+	public ImageIcon home_Q_Q;
 	
 	/**
 	 * 客场P-P图
 	 */
-	public ImageIcon guest_P_P;
+	public ImageIcon guest_Q_Q;
 	
 	/**
 	 * 空构造
