@@ -1054,13 +1054,54 @@
 			
 			<panel className="ui.team.TeamFilter" width="690" height="260"
 			x="250" y="46" bg="img/common/filter/filterbg.jpg">
-			<labels>
-			<season w="177" h="27" x="40" y="13" path="img/common/filter/filtercdt.png"/>
-			</labels>
 			
+				
 			<buttons>
 			<search w="177" h="27" x="485" y="215" path="img/common/filter/search.png"/>
 			</buttons>
+			
+			
+			<comboboxes>
+				<season w="150" h="25" x="10" y="20">
+				
+					<string str="14-15" />
+					<string str="13-14" />
+					<string str="12-13" />
+					<string str="11-12" />
+					<string str="10-11" />
+					<string str="09-10" />
+					<string str="08-09" />
+					<string str="07-08" />
+					<string str="06-07" />
+					<string str="05-06" />
+					<string str="04-05" />
+					<string str="03-04" />
+					<string str="02-03" />
+					<string str="01-02" />
+					<string str="00-01" />
+					<string str="Career"/>
+				</season>
+				
+				
+				<division w="150" h="25" x="190" y="60">
+					<string str="All Division"/>
+					<string str="Atlantic" />
+					<string str="Central" />
+					<string str="Nothwest" />
+					<string str="Pacific" />
+					<string str="Southeast" />
+					<string str="Southwest" />
+				</division>
+				
+				<league w="150" h="25" x="370" y="60">
+					<string str="All Leagues"/>
+					<string str="W"/>
+					<string str="E"/>
+				</league>
+			</comboboxes>
+			
+			
+			
 			</panel>
 			
 			

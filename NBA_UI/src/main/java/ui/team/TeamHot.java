@@ -116,38 +116,18 @@ public class TeamHot extends JPanel{
 		}
 	}
 	
-	private void addListener(MyLabel lb) {
-			lb.addMouseListener(new MouseAdapter(){
-				String s = lb.getText();
-				
-				@Override
-				public void mouseClicked(MouseEvent arg0) {
-					// TODO 自动生成的方法存根
-					
-				}
-
-				@Override
-				public void mouseEntered(MouseEvent arg0) {
-					lb.setText("<html><u>"+s+"</u></html>");
-				}
-
-				@Override
-				public void mouseExited(MouseEvent arg0) {
-					lb.setText(s);
-					
-				}
-
-			});		
-	}
+	
 
 	private void initBoxes(){
 		type = new MyComboBox(pcfg.getComboboxes().element("type"));
 		add(type);
-		
+		type.updateUI();
+
 		season = new MyComboBox(pcfg.getComboboxes().element("season"));
 		add(season);
+		season.updateUI();
 
-		this.validate();
+		
 	}
 	
 	private class ChangeThread2 implements Runnable {

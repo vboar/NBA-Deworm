@@ -71,4 +71,62 @@ public class TeamStatTablePane extends TablePanel{
 		}	
 	}
 	
+	
+	public void setData(Object[][] list) {
+		int size;
+		if (list == null)
+			size = 0;
+		else
+			size = list.length;
+		while (dtm.getRowCount() > size) {
+			// System.out.println(x++);
+			this.dtm.removeRow(size);
+		}
+
+		while (this.dtm.getRowCount() < size) {
+			Object[] rowData = {0,0,0,0};
+			this.dtm.addRow(rowData);
+
+		}
+		for (int i = 0; i<size; i++) {
+			Object[] vo = list[i];
+
+			this.setRow(i, vo);
+		}
+
+		this.repaint();
+		this.revalidate();
+	}
+
+	private void setRow(int i, Object[] vo) {
+		this.getTable().setValueAt(vo[0], i, 0);
+		this.getTable().setValueAt(vo[1], i, 1);
+		this.getTable().setValueAt(vo[2], i, 2);
+		this.getTable().setValueAt(vo[3], i, 3);
+		this.getTable().setValueAt(vo[4], i, 4);
+		this.getTable().setValueAt(vo[5], i, 5);
+		this.getTable().setValueAt(vo[6], i, 6);
+		this.getTable().setValueAt(vo[7], i, 7);
+		this.getTable().setValueAt(vo[8], i, 8);
+		this.getTable().setValueAt(vo[9], i, 9);
+		this.getTable().setValueAt(vo[10], i, 10);
+		this.getTable().setValueAt(vo[11], i, 11);
+		this.getTable().setValueAt(vo[12], i, 12);
+		this.getTable().setValueAt(vo[13], i, 13);
+		this.getTable().setValueAt(vo[14], i, 14);
+		this.getTable().setValueAt(vo[15], i, 15);
+		this.getTable().setValueAt(vo[16], i, 16);
+		this.getTable().setValueAt(vo[17], i, 17);
+		this.getTable().setValueAt(vo[18], i, 18);
+		this.getTable().setValueAt(vo[19], i, 19);
+		this.getTable().setValueAt(vo[20], i, 20);
+		this.getTable().setValueAt(vo[21], i, 21);
+		this.getTable().setValueAt(vo[22], i, 22);
+		this.getTable().setValueAt(vo[23], i, 23);
+		
+		
+	}
+
+	
+	
 }

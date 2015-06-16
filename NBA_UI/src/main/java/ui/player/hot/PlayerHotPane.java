@@ -77,9 +77,12 @@ public class PlayerHotPane extends JPanel {
 	}
 	
 	private void initComponent(){
+		
 		initLabels();
-		initBoxes();
+		
 		initButtons();
+		initBoxes();
+		
 	}
 	
 	private void initLabels(){

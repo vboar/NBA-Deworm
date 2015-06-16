@@ -5,10 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import service.impl.ServiceFactoryImpl;
@@ -31,6 +33,7 @@ public class TeamStat extends JPanel{
 	private HomeUI frame;
 	
 	public TeamFilter teamfilter;
+	private JFrame coverFrame;
 	
 	private String item;
 	
@@ -40,12 +43,12 @@ public class TeamStat extends JPanel{
 	private MyButton setting;
 	private MyButton menu;
 	
-	private Object[][] data1;
-	private Object[][] data2;
-	private TeamStatTablePane table1;
-	private TeamStatTablePane table2;
-	private List<TeamPerGameVO> list1;
-	private List<TeamTotalVO> list2;
+	public Object[][] data1;
+	public Object[][] data2;
+	public TeamStatTablePane table1;
+	public TeamStatTablePane table2;
+	public List<TeamPerGameVO> list1;
+	public List<TeamTotalVO> list2;
 	
 	private MyComboBox year;
 	
@@ -153,7 +156,39 @@ public class TeamStat extends JPanel{
 	
 	private void initButtons(){
 		menu = new MyButton(pcfg.getButtons().element("menu"),true);
-		//add(menu);
+		menu.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				teamfilter.resetPanel();			
+			}
+		});
+		
+		add(menu);
 		
 		setting = new MyButton(pcfg.getButtons().element("setting"));
 		setting.addMouseListener(new MouseAdapter(){
@@ -163,10 +198,17 @@ public class TeamStat extends JPanel{
 			
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				
 				if(teamfilter.isVisible() == false){
+					
+					coverFrame.setVisible(true);
+					
 					teamfilter.setVisible(true);
+					coverFrame.setVisible(true);
 					}else{
 						teamfilter.setVisible(false);
+						coverFrame.setVisible(false);
+						
 					}
 				
 			}
@@ -192,7 +234,9 @@ public class TeamStat extends JPanel{
 			}
 
 		});
-		//add(setting);	
+		
+		add(setting);
+	
 	}
 	
 	private void initTabs(){
@@ -217,8 +261,14 @@ public class TeamStat extends JPanel{
 	private void initPanels(){
 		teamfilter = new TeamFilter(frame);
 		teamfilter.setVisible(false);
-		
-		add(teamfilter,0);
+		initCover();
+	}
+	private void initCover(){
+		coverFrame = new JFrame();
+		coverFrame.setBounds(458,218,690, 260);
+		coverFrame.setUndecorated(true);
+		coverFrame.add(teamfilter);
+		coverFrame.setAlwaysOnTop(true);
 	}
 	
 	
@@ -238,5 +288,6 @@ public class TeamStat extends JPanel{
 	public void filter(){
 		setting.setIcon(new ImageIcon(pcfg.getButtons().element("setting").attributeValue("path")));
 		teamfilter.setVisible(false);
+		coverFrame.setVisible(false);
 	}
 }

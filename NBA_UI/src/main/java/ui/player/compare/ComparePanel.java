@@ -120,9 +120,8 @@ public class ComparePanel extends JPanel {
 		try {
 		
 		radar = ServiceFactoryImpl.getInstance().getStatsService().getPlayerCompareRadar(name1, name2, "Career", 1);
-
-		basic = ServiceFactoryImpl.getInstance().getStatsService().getPlayerAdvancedCompareBarChart(name1, name2, "Career",adv_field, 1);
-		advance = ServiceFactoryImpl.getInstance().getStatsService().getPlayerBasicCompareBarChart(name1, name2, "Career", b_field, 1);
+		basic = ServiceFactoryImpl.getInstance().getStatsService().getPlayerBasicCompareBarChart(name1, name2, "Career", b_field, 1);
+		advance = ServiceFactoryImpl.getInstance().getStatsService().getPlayerAdvancedCompareBarChart(name1, name2, "Career",adv_field, 1);
 		
 		
 		} catch (RemoteException e) {

@@ -150,19 +150,7 @@ public class MatchFilter extends JPanel {
 
 	
 
-		// box1 = new MyComboBox(pcfg.getComboboxes().element("common1"));
-		// add(box1);
-		// box2 = new MyComboBox(pcfg.getComboboxes().element("common2"));
-		// add(box2);
-		// box3 = new MyComboBox(pcfg.getComboboxes().element("common3"));
-		// add(box3);
-		// box4 = new MyComboBox(pcfg.getComboboxes().element("common4"));
-		// add(box4);
-		// box5 = new MyComboBox(pcfg.getComboboxes().element("common5"));
-		// add(box5);
-		// box6 = new MyComboBox(pcfg.getComboboxes().element("common6"));
-		// add(box6);
-		//
+	
 	}
 	
 	public void resetPanel() {
