@@ -1,8 +1,6 @@
 package ui.player.info;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -15,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import service.impl.ServiceFactoryImpl;
+import ui.common.Loading;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.config.TableConfig;
@@ -130,69 +129,90 @@ public class PlayerInfoPane extends JPanel {
 		add(img);
 
 		positionHint = new MyLabel(pcfg.getLabels().element("positionhint"));
+        positionHint.setFont(new Font("微软雅黑", 0, 13));
 		add(positionHint);
 
 		bornHint = new MyLabel(pcfg.getLabels().element("bornhint"));
+        bornHint.setFont(new Font("微软雅黑", 0, 13));
 		add(bornHint);
 
 		hometownHint = new MyLabel(pcfg.getLabels().element("hometownhint"));
+        hometownHint.setFont(new Font("微软雅黑", 0, 13));
 		add(hometownHint);
 
 		heightHint = new MyLabel(pcfg.getLabels().element("heighthint"));
+        heightHint.setFont(new Font("微软雅黑", 0, 13));
 		add(heightHint);
 
 		weightHint = new MyLabel(pcfg.getLabels().element("weighthint"));
+        weightHint.setFont(new Font("微软雅黑", 0, 13));
 		add(weightHint);
 
 		highschoolHint = new MyLabel(pcfg.getLabels().element("highschoolhint"));
+        highschoolHint.setFont(new Font("微软雅黑", 0, 13));
 		add(highschoolHint);
 
 		collegeHint = new MyLabel(pcfg.getLabels().element("collegehint"));
+        collegeHint.setFont(new Font("微软雅黑", 0, 13));
 		add(collegeHint);
 
 		debutHint = new MyLabel(pcfg.getLabels().element("debuthint"));
+        debutHint.setFont(new Font("微软雅黑", 0, 13));
 		add(debutHint);
 
 		expHint = new MyLabel(pcfg.getLabels().element("exphint"));
+        expHint.setFont(new Font("微软雅黑", 0, 13));
 		add(expHint);
 
 		numHint = new MyLabel(pcfg.getLabels().element("numhint"));
+        numHint.setFont(new Font("微软雅黑", 0, 13));
 		add(numHint);
 
 		//
 
 		name = new MyLabel(pcfg.getLabels().element("name"));
+        name.setFont(LoadFont.loadFont("HELVETICA.TTF", 0, 26));
 		name.setForeground(Color.WHITE);
 		add(name);
 
 		position = new MyLabel(pcfg.getLabels().element("position"));
+        position.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 13));
 		add(position);
 
 		born = new MyLabel(pcfg.getLabels().element("born"));
+        born.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 13));
 		add(born);
 
 		hometown = new MyLabel(pcfg.getLabels().element("hometown"));
+        hometown.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 13));
 		add(hometown);
 
 		height = new MyLabel(pcfg.getLabels().element("height"));
+        height.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 13));
 		add(height);
 
 		weight = new MyLabel(pcfg.getLabels().element("weight"));
+        weight.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 13));
 		add(weight);
 
 		highschool = new MyLabel(pcfg.getLabels().element("highschool"));
+        highschool.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 13));
 		add(highschool);
 
 		college = new MyLabel(pcfg.getLabels().element("college"));
+        college.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 13));
 		add(college);
 
 		debut = new MyLabel(pcfg.getLabels().element("debut"));
+        debut.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 13));
 		add(debut);
 
 		exp = new MyLabel(pcfg.getLabels().element("exp"));
+        exp.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 13));
 		add(exp);
 
 		num = new MyLabel(pcfg.getLabels().element("num"));
+        num.setFont(LoadFont.loadFont("XIHEI.TTF", 0, 13));
 		add(num);
 
 		findMore = new MyPressedLabel(pcfg.getLabels().element("findmore"));
@@ -362,8 +382,8 @@ public class PlayerInfoPane extends JPanel {
 
 		this.name.setText(name);
 
-		if (info.position.toString().length() < 1) {
-			position.setText("No Data");
+		if (info.position.length() < 1) {
+			position.setText("-");
 		} else {
 			position.setText(info.position);
 		}
@@ -371,17 +391,17 @@ public class PlayerInfoPane extends JPanel {
 		hometown.setText(info.hometown);
 		height.setText(info.height);
 		weight.setText(info.weight.toString());
-		if (info.high_school.toString().length() < 2) {
-			highschool.setText("No Data");
+		if (info.high_school.length() < 2) {
+			highschool.setText("-");
 		} else {
-			highschool.setText(info.high_school);
-		}
+            highschool.setText(info.high_school);
+        }
 
-		if (info.college.toString().length() < 2) {
-			college.setText("No Data");
+		if (info.college.length() < 2) {
+			college.setText("-");
 		} else {
-			college.setText(info.college);
-		}
+            college.setText(info.high_school);
+        }
 		debut.setText(info.debut);
 		if (info.exp != null) {
 			if (info.exp.toString().contains("-1")) {
@@ -390,7 +410,7 @@ public class PlayerInfoPane extends JPanel {
 				exp.setText(info.exp.toString());
 			}
 		} else {
-			exp.setText("无数据");
+			exp.setText("-");
 		}
 		num.setText(info.number.toString());
 
@@ -480,23 +500,34 @@ public class PlayerInfoPane extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (!box.getSelectedItem().toString().equals(boxItem)) {
 					boxItem = box.getSelectedItem().toString();
-					ImageIcon line = null;
-					try {
-						line = ServiceFactoryImpl
-								.getInstance()
-								.getStatsService()
-								.getMatchPlayerLineChart(nameStr, latestSeason,
-										getField(box.getSelectedIndex()));
-					} catch (RemoteException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					chart2Name.setText(latestSeason + " "
-							+ box.getSelectedItem().toString() + " line chart");
-					chart2.setImage(line);
+                    new Thread(new PlayerThread()).start();
 				}
 
 			}
 		});
 	}
+
+
+    private class PlayerThread implements Runnable {
+
+        @Override
+        public void run() {
+            Loading.getLoading().setVisible(true);
+            ImageIcon line = null;
+            try {
+                line = ServiceFactoryImpl
+                        .getInstance()
+                        .getStatsService()
+                        .getMatchPlayerLineChart(nameStr, latestSeason,
+                                getField(box.getSelectedIndex()));
+            } catch (RemoteException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            Loading.getLoading().setVisible(false);
+            chart2Name.setText(latestSeason + " "
+                    + box.getSelectedItem().toString() + " Line Chart");
+            chart2.setImage(line);
+        }
+    }
 }
