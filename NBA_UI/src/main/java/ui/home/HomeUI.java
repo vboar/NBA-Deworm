@@ -17,7 +17,6 @@ import ui.config.FrameConfig;
 import ui.config.SystemConfig;
 import ui.live.LivePanel;
 import ui.util.FrameUtil;
-import ui.util.LoadFont;
 
 public class HomeUI extends JFrame {
 	public HomePanel home;
@@ -66,7 +65,6 @@ public class HomeUI extends JFrame {
 		//this.getContentPane().add(new MotherPanel(this));
 		//this.getContentPane().add(new SeasonDetail(this,"13-14","HOU"));
 		this.setVisible(true);
-		LoadFont.loadFont("YAHEI.TTC", 0, 12);
 
 
 //		LiveServiceImpl.getInstance().startLiveService();
