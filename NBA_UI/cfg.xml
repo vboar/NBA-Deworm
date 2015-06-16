@@ -1141,22 +1141,22 @@
 			<num text="hh" w="1030" h="60" x="300" y="30" />
 			<position text="hh" w="1030" h="60" x="300" y="60" />	
 			<born text="hh" w="1030" h="60" x="300" y="90" />	
-			<debut text="hh" w="1030" h="60" x="300" y="120" />				
+			<debut text="hh" w="190" h="60" x="300" y="120" />
 			<height text="hh" w="1030" h="60" x="300" y="150" />	
 			<weight text="hh" w="1030" h="60" x="580" y="30" />	
-			<hometown text="hh" w="1030" h="60" x="580" y="60" />	
-			<highschool text="hh" w="1030" h="60" x="580" y="90" />	
-			<college text="hh" w="1030" h="60" x="580" y="120" />	
-			<exp text="hh" w="1030" h="60" x="580" y="140" />	
+			<hometown text="hh" w="1030" h="60" x="580" y="60" />
+			<highschool text="hh" w="230" h="60" x="580" y="90" />
+			<college text="hh" w="230" h="60" x="580" y="120" />
+			<exp text="hh" w="1030" h="60" x="580" y="150" />
 						
 			<name text="Lerborn James" w="1030" h="30" x="30" y="10" font="微软雅黑"
 					fontsize="20"  />
 			<team text="Knight" w="1030" h="60" x="25" y="190" font="微软雅黑"
 					fontsize="20"  />
 			
-			<chart1name text="14-15 radar" w="250" h="30" x="32" y="227"/>
+			<chart1name text="14-15 Radar" w="380" h="30" x="32" y="227"/>
 			<chart1 text="hh" w="318" h="238" x="45" y="265" />	
-			<chart2name text="14-15 line chart" w="250" h="30" x="445" y="230"/>
+			<chart2name text="14-15 Line Chart" w="380" h="30" x="445" y="230"/>
 			<chart2 text="hh" w="315" h="205" x="440" y="290" />	
 			
 			<findmore text="查看更多" w="100" h="30" x="823" y="480" />

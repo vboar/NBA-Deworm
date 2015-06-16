@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 import service.impl.LiveServiceImpl;
+import ui.common.Loading;
 import ui.common.MotherPanel;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
@@ -154,6 +155,7 @@ public class HomePanel extends JPanel {
 
         @Override
         public void run() {
+            Loading.getLoading().setVisible(true);
             motherPanel = new MotherPanel(frame);
             frame.motherPanel = motherPanel;
             motherPanel.setVisible(false);
@@ -161,7 +163,9 @@ public class HomePanel extends JPanel {
             addListener();
             revalidate();
             repaint();
+            Loading.getLoading().setVisible(false);
         }
 
     }
+
 }

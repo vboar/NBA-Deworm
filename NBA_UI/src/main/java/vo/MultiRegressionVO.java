@@ -39,5 +39,9 @@ public class MultiRegressionVO implements Serializable{
 	 */
 	public double[] v;
 	
+	/**
+	 * F检验值
+	 */
+	public double f;
 
 }

@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 
+import ui.common.Loading;
 import ui.config.TableConfig;
 import ui.home.HomeUI;
 import ui.team.TeamDetail;
@@ -219,5 +220,6 @@ private static int COLUMN_NUM = 22;
 	    	
 	   
 	    }
+
 	
 }

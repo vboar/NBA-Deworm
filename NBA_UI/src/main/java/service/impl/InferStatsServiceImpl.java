@@ -42,4 +42,10 @@ public class InferStatsServiceImpl extends UnicastRemoteObject implements InferS
 		return null;
 	}
 
+	@Override
+	public SimpleRegressionVO getSimpleRegressionMatch(int typeNum,
+			String season) throws RemoteException {
+		return null;
+	}
+
 }

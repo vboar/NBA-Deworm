@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import service.impl.ServiceFactoryImpl;
+import ui.common.Loading;
 import ui.config.PanelConfig;
 import ui.config.SystemConfig;
 import ui.home.HomeUI;
@@ -247,11 +248,9 @@ public class PlayerIndex extends JPanel {
 				ArrayList<String> list2 = new ArrayList<String>();
 				for (String s : allList) {
 					if(s.equals(keyword)){
-						
-						frame.motherPanel.playerPanel.indexpanel.setVisible(false);
-						frame.motherPanel.playerPanel.playerInfoPane.changeData(s);
-						frame.motherPanel.playerPanel.playerInfoPane.setVisible(true);
-						
+                        System.out.println("Special: " + s);
+                        new Thread(new PlayerThread(s)).start();
+                        name.setText("");
 						break;
 					}
 					if (s.contains(keyword))
@@ -551,12 +550,28 @@ public class PlayerIndex extends JPanel {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.motherPanel.playerPanel.indexpanel.setVisible(false);
-				frame.motherPanel.playerPanel.playerInfoPane.changeData(name);
-				frame.motherPanel.playerPanel.playerInfoPane.setVisible(true);
-				
+                new Thread(new PlayerThread(name)).start();
 			}
 		});
 	}
+
+    private class PlayerThread implements Runnable {
+
+        private String name;
+
+        public PlayerThread(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public void run() {
+            Loading.getLoading().setVisible(true);
+            frame.motherPanel.playerPanel.playerInfoPane.changeData(name);
+            Loading.getLoading().setVisible(false);
+            frame.motherPanel.playerPanel.indexpanel.setVisible(false);
+            frame.motherPanel.playerPanel.playerInfoPane.setVisible(true);
+            System.out.println(name);
+        }
+    }
 
 }

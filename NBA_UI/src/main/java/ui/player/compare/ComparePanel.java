@@ -86,30 +86,29 @@ public class ComparePanel extends JPanel {
 	
 	public void changeData(String name1,String name2){
 		
-		ArrayList<Integer> field0 =new ArrayList<>();
-		field0.add(FieldType.PER.ordinal());
-		System.out.println(field0.get(0));
-		field0.add(FieldType.ORB_PCT.ordinal());
-		field0.add(FieldType.DRB_PCT.ordinal());
-		field0.add(FieldType.TRB_PCT.ordinal());
-		field0.add(FieldType.AST_PCT.ordinal());
-		field0.add(FieldType.STL_PCT.ordinal());
-		field0.add(FieldType.BLK_PCT.ordinal());
-		field0.add(FieldType.TOV_PCT.ordinal());
-		field0.add(FieldType.USG_PCT.ordinal());
+		ArrayList<Integer> adv_field =new ArrayList<>();
+		adv_field.add(FieldType.PER.ordinal());
+		adv_field.add(FieldType.ORB_PCT.ordinal());
+		adv_field.add(FieldType.DRB_PCT.ordinal());
+		adv_field.add(FieldType.TRB_PCT.ordinal());
+		adv_field.add(FieldType.AST_PCT.ordinal());
+		adv_field.add(FieldType.STL_PCT.ordinal());
+		adv_field.add(FieldType.BLK_PCT.ordinal());
+		adv_field.add(FieldType.TOV_PCT.ordinal());
+		adv_field.add(FieldType.USG_PCT.ordinal());
 		
 		
 		
-		ArrayList<Integer> field =new ArrayList<>();
-		field.add(FieldType.PTS.ordinal());
-		field.add(FieldType.AST.ordinal());
-		field.add(FieldType.BLK.ordinal());
-		field.add(FieldType.STL.ordinal());
-		field.add(FieldType.TRB.ordinal());
-		field.add(FieldType.ORB.ordinal());
-		field.add(FieldType.DRB.ordinal());
-		field.add(FieldType.TOV.ordinal());
-		field.add(FieldType.PF.ordinal());
+		ArrayList<Integer> b_field =new ArrayList<>();
+		b_field.add(FieldType.PTS.ordinal());
+		b_field.add(FieldType.AST.ordinal());
+		b_field.add(FieldType.BLK.ordinal());
+		b_field.add(FieldType.STL.ordinal());
+		b_field.add(FieldType.TRB.ordinal());
+		b_field.add(FieldType.ORB.ordinal());
+		b_field.add(FieldType.DRB.ordinal());
+		b_field.add(FieldType.TOV.ordinal());
+		b_field.add(FieldType.PF.ordinal());
 		nameLb1.setText(name1);
 		nameLb2.setText(name2);
 		System.out.println(name1);
@@ -121,8 +120,9 @@ public class ComparePanel extends JPanel {
 		try {
 		
 		radar = ServiceFactoryImpl.getInstance().getStatsService().getPlayerCompareRadar(name1, name2, "Career", 1);
-		basic = ServiceFactoryImpl.getInstance().getStatsService().getPlayerAdvancedCompareBarChart(name1, name2, "Career", field0, 1);
-		advance = ServiceFactoryImpl.getInstance().getStatsService().getPlayerBasicCompareBarChart(name1, name2, "Career", field, 1);
+
+		basic = ServiceFactoryImpl.getInstance().getStatsService().getPlayerAdvancedCompareBarChart(name1, name2, "Career",adv_field, 1);
+		advance = ServiceFactoryImpl.getInstance().getStatsService().getPlayerBasicCompareBarChart(name1, name2, "Career", b_field, 1);
 		
 		
 		} catch (RemoteException e) {

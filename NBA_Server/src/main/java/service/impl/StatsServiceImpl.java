@@ -45,13 +45,15 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 	@Override
 	public ImageIcon getPlayerRadar(String name, String season, int regular)
 			throws RemoteException {
+//		System.out.println("Player Radar.......");
+		
 		PlayerStatsPerGame ps = getPlayerPerGameFromList(pdao
 				.getPlayerPerGameBySeasonName(season, name, regular));
 		if(ps==null)
 			return null;
-		String s = name + ";" + season + ";" + regular + ";" + ps.getTrb()
-				+ ";" + ps.getAst() + ";" + ps.getStl() + ";" + ps.getBlk()
-				+ ";" + ps.getTov() + ";" + ps.getPf();
+		String s = name + ";" + season + ";" + regular + ";" + checkDouble(ps.getTrb())
+				+ ";" + checkDouble(ps.getAst()) + ";" + checkDouble(ps.getStl()) + ";" + checkDouble(ps.getBlk())
+				+ ";" + checkDouble(ps.getTov()) + ";" + checkDouble(ps.getPf());
 
 		// 将数据写入文件
 		String path = "stats/Radar";
@@ -72,20 +74,21 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 	@Override
 	public ImageIcon getPlayerCompareRadar(String playerA, String playerB,
 			String season, int regular) throws RemoteException {
+//		System.out.println("Player Compare Radar.......");
+		
 		PlayerStatsPerGame pa = getPlayerPerGameFromList(pdao
 				.getPlayerPerGameBySeasonName(season, playerA, regular));
-		System.out.println("a");
 		PlayerStatsPerGame pb = getPlayerPerGameFromList(pdao
 				.getPlayerPerGameBySeasonName(season, playerB, regular));
 		if(pa==null||pb==null){
 			return null;
 		}
-		String sa = playerA + ";" + season + ";" + regular + ";" + pa.getTrb()
-				+ ";" + pa.getAst() + ";" + pa.getStl() + ";" + pa.getBlk()
-				+ ";" + pa.getTov() + ";" + pa.getPf();
-		String sb = playerB + ";" + season + ";" + regular + ";" + pb.getTrb()
-				+ ";" + pb.getAst() + ";" + pb.getStl() + ";" + pb.getBlk()
-				+ ";" + pb.getTov() + ";" + pb.getPf();
+		String sa = playerA + ";" + season + ";" + regular + ";" + checkDouble(pa.getTrb())
+				+ ";" + checkDouble(pa.getAst()) + ";" + checkDouble(pa.getStl()) + ";" + checkDouble(pa.getBlk())
+				+ ";" + checkDouble(pa.getTov()) + ";" + checkDouble(pa.getPf());
+		String sb = playerB + ";" + season + ";" + regular + ";" + checkDouble(pb.getTrb())
+				+ ";" + checkDouble(pb.getAst()) + ";" + checkDouble(pb.getStl()) + ";" + checkDouble(pb.getBlk())
+				+ ";" + checkDouble(pb.getTov()) + ";" + checkDouble(pb.getPf());
 		List<String> slist = new ArrayList<String>();
 		slist.add(sa);
 		slist.add(sb);
@@ -108,6 +111,9 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 	@Override
 	public ImageIcon getPlayerCareerLineChart(String player, int fieldNum,
 			int regular) throws RemoteException {
+		
+//		System.out.println("Player Line.......");
+		
 		FieldType field = FieldType.values()[fieldNum];
 		List<String> strs = new ArrayList<String>();
 		if (!isFieldAdvanced(field))
@@ -128,8 +134,10 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			e.printStackTrace();
 		}
 		ImageIcon img = new ImageIcon(path + ".png");
-		if (img.getImageLoadStatus() == MediaTracker.ERRORED)
+		if (img.getImageLoadStatus() == MediaTracker.ERRORED){
+			System.out.println("Can't get player linechart.png");
 			return null;
+		}
 		return img;
 	}
 
@@ -137,6 +145,9 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 	public ImageIcon getPlayerBasicCompareBarChart(String playerA,
 			String playerB, String season, List<Integer> fieldNums, int regular)
 			throws RemoteException {
+		
+//		System.out.println("Player Basic bar.......");
+		
 		List<FieldType> fields = getTypeList(fieldNums);
 		PlayerStatsPerGame pa = getPlayerPerGameFromList(pdao
 				.getPlayerPerGameBySeasonName(season, playerA, regular));
@@ -154,48 +165,48 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			switch (ft) {
 			case PTS:
 				types += ft.toString() + ";";
-				sa += pa.getPts() + ";";
-				sb += pb.getPts() + ";";
+				sa += checkDouble(pa.getPts()) + ";";
+				sb += checkDouble(pb.getPts()) + ";";
 				break;
 			case AST:
 				types += ft.toString() + ";";
-				sa += pa.getAst() + ";";
-				sb += pb.getAst() + ";";
+				sa += checkDouble(pa.getAst()) + ";";
+				sb += checkDouble(pb.getAst()) + ";";
 				break;
 			case BLK:
 				types += ft.toString() + ";";
-				sa += pa.getBlk() + ";";
-				sb += pb.getBlk() + ";";
+				sa += checkDouble(pa.getBlk()) + ";";
+				sb += checkDouble(pb.getBlk()) + ";";
 				break;
 			case STL:
 				types += ft.toString() + ";";
-				sa += pa.getStl() + ";";
-				sb += pb.getStl() + ";";
+				sa += checkDouble(pa.getStl()) + ";";
+				sb += checkDouble(pb.getStl()) + ";";
 				break;
 			case TRB:
 				types += ft.toString() + ";";
-				sa += pa.getTrb() + ";";
-				sb += pb.getTrb() + ";";
+				sa += checkDouble(pa.getTrb()) + ";";
+				sb += checkDouble(pb.getTrb()) + ";";
 				break;
 			case DRB:
 				types += ft.toString() + ";";
-				sa += pa.getDrb() + ";";
-				sb += pb.getDrb() + ";";
+				sa += checkDouble(pa.getDrb()) + ";";
+				sb += checkDouble(pb.getDrb()) + ";";
 				break;
 			case ORB:
 				types += ft.toString() + ";";
-				sa += pa.getOrb() + ";";
-				sb += pb.getOrb() + ";";
+				sa += checkDouble(pa.getOrb()) + ";";
+				sb += checkDouble(pb.getOrb()) + ";";
 				break;
 			case TOV:
 				types += ft.toString() + ";";
-				sa += pa.getTov() + ";";
-				sb += pb.getTov() + ";";
+				sa += checkDouble(pa.getTov()) + ";";
+				sb += checkDouble(pb.getTov()) + ";";
 				break;
 			case PF:
 				types += ft.toString() + ";";
-				sa += pa.getPf() + ";";
-				sb += pb.getPf() + ";";
+				sa += checkDouble(pa.getPf()) + ";";
+				sb += checkDouble(pb.getPf()) + ";";
 				break;
 			default:
 			}
@@ -210,7 +221,7 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		}
 
 		// 将数据写入文件
-		String path = "stats/BarChart";
+		String path = "stats/Barchart";
 		Utility.writeMulti(strs, path + ".txt");
 		try {
 			Process p = Runtime.getRuntime().exec(
@@ -221,8 +232,10 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			
 		}
 		ImageIcon img = new ImageIcon(path + ".png");
-		if (img.getImageLoadStatus() == MediaTracker.ERRORED)
+		if (img.getImageLoadStatus() == MediaTracker.ERRORED){
+			System.out.println("cant't get player basic barchar.png");
 			return null;
+		}
 		return img;
 	}
 
@@ -230,6 +243,9 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 	public ImageIcon getPlayerAdvancedCompareBarChart(String playerA,
 			String playerB, String season, List<Integer> fieldNums, int regular)
 			throws RemoteException {
+		
+//		System.out.println("Player Adv bar.......");
+		
 		List<FieldType> fields = getTypeList(fieldNums);
 		PlayerStatsAdvanced pa = getPlayerAdvancedFromList(pdao
 				.getPlayerAdvancedBySeasonName(season, playerA, regular));
@@ -246,48 +262,48 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			switch (ft) {
 			case PER:
 				types += ft.toString() + ";";
-				sa += pa.getPer() + ";";
-				sb += pb.getPer() + ";";
+				sa += checkDouble(pa.getPer()) + ";";
+				sb += checkDouble(pb.getPer()) + ";";
 				break;
 			case AST_PCT:
 				types += ft.toString() + ";";
-				sa += pa.getAst_pct() + ";";
-				sb += pb.getAst_pct() + ";";
+				sa += checkDouble(pa.getAst_pct()) + ";";
+				sb += checkDouble(pb.getAst_pct()) + ";";
 				break;
 			case BLK_PCT:
 				types += ft.toString() + ";";
-				sa += pa.getBlk_pct() + ";";
-				sb += pb.getBlk_pct() + ";";
+				sa += checkDouble(pa.getBlk_pct()) + ";";
+				sb += checkDouble(pb.getBlk_pct()) + ";";
 				break;
 			case STL_PCT:
 				types += ft.toString() + ";";
-				sa += pa.getStl_pct() + ";";
-				sb += pb.getStl_pct() + ";";
+				sa += checkDouble(pa.getStl_pct()) + ";";
+				sb += checkDouble(pb.getStl_pct()) + ";";
 				break;
 			case TRB_PCT:
 				types += ft.toString() + ";";
-				sa += pa.getTrb_pct() + ";";
-				sb += pb.getTrb_pct() + ";";
+				sa += checkDouble(pa.getTrb_pct()) + ";";
+				sb += checkDouble(pb.getTrb_pct()) + ";";
 				break;
 			case DRB_PCT:
 				types += ft.toString() + ";";
-				sa += pa.getDrb_pct() + ";";
-				sb += pb.getDrb_pct() + ";";
+				sa += checkDouble(pa.getDrb_pct()) + ";";
+				sb += checkDouble(pb.getDrb_pct()) + ";";
 				break;
 			case ORB_PCT:
 				types += ft.toString() + ";";
-				sa += pa.getOrb_pct() + ";";
-				sb += pb.getOrb_pct() + ";";
+				sa += checkDouble(pa.getOrb_pct()) + ";";
+				sb += checkDouble(pb.getOrb_pct()) + ";";
 				break;
 			case TOV_PCT:
 				types += ft.toString() + ";";
-				sa += pa.getTov_pct() + ";";
-				sb += pb.getTov_pct() + ";";
+				sa += checkDouble(pa.getTov_pct()) + ";";
+				sb += checkDouble(pb.getTov_pct()) + ";";
 				break;
 			case USG_PCT:
 				types += ft.toString() + ";";
-				sa += pa.getUsg_pct() + ";";
-				sb += pb.getUsg_pct() + ";";
+				sa += checkDouble(pa.getUsg_pct()) + ";";
+				sb += checkDouble(pb.getUsg_pct()) + ";";
 				break;
 			default:
 			}
@@ -312,8 +328,10 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			e.printStackTrace();
 		}
 		ImageIcon img = new ImageIcon(path + ".png");
-		if (img.getImageLoadStatus() == MediaTracker.ERRORED)
+		if (img.getImageLoadStatus() == MediaTracker.ERRORED){
+			System.out.println("cant't get player adv barchar.png");
 			return null;
+		}
 		return img;
 	}
 
@@ -321,6 +339,8 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 	public ImageIcon getPlayerPctCompareBarChart(String playerA,
 			String playerB, String season, List<Integer> fieldNums, int regular)
 			throws RemoteException {
+//		System.out.println("Player pct bar.......");
+		
 		List<FieldType> fields = getTypeList(fieldNums);
 		PlayerStatsAdvanced paA = getPlayerAdvancedFromList(pdao
 				.getPlayerAdvancedBySeasonName(season, playerA, regular));
@@ -341,23 +361,23 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			switch (ft) {
 			case FG3_PCT:
 				types += ft.toString() + ";";
-				sa += ppA.getFg3_pct() + ";";
-				sb += ppB.getFg3_pct() + ";";
+				sa += checkDouble(ppA.getFg3_pct()) + ";";
+				sb += checkDouble(ppB.getFg3_pct()) + ";";
 				break;
 			case FGA_PCT:
 				types += ft.toString() + ";";
-				sa += ppA.getFga_pct() + ";";
-				sb += ppB.getFga_pct() + ";";
+				sa += checkDouble(ppA.getFga_pct()) + ";";
+				sb += checkDouble(ppB.getFga_pct()) + ";";
 				break;
 			case FT_PCT:
 				types += ft.toString() + ";";
-				sa += ppA.getFt_pct() + ";";
-				sb += ppB.getFt_pct() + ";";
+				sa += checkDouble(ppA.getFt_pct()) + ";";
+				sb += checkDouble(ppB.getFt_pct())+ ";";
 				break;
 			case TS_PCT:
 				types += ft.toString() + ";";
-				sa += paA.getTs_pct() + ";";
-				sb += paB.getTs_pct() + ";";
+				sa += checkDouble(paA.getTs_pct()) + ";";
+				sb += checkDouble(paB.getTs_pct()) + ";";
 				break;
 			default:
 			}
@@ -381,20 +401,25 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			e.printStackTrace();
 		}
 		ImageIcon img = new ImageIcon(path + ".png");
-		if (img.getImageLoadStatus() == MediaTracker.ERRORED)
+		if (img.getImageLoadStatus() == MediaTracker.ERRORED){
+			System.out.println("cant't get player pct barchar.png");
 			return null;
+		}
 		return img;
 	}
 
 	@Override
 	public ImageIcon getTeamRadar(String team, String season)
 			throws RemoteException {
+//		System.out.println("Team Radar.......");
+		
 		TeamStatsPerGame tsp = tdao.getTeamPerGameBySeasonAbbr(season, team);
 		if(tsp==null)
 			return null;
-		String s = team + ";" + season + ";"  + "0" + ";" + tsp.getTrb() + ";"
-				+ tsp.getAst() + ";" + tsp.getStl() + ";" + tsp.getBlk() + ";"
-				+ tsp.getTov() + ";" + tsp.getPf();
+		String s = team + ";" + season + ";"  + "0" + ";" + checkDouble(tsp.getTrb()) + ";"
+				+ checkDouble(tsp.getAst()) + ";" + checkDouble(tsp.getStl()) + ";" + 
+				checkDouble(tsp.getBlk()) + ";"
+				+ checkDouble(tsp.getTov()) + ";" + checkDouble(tsp.getPf());
 
 		// 将数据写入文件
 		String path = "stats/Radar";
@@ -414,17 +439,20 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 	@Override
 	public ImageIcon getTeamCompareRadarByGameId(String gameid)
 			throws RemoteException {
+//		System.out.println("Team CompareRadar.......");
+		
 		MatchInfo info = mdao.getMatchInfoByGameId(gameid);
 		MatchPlayerBasic home = mdao.getMatchPlayerByGameIdNameAbbr(gameid, "Team Totals", info.getHome_team());
 		MatchPlayerBasic guest = mdao.getMatchPlayerByGameIdNameAbbr(gameid, "Team Totals", info.getGuest_team());
 		if(home==null||guest==null)
 			return null;
-		String h = home.getTeam_abbr() + ";" + home.getSeason() + ";"  + "0" + ";" + home.getTrb() + ";"
-				+ home.getAst() + ";" + home.getStl() + ";" + home.getBlk() + ";"
-				+ home.getTov() + ";" + home.getPf();
-		String g = guest.getTeam_abbr() + ";" + guest.getSeason() + ";"  + "0" + ";" + guest.getTrb() + ";"
-				+ guest.getAst() + ";" + guest.getStl() + ";" + guest.getBlk() + ";"
-				+ guest.getTov() + ";" + guest.getPf();
+		String h = home.getTeam_abbr() + ";" + home.getSeason() + ";"  + "0" + ";" 
+			+ checkInt(home.getTrb()) + ";"
+				+ checkInt(home.getAst()) + ";" + checkInt(home.getStl()) + ";" + checkInt(home.getBlk()) + ";"
+				+ checkInt(home.getTov()) + ";" + checkInt(home.getPf());
+		String g = guest.getTeam_abbr() + ";" + guest.getSeason() + ";"  + "0" + ";" + checkInt(guest.getTrb()) + ";"
+				+ checkInt(guest.getAst()) + ";" + checkInt(guest.getStl()) + ";" + checkInt(guest.getBlk()) + ";"
+				+ checkInt(guest.getTov()) + ";" + checkInt(guest.getPf());
 
 		// 将数据写入文件
 		List<String> str = new ArrayList<String>();
@@ -448,16 +476,18 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 	@Override
 	public ImageIcon getTeamCompareRadar(String teamA, String teamB,
 			String season) throws RemoteException {
+//		System.out.println("Team CompareRadar.......");
+		
 		TeamStatsPerGame ta = tdao.getTeamPerGameBySeasonAbbr(season, teamA);
 		TeamStatsPerGame tb = tdao.getTeamPerGameBySeasonAbbr(season, teamB);
 		if(ta==null||tb==null)
 			return null;
-		String sa = teamA + ";" + season + ";" + "0" + ";" + ta.getTrb() + ";"
-				+ ta.getAst() + ";" + ta.getStl() + ";" + ta.getBlk() + ";"
-				+ ta.getTov() + ";" + ta.getPf();
-		String sb = teamB + ";" + season + ";" + "0" + ";" + tb.getTrb() + ";"
-				+ tb.getAst() + ";" + tb.getStl() + ";" + tb.getBlk() + ";"
-				+ tb.getTov() + ";" + tb.getPf();
+		String sa = teamA + ";" + season + ";" + "0" + ";" + checkDouble(ta.getTrb()) + ";"
+				+ checkDouble(ta.getAst()) + ";" + checkDouble(ta.getStl()) + ";" + checkDouble(ta.getBlk()) + ";"
+				+ checkDouble(ta.getTov()) + ";" + checkDouble(ta.getPf());
+		String sb = teamB + ";" + season + ";" + "0" + ";" + checkDouble(tb.getTrb()) + ";"
+				+ checkDouble(tb.getAst()) + ";" + checkDouble(tb.getStl()) + ";" + checkDouble(tb.getBlk()) + ";"
+				+ checkDouble(tb.getTov()) + ";" + checkDouble(tb.getPf());
 		List<String> slist = new ArrayList<String>();
 		slist.add(sa);
 		slist.add(sb);
@@ -481,6 +511,8 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 	@Override
 	public ImageIcon getTeamCareerLineChart(String team, int fieldNum)
 			throws RemoteException {
+//		System.out.println("Team line.......");
+		
 		FieldType field = FieldType.values()[fieldNum];
 		List<String> strs = new ArrayList<String>();
 		if (!isFieldAdvanced(field))
@@ -501,14 +533,18 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			e.printStackTrace();
 		}
 		ImageIcon img = new ImageIcon(path + ".png");
-		if (img.getImageLoadStatus() == MediaTracker.ERRORED)
+		if (img.getImageLoadStatus() == MediaTracker.ERRORED){
+			System.out.println("cant't get team barchar.png");
 			return null;
+		}
 		return img;
 	}
 
 	@Override
 	public ImageIcon getTeamBasicCompareBarChart(String teamA, String teamB,
 			String season, List<Integer> fieldNums) throws RemoteException {
+//		System.out.println("Team basic bar.......");
+		
 		List<FieldType> field = getTypeList(fieldNums);
 		TeamStatsPerGame ta = tdao.getTeamPerGameBySeasonAbbr(season, teamA);
 		TeamStatsPerGame tb = tdao.getTeamPerGameBySeasonAbbr(season, teamB);
@@ -523,48 +559,48 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			switch (ft) {
 			case PTS:
 				types += ft.toString() + ";";
-				sa += ta.getPts() + ";";
-				sb += tb.getPts() + ";";
+				sa += checkDouble(ta.getPts()) + ";";
+				sb += checkDouble(tb.getPts()) + ";";
 				break;
 			case AST:
 				types += ft.toString() + ";";
-				sa += ta.getAst() + ";";
-				sb += tb.getAst() + ";";
+				sa += checkDouble(ta.getAst()) + ";";
+				sb += checkDouble(tb.getAst()) + ";";
 				break;
 			case BLK:
 				types += ft.toString() + ";";
-				sa += ta.getBlk() + ";";
-				sb += tb.getBlk() + ";";
+				sa += checkDouble(ta.getBlk()) + ";";
+				sb += checkDouble(tb.getBlk()) + ";";
 				break;
 			case STL:
 				types += ft.toString() + ";";
-				sa += ta.getStl() + ";";
-				sb += tb.getStl() + ";";
+				sa += checkDouble(ta.getStl()) + ";";
+				sb += checkDouble(tb.getStl()) + ";";
 				break;
 			case TRB:
 				types += ft.toString() + ";";
-				sa += ta.getTrb() + ";";
-				sb += tb.getTrb() + ";";
+				sa += checkDouble(ta.getTrb()) + ";";
+				sb += checkDouble(tb.getTrb()) + ";";
 				break;
 			case DRB:
 				types += ft.toString() + ";";
-				sa += ta.getDrb() + ";";
-				sb += tb.getDrb() + ";";
+				sa += checkDouble(ta.getDrb()) + ";";
+				sb += checkDouble(tb.getDrb()) + ";";
 				break;
 			case ORB:
 				types += ft.toString() + ";";
-				sa += ta.getOrb() + ";";
-				sb += tb.getOrb() + ";";
+				sa += checkDouble(ta.getOrb()) + ";";
+				sb += checkDouble(tb.getOrb()) + ";";
 				break;
 			case TOV:
 				types += ft.toString() + ";";
-				sa += ta.getTov() + ";";
-				sb += tb.getTov() + ";";
+				sa += checkDouble(ta.getTov()) + ";";
+				sb += checkDouble(tb.getTov()) + ";";
 				break;
 			case PF:
 				types += ft.toString() + ";";
-				sa += ta.getPf() + ";";
-				sb += tb.getPf() + ";";
+				sa += checkDouble(ta.getPf()) + ";";
+				sb += checkDouble(tb.getPf()) + ";";
 				break;
 			default:
 			}
@@ -589,14 +625,18 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			e.printStackTrace();
 		}
 		ImageIcon img = new ImageIcon(path + ".png");
-		if (img.getImageLoadStatus() == MediaTracker.ERRORED)
+		if (img.getImageLoadStatus() == MediaTracker.ERRORED){
+			System.out.println("Can't get tame basic bar.....");
 			return null;
+		}
 		return img;
 	}
 
 	@Override
 	public ImageIcon getTeamAdvancedCompareBarChart(String teamA, String teamB,
 			String season, List<Integer> fieldNum) throws RemoteException {
+//		System.out.println("Team adv bar.......");
+		
 		List<FieldType> field = getTypeList(fieldNum);
 		TeamStatsAdvanced ta = tdao.getTeamAdvancedBySeasonAbbr(season, teamA);
 		TeamStatsAdvanced tb = tdao.getTeamAdvancedBySeasonAbbr(season, teamB);
@@ -611,23 +651,23 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			switch (ft) {
 			case ORB_PCT:
 				types += ft.toString() + ";";
-				sa += ta.getOrb_pct() + ";";
-				sb += tb.getOrb_pct() + ";";
+				sa += checkDouble(ta.getOrb_pct()) + ";";
+				sb += checkDouble(tb.getOrb_pct()) + ";";
 				break;
 			case DRB_PCT:
 				types += ft.toString() + ";";
-				sa += ta.getDrb_pct() + ";";
-				sb += tb.getDrb_pct() + ";";
+				sa += checkDouble(ta.getDrb_pct()) + ";";
+				sb += checkDouble(tb.getDrb_pct()) + ";";
 				break;
 			case OFF_RTG:
 				types += ft.toString() + ";";
-				sa += ta.getOff_rtg() + ";";
-				sb += tb.getOff_rtg() + ";";
+				sa += checkDouble(ta.getOff_rtg()) + ";";
+				sb += checkDouble(tb.getOff_rtg()) + ";";
 				break;
 			case DEF_RTG:
 				types += ft.toString() + ";";
-				sa += ta.getDef_rtg() + ";";
-				sb += tb.getDef_rtg() + ";";
+				sa += checkDouble(ta.getDef_rtg()) + ";";
+				sb += checkDouble(tb.getDef_rtg()) + ";";
 				break;
 			default:
 			}
@@ -651,14 +691,18 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			e.printStackTrace();
 		}
 		ImageIcon img = new ImageIcon(path + ".png");
-		if (img.getImageLoadStatus() == MediaTracker.ERRORED)
+		if (img.getImageLoadStatus() == MediaTracker.ERRORED){
+			System.out.println("Can't get tame adv bar.....");
 			return null;
+		}
 		return img;
 	}
 
 	@Override
 	public ImageIcon getTeamPctCompareBarChart(String teamA, String teamB,
 			String season, List<Integer> fieldNum) throws RemoteException {
+//		System.out.println("Team pct bar.......");
+		
 		List<FieldType> field = getTypeList(fieldNum);
 		TeamStatsPerGame ta = tdao.getTeamPerGameBySeasonAbbr(season, teamA);
 		TeamStatsPerGame tb = tdao.getTeamPerGameBySeasonAbbr(season, teamB);
@@ -673,18 +717,18 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			switch (ft) {
 			case FGA_PCT:
 				types += ft.toString() + ";";
-				sa += ta.getFga_pct() + ";";
-				sb += tb.getFga_pct() + ";";
+				sa += checkDouble(ta.getFga_pct()) + ";";
+				sb += checkDouble(tb.getFga_pct()) + ";";
 				break;
 			case FG3_PCT:
 				types += ft.toString() + ";";
-				sa += ta.getFg3_pct() + ";";
-				sb += tb.getFg3_pct() + ";";
+				sa += checkDouble(ta.getFg3_pct()) + ";";
+				sb += checkDouble(tb.getFg3_pct()) + ";";
 				break;
 			case FT_PCT:
 				types += ft.toString() + ";";
-				sa += ta.getFt_pct() + ";";
-				sb += tb.getFt_pct() + ";";
+				sa += checkDouble(ta.getFt_pct()) + ";";
+				sb += checkDouble(tb.getFt_pct()) + ";";
 				break;
 			default:
 			}
@@ -707,14 +751,19 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			e.printStackTrace();
 		}
 		ImageIcon img = new ImageIcon(path + ".png");
-		if (img.getImageLoadStatus() == MediaTracker.ERRORED)
+		if (img.getImageLoadStatus() == MediaTracker.ERRORED){
+
+			System.out.println("Can't get tame pct bar.....");
 			return null;
+		}
 		return img;
 	}
 
 	@Override
 	public ImageIcon getMatchPlayerLineChart(String name, String season,
 			int fieldNum) throws RemoteException {
+//		System.out.println("Match line .......");
+		
 		FieldType field = FieldType.values()[fieldNum];
 		List<String> strs = new ArrayList<String>();
 		if (!isFieldAdvanced(field))
@@ -814,67 +863,67 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			case MOV:
 				if (tsa.getMov() != null) {
 					s += tsa.getSeason() + ";";
-					value += tsa.getMov() + ";";
+					value += checkDouble(tsa.getMov()) + ";";
 				}
 				break;
 			case SOS:
 				if (tsa.getSos() != null) {
 					s += tsa.getSeason() + ";";
-					value += tsa.getSos() + ";";
+					value += checkDouble(tsa.getSos()) + ";";
 				}
 				break;
 			case SRS:
 				if (tsa.getSrs() != null) {
 					s += tsa.getSeason() + ";";
-					value += tsa.getSrs() + ";";
+					value += checkDouble(tsa.getSrs()) + ";";
 				}
 				break;
 			case ORB_PCT:
 				if (tsa.getOrb_pct() != null) {
 					s += tsa.getSeason() + ";";
-					value += tsa.getOrb_pct() + ";";
+					value += checkDouble(tsa.getOrb_pct()) + ";";
 				}
 				break;
 			case DRB_PCT:
 				if (tsa.getDrb_pct() != null) {
 					s += tsa.getSeason() + ";";
-					value += tsa.getDrb_pct() + ";";
+					value += checkDouble(tsa.getDrb_pct()) + ";";
 				}
 				break;
 			case OFF_RTG:
 				if (tsa.getOrb_pct() != null) {
 					s += tsa.getSeason() + ";";
-					value += tsa.getOrb_pct() + ";";
+					value += checkDouble(tsa.getOrb_pct()) + ";";
 				}
 				break;
 			case DEF_RTG:
 				if (tsa.getDef_rtg() != null) {
 					s += tsa.getSeason() + ";";
-					value += tsa.getDef_rtg() + ";";
+					value += checkDouble(tsa.getDef_rtg()) + ";";
 				}
 				break;
 			case OPP_TOV_PCT:
 				if (tsa.getOpp_tov_pct() != null) {
 					s += tsa.getSeason() + ";";
-					value += tsa.getOpp_tov_pct() + ";";
+					value += checkDouble(tsa.getOpp_tov_pct()) + ";";
 				}
 				break;
 			case OFF_TOV_PCT:
 				if (tsa.getOff_tov_pct() != null) {
 					s += tsa.getSeason() + ";";
-					value += tsa.getOff_tov_pct() + ";";
+					value += checkDouble(tsa.getOff_tov_pct()) + ";";
 				}
 				break;
 			case OPP_EFG_PCT:
 				if (tsa.getOpp_efg_pct() != null) {
 					s += tsa.getSeason() + ";";
-					value += tsa.getOff_efg_pct();
+					value += checkDouble(tsa.getOff_efg_pct()) + ";";
 				}
 				break;
 			case OFF_EFG_PCT:
 				if (tsa.getOff_efg_pct() != null) {
 					s += tsa.getSeason() + ";";
-					value += tsa.getOff_efg_pct();
+					value += checkDouble(tsa.getOff_efg_pct()) + ";";
 				}
 				break;
 			default:
@@ -903,55 +952,55 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			case PTS:
 				if (tsp.getPts() != null) {
 					s += tsp.getSeason() + ";";
-					value += tsp.getPts() + ";";
+					value += checkDouble(tsp.getPts()) + ";";
 				}
 				break;
 			case AST:
 				if (tsp.getAst() != null) {
 					s += tsp.getSeason() + ";";
-					value += tsp.getAst() + ";";
+					value += checkDouble(tsp.getAst()) + ";";
 				}
 				break;
 			case BLK:
 				if (tsp.getBlk() != null) {
 					s += tsp.getSeason() + ";";
-					value += tsp.getBlk() + ";";
+					value += checkDouble(tsp.getBlk()) + ";";
 				}
 				break;
 			case STL:
 				if (tsp.getStl() != null) {
 					s += tsp.getSeason() + ";";
-					value += tsp.getStl() + ";";
+					value += checkDouble(tsp.getStl()) + ";";
 				}
 				break;
 			case TRB:
 				if (tsp.getTrb() != null) {
 					s += tsp.getSeason() + ";";
-					value += tsp.getTrb() + ";";
+					value += checkDouble(tsp.getTrb()) + ";";
 				}
 				break;
 			case DRB:
 				if (tsp.getDrb() != null) {
 					s += tsp.getSeason() + ";";
-					value += tsp.getDrb() + ";";
+					value += checkDouble(tsp.getDrb()) + ";";
 				}
 				break;
 			case ORB:
 				if (tsp.getOrb() != null) {
 					s += tsp.getSeason() + ";";
-					value += tsp.getOrb() + ";";
+					value += checkDouble(tsp.getOrb()) + ";";
 				}
 				break;
 			case TOV:
 				if (tsp.getTov() != null) {
 					s += tsp.getSeason() + ";";
-					value += tsp.getTov() + ";";
+					value += checkDouble(tsp.getTov()) + ";";
 				}
 				break;
 			case PF:
 				if (tsp.getPf() != null) {
 					s += tsp.getSeason() + ";";
-					value += tsp.getPf() + ";";
+					value += checkDouble(tsp.getPf()) + ";";
 				}
 				break;
 			default:
@@ -986,73 +1035,73 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 				case PTS:
 					if (p.getPts() != null) {
 						s += p.getSeason() + ";";
-						value += p.getPts() + ";";
+						value += checkDouble(p.getPts()) + ";";
 					}
 					break;
 				case AST:
 					if (p.getAst() != null) {
 						s += p.getSeason() + ";";
-						value += p.getAst() + ";";
+						value += checkDouble(p.getAst()) + ";";
 					}
 					break;
 				case BLK:
 					if (p.getBlk() != null) {
 						s += p.getSeason() + ";";
-						value += p.getBlk() + ";";
+						value += checkDouble(p.getBlk()) + ";";
 					}
 					break;
 				case STL:
 					if (p.getStl() != null) {
 						s += p.getSeason() + ";";
-						value += p.getStl() + ";";
+						value += checkDouble(p.getStl()) + ";";
 					}
 					break;
 				case TRB:
 					if (p.getTrb() != null) {
 						s += p.getSeason() + ";";
-						value += p.getTrb() + ";";
+						value += checkDouble(p.getTrb()) + ";";
 					}
 					break;
 				case DRB:
 					if (p.getDrb() != null) {
 						s += p.getSeason() + ";";
-						value += p.getDrb() + ";";
+						value += checkDouble(p.getDrb()) + ";";
 					}
 					break;
 				case ORB:
 					if (p.getOrb() != null) {
 						s += p.getSeason() + ";";
-						value += p.getOrb() + ";";
+						value += checkDouble(p.getOrb()) + ";";
 					}
 					break;
 				case TOV:
 					if (p.getTov() != null) {
 						s += p.getSeason() + ";";
-						value += p.getTov() + ";";
+						value += checkDouble(p.getTov()) + ";";
 					}
 					break;
 				case PF:
 					if (p.getPf() != null) {
 						s += p.getSeason() + ";";
-						value += p.getPf() + ";";
+						value += checkDouble(p.getPf()) + ";";
 					}
 					break;
 				case FG3_PCT:
 					if (p.getFg3_pct() != null) {
 						s += p.getSeason() + ";";
-						value += p.getFg3_pct() + ";";
+						value += checkDouble(p.getFg3_pct()) + ";";
 					}
 					break;
 				case FGA_PCT:
 					if (p.getFga_pct() != null) {
 						s += p.getSeason() + ";";
-						value += p.getFga_pct() + ";";
+						value += checkDouble(p.getFga_pct()) + ";";
 					}
 					break;
 				case FT_PCT:
 					if (p.getFt_pct() != null) {
 						s += p.getSeason() + ";";
-						value += p.getFt_pct() + ";";
+						value += checkDouble(p.getFt_pct()) + ";";
 					}
 					break;
 				default:
@@ -1088,61 +1137,61 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 				case PER:
 					if (p.getPer() != null) {
 						s += p.getSeason() + ";";
-						value += p.getPer() + ";";
+						value += checkDouble(p.getPer()) + ";";
 					}
 					break;
 				case AST_PCT:
 					if (p.getAst_pct() != null) {
 						s += p.getSeason() + ";";
-						value += p.getAst_pct() + ";";
+						value += checkDouble(p.getAst_pct()) + ";";
 					}
 					break;
 				case BLK_PCT:
 					if (p.getBlk_pct() != null) {
 						s += p.getSeason() + ";";
-						value += p.getBlk_pct() + ";";
+						value += checkDouble(p.getBlk_pct()) + ";";
 					}
 					break;
 				case STL_PCT:
 					if (p.getStl_pct() != null) {
 						s += p.getSeason() + ";";
-						value += p.getStl_pct() + ";";
+						value += checkDouble(p.getStl_pct()) + ";";
 					}
 					break;
 				case TRB_PCT:
 					if (p.getTrb_pct() != null) {
 						s += p.getSeason() + ";";
-						value += p.getTrb_pct() + ";";
+						value += checkDouble(p.getTrb_pct()) + ";";
 					}
 					break;
 				case DRB_PCT:
 					if (p.getDrb_pct() != null) {
 						s += p.getSeason() + ";";
-						value += p.getDrb_pct() + ";";
+						value += checkDouble(p.getDrb_pct()) + ";";
 					}
 					break;
 				case ORB_PCT:
 					if (p.getOrb_pct() != null) {
 						s += p.getSeason() + ";";
-						value += p.getOrb_pct() + ";";
+						value += checkDouble(p.getOrb_pct()) + ";";
 					}
 					break;
 				case TOV_PCT:
 					if (p.getTov_pct() != null) {
 						s += p.getSeason() + ";";
-						value += p.getTov_pct() + ";";
+						value += checkDouble(p.getTov_pct()) + ";";
 					}
 					break;
 				case TS_PCT:
 					if (p.getTs_pct() != null) {
 						s += p.getSeason() + ";";
-						value += p.getTs_pct() + ";";
+						value += checkDouble(p.getTs_pct()) + ";";
 					}
 					break;
 				case USG_PCT:
 					if (p.getUsg_pct() != null) {
 						s += p.getSeason() + ";";
-						value += p.getUsg_pct() + ";";
+						value += checkDouble(p.getUsg_pct()) + ";";
 					}
 					break;
 				default:
@@ -1266,55 +1315,55 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			case AST_PCT:
 				if (p.getAst_pct() != null) {
 					s += p.getDate()+ ";";
-					value += p.getAst_pct() + ";";
+					value += checkDouble(p.getAst_pct()) + ";";
 				}
 				break;
 			case BLK_PCT:
 				if (p.getBlk_pct() != null) {
 					s += p.getDate() + ";";
-					value += p.getBlk_pct() + ";";
+					value += checkDouble(p.getBlk_pct()) + ";";
 				}
 				break;
 			case STL_PCT:
 				if (p.getStl_pct() != null) {
 					s += p.getDate() + ";";
-					value += p.getStl_pct() + ";";
+					value += checkDouble(p.getStl_pct()) + ";";
 				}
 				break;
 			case TRB_PCT:
 				if (p.getTrb_pct() != null) {
 					s += p.getDate() + ";";
-					value += p.getTrb_pct() + ";";
+					value += checkDouble(p.getTrb_pct()) + ";";
 				}
 				break;
 			case DRB_PCT:
 				if (p.getDrb_pct() != null) {
 					s += p.getDate() + ";";
-					value += p.getDrb_pct() + ";";
+					value += checkDouble(p.getDrb_pct()) + ";";
 				}
 				break;
 			case ORB_PCT:
 				if (p.getOrb_pct() != null) {
 					s += p.getDate() + ";";
-					value += p.getOrb_pct() + ";";
+					value += checkDouble(p.getOrb_pct()) + ";";
 				}
 				break;
 			case TOV_PCT:
 				if (p.getTov_pct() != null) {
 					s += p.getDate() + ";";
-					value += p.getTov_pct() + ";";
+					value += checkDouble(p.getTov_pct()) + ";";
 				}
 				break;
 			case TS_PCT:
 				if (p.getTs_pct() != null) {
 					s += p.getDate() + ";";
-					value += p.getTs_pct() + ";";
+					value += checkDouble(p.getTs_pct()) + ";";
 				}
 				break;
 			case USG_PCT:
 				if (p.getUsg_pct() != null) {
 					s += p.getDate() + ";";
-					value += p.getUsg_pct() + ";";
+					value += checkDouble(p.getUsg_pct()) + ";";
 				}
 				break;
 			default:
@@ -1345,73 +1394,73 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 			case PTS:
 				if (p.getPts() != null) {
 					s += p.getDate() + ";";
-					value += p.getPts() + ";";
+					value += checkInt(p.getPts()) + ";";
 				}
 				break;
 			case AST:
 				if (p.getAst() != null) {
 					s += p.getDate() + ";";
-					value += p.getAst() + ";";
+					value += checkInt(p.getAst()) + ";";
 				}
 				break;
 			case BLK:
 				if (p.getBlk() != null) {
 					s += p.getDate() + ";";
-					value += p.getBlk() + ";";
+					value += checkInt(p.getBlk()) + ";";
 				}
 				break;
 			case STL:
 				if (p.getStl() != null) {
 					s += p.getDate() + ";";
-					value += p.getStl() + ";";
+					value += checkInt(p.getStl()) + ";";
 				}
 				break;
 			case TRB:
 				if (p.getTrb() != null) {
 					s += p.getDate() + ";";
-					value += p.getTrb() + ";";
+					value += checkInt(p.getTrb()) + ";";
 				}
 				break;
 			case DRB:
 				if (p.getDrb() != null) {
 					s += p.getDate() + ";";
-					value += p.getDrb() + ";";
+					value += checkInt(p.getDrb()) + ";";
 				}
 				break;
 			case ORB:
 				if (p.getOrb() != null) {
 					s += p.getDate() + ";";
-					value += p.getOrb() + ";";
+					value += checkInt(p.getOrb()) + ";";
 				}
 				break;
 			case TOV:
 				if (p.getTov() != null) {
 					s += p.getDate() + ";";
-					value += p.getTov() + ";";
+					value += checkInt(p.getTov()) + ";";
 				}
 				break;
 			case PF:
 				if (p.getPf() != null) {
 					s += p.getDate() + ";";
-					value += p.getPf() + ";";
+					value += checkInt(p.getPf()) + ";";
 				}
 				break;
 			case FG3_PCT:
 				if (p.getFg3_pct() != null) {
 					s += p.getDate() + ";";
-					value += p.getFg3_pct() + ";";
+					value += checkDouble(p.getFg3_pct()) + ";";
 				}
 				break;
 			case FGA_PCT:
 				if (p.getFga_pct() != null) {
 					s += p.getDate() + ";";
-					value += p.getFga_pct() + ";";
+					value += checkDouble(p.getFga_pct()) + ";";
 				}
 				break;
 			case FT_PCT:
 				if (p.getFt_pct() != null) {
 					s += p.getDate() + ";";
-					value += p.getFt_pct() + ";";
+					value += checkDouble(p.getFt_pct()) + ";";
 				}
 				break;
 			default:
@@ -1459,5 +1508,16 @@ public class StatsServiceImpl extends UnicastRemoteObject implements
 		return fields;
 	}
 
-
+	private Double checkDouble(Double d){
+		if(d!=null){
+			return d;
+		}
+		return 0.0;
+	}
+	
+	private Integer checkInt(Integer i){
+		if(i!=null)
+			return i;
+		return 0;
+	}
 }

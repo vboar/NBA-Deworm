@@ -2,6 +2,8 @@ package vo;
 
 import java.io.Serializable;
 
+import javax.swing.ImageIcon;
+
 public class SimpleRegressionVO implements Serializable{
 
 	/**
@@ -48,6 +50,26 @@ public class SimpleRegressionVO implements Serializable{
 	 * 偏差平均值u
 	 */
 	public double u;
+	
+	/**
+	 * 相关系数
+	 */
+	public double r;
+	
+	/**
+	 * p值
+	 */
+	public double p_value;
+	
+	/**
+	 * Standard error of the estimate
+	 */
+	public double str_err;
+	
+	/**
+	 * 散点图
+	 */
+	public ImageIcon img;
 	
 	public SimpleRegressionVO(){}
 }

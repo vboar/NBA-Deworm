@@ -39,4 +39,13 @@ public interface InferStatsService extends Remote{
 	 */
 	public SimpleRegressionVO getSimpleRegression(int typeNum, String season) throws RemoteException;
 	
+	/**
+	 * 获得单赛季球队得分与某指标的一元回归分析（单场比赛数据）
+	 * @param typeNum
+	 * @param season
+	 * @return
+	 * @throws RemoteException
+	 */
+	public SimpleRegressionVO getSimpleRegressionMatch(int typeNum, String season) throws RemoteException;
+	
 }

@@ -47,6 +47,29 @@ public class InferStatsServiceImpl extends UnicastRemoteObject implements InferS
 		mdao = DaoFactoryImpl.getDaoFactory().getMatchDao();
 		tdao = DaoFactoryImpl.getDaoFactory().getTeamDao();
 	}
+	
+	public static void main(String[] args) {
+		try {
+			//i = ServiceFactoryImpl.getInstance().getInferStatsService();
+
+			InferStatsServiceImpl i = new InferStatsServiceImpl();
+			i.getMultiRegression("14-15");
+			//i.getTeamStepwiseToTxt_10();
+			//i.getSimpleRegression(FieldType.PF.ordinal(), "14-15");
+			//i.getTeamStepwiseMatchToTxt("13-14");
+			//i.getTeamTestingResultBySeason("14-15");
+//			try {
+//				Process p = Runtime.getRuntime().exec(
+//						"python stats/team_regression.py");
+//				p.waitFor();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public void getTeamStepwiseToTxt(String season) {
 		List<List<String>> strs = getStepwistString(season);
@@ -151,7 +174,8 @@ public class InferStatsServiceImpl extends UnicastRemoteObject implements InferS
 	@Override
 	public TeamWinAnalysisVO getTeamTestingResultBySeason(String season) {
 		this.getTeamWinsToTxt(season);
-		this.getTeamStepwiseToTxt(season);
+		//this.getTeamStepwiseToTxt(season);
+		this.getTeamStepwiseMatchToTxt(season);
 		try {
 			Process p = Runtime.getRuntime().exec(
 					"python stats/team_testing.py");
@@ -165,7 +189,6 @@ public class InferStatsServiceImpl extends UnicastRemoteObject implements InferS
 	@Override
 	public TeamWinAnalysisVO getTeamTestingResult_10() {
 		this.getTeamWinsToTxt_10();
-		;
 		this.getTeamStepwiseToTxt_10();
 		try {
 			Process p = Runtime.getRuntime().exec(
@@ -224,17 +247,10 @@ public class InferStatsServiceImpl extends UnicastRemoteObject implements InferS
 		vo.r = dt[2];
 		vo.u = dt[3];
 		vo.v = v;
-		for(int i=0; i<v.length;++i){
-			System.out.println(v[i]);
-		}
-		for(int i=0; i<a.length;++i){
-			System.out.println(a[i]);
-		}
+		vo.f = (vo.u/6)/(vo.q/23);
 		return vo;
 	}
 	
-
-	//TODO
 	@Override
 	public SimpleRegressionVO getSimpleRegression(int typeNum, String season){
 		FieldType type = FieldType.values()[typeNum];
@@ -268,11 +284,60 @@ public class InferStatsServiceImpl extends UnicastRemoteObject implements InferS
 			default:
 			}
 		}
+		return simpleRegression(x, pts, list.size());		
+	}
+
+	public SimpleRegressionVO getSimpleRegressionMatch(int typeNum, String season){
+		FieldType type = FieldType.values()[typeNum];
+		List<MatchPlayerBasic> list = mdao.getMatchPlayerBasicByPlayerName("Team Totals", season,
+				null, 1);
+		double[] pts = new double[list.size()];
+		double[] x = new double[list.size()];
+		for(int i=0; i<list.size(); ++i){
+			MatchPlayerBasic tpm = list.get(i);
+			pts[i] = tpm.getPts()==null?0:tpm.getPts();
+			switch(type){
+			case AST:
+				x[i] = tpm.getAst()==null?0:tpm.getAst();break;
+			case STL:
+				x[i] = tpm.getStl()==null?0:tpm.getStl();break;
+			case BLK:
+				x[i] = tpm.getBlk()==null?0:tpm.getBlk();break;
+			case TRB:
+				x[i] = tpm.getTrb()==null?0:tpm.getTrb();break;
+			case TOV:
+				x[i] = tpm.getTov()==null?0:tpm.getTov();break;
+			case PF:
+				x[i] = tpm.getPf()==null?0:tpm.getPf();break;
+			default:
+			}
+		}
+		return simpleRegression(x, pts, list.size());
+	}
+	
+	private SimpleRegressionVO simpleRegression(double[] x, double[] pts, int num){
 		double[] a = new double[2];
 		double[] dt = new double[6];
-		Regression.SPT1(x, pts, list.size(), a, dt);
-
-		System.out.println(a[0] + " a: " +a[1]);
+		Regression.SPT1(x, pts, num, a, dt);
+		String pts_str = "";
+		String value_str = "";
+		for(int i=0; i<num;++i){
+			pts_str += pts[i] + ";";
+			value_str += x[i] + ";";
+		}
+		// 将数据写入文件
+		List<String> strs = new ArrayList<String>();
+		strs.add(checkString(value_str));
+		strs.add(checkString(pts_str));
+		String path = "stats/reg_data";
+		Utility.writeMulti(strs, path + ".txt");
+		try {
+			Process p = Runtime.getRuntime().exec(
+					"python stats/team_regression.py");
+			p.waitFor();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		SimpleRegressionVO vo = new SimpleRegressionVO();
 		vo.b = a[0];
 		vo.a = a[1];
@@ -282,6 +347,17 @@ public class InferStatsServiceImpl extends UnicastRemoteObject implements InferS
 		vo.umax = dt[3];
 		vo.umin = dt[4];
 		vo.u = dt[5];
+		vo.img = new ImageIcon("stats/reg.png");
+		double f = vo.p/(vo.q/(num-2));
+		System.out.println(f);
+		ImageIcon img = new ImageIcon("stats/reg.png");
+		List<String> result = Utility.read("stats/team_regression_result.txt");
+		String[] rs = result.get(0).split(";",-1);
+		vo.str_err = Double.parseDouble(rs[4]);
+		vo.p_value = Double.parseDouble(rs[3]);
+		vo.r = Double.parseDouble(rs[2]);
+		if (img.getImageLoadStatus() == MediaTracker.ERRORED)
+			return null;
 		return vo;
 	}
 	
@@ -356,15 +432,17 @@ public class InferStatsServiceImpl extends UnicastRemoteObject implements InferS
 		// 主场胜场P-P图
 		ImageIcon img = new ImageIcon("stats/home_probplot.png");
 		if (img.getImageLoadStatus() == MediaTracker.ERRORED) {
+			System.out.println("Can't get home_probplot");
 			img = null;
 		}
-		vo.home_P_P = img;
+		vo.home_Q_Q = img;
 		// 客场胜场P-P图
 		img = new ImageIcon("stats/guest_probplot.png");
 		if (img.getImageLoadStatus() == MediaTracker.ERRORED) {
+			System.out.println("Can't get guest_probplot");
 			img = null;
 		}
-		vo.guest_P_P = img;
+		vo.guest_Q_Q = img;
 		return vo;
 	}
 

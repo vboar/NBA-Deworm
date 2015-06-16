@@ -17,6 +17,8 @@ public class StatsServiceTest extends TestCase {
 
 	StatsService ss;
 	
+	InferStatsService iss;
+	
 	protected static void setUpBeforeClass() throws Exception {
 	}
 
@@ -26,6 +28,15 @@ public class StatsServiceTest extends TestCase {
 	public StatsServiceTest(){
 		try {
 			ss = ServiceFactoryImpl.getInstance().getStatsService();
+			iss = ServiceFactoryImpl.getInstance().getInferStatsService();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void testGetSimpleRegression(){
+		try {
+			iss.getSimpleRegression(FieldType.AST.ordinal(), "14-15");
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -58,8 +69,15 @@ public class StatsServiceTest extends TestCase {
 	public void testGetPlayerBasicCompareBarChart() {
 		try {
 			List<Integer> list = new ArrayList<Integer>();
-			list.add(1);
-			list.add(0);
+			list.add(FieldType.PTS.ordinal());
+			list.add(FieldType.AST.ordinal());
+//			list.add(FieldType.BLK.ordinal());
+//			list.add(FieldType.STL.ordinal());
+//			list.add(FieldType.TRB.ordinal());		
+//			list.add(FieldType.ORB.ordinal());
+//			list.add(FieldType.DRB.ordinal());
+//			list.add(FieldType.TOV.ordinal());
+//			list.add(FieldType.PF.ordinal());	
 			ss.getPlayerBasicCompareBarChart("Kobe Bryant", "James Harden", "Career", list, 1);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -69,9 +87,14 @@ public class StatsServiceTest extends TestCase {
 	public void testGetPlayerAdvancedCompareBarChart() {
 		try {
 			List<Integer> list = new ArrayList<Integer>();
-			list.add(FieldType.PER.ordinal());
-			System.out.println(FieldType.PER.ordinal());
-			//list.add(FieldType.STL_PCT.ordinal());
+			list.add(FieldType.ORB_PCT.ordinal());
+			list.add(FieldType.DRB_PCT.ordinal());
+//			list.add(FieldType.TRB_PCT.ordinal());
+//			list.add(FieldType.AST_PCT.ordinal());
+//			list.add(FieldType.STL_PCT.ordinal());
+//			list.add(FieldType.BLK_PCT.ordinal());
+//			list.add(FieldType.TOV_PCT.ordinal());
+//			list.add(FieldType.USG_PCT.ordinal());
 			ss.getPlayerAdvancedCompareBarChart("Kobe Bryant", "Yao Ming", "Career", list, 1);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -82,7 +105,9 @@ public class StatsServiceTest extends TestCase {
 		try {
 			List<Integer> list = new ArrayList<Integer>();
 			list.add(FieldType.USG_PCT.ordinal());
-			list.add(FieldType.AST_PCT.ordinal());
+			list.add(FieldType.FG3_PCT.ordinal());
+			list.add(FieldType.FGA_PCT.ordinal());
+			list.add(FieldType.FT_PCT.ordinal());
 			ss.getPlayerAdvancedCompareBarChart("Kobe Bryant", "Yao Ming", "01-02", list, 1);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -187,7 +212,7 @@ public class StatsServiceTest extends TestCase {
 //        ImageIcon img = ss.getMatchTeamLineChart("HOU", "14-15", FieldType.typeToInt(FieldType.PTS));
 //        ImageIcon img = ss.getPlayerContribution("HOU", "13-14");
         ImageIcon img = ss.getPlayerAdvancedCompareBarChart("Kobe Bryant", "Yao Ming", "Career", list, 1);
-
+        img = ss.getMatchTeamLineChart("CLE", "14-15", FieldType.PTS.ordinal());
         JFrame frame = new JFrame();
         frame.setBounds(0, 0, 1366, 700);
         frame.setVisible(true);
