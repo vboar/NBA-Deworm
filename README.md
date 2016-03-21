@@ -13,7 +13,7 @@ NBA_UI：数据展现
 
 团队成员：
 
-- [tomato990(对座)](https://github.com/tomato990)
+- [tomato990(队座)](https://github.com/tomato990)
 - [vboar](https://github.com/vboar)
 - [JaneLdq](https://github.com/JaneLdq)
 - [oneoneO1](https://github.com/oneoneO1)
